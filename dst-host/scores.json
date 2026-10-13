@@ -1,7 +1,7 @@
 {
   "serverId": "pub644-executive-v3",
-  "revision": 5,
-  "updatedAt": "2026-10-13T23:27:08.909Z",
+  "revision": 6,
+  "updatedAt": "2026-10-13T23:34:36.303Z",
   "teams": [
     {
       "name": "Richard in a Box",
@@ -25,10 +25,10 @@
     },
     {
       "name": "1 Fish, 2 Fish, Red Fish, Balls",
-      "joker": "",
+      "joker": "R3",
       "r1": 7,
       "r2": 6,
-      "r3": "",
+      "r3": 8,
       "r4": "",
       "r5": "",
       "r6": ""
