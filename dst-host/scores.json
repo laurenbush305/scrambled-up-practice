@@ -1,13 +1,13 @@
 {
   "serverId": "pub644-executive-v3",
-  "revision": 4,
-  "updatedAt": "2026-10-13T23:24:44.579Z",
+  "revision": 5,
+  "updatedAt": "2026-10-13T23:27:08.909Z",
   "teams": [
     {
       "name": "Richard in a Box",
       "joker": "",
       "r1": 7,
-      "r2": "",
+      "r2": 3,
       "r3": "",
       "r4": "",
       "r5": "",
@@ -17,7 +17,7 @@
       "name": "Kermit The Dog",
       "joker": "",
       "r1": 6,
-      "r2": "",
+      "r2": 6,
       "r3": "",
       "r4": "",
       "r5": "",
