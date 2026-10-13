@@ -27,7 +27,31 @@ table{width:100%;border-collapse:collapse;min-width:900px}th,td{padding:9px 7px;
 </section>
 <section id="host" class="view"><div id="stageCard" class="card"></div><div class="stageNav"><button class="bigbtn ghost" id="prevStage">← BACK</button><button class="bigbtn" id="nextStage">NEXT →</button></div></section>
 <section id="score" class="view"><div class="card"><div class="eyebrow">Scoreboard</div><div class="title">Live scores</div><div class="read"><div class="readLabel">Photo workflow</div>Send one score sheet photo at a time in this chat. I grade it and the live scoreboard updates here automatically. The fields below stay available as your manual backup.</div><div id="syncStatus" class="missing" style="margin-top:12px">CHAT SYNC CONNECTING…</div><div class="rawWarn">ENTER RAW ROUND SCORE ONLY. If a team used its Joker, choose the Joker round and the cockpit doubles it automatically. Do not type the doubled score.</div><div id="missingBox" class="missing" style="margin-top:12px">Add teams when the first slips come in.</div><div class="actions"><button class="bigbtn blue" id="addTeam">+ ADD TEAM</button><button class="bigbtn ghost" id="clearGame">CLEAR GAME</button></div></div><div class="scoreWrap"><table><thead><tr><th>Team</th><th>Joker</th><th>R1 raw</th><th>R2 raw</th><th>R3 raw</th><th>R4 raw</th><th>R5 raw</th><th>R6 raw pts</th><th>Total</th><th>Rank</th><th></th></tr></thead><tbody id="scoreBody"></tbody></table></div><div class="card" style="margin-top:14px"><div class="eyebrow">Mic-ready</div><div id="micUpdate" class="read">Standings will appear here once scores come in.</div></div><div class="card"><div class="eyebrow">Scoring reminders</div><div class="small"><b>R1-R4:</b> 1 point per correct, max 8. <b>R5:</b> 1 point per accepted cereal, max 8, NO Joker. <b>R6:</b> 2 points per correct, raw max 16. <b>Joker:</b> doubles one eligible round automatically.</div></div></section>
-<section id="setup" class="view"><div class="card"><div class="eyebrow">Setup</div><div class="title">Current setup</div><div class="read">Use the current cord/setup for tonight.</div><div class="grid3" style="margin-top:14px"><div class="setupBox pink">🎤<b>MIC</b>Current setup</div><div class="setupBox yellow">💻<b>LAPTOP / MUSIC</b>Current setup</div><div class="setupBox blue">🔊<b>SPEAKER</b>Current setup</div></div></div></section>
+<section id="setup" class="view">
+<div class="card">
+  <div class="eyebrow">Setup</div>
+  <div class="title">Current setup photos</div>
+  <div class="read">Tonight’s current setup references. Tap any photo to open it full-size in Google Drive.</div>
+  <div class="answergrid" style="margin-top:14px">
+    <a class="linkbtn blue" target="_blank" rel="noopener" href="https://drive.google.com/file/d/1_l71miQIcu9_k_Q92XgQhZ_pJ62arefb/view?usp=drivesdk">MIXER · FULL VIEW ↗</a>
+    <a class="linkbtn blue" target="_blank" rel="noopener" href="https://drive.google.com/file/d/1Xg3gvFIHFp7gILM9uxg_4zee2uosO5NJ/view?usp=drivesdk">MIXER · CLOSE-UP ↗</a>
+    <a class="linkbtn blue" target="_blank" rel="noopener" href="https://drive.google.com/file/d/1skQt_gN_AC75yU7evptBDhZypyP2VPMS/view?usp=drivesdk">MIXER · INPUTS / LEVELS ↗</a>
+    <a class="linkbtn blue" target="_blank" rel="noopener" href="https://drive.google.com/file/d/1POmO9uu2K0NwJR2FemcYw8-Sq7BIWyQm/view?usp=drivesdk">SPEAKER · CONNECTION ↗</a>
+    <a class="linkbtn blue" target="_blank" rel="noopener" href="https://drive.google.com/file/d/17AbqFCFNBosEkuEsWOBUzQSSZofqiz9i/view?usp=drivesdk">LAPTOP · CONNECTION ↗</a>
+    <a class="linkbtn blue" target="_blank" rel="noopener" href="https://drive.google.com/file/d/1FacQFocfL2tqW-JaPyS7Rg69g1dI-6yq/view?usp=drivesdk">MATT · CORRECT CORD ↗</a>
+    <a class="linkbtn blue" target="_blank" rel="noopener" href="https://drive.google.com/file/d/1bWJDdfVCy2mwPyH4LTBMirc-WZ1mdSHW/view?usp=drivesdk">MATT · EXAMPLE SETUP ↗</a>
+  </div>
+</div>
+<div class="card">
+  <div class="eyebrow">Backup reference</div>
+  <div class="title">Alternate / earlier setup</div>
+  <div class="small" style="font-size:15px;line-height:1.7"><b>Earlier routing record:</b> mic → Channel 1 · laptop/music → 4/5 · speaker → Main Out. Keep this only as backup if the current setup cannot be reproduced.</div>
+  <div class="answergrid" style="margin-top:14px">
+    <a class="linkbtn" target="_blank" rel="noopener" href="https://drive.google.com/file/d/1qMxZU0PSCq3ajevsL-9mwiAUGsSulShJ/view?usp=drivesdk">BACKUP MIXER VIEW ↗</a>
+    <a class="linkbtn" target="_blank" rel="noopener" href="https://drive.google.com/file/d/1ok5UnxpmkkZ5VvVzvb7-s7funoPCJ7Gp/view?usp=drivesdk">BACKUP SPEAKER CABLE ↗</a>
+  </div>
+</div>
+</section>
 </main>
 <script>
 const SERVER_ID="pub644-executive-v3";
