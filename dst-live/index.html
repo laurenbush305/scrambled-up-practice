@@ -56,7 +56,7 @@ table{width:100%;border-collapse:collapse;min-width:900px}th,td{padding:9px 7px;
 <script>
 const SERVER_ID="pub644-executive-v3";
 const SERVER_TEAMS=[];
-const REMOTE_SCORES_URL="https://raw.githubusercontent.com/laurenbush305/scrambled-up-practice/trivia-cockpit-644/dst-host/scores.json";
+const REMOTE_SCORES_URL="https://api.github.com/repos/laurenbush305/scrambled-up-practice/contents/dst-host/scores.json?ref=trivia-cockpit-644";
 let lastRemoteRevision=Number(localStorage.getItem("dstRemoteRevision")||-1);
 const stages=[
 {label:"OPENING",title:"Welcome",say:"Welcome to Dirty South Trivia! If anyone still needs materials, we’ve got them right up front for ya. We will get started in one song.",do:"Walk around, hand out materials, and convince people to play even if they are leaving soon."},
@@ -147,9 +147,11 @@ function saveScores(){localStorage.setItem("dstScores",JSON.stringify(scoreState
 async function syncRemoteScores(){
   const el=document.getElementById("syncStatus");
   try{
-    const res=await fetch(REMOTE_SCORES_URL+"?t="+Date.now(),{cache:"no-store"});
+    const sep=REMOTE_SCORES_URL.includes("?")?"&":"?";
+    const res=await fetch(REMOTE_SCORES_URL+sep+"t="+Date.now(),{cache:"no-store",headers:{"Accept":"application/vnd.github+json"}});
     if(!res.ok)throw new Error("HTTP "+res.status);
-    const remote=await res.json();
+    const gh=await res.json();
+    const remote=JSON.parse(atob((gh.content||"").replace(/\\n/g,"")));
     if(remote.serverId===SERVER_ID){
       const rev=Number(remote.revision||0);
       if(rev>lastRemoteRevision){
