@@ -94,7 +94,7 @@ function renderStage(){
   if(s.say)h+='<div class="read"><div class="readLabel">READ THIS</div>'+s.say+'</div>';
   if(s.read)h+='<div class="read"><div class="readLabel">READ THIS</div>'+s.read+'</div>';
   if(s.host)h+='<div class="hostNote"><div class="hostLabel">HOST NOTE</div>'+s.host+'</div>';
-  if(s.video)h+='<div class="actions"><a class="linkbtn blue" target="_blank" rel="noopener" href="https://youtu.be/qo3VMeZVe-U?is=QicliptDcC64DSFb">OPEN ROUND 4 VIDEO ↗</a></div><div class="hostNote"><div class="hostLabel">HOST NOTE</div>Use the direct video link above. There is no sound.</div>';
+  if(s.video)h+='<div class="actions"><a class="linkbtn blue" target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=qo3VMeZVe-U">OPEN ROUND 4 VIDEO ↗</a></div><div class="hostNote"><div class="hostLabel">HOST NOTE</div>Use the direct video link above. There is no sound.</div>';
   if(s.qs)s.qs.forEach(q=>{
     const internet=q[0]==="1" && s.title==="Random";
     h+='<div class="q"><div class="questionLabel">'+(internet?'DO THIS · DO NOT READ THE INSTRUCTION ALOUD':'READ THIS · QUESTION '+q[0])+'</div><div class="qText"><b>'+q[0]+'.</b> '+q[1]+'</div>'+
