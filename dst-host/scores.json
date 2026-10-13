@@ -1,6 +1,17 @@
 {
   "serverId": "pub644-executive-v3",
-  "revision": 1,
-  "updatedAt": "2026-10-13T21:21:51.786Z",
-  "teams": []
+  "revision": 2,
+  "updatedAt": "2026-10-13T23:15:33.356Z",
+  "teams": [
+    {
+      "name": "Richard in a Box",
+      "joker": "",
+      "r1": 7,
+      "r2": "",
+      "r3": "",
+      "r4": "",
+      "r5": "",
+      "r6": ""
+    }
+  ]
 }
