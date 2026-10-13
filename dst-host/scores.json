@@ -1,7 +1,7 @@
 {
   "serverId": "pub644-executive-v3",
-  "revision": 10,
-  "updatedAt": "2026-10-13T23:46:23.366Z",
+  "revision": 11,
+  "updatedAt": "2026-10-13T23:50:28.855Z",
   "teams": [
     {
       "name": "Richard in a Box",
@@ -9,17 +9,17 @@
       "r1": 7,
       "r2": 3,
       "r3": 8,
-      "r4": "",
+      "r4": 7,
       "r5": "",
       "r6": ""
     },
     {
-      "name": "Kermit the Frog",
+      "name": "Kermit the Dog",
       "joker": "R3",
       "r1": 6,
       "r2": 6,
       "r3": 8,
-      "r4": "",
+      "r4": 6,
       "r5": "",
       "r6": ""
     },
