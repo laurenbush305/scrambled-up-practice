@@ -1,13 +1,13 @@
 {
   "serverId": "pub644-executive-v3",
-  "revision": 21,
-  "updatedAt": "2026-10-14T23:55:18.562Z",
+  "revision": 22,
+  "updatedAt": "2026-10-14T23:55:50.760Z",
   "teams": [
     {
       "name": "Taylor Ham",
       "joker": "",
       "r1": 7,
-      "r2": "",
+      "r2": 5,
       "r3": "",
       "r4": "",
       "r5": "",
