@@ -1,6 +1,27 @@
 {
   "serverId": "pub644-executive-v3",
-  "revision": 17,
-  "updatedAt": "2026-10-14T21:58:54.252Z",
-  "teams": []
+  "revision": 18,
+  "updatedAt": "2026-10-14T23:42:24.567Z",
+  "teams": [
+    {
+      "name": "Taylor Ham",
+      "joker": "",
+      "r1": 7,
+      "r2": "",
+      "r3": "",
+      "r4": "",
+      "r5": "",
+      "r6": ""
+    },
+    {
+      "name": "Insane Hand Game",
+      "joker": "",
+      "r1": 5,
+      "r2": "",
+      "r3": "",
+      "r4": "",
+      "r5": "",
+      "r6": ""
+    }
+  ]
 }
