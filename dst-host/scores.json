@@ -1,7 +1,7 @@
 {
   "serverId": "pub644-executive-v3",
-  "revision": 29,
-  "updatedAt": "2026-10-15T00:34:18.087Z",
+  "revision": 30,
+  "updatedAt": "2026-10-15T00:43:14.758Z",
   "teams": [
     {
       "name": "Taylor Ham",
@@ -21,7 +21,7 @@
       "r3": 8,
       "r4": 8,
       "r5": 7,
-      "r6": ""
+      "r6": 10
     },
     {
       "name": "Sack of Nuts",
