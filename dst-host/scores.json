@@ -1,7 +1,7 @@
 {
   "serverId": "pub644-executive-v3",
-  "revision": 25,
-  "updatedAt": "2026-10-15T00:21:33.410Z",
+  "revision": 26,
+  "updatedAt": "2026-10-15T00:23:39.823Z",
   "teams": [
     {
       "name": "Taylor Ham",
@@ -29,7 +29,7 @@
       "r1": 6,
       "r2": 5,
       "r3": 8,
-      "r4": "",
+      "r4": 7,
       "r5": "",
       "r6": ""
     }
