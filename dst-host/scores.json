@@ -1,34 +1,34 @@
 {
   "serverId": "pub644-executive-v3",
-  "revision": 22,
-  "updatedAt": "2026-10-14T23:55:50.760Z",
+  "revision": 23,
+  "updatedAt": "2026-10-15T00:08:47.089Z",
   "teams": [
     {
       "name": "Taylor Ham",
-      "joker": "",
+      "joker": "R3",
       "r1": 7,
       "r2": 5,
-      "r3": "",
+      "r3": 8,
       "r4": "",
       "r5": "",
       "r6": ""
     },
     {
       "name": "Ligma Head Game",
-      "joker": "",
+      "joker": "R3",
       "r1": 5,
       "r2": 6,
-      "r3": "",
+      "r3": 8,
       "r4": "",
       "r5": "",
       "r6": ""
     },
     {
       "name": "Sack of Nuts",
-      "joker": "",
+      "joker": "R3",
       "r1": 6,
       "r2": 5,
-      "r3": "",
+      "r3": 8,
       "r4": "",
       "r5": "",
       "r6": ""
