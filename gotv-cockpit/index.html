@@ -1,0 +1,638 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b1020">
+<meta name="description" content="Captain Decatur GOTV field cockpit for neutral voter logistics, shift tracking, and eCanvasser workflow.">
+<title>Captain Decatur | GOTV Cockpit</title>
+<style>
+:root{
+  --ink:#0b1020;--ink2:#151c34;--paper:#f8f7ff;--white:#fff;
+  --pink:#ff3f9f;--cyan:#22d3ee;--lime:#b7f34a;--purple:#8b5cf6;--yellow:#ffd84d;
+  --red:#ef4444;--green:#10b981;--muted:#7c86a6;--line:#dfe3f0;
+  --shadow:0 14px 38px rgba(11,16,32,.12);--radius:22px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:linear-gradient(180deg,#f9f7ff 0,#f4f7ff 100%);color:var(--ink);font:15px/1.45 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+a{color:inherit}
+.shell{max-width:980px;margin:0 auto;padding:12px 12px 92px}
+.topbar{position:sticky;top:0;z-index:20;padding-top:8px;background:linear-gradient(180deg,rgba(248,247,255,.98) 80%,rgba(248,247,255,0))}
+.brand{background:var(--ink);color:white;border-radius:26px;padding:16px 16px 14px;box-shadow:var(--shadow);border:1px solid rgba(255,255,255,.08)}
+.brandline{display:flex;align-items:flex-start;gap:12px;justify-content:space-between}
+.kicker{font-size:11px;font-weight:950;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan)}
+h1{font-size:clamp(25px,5.4vw,42px);line-height:1;margin:3px 0 4px;letter-spacing:-.035em}
+.sub{color:#cdd5ef;font-size:13px}
+.statusrail{display:grid;grid-template-columns:1.2fr .85fr .85fr;gap:7px;margin-top:12px}
+.status{background:#171f3b;border:1px solid #273050;border-radius:14px;padding:8px 10px;min-width:0}
+.status small{display:block;color:#929dbb;font-size:9px;letter-spacing:.08em;text-transform:uppercase;font-weight:900}
+.status b{display:block;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.status.timer b{color:var(--yellow)}
+.status.pay b{color:var(--lime)}
+.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:9px 0 0}
+.tab{min-height:44px;border:0;border-radius:13px;background:#e9ecf7;color:#3b4665;font-weight:950;font-size:11px;letter-spacing:.04em}
+.tab.active{background:var(--ink);color:#fff}
+.panel{display:none}
+.panel.active{display:block}
+.card{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);box-shadow:0 8px 24px rgba(11,16,32,.06);padding:16px;margin-top:12px}
+.heroCard{background:linear-gradient(135deg,#11182d 0,#1d2545 100%);color:white;border-color:#283354}
+.eyebrow{font-size:10px;font-weight:950;letter-spacing:.12em;text-transform:uppercase;color:var(--pink)}
+h2{font-size:22px;line-height:1.1;margin:4px 0 8px;letter-spacing:-.025em}
+h3{font-size:15px;margin:0 0 8px}
+p{margin:6px 0}
+.muted{color:var(--muted)}
+.heroCard .muted{color:#b9c2dc}
+.grid2{display:grid;gap:12px}
+.grid3{display:grid;gap:9px}
+.actions{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}
+.btn{min-height:46px;border-radius:14px;border:1px solid var(--line);background:#fff;color:var(--ink);font-weight:950;padding:9px 11px}
+.btn.primary{background:var(--pink);border-color:var(--pink);color:#fff}
+.btn.cyan{background:#e8fbff;border-color:#88eafa;color:#075d70}
+.btn.lime{background:#f5ffe1;border-color:#cef68e;color:#385a00}
+.btn.purple{background:#f1ebff;border-color:#c8b6ff;color:#5f35b5}
+.btn.yellow{background:#fff8d7;border-color:#ffe375;color:#765700}
+.btn.red{background:#fff0f1;border-color:#fecaca;color:#a01829}
+.btn.dark{background:var(--ink);border-color:var(--ink);color:#fff}
+.btn.ghost{background:transparent;color:inherit}
+.btn.small{min-height:36px;padding:7px 9px;font-size:12px}
+.btn.selected{outline:3px solid rgba(34,211,238,.35);border-color:var(--cyan)}
+.field{display:block;margin-top:10px}
+.field span{display:block;font-size:10px;font-weight:950;text-transform:uppercase;letter-spacing:.08em;color:#68728f;margin-bottom:5px}
+input,select,textarea{width:100%;border:1px solid #cfd5e6;background:#fff;color:var(--ink);border-radius:13px;padding:11px 12px;font-size:16px;outline:none}
+input:focus,select:focus,textarea:focus{border-color:var(--purple);box-shadow:0 0 0 3px rgba(139,92,246,.12)}
+textarea{min-height:92px;resize:vertical}
+.oneMove{border-left:5px solid var(--yellow);padding-left:14px}
+.oneMove strong{font-size:19px;display:block}
+.passRail{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:10px}
+.passBtn{padding:10px 8px;border-radius:14px;border:1px solid #d9deec;background:#f6f7fb;text-align:left}
+.passBtn small{display:block;color:#77809d;font-weight:800;font-size:9px;text-transform:uppercase}
+.passBtn b{display:block;margin-top:2px}
+.passBtn.active{background:#171f3b;color:#fff;border-color:#171f3b}
+.passBtn.active small{color:var(--cyan)}
+.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:10px}
+.metric{border:1px solid var(--line);border-radius:15px;padding:9px;background:#fafbff;min-height:68px}
+.metric span{display:block;color:#7b84a0;font-size:9px;text-transform:uppercase;font-weight:900;letter-spacing:.05em}
+.metric b{font-size:23px;line-height:1.1}
+.progressTrack{height:12px;border-radius:999px;background:#e9ecf5;overflow:hidden;margin:8px 0}
+.progressFill{height:100%;background:linear-gradient(90deg,var(--pink),var(--purple),var(--cyan));width:0}
+.modeRow{display:flex;gap:7px;overflow-x:auto;padding-bottom:2px}
+.modeBtn{white-space:nowrap;min-height:38px;padding:7px 11px;border-radius:999px;border:1px solid #d9deec;background:#fff;font-weight:900;font-size:12px}
+.modeBtn.active{background:var(--ink);color:#fff}
+.callScript{background:#0f1730;color:#fff;border-radius:20px;padding:16px;border:1px solid #29375e;position:relative}
+.callScript .label{font-size:10px;color:var(--cyan);text-transform:uppercase;font-weight:950;letter-spacing:.1em}
+.callScript .scriptText{font-size:18px;line-height:1.5;font-weight:760;margin-top:8px}
+.copyrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.outcomes{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.outcome{min-height:58px;border-radius:16px;border:1px solid #d9deec;background:#fff;font-weight:900;text-align:left;padding:10px}
+.outcome small{display:block;color:#7c86a6;font-size:10px;margin-top:3px;font-weight:750}
+.outcome.active{border-color:var(--purple);box-shadow:0 0 0 3px rgba(139,92,246,.12)}
+.replyBox{border-radius:18px;background:#f4f0ff;border:1px solid #d9ccff;padding:14px;margin-top:10px}
+.replyBox strong{color:#6235b5}
+.logBox{border-radius:18px;background:#edfbff;border:1px solid #a9ecf7;padding:14px;margin-top:8px}
+.logBox strong{color:#075d70}
+.stopBox{background:#fff0f1;border-color:#fecaca}
+.stopBox strong{color:#a01829}
+.notePreview{white-space:pre-wrap;background:#10172b;color:#fff;border-radius:16px;padding:13px;min-height:80px;margin-top:10px}
+.resourceGrid{display:grid;gap:9px}
+.resource{display:block;text-decoration:none;border:1px solid var(--line);border-radius:17px;background:#fff;padding:13px}
+.resource strong{display:block;font-size:15px}
+.resource span{display:block;color:#77809d;font-size:12px;margin-top:2px}
+.fact{border-radius:17px;padding:13px;border:1px solid #ece1a5;background:#fff9d8}
+.fact b{display:block}
+.privateRule{border:1px dashed #bcc5da;border-radius:16px;padding:12px;background:#f8faff;color:#59637e;font-size:12px}
+details{border:1px solid var(--line);border-radius:16px;background:#fff;margin-top:10px}
+summary{cursor:pointer;padding:12px 13px;font-weight:900}
+details>div{padding:0 13px 13px}
+.historyItem{border-top:1px solid var(--line);padding:10px 0}
+.historyItem:first-child{border-top:0}
+.bottomNav{position:fixed;bottom:0;left:0;right:0;z-index:30;background:rgba(248,247,255,.96);backdrop-filter:blur(12px);border-top:1px solid #dfe3f0;padding:7px max(10px,env(safe-area-inset-left)) calc(7px + env(safe-area-inset-bottom));display:flex;justify-content:center}
+.bottomNavInner{width:min(620px,100%);display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.bottomBtn{min-height:48px;border:0;border-radius:14px;background:transparent;color:#69738e;font-size:10px;font-weight:950;text-transform:uppercase;letter-spacing:.05em}
+.bottomBtn.active{background:var(--ink);color:#fff}
+.receipt{background:#f5ffe1;border:1px solid #cef68e;border-radius:16px;padding:12px}
+.alert{background:#fff0f1;border:1px solid #fecaca;border-radius:16px;padding:12px}
+.chip{display:inline-flex;align-items:center;gap:5px;border-radius:999px;padding:5px 8px;background:#eef1f8;color:#47526e;font-size:10px;font-weight:900;margin:2px}
+.quickLinks{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
+.quickLinks a{text-decoration:none}
+hr{border:0;border-top:1px solid var(--line);margin:14px 0}
+.hidden{display:none!important}
+@media(min-width:720px){
+ .shell{padding:18px 18px 100px}
+ .grid2{grid-template-columns:1fr 1fr}
+ .grid3{grid-template-columns:repeat(3,1fr)}
+ .metrics{grid-template-columns:repeat(6,1fr)}
+ .outcomes{grid-template-columns:repeat(3,1fr)}
+ .resourceGrid{grid-template-columns:repeat(2,1fr)}
+ .brand{padding:20px 22px 18px}
+ .statusrail{grid-template-columns:1.2fr .8fr .8fr .8fr}
+}
+</style>
+</head>
+<body>
+<div class="shell">
+  <div class="topbar">
+    <header class="brand">
+      <div class="brandline">
+        <div>
+          <div class="kicker">COMMUNITY RISING · CAPTAIN DECATUR</div>
+          <h1>GOTV Cockpit</h1>
+          <div class="sub">One live surface. One next move. No scavenger hunt.</div>
+        </div>
+        <div class="chip" id="dateChip">Oct 27</div>
+      </div>
+      <div class="statusrail">
+        <div class="status"><small>Current</small><b id="currentStatus">Pass 2 · Phone</b></div>
+        <div class="status timer"><small>Shift</small><b id="topTimer">00:00:00</b></div>
+        <div class="status pay"><small>Gross</small><b id="topPay">$0.00</b></div>
+        <div class="status" id="modeStatusWrap"><small>Mode</small><b id="modeStatus">Phone</b></div>
+      </div>
+      <div class="tabs">
+        <button class="tab active" data-tab="now">NOW</button>
+        <button class="tab" data-tab="call">CALL</button>
+        <button class="tab" data-tab="log">LOG</button>
+        <button class="tab" data-tab="help">HELP</button>
+      </div>
+    </header>
+  </div>
+
+  <main>
+    <section class="panel active" id="panel-now">
+      <div class="card heroCard">
+        <div class="eyebrow">CURRENT FOCUS</div>
+        <h2 id="focusTitle">Pass 2 · Phone follow-up</h2>
+        <div class="oneMove">
+          <span class="muted">ONE MOVE</span>
+          <strong id="oneMoveText">Open the next assigned person in eCanvasser and make one call.</strong>
+        </div>
+        <div class="actions">
+          <button class="btn primary" id="shiftAction">Start shift</button>
+          <button class="btn cyan" data-go="call">Open CALL</button>
+          <button class="btn ghost" data-go="help">Resources</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="eyebrow">SHIFT CONTROL</div>
+        <h2>Clock the work. Keep the receipts.</h2>
+        <div class="modeRow" id="modeRow">
+          <button class="modeBtn" data-mode="Training">Training</button>
+          <button class="modeBtn active" data-mode="Phone">Phone</button>
+          <button class="modeBtn" data-mode="Doors">Doors</button>
+          <button class="modeBtn" data-mode="Admin">Admin</button>
+        </div>
+        <div class="grid2">
+          <label class="field"><span>Manual start time, optional</span><input type="time" id="manualStart"></label>
+          <label class="field"><span>Pay rate</span><input type="number" id="payRate" value="25" min="0" step=".01"></label>
+        </div>
+        <div class="actions">
+          <button class="btn dark" id="startShift">Start / set</button>
+          <button class="btn yellow" id="pauseShift">Pause</button>
+          <button class="btn lime" id="closeShift">Close shift</button>
+        </div>
+        <div class="privateRule">Timer and scratch totals save only in this browser. eCanvasser, ADP, Notion, and your official work records remain the source of truth.</div>
+      </div>
+
+      <div class="card">
+        <div class="eyebrow">THREE PASSES</div>
+        <h2>Where am I in the sequence?</h2>
+        <div class="passRail">
+          <button class="passBtn" data-pass="1"><small>Pass 1</small><b>Door</b></button>
+          <button class="passBtn active" data-pass="2"><small>Pass 2</small><b>Phone</b></button>
+          <button class="passBtn" data-pass="3"><small>Pass 3</small><b>Door</b></button>
+        </div>
+        <div class="grid2">
+          <label class="field"><span>Warm pool size</span><input type="number" id="poolTotal" value="106" min="1"></label>
+          <label class="field"><span>Completed this pass</span><input type="number" id="passDone" value="0" min="0"></label>
+        </div>
+        <div class="progressTrack"><div class="progressFill" id="passProgress"></div></div>
+        <div class="muted" id="progressText">0 of 106 · 0%</div>
+      </div>
+
+      <div class="card">
+        <div class="eyebrow">TODAY'S SCRATCH</div>
+        <h2>Useful numbers, no spreadsheet archaeology.</h2>
+        <div class="metrics">
+          <div class="metric"><span>Attempts</span><b id="m-attempts">0</b></div>
+          <div class="metric"><span>Answered</span><b id="m-answered">0</b></div>
+          <div class="metric"><span>Quality</span><b id="m-quality">0</b></div>
+          <div class="metric"><span>Voted</span><b id="m-voted">0</b></div>
+          <div class="metric"><span>Rides</span><b id="m-rides">0</b></div>
+          <div class="metric"><span>Callbacks</span><b id="m-callbacks">0</b></div>
+        </div>
+        <div class="copyrow">
+          <button class="btn small" id="undoEvent">Undo last outcome</button>
+          <button class="btn small red" id="resetScratch">Reset scratch</button>
+        </div>
+      </div>
+
+      <div class="card hidden" id="closeoutCard">
+        <div class="eyebrow">LAST CLOSEOUT</div>
+        <h2>The receipts</h2>
+        <div class="receipt" id="closeoutText"></div>
+        <div class="copyrow"><button class="btn small" id="copyCloseout">Copy summary</button><button class="btn small" id="downloadCloseout">Download JSON</button></div>
+      </div>
+
+      <div class="card">
+        <details>
+          <summary>Recent local sessions</summary>
+          <div id="historyList"><p class="muted">No local sessions saved yet.</p></div>
+        </details>
+      </div>
+    </section>
+
+    <section class="panel" id="panel-call">
+      <div class="card heroCard">
+        <div class="eyebrow">FOCUS MODE</div>
+        <h2>One person. One conversation.</h2>
+        <p class="muted">The goal is practical help, not a dissertation and not a personality transplant.</p>
+      </div>
+
+      <div class="card">
+        <div class="grid2">
+          <label class="field"><span>First name, optional · not saved</span><input id="voterName" autocomplete="off" placeholder="First name"></label>
+          <label class="field"><span>How well do you know them?</span>
+            <select id="relationship">
+              <option value="normal">We connected before</option>
+              <option value="warm">We have talked a few times</option>
+              <option value="brief">It was brief</option>
+            </select>
+          </label>
+        </div>
+        <div class="modeRow" id="scriptTone">
+          <button class="modeBtn active" data-tone="easy">Easy</button>
+          <button class="modeBtn" data-tone="warm">Warmer</button>
+          <button class="modeBtn" data-tone="quick">Quick</button>
+        </div>
+        <div class="callScript" style="margin-top:10px">
+          <div class="label">SAY THIS</div>
+          <div class="scriptText" id="scriptText"></div>
+        </div>
+        <div class="copyrow"><button class="btn cyan small" id="copyScript">Copy</button></div>
+        <div class="privateRule">Name fields are intentionally not saved. This site does not keep a voter list or contact history.</div>
+      </div>
+
+      <div class="card">
+        <div class="eyebrow">TAP WHAT HAPPENED</div>
+        <h2>Then the cockpit tells you the next line.</h2>
+        <div class="outcomes" id="outcomes">
+          <button class="outcome" data-outcome="voted">Already voted<small>close the GOTV loop</small></button>
+          <button class="outcome" data-outcome="set">All set<small>no help needed</small></button>
+          <button class="outcome" data-outcome="location">Needs location<small>official voting info</small></button>
+          <button class="outcome" data-outcome="ballot">Needs ballot info<small>nonpartisan lookup</small></button>
+          <button class="outcome" data-outcome="ride">Needs a ride<small>log request</small></button>
+          <button class="outcome" data-outcome="question">Has a question<small>find official answer</small></button>
+          <button class="outcome" data-outcome="callback">Call later<small>get a time</small></button>
+          <button class="outcome" data-outcome="notint">Not interested<small>end politely</small></button>
+          <button class="outcome" data-outcome="stop">STOP CONTACT<small>no more outreach</small></button>
+          <button class="outcome" data-outcome="voicemail">Voicemail<small>left message</small></button>
+          <button class="outcome" data-outcome="noanswer">No answer<small>no contact</small></button>
+          <button class="outcome" data-outcome="wrong">Wrong number<small>bad number</small></button>
+          <button class="outcome" data-outcome="disc">Disconnected<small>line issue</small></button>
+        </div>
+        <div id="outcomeReply"></div>
+      </div>
+    </section>
+
+    <section class="panel" id="panel-log">
+      <div class="card heroCard">
+        <div class="eyebrow">ECANVASSER SIDEKICK</div>
+        <h2>Log what happened. Nothing extra.</h2>
+        <p class="muted">This builds a factual note you can paste. You still choose the actual disposition in eCanvasser.</p>
+      </div>
+
+      <div class="card">
+        <div class="grid2">
+          <label class="field"><span>First name, optional · not saved</span><input id="logName" autocomplete="off" placeholder="First name"></label>
+          <label class="field"><span>Note level</span>
+            <select id="noteLevel"><option>Quality</option><option>Positive</option><option>Contact</option></select>
+          </label>
+        </div>
+        <label class="field"><span>What happened?</span>
+          <select id="noteOutcome">
+            <option>Confirmed already voted</option>
+            <option>Provided early-voting location or hours</option>
+            <option>Provided nonpartisan ballot information</option>
+            <option>Requested ride assistance</option>
+            <option>Made or confirmed voting plan</option>
+            <option>Requested callback</option>
+            <option>Community check-in only</option>
+          </select>
+        </label>
+        <label class="field"><span>Factual details</span><textarea id="noteDetails" placeholder="Example: Plans to vote Friday after work. Asked for official site address."></textarea></label>
+        <label class="field"><span>Next step, optional</span><input id="noteNext" placeholder="Text official location link / Program Team follow-up"></label>
+        <div class="notePreview" id="notePreview"></div>
+        <div class="copyrow"><button class="btn primary small" id="copyNote">Copy note</button><button class="btn small" id="clearNote">Clear</button></div>
+      </div>
+
+      <div class="card">
+        <div class="eyebrow">DISPOSITION CHECK</div>
+        <h2>Keep the dropdown honest.</h2>
+        <div class="resourceGrid">
+          <div class="resource"><strong>Answered</strong><span>You actually spoke with the assigned voter.</span></div>
+          <div class="resource"><strong>Call Back</strong><span>They asked you to contact them later. Capture the timing.</span></div>
+          <div class="resource"><strong>Not interested</strong><span>They declined the conversation or help.</span></div>
+          <div class="resource"><strong>No Answer / Left Message</strong><span>No live voter conversation. Use the correct option for what actually happened.</span></div>
+          <div class="resource"><strong>Wrong Number / Disconnected</strong><span>Do not count as Answered.</span></div>
+          <div class="resource"><strong>STOP CONTACT</strong><span>Record the opt-out and do not contact again.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" id="panel-help">
+      <div class="card heroCard">
+        <div class="eyebrow">PUBLIC VOTING RESOURCES</div>
+        <h2>Find the answer without freelancing election law.</h2>
+        <p class="muted">Use official or nonpartisan sources. Verify the person's county before naming a voting site.</p>
+      </div>
+
+      <div class="card">
+        <div class="eyebrow">GEORGIA · CURRENT</div>
+        <h2>Quick facts for this stretch</h2>
+        <div class="grid2">
+          <div class="fact"><b>Early voting</b>Oct. 13–30, 2026. Friday Oct. 30 is the last day.</div>
+          <div class="fact"><b>DeKalb weekday hours</b>7:00 AM–7:00 PM.</div>
+          <div class="fact"><b>Election Day</b>Tuesday Nov. 3, 7:00 AM–7:00 PM.</div>
+          <div class="fact"><b>Where</b>Early voting: any site in the voter's county. Election Day: assigned precinct.</div>
+        </div>
+        <p class="muted" style="font-size:12px">Always confirm the current location/hours before sharing specifics.</p>
+      </div>
+
+      <div class="card">
+        <div class="resourceGrid">
+          <a class="resource" href="https://mvp.sos.ga.gov/s/" target="_blank" rel="noopener"><strong>Georgia My Voter Page ↗</strong><span>Registration, early-vote info, Election Day precinct, sample ballot.</span></a>
+          <a class="resource" href="https://dekalbcountyga.gov/departments/voter-registration-and-elections" target="_blank" rel="noopener"><strong>DeKalb Voter Registration & Elections ↗</strong><span>Current election dates, locations, wait times and local notices.</span></a>
+          <a class="resource" href="https://www.vote411.org/" target="_blank" rel="noopener"><strong>VOTE411 ↗</strong><span>Nonpartisan ballot and candidate information.</span></a>
+          <a class="resource" href="https://dekalbcountyga.gov/departments/voter-registration-and-elections/how-to-vote" target="_blank" rel="noopener"><strong>DeKalb How to Vote ↗</strong><span>ID, early voting, Election Day, absentee and accessibility information.</span></a>
+          <a class="resource" href="https://866ourvote.org/" target="_blank" rel="noopener"><strong>Election Protection ↗</strong><span>Nonpartisan voter help. 866-OUR-VOTE.</span></a>
+          <a class="resource" href="https://www.voteriders.org/" target="_blank" rel="noopener"><strong>VoteRiders ↗</strong><span>Nonpartisan voter-ID help.</span></a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="eyebrow">WHEN TRANSPORTATION COMES UP</div>
+        <h2>Keep the promise narrow.</h2>
+        <div class="replyBox">
+          <strong>Say:</strong>
+          <p>“I can help get the ride request started. Let me make sure I have the best number and the day or time that would work for you.”</p>
+        </div>
+        <div class="logBox"><strong>Then:</strong><p>Use the current program ride-request process in eCanvasser and let the coordination team confirm the actual ride details. Do not promise a pickup you do not control.</p></div>
+      </div>
+
+      <div class="card">
+        <div class="privateRule"><strong>Source-of-truth rule:</strong> this cockpit is the front desk. eCanvasser owns voter contact data. Notion owns your private operating notes. ADP owns payroll submission. This site stores no voter list, address, phone number, party, or political-preference data.</div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<nav class="bottomNav" aria-label="Cockpit navigation">
+  <div class="bottomNavInner">
+    <button class="bottomBtn active" data-tab="now">NOW</button>
+    <button class="bottomBtn" data-tab="call">CALL</button>
+    <button class="bottomBtn" data-tab="log">LOG</button>
+    <button class="bottomBtn" data-tab="help">HELP</button>
+  </div>
+</nav>
+
+<script>
+(function(){
+  var KEY='captain-decatur-gotv-v1';
+  var defaults={
+    payRate:25,mode:'Phone',pass:2,poolTotal:106,passDone:{1:0,2:0,3:0},
+    activeStart:null,activeMode:null,blocks:[],events:[],history:[],lastCloseout:null
+  };
+  function load(){try{var x=JSON.parse(localStorage.getItem(KEY)||'{}');return Object.assign({},defaults,x,{passDone:Object.assign({},defaults.passDone,x.passDone||{})});}catch(e){return JSON.parse(JSON.stringify(defaults));}}
+  var state=load();
+  function save(){localStorage.setItem(KEY,JSON.stringify(state));}
+  function q(s){return document.querySelector(s)}
+  function qa(s){return Array.prototype.slice.call(document.querySelectorAll(s))}
+  function money(n){return '$'+Number(n||0).toFixed(2)}
+  function pad(n){return String(n).padStart(2,'0')}
+  function fmt(sec){sec=Math.max(0,Math.floor(sec||0));return pad(Math.floor(sec/3600))+':'+pad(Math.floor((sec%3600)/60))+':'+pad(sec%60)}
+  function localDateLabel(){var d=new Date();return d.toLocaleDateString(undefined,{month:'short',day:'numeric'})}
+  q('#dateChip').textContent=localDateLabel();
+
+  function tab(name){
+    qa('.panel').forEach(function(x){x.classList.toggle('active',x.id==='panel-'+name)});
+    qa('[data-tab]').forEach(function(x){x.classList.toggle('active',x.getAttribute('data-tab')===name)});
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+  qa('[data-tab]').forEach(function(x){x.addEventListener('click',function(){tab(x.getAttribute('data-tab'))})});
+  qa('[data-go]').forEach(function(x){x.addEventListener('click',function(){tab(x.getAttribute('data-go'))})});
+
+  function totalSeconds(){
+    var s=0;
+    state.blocks.forEach(function(b){s+=Math.max(0,(b.end-b.start)/1000)});
+    if(state.activeStart)s+=Math.max(0,(Date.now()-state.activeStart)/1000);
+    return s;
+  }
+  function modeSeconds(){
+    var out={Training:0,Phone:0,Doors:0,Admin:0};
+    state.blocks.forEach(function(b){out[b.mode]=(out[b.mode]||0)+Math.max(0,(b.end-b.start)/1000)});
+    if(state.activeStart)out[state.activeMode]=(out[state.activeMode]||0)+Math.max(0,(Date.now()-state.activeStart)/1000);
+    return out;
+  }
+  function renderTimer(){
+    var s=totalSeconds(), rate=Number(state.payRate||25);
+    q('#topTimer').textContent=fmt(s);
+    q('#topPay').textContent=money(s/3600*rate);
+    q('#modeStatus').textContent=state.activeStart?state.activeMode:state.mode;
+    q('#shiftAction').textContent=state.activeStart?'Go to CALL':'Start shift';
+  }
+  setInterval(renderTimer,1000);
+
+  function setMode(m){
+    state.mode=m;save();
+    qa('[data-mode]').forEach(function(x){x.classList.toggle('active',x.getAttribute('data-mode')===m)});
+    renderTimer();renderFocus();
+  }
+  qa('[data-mode]').forEach(function(x){x.addEventListener('click',function(){setMode(x.getAttribute('data-mode'))})});
+  setMode(state.mode);
+
+  function startShift(){
+    if(state.activeStart)return;
+    var t=q('#manualStart').value;
+    var start=Date.now();
+    if(t){
+      var d=new Date(),p=t.split(':');
+      d.setHours(Number(p[0]),Number(p[1]),0,0);
+      if(d.getTime()>Date.now()+60000){alert('That start time is in the future.');return;}
+      start=d.getTime();
+    }
+    state.activeStart=start;state.activeMode=state.mode;save();renderTimer();
+  }
+  function pauseShift(){
+    if(!state.activeStart)return;
+    state.blocks.push({start:state.activeStart,end:Date.now(),mode:state.activeMode});
+    state.activeStart=null;state.activeMode=null;save();renderTimer();
+  }
+  q('#startShift').addEventListener('click',startShift);
+  q('#pauseShift').addEventListener('click',pauseShift);
+  q('#shiftAction').addEventListener('click',function(){if(!state.activeStart){startShift()}else{tab('call')}});
+
+  q('#payRate').value=state.payRate;
+  q('#payRate').addEventListener('input',function(){state.payRate=Math.max(0,Number(q('#payRate').value||0));save();renderTimer()});
+
+  function counts(){
+    var c={attempts:0,answered:0,quality:0,voted:0,rides:0,callbacks:0};
+    state.events.forEach(function(e){
+      c.attempts++;
+      if(['voted','set','location','ballot','ride','question','callback','notint','stop'].indexOf(e.outcome)>=0)c.answered++;
+      if(['voted','location','ballot','ride'].indexOf(e.outcome)>=0)c.quality++;
+      if(e.outcome==='voted')c.voted++;
+      if(e.outcome==='ride')c.rides++;
+      if(e.outcome==='callback')c.callbacks++;
+    });
+    return c;
+  }
+  function renderCounts(){
+    var c=counts();
+    Object.keys(c).forEach(function(k){var el=q('#m-'+k);if(el)el.textContent=c[k]});
+  }
+  q('#undoEvent').addEventListener('click',function(){if(state.events.length){state.events.pop();save();renderCounts()}});
+  q('#resetScratch').addEventListener('click',function(){if(confirm('Reset only today’s local scratch outcomes?')){state.events=[];save();renderCounts()}});
+
+  var passCopy={
+    1:{title:'Pass 1 · Door',move:'Open the next assigned address in your warm pool and make one door attempt.'},
+    2:{title:'Pass 2 · Phone follow-up',move:'Open the next assigned person in eCanvasser and make one call.'},
+    3:{title:'Pass 3 · Final door follow-up',move:'Open the next assigned address and make one final concise follow-up.'}
+  };
+  function setPass(p){
+    state.pass=Number(p);save();
+    qa('[data-pass]').forEach(function(x){x.classList.toggle('active',Number(x.getAttribute('data-pass'))===state.pass)});
+    q('#currentStatus').textContent=passCopy[state.pass].title;
+    q('#focusTitle').textContent=passCopy[state.pass].title;
+    renderFocus();renderProgress();
+  }
+  qa('[data-pass]').forEach(function(x){x.addEventListener('click',function(){setPass(x.getAttribute('data-pass'))})});
+  function renderFocus(){
+    var p=passCopy[state.pass], text=p.move;
+    if(state.mode==='Training')text='Finish the training item in front of you. Capture only the rule you need for the field, then move on.';
+    if(state.mode==='Admin')text='Finish the one admin task in front of you, then return to the assigned outreach mode.';
+    q('#oneMoveText').textContent=text;
+  }
+  setPass(state.pass);
+
+  q('#poolTotal').value=state.poolTotal;
+  q('#passDone').value=state.passDone[state.pass]||0;
+  function renderProgress(){
+    q('#passDone').value=state.passDone[state.pass]||0;
+    var total=Math.max(1,Number(state.poolTotal||1)),done=Math.min(total,Math.max(0,Number(state.passDone[state.pass]||0))),pct=Math.round(done/total*100);
+    q('#passProgress').style.width=pct+'%';
+    q('#progressText').textContent=done+' of '+total+' · '+pct+'%';
+  }
+  q('#poolTotal').addEventListener('input',function(){state.poolTotal=Math.max(1,Number(q('#poolTotal').value||1));save();renderProgress()});
+  q('#passDone').addEventListener('input',function(){state.passDone[state.pass]=Math.max(0,Number(q('#passDone').value||0));save();renderProgress()});
+  renderProgress();
+
+  function closeShift(){
+    if(state.activeStart)pauseShift();
+    var sec=totalSeconds();
+    if(sec<1){alert('No local shift time is recorded yet.');return;}
+    var c=counts(),m=modeSeconds(),rate=Number(state.payRate||25);
+    var rec={
+      closedAt:new Date().toISOString(),seconds:Math.round(sec),gross:Number((sec/3600*rate).toFixed(2)),rate:rate,
+      counts:c,modes:{Training:Math.round(m.Training),Phone:Math.round(m.Phone),Doors:Math.round(m.Doors),Admin:Math.round(m.Admin)},
+      pass:state.pass
+    };
+    state.history.unshift(rec);state.history=state.history.slice(0,12);state.lastCloseout=rec;
+    state.blocks=[];state.events=[];save();
+    showCloseout(rec);renderCounts();renderTimer();renderHistory();
+  }
+  q('#closeShift').addEventListener('click',function(){if(confirm('Close this local shift and save a local receipt?'))closeShift()});
+
+  function closeoutString(rec){
+    return 'GOTV shift closeout · '+new Date(rec.closedAt).toLocaleString()+'\n'+
+      'Time: '+fmt(rec.seconds)+' · Gross @ '+money(rec.rate)+'/hr: '+money(rec.gross)+'\n'+
+      'Attempts '+rec.counts.attempts+' · Answered '+rec.counts.answered+' · Quality '+rec.counts.quality+' · Already voted '+rec.counts.voted+' · Rides '+rec.counts.rides+' · Callbacks '+rec.counts.callbacks+'\n'+
+      'Mode time: Training '+fmt(rec.modes.Training)+' · Phone '+fmt(rec.modes.Phone)+' · Doors '+fmt(rec.modes.Doors)+' · Admin '+fmt(rec.modes.Admin);
+  }
+  function showCloseout(rec){
+    if(!rec)return;
+    q('#closeoutCard').classList.remove('hidden');
+    q('#closeoutText').textContent=closeoutString(rec);
+  }
+  if(state.lastCloseout)showCloseout(state.lastCloseout);
+  q('#copyCloseout').addEventListener('click',function(){copyText(closeoutString(state.lastCloseout),q('#copyCloseout'))});
+  q('#downloadCloseout').addEventListener('click',function(){
+    if(!state.lastCloseout)return;
+    var blob=new Blob([JSON.stringify(state.lastCloseout,null,2)],{type:'application/json'});
+    var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='gotv-closeout-'+new Date().toISOString().slice(0,10)+'.json';a.click();setTimeout(function(){URL.revokeObjectURL(a.href)},1000);
+  });
+  function renderHistory(){
+    var el=q('#historyList');
+    if(!state.history.length){el.innerHTML='<p class="muted">No local sessions saved yet.</p>';return}
+    el.innerHTML=state.history.slice(0,5).map(function(r){return '<div class="historyItem"><strong>'+new Date(r.closedAt).toLocaleString()+'</strong><br><span class="muted">'+fmt(r.seconds)+' · '+money(r.gross)+' · '+r.counts.attempts+' attempts</span></div>'}).join('');
+  }
+  renderHistory();
+
+  var tone='easy';
+  function firstName(){return q('#voterName').value.trim()||'[First Name]'}
+  function buildScript(){
+    var n=firstName(),rel=q('#relationship').value,opening='';
+    if(tone==='quick'){
+      opening='Hi '+n+', it’s Lauren with Community Rising. Quick neighborhood check-in: we’re helping with voting logistics this week, things like locations, ballot information, and transportation. Are you pretty much all set, or do you need anything?';
+    }else if(tone==='warm'){
+      opening='Hi '+n+', it’s Lauren with Community Rising. How’ve you been? I’m checking back in with some of the folks I’ve connected with around the neighborhood. We’re helping people with practical voting logistics this week too, so if you need a location, ballot information, or help with transportation, I can point you in the right direction. Are you all set?';
+    }else{
+      opening='Hi '+n+', it’s Lauren with Community Rising. How are you? I’m doing another round of neighborhood check-ins and making sure folks know what support is available this week. We can help with practical voting stuff too, like early-vote locations, ballot information, or transportation. Are you pretty much set, or is there anything I can help you figure out?';
+    }
+    if(rel==='brief'&&tone!=='quick')opening=opening.replace('I’m checking back in with some of the folks I’ve connected with around the neighborhood.','I’m doing another quick round of neighborhood check-ins.').replace('I’m doing another round of neighborhood check-ins and making sure folks know what support is available this week.','I’m doing another quick round of neighborhood check-ins and making sure folks know what support is available this week.');
+    q('#scriptText').textContent=opening;
+  }
+  qa('[data-tone]').forEach(function(x){x.addEventListener('click',function(){tone=x.getAttribute('data-tone');qa('[data-tone]').forEach(function(y){y.classList.toggle('active',y===x)});buildScript()})});
+  q('#voterName').addEventListener('input',buildScript);q('#relationship').addEventListener('change',buildScript);buildScript();
+  q('#copyScript').addEventListener('click',function(){copyText(q('#scriptText').textContent,q('#copyScript'))});
+
+  var outcomes={
+    voted:{say:'Okay, love that. You’re all set. I’m going to mark you as done on my end so you don’t keep getting GOTV check-ins from me. Have a good one!',log:'Mark the actual call disposition, mark already voted, and stop further GOTV contact.',level:'Quality',note:'Confirmed already voted'},
+    set:{say:'Perfect. I mainly wanted to make sure you knew the help was there. If anything changes, call or text me.',log:'Log only what they actually said. Do not invent a voting plan.',level:'Positive',note:'Community check-in only'},
+    location:{say:'Absolutely. Let me pull up the official information so I give you the right location and hours. Want me to text you the link too?',log:'Verify county and site before sharing. If they make a plan during the conversation, record the actual plan.',level:'Quality',note:'Provided early-voting location or hours'},
+    ballot:{say:'Yep. I can send you a nonpartisan ballot lookup so you can see exactly what’s on your ballot and read through it yourself.',log:'Use Georgia My Voter Page and/or VOTE411. Stay neutral about candidates and choices.',level:'Quality',note:'Provided nonpartisan ballot information'},
+    ride:{say:'I can help get the ride request started. What day or time would work best, and is this still the best number for someone to reach you?',log:'Use the current program ride-request workflow in eCanvasser. Confirm only the details you need. Do not promise a pickup you do not control.',level:'Quality',note:'Requested ride assistance'},
+    question:{say:'Tell me what you’re trying to figure out. If I don’t know it off the top of my head, I’ll pull up the official information rather than guess.',log:'Use an official or nonpartisan source. Record a factual note only if the conversation is substantive.',level:'Quality',note:'Community check-in only'},
+    callback:{say:'Absolutely. What time would be better for me to check back?',log:'Log Call Back and the requested timing.',level:'Contact',note:'Requested callback'},
+    notint:{say:'No problem. I appreciate you taking the call. Have a good one.',log:'Log Not Interested. Do not inflate the contact quality.',level:'Contact',note:'Community check-in only'},
+    stop:{say:'Got it. I’ll update that on my end. Take care.',log:'STOP CONTACT. Record the opt-out accurately and do not call or text again.',level:'Contact',note:'Community check-in only',stop:true},
+    voicemail:{say:'Hi '+firstName()+', it’s Lauren with Community Rising. I’m checking in with some neighbors and making sure people have the voting information or logistical help they need this week. Feel free to call or text me back at this number. Talk soon.',log:'Use Left Message / voicemail disposition if that is what your current list provides. Do not mark Answered.',level:'Contact',note:'Community check-in only'},
+    noanswer:{say:'No script needed unless you are leaving an approved voicemail.',log:'Use the correct No Answer disposition. Do not mark Answered.',level:'Contact',note:'Community check-in only'},
+    wrong:{say:'Sorry about that. Thanks for letting me know.',log:'Log Wrong Number and update or remove the bad number as required.',level:'Contact',note:'Community check-in only'},
+    disc:{say:'No script needed.',log:'Log Line broken/disconnected. Do not count as Answered.',level:'Contact',note:'Community check-in only'}
+  };
+  function selectOutcome(k){
+    qa('.outcome').forEach(function(x){x.classList.toggle('active',x.getAttribute('data-outcome')===k)});
+    var o=outcomes[k],cls=o.stop?'replyBox stopBox':'replyBox';
+    q('#outcomeReply').innerHTML='<div class="'+cls+'"><strong>SAY:</strong><p>'+escapeHtml(o.say)+'</p></div><div class="logBox"><strong>THEN:</strong><p>'+escapeHtml(o.log)+'</p></div><div class="copyrow"><button class="btn small purple" id="sendToLog">Build note</button><button class="btn small" id="openHelp">Open resources</button></div>';
+    state.events.push({outcome:k,at:Date.now()});save();renderCounts();
+    var d=Number(state.passDone[state.pass]||0)+1;state.passDone[state.pass]=d;save();renderProgress();
+    q('#sendToLog').addEventListener('click',function(){q('#logName').value=q('#voterName').value;q('#noteLevel').value=o.level;q('#noteOutcome').value=o.note;buildNote();tab('log')});
+    q('#openHelp').addEventListener('click',function(){tab('help')});
+  }
+  qa('.outcome').forEach(function(x){x.addEventListener('click',function(){selectOutcome(x.getAttribute('data-outcome'))})});
+
+  function buildNote(){
+    var n=q('#logName').value.trim()||'[First Name]',level=q('#noteLevel').value,out=q('#noteOutcome').value,det=q('#noteDetails').value.trim(),next=q('#noteNext').value.trim(),d=new Date();
+    var ds=(d.getMonth()+1)+'/'+d.getDate(),s=level+' '+ds+' '+n+': '+out+'.';
+    if(det)s+=' '+det.replace(/\s+/g,' ');
+    if(next)s+=' Next step: '+next.replace(/\s+/g,' ')+'.';
+    q('#notePreview').textContent=s;
+  }
+  ['logName','noteLevel','noteOutcome','noteDetails','noteNext'].forEach(function(id){q('#'+id).addEventListener('input',buildNote);q('#'+id).addEventListener('change',buildNote)});buildNote();
+  q('#copyNote').addEventListener('click',function(){copyText(q('#notePreview').textContent,q('#copyNote'))});
+  q('#clearNote').addEventListener('click',function(){q('#logName').value='';q('#noteDetails').value='';q('#noteNext').value='';q('#noteLevel').value='Quality';q('#noteOutcome').selectedIndex=0;buildNote()});
+
+  function copyText(text,btn){
+    function done(){var old=btn.textContent;btn.textContent='Copied';setTimeout(function(){btn.textContent=old},900)}
+    if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(text).then(done).catch(function(){fallback()})}else fallback();
+    function fallback(){var ta=document.createElement('textarea');ta.value=text;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();try{document.execCommand('copy');done()}catch(e){}document.body.removeChild(ta)}
+  }
+  function escapeHtml(s){return String(s).replace(/[&<>"']/g,function(m){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]})}
+
+  renderTimer();renderCounts();renderProgress();renderFocus();
+})();
+</script>
+</body>
+</html>
