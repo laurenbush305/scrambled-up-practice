@@ -20,7 +20,7 @@ Canonical reusable Notion Skill: https://app.notion.com/p/40625df5cad18120a018c3
 ## 3. Protect prior shows and scores
 - For each edition, create a unique dated folder with quiz number (for example `2026-10-27-648`), its own HTML, answer key, and score data. Never overwrite a prior edition or its teams.
 - Use distinct localStorage keys and per-quiz server IDs. Confirm remote score API uses the correct quiz's score JSON.
-- Rounds 1–5 are generally one point each, Round 6 two points each; Joker doubles the score of ONE eligible round. Honor the current original packet when different. Save raw undoubled round scores and compute doubled totals. Missing slips are blank rather than scored zero.
+- **Never assume** that the final round is always 2 points per correct. Read Matt's packet EACH week and confirm exact point value and Joker eligibility per round. For Quiz 648 (October 27, 2026) the packet explicitly says Round 6 is 2 points/correct, so 8 correct = 16 points before Joker; with R6 Joker, 32. The scoreboard stores raw ROUND POINTS (e.g. 6 R6 correct = enter 12), not the correct-answer count, and automatically adds Joker doubling. Label the points input clearly and do not double the raw score twice. Missing slips are blank, not zero.
 - If grading photos live, respond briefly, follow the correct week's answer key, retain team names and Joker values, track unanswered/missing slips, and write scores only to that week's file.
 
 ## 4. QA before calling it finished
