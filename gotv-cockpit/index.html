@@ -4,286 +4,409 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0b1020">
-<meta name="description" content="Captain Decatur GOTV field cockpit for neutral voter logistics, warm-pool operations, shift tracking, and eCanvasser workflow.">
-<title>Captain Decatur | GOTV Cockpit</title>
+<title>Captain Decatur | GOTV Host Board</title>
 <style>
-:root{--ink:#0b1020;--ink2:#151c34;--paper:#f8f7ff;--white:#fff;--pink:#ff3f9f;--cyan:#22d3ee;--lime:#b7f34a;--purple:#8b5cf6;--yellow:#ffd84d;--red:#ef4444;--green:#10b981;--muted:#7c86a6;--line:#dfe3f0;--shadow:0 14px 38px rgba(11,16,32,.12);--radius:22px}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:linear-gradient(180deg,#f9f7ff 0,#f4f7ff 100%);color:var(--ink);font:15px/1.45 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}button,input,select,textarea{font:inherit}button{cursor:pointer}a{color:inherit}.shell{max-width:1040px;margin:0 auto;padding:12px 12px 96px}.topbar{position:sticky;top:0;z-index:20;padding-top:8px;background:linear-gradient(180deg,rgba(248,247,255,.98) 80%,rgba(248,247,255,0))}.brand{background:var(--ink);color:#fff;border-radius:26px;padding:16px;box-shadow:var(--shadow);border:1px solid rgba(255,255,255,.08)}.brandline{display:flex;align-items:flex-start;gap:12px;justify-content:space-between}.kicker{font-size:11px;font-weight:950;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan)}h1{font-size:clamp(25px,5.4vw,42px);line-height:1;margin:3px 0 4px;letter-spacing:-.035em}.sub{color:#cdd5ef;font-size:13px}.statusrail{display:grid;grid-template-columns:1.3fr .8fr .8fr;gap:7px;margin-top:12px}.status{background:#171f3b;border:1px solid #273050;border-radius:14px;padding:8px 10px;min-width:0}.status small{display:block;color:#929dbb;font-size:9px;letter-spacing:.08em;text-transform:uppercase;font-weight:900}.status b{display:block;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.status.timer b{color:var(--yellow)}.status.pay b{color:var(--lime)}.tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:5px;margin-top:9px}.tab{min-height:42px;border:0;border-radius:13px;background:#e9ecf7;color:#3b4665;font-weight:950;font-size:10px;letter-spacing:.04em}.tab.active{background:var(--ink);color:#fff}.panel{display:none}.panel.active{display:block}.card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:0 8px 24px rgba(11,16,32,.06);padding:16px;margin-top:12px}.heroCard{background:linear-gradient(135deg,#11182d 0,#1d2545 100%);color:#fff;border-color:#283354}.eyebrow{font-size:10px;font-weight:950;letter-spacing:.12em;text-transform:uppercase;color:var(--pink)}h2{font-size:22px;line-height:1.1;margin:4px 0 8px;letter-spacing:-.025em}h3{font-size:15px;margin:0 0 8px}p{margin:6px 0}.muted{color:var(--muted)}.heroCard .muted{color:#b9c2dc}.grid2{display:grid;gap:12px}.actions{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}.btn{min-height:46px;border-radius:14px;border:1px solid var(--line);background:#fff;color:var(--ink);font-weight:950;padding:9px 11px}.btn.primary{background:var(--pink);border-color:var(--pink);color:#fff}.btn.cyan{background:#e8fbff;border-color:#88eafa;color:#075d70}.btn.lime{background:#f5ffe1;border-color:#cef68e;color:#385a00}.btn.purple{background:#f1ebff;border-color:#c8b6ff;color:#5f35b5}.btn.yellow{background:#fff8d7;border-color:#ffe375;color:#765700}.btn.red{background:#fff0f1;border-color:#fecaca;color:#a01829}.btn.dark{background:var(--ink);border-color:var(--ink);color:#fff}.btn.ghost{background:transparent;color:inherit}.btn.small{min-height:36px;padding:7px 9px;font-size:12px}.field{display:block;margin-top:10px}.field span{display:block;font-size:10px;font-weight:950;text-transform:uppercase;letter-spacing:.08em;color:#68728f;margin-bottom:5px}input,select,textarea{width:100%;border:1px solid #cfd5e6;background:#fff;color:var(--ink);border-radius:13px;padding:11px 12px;font-size:16px;outline:none}input:focus,select:focus,textarea:focus{border-color:var(--purple);box-shadow:0 0 0 3px rgba(139,92,246,.12)}textarea{min-height:110px;resize:vertical}.oneMove{border-left:5px solid var(--yellow);padding-left:14px}.oneMove strong{font-size:19px;display:block}.passRail{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:10px}.passBtn{padding:10px 8px;border-radius:14px;border:1px solid #d9deec;background:#f6f7fb;text-align:left}.passBtn small{display:block;color:#77809d;font-weight:800;font-size:9px;text-transform:uppercase}.passBtn b{display:block;margin-top:2px}.passBtn.active{background:#171f3b;color:#fff;border-color:#171f3b}.passBtn.active small{color:var(--cyan)}.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:10px}.metric{border:1px solid var(--line);border-radius:15px;padding:9px;background:#fafbff;min-height:68px}.metric span{display:block;color:#7b84a0;font-size:9px;text-transform:uppercase;font-weight:900;letter-spacing:.05em}.metric b{font-size:23px;line-height:1.1}.progressTrack{height:12px;border-radius:999px;background:#e9ecf5;overflow:hidden;margin:8px 0}.progressFill{height:100%;background:linear-gradient(90deg,var(--pink),var(--purple),var(--cyan));width:0}.modeRow{display:flex;gap:7px;overflow-x:auto;padding-bottom:2px}.modeBtn,.filterBtn{white-space:nowrap;min-height:38px;padding:7px 11px;border-radius:999px;border:1px solid #d9deec;background:#fff;font-weight:900;font-size:12px}.modeBtn.active,.filterBtn.active{background:var(--ink);color:#fff}.callScript{background:#0f1730;color:#fff;border-radius:20px;padding:16px;border:1px solid #29375e}.callScript .label{font-size:10px;color:var(--cyan);text-transform:uppercase;font-weight:950;letter-spacing:.1em}.callScript .scriptText{font-size:18px;line-height:1.5;font-weight:760;margin-top:8px}.copyrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.outcomes{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.outcome{min-height:58px;border-radius:16px;border:1px solid #d9deec;background:#fff;font-weight:900;text-align:left;padding:10px}.outcome small{display:block;color:#7c86a6;font-size:10px;margin-top:3px;font-weight:750}.outcome.active{border-color:var(--purple);box-shadow:0 0 0 3px rgba(139,92,246,.12)}.replyBox{border-radius:18px;background:#f4f0ff;border:1px solid #d9ccff;padding:14px;margin-top:10px}.replyBox strong{color:#6235b5}.logBox{border-radius:18px;background:#edfbff;border:1px solid #a9ecf7;padding:14px;margin-top:8px}.logBox strong{color:#075d70}.stopBox{background:#fff0f1;border-color:#fecaca}.stopBox strong{color:#a01829}.notePreview{white-space:pre-wrap;background:#10172b;color:#fff;border-radius:16px;padding:13px;min-height:80px;margin-top:10px}.resourceGrid{display:grid;gap:9px}.resource{display:block;text-decoration:none;border:1px solid var(--line);border-radius:17px;background:#fff;padding:13px}.resource strong{display:block;font-size:15px}.resource span{display:block;color:#77809d;font-size:12px;margin-top:2px}.fact{border-radius:17px;padding:13px;border:1px solid #ece1a5;background:#fff9d8}.fact b{display:block}.privateRule{border:1px dashed #bcc5da;border-radius:16px;padding:12px;background:#f8faff;color:#59637e;font-size:12px}.receipt{background:#f5ffe1;border:1px solid #cef68e;border-radius:16px;padding:12px}.alert{background:#fff0f1;border:1px solid #fecaca;border-radius:16px;padding:12px}.notice{background:#fff8d7;border:1px solid #ffe375;border-radius:16px;padding:12px}.chip{display:inline-flex;align-items:center;gap:5px;border-radius:999px;padding:5px 8px;background:#eef1f8;color:#47526e;font-size:10px;font-weight:900;margin:2px}.chip.pink{background:#ffe4f2;color:#9e1b5d}.chip.green{background:#e8fff4;color:#087a52}.chip.yellow{background:#fff8d7;color:#765700}.chip.red{background:#fff0f1;color:#a01829}.queueHero{background:linear-gradient(135deg,#161c34,#222b50);color:#fff;border-radius:20px;padding:15px;border:1px solid #2e3a65}.queueName{font-size:27px;font-weight:950;line-height:1.05;letter-spacing:-.03em}.queueMeta{color:#c8d0e8;margin-top:6px;font-size:13px}.queueContact{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}.mini{background:#f7f8fc;border:1px solid var(--line);border-radius:14px;padding:10px;min-width:0}.mini small{display:block;text-transform:uppercase;letter-spacing:.07em;font-size:9px;font-weight:900;color:#7a839f}.mini b,.mini span{display:block;overflow-wrap:anywhere}.queueNav{display:grid;grid-template-columns:1fr 1.5fr 1fr;gap:7px;margin-top:12px}.importDrop{border:2px dashed #b8c1d8;border-radius:20px;padding:18px;text-align:center;background:#fafbff}.importDrop.drag{border-color:var(--purple);background:#f5f0ff}.fileBtn{position:relative;overflow:hidden}.fileBtn input{position:absolute;inset:0;opacity:0;cursor:pointer}.listRows{display:grid;gap:7px;margin-top:10px}.listRow{border:1px solid var(--line);border-radius:15px;padding:11px;background:#fff;display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center}.listRow.active{border-color:var(--purple);box-shadow:0 0 0 3px rgba(139,92,246,.1)}.listRow strong{display:block}.listRow span{font-size:11px;color:#78819c}.listRow .state{font-size:10px;font-weight:900;border-radius:999px;padding:5px 7px;background:#eef1f8;color:#4c5672}.queueStats{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}.queueStat{border:1px solid var(--line);border-radius:14px;background:#fafbff;padding:9px}.queueStat small{display:block;color:#7b84a0;font-size:9px;text-transform:uppercase;font-weight:900}.queueStat b{font-size:20px}.sourceContext{border-left:4px solid var(--cyan);padding-left:11px}.sourceContext div{margin:3px 0}.sourceContext b{font-size:12px}.collapse{border:1px solid var(--line);border-radius:16px;background:#fff;margin-top:10px}.collapse summary{cursor:pointer;padding:12px 13px;font-weight:900}.collapse>div{padding:0 13px 13px}.bottomNav{position:fixed;bottom:0;left:0;right:0;z-index:30;background:rgba(248,247,255,.96);backdrop-filter:blur(12px);border-top:1px solid #dfe3f0;padding:7px max(10px,env(safe-area-inset-left)) calc(7px + env(safe-area-inset-bottom));display:flex;justify-content:center}.bottomNavInner{width:min(720px,100%);display:grid;grid-template-columns:repeat(5,1fr);gap:5px}.bottomBtn{min-height:48px;border:0;border-radius:14px;background:transparent;color:#69738e;font-size:9px;font-weight:950;text-transform:uppercase;letter-spacing:.05em}.bottomBtn.active{background:var(--ink);color:#fff}.hidden{display:none!important}.tiny{font-size:11px}.nowrap{white-space:nowrap}
-@media(min-width:720px){.shell{padding:18px 18px 102px}.grid2{grid-template-columns:1fr 1fr}.metrics{grid-template-columns:repeat(6,1fr)}.outcomes{grid-template-columns:repeat(3,1fr)}.resourceGrid{grid-template-columns:repeat(2,1fr)}.brand{padding:20px 22px 18px}.statusrail{grid-template-columns:1.3fr .8fr .8fr .8fr}.queueContact{grid-template-columns:repeat(4,1fr)}}
+:root{--ink:#0b1020;--ink2:#17203c;--paper:#f7f8ff;--white:#fff;--pink:#ff3f9f;--cyan:#22d3ee;--lime:#b7f34a;--purple:#8b5cf6;--yellow:#ffd84d;--red:#ef4444;--green:#10b981;--line:#dde3f1;--muted:#74809f;--shadow:0 14px 36px rgba(11,16,32,.12)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.45 system-ui,-apple-system,Segoe UI,sans-serif}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+.shell{max-width:1040px;margin:auto;padding:12px 12px 104px}
+.top{position:sticky;top:0;z-index:30;padding-top:8px;background:linear-gradient(180deg,rgba(247,248,255,.98) 82%,rgba(247,248,255,0))}
+.header{background:linear-gradient(135deg,#0b1020,#1b2547);color:#fff;border-radius:26px;padding:16px;box-shadow:var(--shadow)}
+.kicker{font-size:10px;font-weight:950;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan)}
+h1{margin:3px 0 3px;font-size:clamp(28px,5vw,42px);line-height:1;letter-spacing:-.035em}
+.sub{color:#cbd3ea;font-size:13px}
+.rail{display:grid;grid-template-columns:1.3fr .8fr .8fr .8fr;gap:7px;margin-top:11px}
+.railbox{background:#171f3b;border:1px solid #2a3454;border-radius:13px;padding:8px;min-width:0}
+.railbox small{display:block;font-size:8px;text-transform:uppercase;font-weight:900;letter-spacing:.08em;color:#909abc}
+.railbox b{display:block;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.railbox.time b{color:var(--yellow)} .railbox.pay b{color:var(--lime)}
+.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:8px}
+.tab{border:0;border-radius:12px;min-height:42px;background:#e8ecf8;color:#42506d;font-size:10px;font-weight:950;letter-spacing:.04em}
+.tab.active{background:var(--ink);color:#fff}
+.panel{display:none}.panel.active{display:block}
+.card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:15px;margin-top:12px;box-shadow:0 7px 20px rgba(11,16,32,.05)}
+.dark{background:linear-gradient(135deg,#11182d,#202a4d);color:#fff;border-color:#2a365f}
+.eyebrow{font-size:10px;letter-spacing:.11em;text-transform:uppercase;font-weight:950;color:var(--pink)}
+h2{font-size:22px;margin:4px 0 8px;line-height:1.12;letter-spacing:-.02em}
+.muted{color:var(--muted)} .dark .muted{color:#c5cee6}
+.btn{border:1px solid var(--line);background:#fff;color:var(--ink);font-weight:900;border-radius:13px;min-height:44px;padding:9px 11px}
+.btn.primary{background:var(--pink);border-color:var(--pink);color:#fff}
+.btn.darkbtn{background:var(--ink);border-color:var(--ink);color:#fff}
+.btn.cyan{background:#e9fbff;border-color:#9cecf6;color:#096072}
+.btn.lime{background:#f4ffe0;border-color:#cdf08f;color:#385a00}
+.btn.yellow{background:#fff8d8;border-color:#ffe67c;color:#735400}
+.btn.red{background:#fff0f1;border-color:#fecaca;color:#9b1c2a}
+.btn.small{min-height:36px;padding:7px 9px;font-size:12px}
+.actions{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:11px}
+.grid2{display:grid;gap:10px}
+.field{display:block;margin-top:10px}
+.field span{display:block;font-size:10px;font-weight:950;letter-spacing:.07em;text-transform:uppercase;color:#67728f;margin-bottom:5px}
+input,select,textarea{width:100%;border:1px solid #ccd4e6;border-radius:12px;padding:10px 11px;font-size:16px;background:#fff;color:var(--ink);outline:none}
+input:focus,select:focus,textarea:focus{border-color:var(--purple);box-shadow:0 0 0 3px rgba(139,92,246,.12)}
+textarea{min-height:95px;resize:vertical}
+.modeRow{display:flex;gap:7px;overflow:auto;padding-bottom:2px}
+.pill{white-space:nowrap;border:1px solid #d7deec;background:#fff;border-radius:999px;padding:8px 11px;font-size:12px;font-weight:900}
+.pill.active{background:var(--ink);color:#fff}
+.hostLayout{display:grid;gap:12px}
+.scriptCard{background:#0f1730;color:#fff;border-radius:22px;padding:18px;border:1px solid #29365c;min-height:330px;display:flex;flex-direction:column;justify-content:space-between}
+.scriptCard .label{font-size:10px;color:var(--cyan);font-weight:950;letter-spacing:.1em;text-transform:uppercase}
+.scriptLine{font-size:clamp(24px,4.8vw,38px);line-height:1.27;font-weight:850;letter-spacing:-.025em;margin:16px 0}
+.scriptHint{font-size:12px;color:#aeb8d7}
+.stageDots{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:14px}
+.dot{height:8px;border-radius:999px;background:#303a5d}
+.dot.done{background:var(--cyan)} .dot.now{background:var(--pink)}
+.stepnav{display:grid;grid-template-columns:1fr 1.4fr 1fr;gap:7px}
+.sideTasks{display:grid;gap:8px}
+.taskMini{border:1px solid var(--line);border-radius:15px;padding:10px;background:#fafbff}
+.taskMini small{display:block;font-size:9px;text-transform:uppercase;font-weight:900;color:#77819d}
+.taskMini b{display:block;margin-top:2px}
+.responses{display:grid;grid-template-columns:repeat(2,1fr);gap:7px}
+.resp{border:1px solid #d9dfec;background:#fff;border-radius:15px;min-height:61px;padding:9px;text-align:left;font-weight:900}
+.resp small{display:block;font-size:10px;color:#7b84a0;margin-top:2px}
+.resp.active{border-color:var(--purple);box-shadow:0 0 0 3px rgba(139,92,246,.12)}
+.saybox{background:#f4f0ff;border:1px solid #d8caff;border-radius:16px;padding:13px;margin-top:9px}
+.saybox b{color:#5c35ac}
+.logbox{background:#eafcff;border:1px solid #a6edf7;border-radius:16px;padding:13px;margin-top:7px}
+.logbox b{color:#086274}
+.taskgrid{display:grid;gap:8px}
+.task{border:1px solid var(--line);border-radius:16px;padding:12px;background:#fbfcff}
+.taskhead{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.taskhead strong{font-size:14px}
+.seg{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.seg button{border:1px solid #d5dcec;background:#fff;border-radius:999px;padding:7px 10px;font-size:12px;font-weight:900}
+.seg button.active{background:var(--ink);color:#fff}.seg button.yes.active{background:#0f766e}.seg button.no.active{background:#7f1d1d}
+.checklist{display:grid;gap:7px}
+.check{display:flex;gap:8px;align-items:flex-start;border-radius:13px;padding:10px;background:#f7f8fc;border:1px solid var(--line)}
+.check.done{background:#edfff5;border-color:#b8efd1}
+.checkdot{width:19px;height:19px;border-radius:50%;border:2px solid #bcc5d8;flex:0 0 auto;margin-top:1px}
+.check.done .checkdot{background:var(--green);border-color:var(--green)}
+.note{white-space:pre-wrap;background:#10172b;color:#fff;border-radius:16px;padding:13px;min-height:84px}
+.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+.metric{background:#fafbff;border:1px solid var(--line);border-radius:14px;padding:9px}
+.metric span{display:block;font-size:9px;text-transform:uppercase;font-weight:900;color:#7b84a0}.metric b{font-size:22px}
+.fact{background:#fff8dc;border:1px solid #ffe477;border-radius:15px;padding:11px}
+.resource{display:block;text-decoration:none;color:inherit;border:1px solid var(--line);border-radius:15px;padding:11px;background:#fff;margin-top:7px}
+.resource strong{display:block}.resource span{display:block;color:var(--muted);font-size:12px}
+.warning{background:#fff0f1;border:1px solid #fecaca;border-radius:14px;padding:11px;color:#8f1f2c}
+.bottom{position:fixed;bottom:0;left:0;right:0;background:rgba(247,248,255,.96);backdrop-filter:blur(12px);border-top:1px solid var(--line);padding:7px 10px calc(7px + env(safe-area-inset-bottom));z-index:30}
+.bottomin{max-width:660px;margin:auto;display:grid;grid-template-columns:repeat(4,1fr);gap:5px}
+.bottom button{border:0;background:transparent;border-radius:12px;min-height:46px;color:#6d7894;font-weight:950;font-size:9px}.bottom button.active{background:var(--ink);color:#fff}
+.hidden{display:none!important}
+@media(min-width:760px){.grid2{grid-template-columns:1fr 1fr}.responses{grid-template-columns:repeat(3,1fr)}.metrics{grid-template-columns:repeat(6,1fr)}.taskgrid{grid-template-columns:1fr 1fr}.hostLayout{grid-template-columns:1.45fr .75fr;align-items:start}}
 </style>
 </head>
 <body>
 <div class="shell">
-<div class="topbar">
-<header class="brand">
-<div class="brandline"><div><div class="kicker">COMMUNITY RISING · CAPTAIN DECATUR</div><h1>GOTV Cockpit</h1><div class="sub">Warm pool → contact → outcome → log → next.</div></div><div class="chip" id="dateChip">Oct 27</div></div>
-<div class="statusrail">
-<div class="status"><small>Current</small><b id="currentStatus">Pass 2 · Phone</b></div>
-<div class="status timer"><small>Shift</small><b id="topTimer">00:00:00</b></div>
-<div class="status pay"><small>Gross</small><b id="topPay">$0.00</b></div>
-<div class="status"><small>Queue</small><b id="topQueue">No list</b></div>
+<div class="top">
+<header class="header">
+<div class="kicker">COMMUNITY RISING · CAPTAIN DECATUR</div>
+<h1>GOTV Host Board</h1>
+<div class="sub">One line to say. One response to tap. One checklist to finish.</div>
+<div class="rail">
+<div class="railbox"><small>Warm pool</small><b>84 assigned</b></div>
+<div class="railbox time"><small>Shift</small><b id="topTimer">00:00:00</b></div>
+<div class="railbox pay"><small>Gross</small><b id="topPay">$0.00</b></div>
+<div class="railbox"><small>Contact</small><b id="topContact">Ready</b></div>
 </div>
 <div class="tabs">
-<button class="tab active" data-tab="now">NOW</button>
-<button class="tab" data-tab="queue">QUEUE</button>
-<button class="tab" data-tab="call">CALL</button>
-<button class="tab" data-tab="log">LOG</button>
+<button class="tab active" data-tab="host">HOST</button>
+<button class="tab" data-tab="tasks">TASKS</button>
+<button class="tab" data-tab="notes">NOTES</button>
 <button class="tab" data-tab="help">HELP</button>
 </div>
 </header>
 </div>
 
 <main>
-<section class="panel active" id="panel-now">
-<div class="card heroCard">
-<div class="eyebrow">CURRENT FOCUS</div><h2 id="focusTitle">Pass 2 · Phone follow-up</h2>
-<div class="oneMove"><span class="muted">ONE MOVE</span><strong id="oneMoveText">Load your warm list, then work it in source order.</strong></div>
-<div class="actions"><button class="btn primary" id="shiftAction">Start shift</button><button class="btn cyan" data-go="queue">Open QUEUE</button><button class="btn ghost" data-go="help">Resources</button></div>
+<section class="panel active" id="panel-host">
+<div class="card dark">
+<div class="eyebrow">LIVE CALL</div>
+<h2>Run it like you host trivia.</h2>
+<p class="muted">Read one line, tap NEXT, listen, tap what happened. The task rail updates with you.</p>
 </div>
 
 <div class="card">
-<div class="eyebrow">SHIFT CONTROL</div><h2>Clock the work. Keep the receipts.</h2>
-<div class="modeRow">
-<button class="modeBtn" data-mode="Training">Training</button><button class="modeBtn active" data-mode="Phone">Phone</button><button class="modeBtn" data-mode="Doors">Doors</button><button class="modeBtn" data-mode="Admin">Admin</button>
+<div class="grid2">
+<label class="field"><span>First name from eCanvasser</span><input id="firstName" autocomplete="off" placeholder="First name"></label>
+<label class="field"><span>Call mode</span><select id="callMode"><option>Phone</option><option>Door</option></select></label>
 </div>
-<div class="grid2"><label class="field"><span>Manual start time, optional</span><input type="time" id="manualStart"></label><label class="field"><span>Pay rate</span><input type="number" id="payRate" value="25" min="0" step=".01"></label></div>
-<div class="actions"><button class="btn dark" id="startShift">Start / set</button><button class="btn yellow" id="pauseShift">Pause</button><button class="btn lime" id="closeShift">Close shift</button></div>
-<div class="privateRule">Local timer only. Your official work record and ADP remain authoritative.</div>
 </div>
 
+<div class="hostLayout">
+<div>
 <div class="card">
-<div class="eyebrow">THREE PASSES</div><h2>Where am I in the sequence?</h2>
-<div class="passRail"><button class="passBtn" data-pass="1"><small>Pass 1</small><b>Door</b></button><button class="passBtn active" data-pass="2"><small>Pass 2</small><b>Phone</b></button><button class="passBtn" data-pass="3"><small>Pass 3</small><b>Door</b></button></div>
-<div class="progressTrack"><div class="progressFill" id="passProgress"></div></div><div class="muted" id="progressText">Load warm list to calculate progress.</div>
+<div class="stageDots"><div class="dot now"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+<div class="scriptCard">
+<div>
+<div class="label" id="scriptLabel">LINE 1 · OPEN</div>
+<div class="scriptLine" id="scriptLine"></div>
+<div class="scriptHint" id="scriptHint">Say it. Let them respond. Then tap NEXT.</div>
+</div>
+<div class="stepnav">
+<button class="btn small" id="prevLine">← Back</button>
+<button class="btn primary" id="nextLine">NEXT</button>
+<button class="btn small" id="restartCall">Restart</button>
+</div>
+</div>
 </div>
 
+<div class="card hidden" id="responseCard">
+<div class="eyebrow">WHAT HAPPENED?</div>
+<h2>Tap the closest response.</h2>
+<div class="responses">
+<button class="resp" data-r="voted">Already voted<small>close GOTV loop</small></button>
+<button class="resp" data-r="allset">All set<small>no help needed</small></button>
+<button class="resp" data-r="notyet">Hasn’t thought about it<small>offer info</small></button>
+<button class="resp" data-r="location">Needs location / hours<small>official info</small></button>
+<button class="resp" data-r="ballot">What’s on the ballot?<small>nonpartisan lookup</small></button>
+<button class="resp" data-r="ride">Needs a ride<small>ride workflow</small></button>
+<button class="resp" data-r="time">Doesn’t have time<small>logistics only</small></button>
+<button class="resp" data-r="mail">Voting by mail<small>official status info</small></button>
+<button class="resp" data-r="skeptical">Unsure / doesn’t trust it<small>no pressure</small></button>
+<button class="resp" data-r="who">Who should I vote for?<small>stay nonpartisan</small></button>
+<button class="resp" data-r="callback">Call me later<small>capture time</small></button>
+<button class="resp" data-r="notint">Not interested<small>end politely</small></button>
+<button class="resp" data-r="stop">STOP CONTACT<small>stop outreach</small></button>
+<button class="resp" data-r="voicemail">Voicemail<small>left message</small></button>
+<button class="resp" data-r="noanswer">No answer<small>no live contact</small></button>
+<button class="resp" data-r="wrong">Wrong number<small>bad number</small></button>
+<button class="resp" data-r="disc">Disconnected<small>line issue</small></button>
+</div>
+<div id="branchBox"></div>
+</div>
+</div>
+
+<div>
 <div class="card">
-<div class="eyebrow">TODAY'S SCRATCH</div><h2>Useful numbers, no archaeology.</h2>
-<div class="metrics">
-<div class="metric"><span>Attempts</span><b id="m-attempts">0</b></div><div class="metric"><span>Answered</span><b id="m-answered">0</b></div><div class="metric"><span>Quality</span><b id="m-quality">0</b></div><div class="metric"><span>Voted</span><b id="m-voted">0</b></div><div class="metric"><span>Rides</span><b id="m-rides">0</b></div><div class="metric"><span>Callbacks</span><b id="m-callbacks">0</b></div>
+<div class="eyebrow">LIVE TASK RAIL</div>
+<h2>What still needs an answer?</h2>
+<div class="sideTasks">
+<div class="taskMini"><small>Interaction status</small><b id="railInteraction">Not set</b></div>
+<div class="taskMini"><small>Positive / Quality</small><b id="railPQ">Not set</b></div>
+<div class="taskMini"><small>Did they vote?</small><b id="railDidVote">Not set</b></div>
+<div class="taskMini"><small>Needs ride?</small><b id="railRide">Not set</b></div>
+<div class="taskMini"><small>Voting plan?</small><b id="railPlan">Not set</b></div>
+<div class="taskMini"><small>Already voted?</small><b id="railAlready">Not set</b></div>
+</div>
+<div class="actions"><button class="btn cyan" data-go="tasks">Finish tasks</button><button class="btn" data-go="notes">House notes</button><button class="btn" data-go="help">Help</button></div>
 </div>
 </div>
-
-<div class="card hidden" id="closeoutCard"><div class="eyebrow">LAST CLOSEOUT</div><h2>The receipts</h2><div class="receipt" id="closeoutText"></div><div class="copyrow"><button class="btn small" id="copyCloseout">Copy summary</button><button class="btn small" id="downloadCloseout">Download JSON</button></div></div>
+</div>
 </section>
 
-<section class="panel" id="panel-queue">
-<div class="card heroCard"><div class="eyebrow">WARM POOL</div><h2>Your list becomes the cockpit.</h2><p class="muted">Import the eCanvasser text/TSV export. Parsing happens in your browser. The file is never uploaded to this site.</p></div>
-
-<div class="card" id="importCard">
-<div class="eyebrow">IMPORT</div><h2>Load the actual warm list.</h2>
-<div class="importDrop" id="dropZone">
-<p><strong>Drop a .txt, .tsv or .csv export here</strong></p><p class="muted">or</p>
-<div class="copyrow" style="justify-content:center"><label class="btn primary small fileBtn">Choose file<input id="warmFile" type="file" accept=".txt,.tsv,.csv,text/plain,text/tab-separated-values,text/csv"></label><button class="btn small" id="showPaste">Paste export</button></div>
-</div>
-<div id="pasteBox" class="hidden"><label class="field"><span>Paste the warm-pool export</span><textarea id="warmPaste" placeholder="Paste the full eCanvasser export here."></textarea></label><button class="btn dark" id="parsePaste">Parse list</button></div>
-<div id="importMessage" style="margin-top:10px"></div>
-<div class="privateRule"><strong>Privacy:</strong> the production site contains zero voter records. Imported contacts live only in this browser's local storage. Fields used by the cockpit are limited to operational contact/status information. Demographic fields and modeled political scores are ignored.</div>
-</div>
-
-<div class="card hidden" id="queueCard">
-<div class="queueStats"><div class="queueStat"><small>Loaded</small><b id="q-loaded">0</b></div><div class="queueStat"><small>Open</small><b id="q-open">0</b></div><div class="queueStat"><small>Worked</small><b id="q-worked">0</b></div><div class="queueStat"><small>Source voted</small><b id="q-voted">0</b></div></div>
-<div class="modeRow" style="margin-top:12px"><button class="filterBtn active" data-filter="open">Open</button><button class="filterBtn" data-filter="all">All</button><button class="filterBtn" data-filter="worked">Worked today</button><button class="filterBtn" data-filter="voted">Already voted</button><button class="filterBtn" data-filter="ride">Ride flag</button></div>
-<label class="field"><span>Find by name or contact ID</span><input id="queueSearch" type="search" autocomplete="off" placeholder="Search the imported list"></label>
-</div>
-
-<div class="card hidden" id="activeContactCard">
-<div class="queueHero"><div class="eyebrow">CURRENT PERSON</div><div class="queueName" id="qName">—</div><div class="queueMeta" id="qMeta"></div><div id="qBadges" style="margin-top:8px"></div></div>
-<div class="queueContact">
-<div class="mini"><small>Mobile</small><b id="qPhone">—</b></div><div class="mini"><small>Address</small><span id="qAddress">—</span></div><div class="mini"><small>Last interaction</small><span id="qLast">—</span></div><div class="mini"><small>Contact ID</small><span id="qId">—</span></div>
-</div>
-<div class="sourceContext" style="margin-top:12px"><div><b>Prior live-contact count:</b> <span id="qQuality">—</span></div><div><b>Source ride flag:</b> <span id="qRide">—</span></div><div><b>Source voting-plan flag:</b> <span id="qPlan">—</span></div><div><b>Source already-voted flag:</b> <span id="qAlready">—</span></div></div>
-<details class="collapse" id="opsNotesWrap"><summary>Operational notes from source</summary><div id="qNotes" class="muted"></div></details>
-<div class="privateRule" style="margin-top:10px">Prior notes are context only. The cockpit does not use demographics, modeled scores, or prior issue opinions to change the voting-service script or reorder the list.</div>
-<div class="queueNav"><button class="btn small" id="prevContact">← Previous</button><button class="btn primary" id="openCall">Open CALL</button><button class="btn small" id="nextContact">Next →</button></div>
-</div>
-
-<div class="card hidden" id="queueListCard"><div class="eyebrow">QUEUE VIEW</div><h2 id="queueListTitle">Open contacts</h2><div class="listRows" id="queueRows"></div></div>
-
-<div class="card hidden" id="queueManageCard"><details class="collapse"><summary>List controls</summary><div><div class="copyrow"><button class="btn small" id="exportProgress">Export local progress</button><button class="btn small red" id="forgetList">Forget warm list on this device</button></div><p class="muted tiny">Export contains only the local cockpit progress and the operational fields currently loaded. Use eCanvasser as the official record.</p></div></details></div>
-</section>
-
-<section class="panel" id="panel-call">
-<div class="card heroCard"><div class="eyebrow">FOCUS MODE</div><h2>One person. One conversation.</h2><p class="muted">Same neutral service offer for everyone. Their demographics and political scores never change the script.</p></div>
-<div class="card" id="callPersonCard"><div class="eyebrow">CURRENT PERSON</div><h2 id="callName">No warm list loaded</h2><div class="muted" id="callContext">Load your list in QUEUE, or use the generic script below.</div><div class="copyrow"><button class="btn small" data-go="queue">Back to queue</button></div></div>
-
+<section class="panel" id="panel-tasks">
+<div class="card dark"><div class="eyebrow">ECANVASSER CHECKOUT</div><h2>Fill the fields before you move on.</h2><p class="muted">These mirror the actual things you said you need to capture.</p></div>
 <div class="card">
-<div class="modeRow"><button class="modeBtn active" data-tone="easy">Easy</button><button class="modeBtn" data-tone="warm">Warmer</button><button class="modeBtn" data-tone="quick">Quick</button></div>
-<div class="callScript" style="margin-top:10px"><div class="label">SAY THIS</div><div class="scriptText" id="scriptText"></div></div>
-</div>
+<div class="taskgrid">
+<div class="task"><div class="taskhead"><strong>Interaction status</strong><span class="muted">required</span></div><select id="interactionStatus"><option value="">Choose</option><option>Answered</option><option>Left Message</option><option>No Answer</option><option>Call Back</option><option>Not Interested</option><option>Wrong Number</option><option>Disconnected</option><option>STOP CONTACT</option></select></div>
 
-<div class="card"><div class="eyebrow">TAP WHAT HAPPENED</div><h2>The next step should be obvious.</h2>
-<div class="outcomes">
-<button class="outcome" data-outcome="voted">Already voted<small>close GOTV loop</small></button><button class="outcome" data-outcome="set">All set<small>no help needed</small></button><button class="outcome" data-outcome="location">Needs location<small>official voting info</small></button><button class="outcome" data-outcome="ballot">Needs ballot info<small>nonpartisan lookup</small></button><button class="outcome" data-outcome="ride">Needs a ride<small>log request</small></button><button class="outcome" data-outcome="question">Has a question<small>find official answer</small></button><button class="outcome" data-outcome="callback">Call later<small>get timing</small></button><button class="outcome" data-outcome="notint">Not interested<small>end politely</small></button><button class="outcome" data-outcome="stop">STOP CONTACT<small>no more outreach</small></button><button class="outcome" data-outcome="voicemail">Voicemail<small>left message</small></button><button class="outcome" data-outcome="noanswer">No answer<small>no live contact</small></button><button class="outcome" data-outcome="wrong">Wrong number<small>bad number</small></button><button class="outcome" data-outcome="disc">Disconnected<small>line issue</small></button>
-</div><div id="outcomeReply"></div></div>
+<div class="task"><div class="taskhead"><strong>Positive or Quality?</strong><span class="muted">live conversations</span></div><div class="seg" data-seg="notePrefix"><button data-v="Quality">Quality</button><button data-v="Positive">Positive</button><button data-v="">N/A</button></div></div>
+
+<div class="task"><div class="taskhead"><strong>Did they vote?</strong></div><div class="seg" data-seg="didVote"><button class="yes" data-v="Yes">Yes</button><button class="no" data-v="No">No</button><button data-v="Unknown">Unknown</button></div></div>
+
+<div class="task"><div class="taskhead"><strong>Already Voted?</strong><span class="muted">exact field</span></div><div class="seg" data-seg="alreadyVoted"><button class="yes" data-v="Yes">Yes</button><button class="no" data-v="No">No</button><button data-v="">Leave blank</button></div></div>
+
+<div class="task"><div class="taskhead"><strong>Needs a ride to the polls?</strong></div><div class="seg" data-seg="needsRide"><button class="yes" data-v="Yes">Yes</button><button class="no" data-v="No">No</button><button data-v="">Unknown</button></div><label class="field hidden" id="rideNotesWrap"><span>Ride to the polls notes</span><textarea id="rideNotes" placeholder="Day/time, best number confirmed, details Program Team needs."></textarea></label></div>
+
+<div class="task"><div class="taskhead"><strong>Did you help them make a voting plan?</strong></div><div class="seg" data-seg="madePlan"><button class="yes" data-v="Yes">Yes</button><button class="no" data-v="No">No</button><button data-v="">Unknown</button></div><label class="field hidden" id="planWrap"><span>Voting plan details</span><textarea id="planDetails" placeholder="When / where / how, only what they actually said."></textarea></label></div>
+</div>
+<div class="card" style="margin:12px 0 0;background:#fafbff"><div class="eyebrow">READY CHECK</div><div class="checklist" id="readyChecklist"></div></div>
+<div class="actions"><button class="btn primary" data-go="notes">Go to house notes</button><button class="btn" data-go="host">Back to host</button><button class="btn" id="resetTasks">Reset contact</button></div>
+</div>
 </section>
 
-<section class="panel" id="panel-log">
-<div class="card heroCard"><div class="eyebrow">ECANVASSER SIDEKICK</div><h2>Log what happened. Then move.</h2><p class="muted">The cockpit drafts a factual note. eCanvasser still owns the official disposition and house note.</p></div>
-<div class="card"><div class="grid2"><label class="field"><span>First name</span><input id="logName" autocomplete="off" placeholder="First name"></label><label class="field"><span>Note level</span><select id="noteLevel"><option>Quality</option><option>Positive</option><option>Contact</option></select></label></div>
-<label class="field"><span>What happened?</span><select id="noteOutcome"><option>Confirmed already voted</option><option>Provided early-voting location or hours</option><option>Provided nonpartisan ballot information</option><option>Requested ride assistance</option><option>Made or confirmed voting plan</option><option>Requested callback</option><option>Community check-in only</option></select></label>
-<label class="field"><span>Factual details</span><textarea id="noteDetails" placeholder="Only what actually happened."></textarea></label><label class="field"><span>Next step, optional</span><input id="noteNext" placeholder="Text official location link / Program Team follow-up"></label>
-<div class="notePreview" id="notePreview"></div><div class="actions"><button class="btn primary" id="copyNote">Copy note</button><button class="btn lime" id="logNext">Done → next person</button><button class="btn" id="clearNote">Clear</button></div>
+<section class="panel" id="panel-notes">
+<div class="card dark"><div class="eyebrow">HOUSE NOTES</div><h2>Say what happened. The cockpit formats it.</h2></div>
+<div class="card">
+<label class="field"><span>Additional house notes</span><textarea id="houseNotes" placeholder="What actually happened. Keep it factual."></textarea></label>
+<div class="note" id="notePreview"></div>
+<div class="actions"><button class="btn primary" id="copyNote">Copy house note</button><button class="btn lime" id="finishContact">DONE · NEXT PERSON</button><button class="btn" data-go="tasks">Back to tasks</button></div>
 </div>
-<div class="card"><div class="eyebrow">DISPOSITION CHECK</div><div class="resourceGrid"><div class="resource"><strong>Answered</strong><span>You actually spoke with the assigned voter.</span></div><div class="resource"><strong>Call Back</strong><span>They asked you to contact them later. Capture timing.</span></div><div class="resource"><strong>Not interested</strong><span>They declined the conversation or help.</span></div><div class="resource"><strong>No Answer / Left Message</strong><span>No live voter conversation.</span></div><div class="resource"><strong>Wrong Number / Disconnected</strong><span>Do not count as Answered.</span></div><div class="resource"><strong>STOP CONTACT</strong><span>Record opt-out and do not contact again.</span></div></div></div>
 </section>
 
 <section class="panel" id="panel-help">
-<div class="card heroCard"><div class="eyebrow">PUBLIC VOTING RESOURCES</div><h2>Find the answer without freelancing election law.</h2><p class="muted">Use official or nonpartisan sources. Verify the person's county before naming a voting site.</p></div>
-<div class="card"><div class="eyebrow">GEORGIA · THIS STRETCH</div><div class="grid2"><div class="fact"><b>Early voting</b>Through Friday, Oct. 30, 2026.</div><div class="fact"><b>DeKalb weekday hours</b>7:00 AM–7:00 PM.</div><div class="fact"><b>Election Day</b>Tuesday Nov. 3, 7:00 AM–7:00 PM.</div><div class="fact"><b>Location rule</b>Confirm county/site before sharing specifics.</div></div></div>
-<div class="card"><div class="resourceGrid"><a class="resource" href="https://mvp.sos.ga.gov/s/" target="_blank" rel="noopener"><strong>Georgia My Voter Page ↗</strong><span>Registration, polling info, sample ballot.</span></a><a class="resource" href="https://dekalbcountyga.gov/departments/voter-registration-and-elections" target="_blank" rel="noopener"><strong>DeKalb Elections ↗</strong><span>Current local election information.</span></a><a class="resource" href="https://www.vote411.org/" target="_blank" rel="noopener"><strong>VOTE411 ↗</strong><span>Nonpartisan ballot and candidate information.</span></a><a class="resource" href="https://866ourvote.org/" target="_blank" rel="noopener"><strong>Election Protection ↗</strong><span>Nonpartisan voter help.</span></a><a class="resource" href="https://www.voteriders.org/" target="_blank" rel="noopener"><strong>VoteRiders ↗</strong><span>Nonpartisan voter-ID help.</span></a></div></div>
-<div class="card"><div class="eyebrow">TRANSPORTATION</div><div class="replyBox"><strong>Say:</strong><p>“I can help get the ride request started. Let me make sure I have the best number and the day or time that would work for you.”</p></div><div class="logBox"><strong>Then:</strong><p>Use the current program ride-request process in eCanvasser. Let the coordination team confirm the actual ride. Do not promise a pickup you do not control.</p></div></div>
-<div class="card"><div class="privateRule"><strong>Data boundary:</strong> this public site ships with no voter data. The browser import ignores gender, age, race, education score, partisan score, turnout score, income, credit rating and similar modeled/demographic fields. Imported operational records stay on the device.</div></div>
+<div class="card dark"><div class="eyebrow">HELP</div><h2>Official info and mid-call rescue.</h2></div>
+<div class="card">
+<div class="grid2">
+<div class="fact"><strong>Early voting</strong><br>Use the official DeKalb source for current dates and sites.</div>
+<div class="fact"><strong>Already voted</strong><br>Mark it, log the contact, then stop GOTV contact.</div>
+<div class="fact"><strong>Ride request</strong><br>Needs ride = Yes, Quality note, ride details, best number confirmed.</div>
+<div class="fact"><strong>Voting plan</strong><br>Only mark Yes if you actually helped them settle a plan.</div>
+</div>
+</div>
+<div class="card">
+<a class="resource" href="https://mvp.sos.ga.gov/s/" target="_blank" rel="noopener"><strong>Georgia My Voter Page ↗</strong><span>Official voter information, precinct and ballot lookup.</span></a>
+<a class="resource" href="https://dekalbcountyga.gov/departments/voter-registration-and-elections" target="_blank" rel="noopener"><strong>DeKalb Elections ↗</strong><span>Current local election dates, sites and notices.</span></a>
+<a class="resource" href="https://www.vote411.org/" target="_blank" rel="noopener"><strong>VOTE411 ↗</strong><span>Nonpartisan ballot information.</span></a>
+<a class="resource" href="https://866ourvote.org/" target="_blank" rel="noopener"><strong>Election Protection ↗</strong><span>Nonpartisan voter help.</span></a>
+</div>
+<div class="card"><div class="warning"><strong>Ride line:</strong> “I can help get the ride request started. What day or time would work best, and is this still the best number for someone to reach you?”</div></div>
 </section>
 </main>
 </div>
 
-<nav class="bottomNav"><div class="bottomNavInner"><button class="bottomBtn active" data-tab="now">NOW</button><button class="bottomBtn" data-tab="queue">QUEUE</button><button class="bottomBtn" data-tab="call">CALL</button><button class="bottomBtn" data-tab="log">LOG</button><button class="bottomBtn" data-tab="help">HELP</button></div></nav>
+<nav class="bottom"><div class="bottomin"><button class="active" data-tab="host">HOST</button><button data-tab="tasks">TASKS</button><button data-tab="notes">NOTES</button><button data-tab="help">HELP</button></div></nav>
 
 <script>
 (function(){
-var KEY='captain-decatur-gotv-v2',OLD='captain-decatur-gotv-v1',LISTKEY='captain-decatur-warm-pool-v1';
-var defaults={payRate:25,mode:'Phone',pass:2,activeStart:null,activeMode:null,blocks:[],history:[],lastCloseout:null,currentId:null,progress:{},filter:'open'};
-function q(s){return document.querySelector(s)}function qa(s){return Array.from(document.querySelectorAll(s))}
-function clone(x){return JSON.parse(JSON.stringify(x))}
-function loadState(){try{var x=JSON.parse(localStorage.getItem(KEY)||'{}');if(!Object.keys(x).length){var o=JSON.parse(localStorage.getItem(OLD)||'{}');if(Object.keys(o).length)x={payRate:o.payRate,mode:o.mode,pass:o.pass,activeStart:o.activeStart,activeMode:o.activeMode,blocks:o.blocks||[],history:o.history||[],lastCloseout:o.lastCloseout}}return Object.assign({},clone(defaults),x,{progress:x.progress||{}})}catch(e){return clone(defaults)}}
-function loadList(){try{return JSON.parse(localStorage.getItem(LISTKEY)||'null')}catch(e){return null}}
-var state=loadState(),pool=loadList(),tone='easy';
-function save(){localStorage.setItem(KEY,JSON.stringify(state))}function savePool(){if(pool)localStorage.setItem(LISTKEY,JSON.stringify(pool));else localStorage.removeItem(LISTKEY)}
-function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(m){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]})}
-function truth(v){return /^(true|yes|y|1|checked)$/i.test(String(v||'').trim())}
-function money(n){return '$'+Number(n||0).toFixed(2)}function pad(n){return String(n).padStart(2,'0')}function fmt(sec){sec=Math.max(0,Math.floor(sec||0));return pad(Math.floor(sec/3600))+':'+pad(Math.floor((sec%3600)/60))+':'+pad(sec%60)}
-q('#dateChip').textContent=new Date().toLocaleDateString(undefined,{month:'short',day:'numeric'});
+const KEY='gotv-host-board-v4';
+const defaults={rate:25,mode:'Phone',activeStart:null,activeMode:null,blocks:[],metrics:{attempts:0,answered:0,quality:0,positive:0,voted:0,rides:0}};
+let S=Object.assign({},defaults,JSON.parse(localStorage.getItem(KEY)||'{}'));
+S.metrics=Object.assign({},defaults.metrics,S.metrics||{});
+let stage=0,branch='',vals={notePrefix:'',didVote:'',alreadyVoted:'',needsRide:'',madePlan:''};
 
-function tab(n){qa('.panel').forEach(function(x){x.classList.toggle('active',x.id==='panel-'+n)});qa('[data-tab]').forEach(function(x){x.classList.toggle('active',x.dataset.tab===n)});window.scrollTo({top:0,behavior:'smooth'})}
-qa('[data-tab]').forEach(function(x){x.onclick=function(){tab(x.dataset.tab)}});qa('[data-go]').forEach(function(x){x.onclick=function(){tab(x.dataset.go)}});
+const q=s=>document.querySelector(s),qa=s=>Array.from(document.querySelectorAll(s));
+function save(){localStorage.setItem(KEY,JSON.stringify(S))}
+function name(){return q('#firstName').value.trim()||'[First Name]'}
+function tab(n){qa('.panel').forEach(x=>x.classList.toggle('active',x.id==='panel-'+n));qa('[data-tab]').forEach(x=>x.classList.toggle('active',x.dataset.tab===n));window.scrollTo({top:0,behavior:'smooth'})}
+qa('[data-tab]').forEach(x=>x.onclick=()=>tab(x.dataset.tab));qa('[data-go]').forEach(x=>x.onclick=()=>tab(x.dataset.go));
 
-function totalSeconds(){var s=0;state.blocks.forEach(function(b){s+=Math.max(0,(b.end-b.start)/1000)});if(state.activeStart)s+=Math.max(0,(Date.now()-state.activeStart)/1000);return s}
-function modeSeconds(){var o={Training:0,Phone:0,Doors:0,Admin:0};state.blocks.forEach(function(b){o[b.mode]=(o[b.mode]||0)+Math.max(0,(b.end-b.start)/1000)});if(state.activeStart)o[state.activeMode]=(o[state.activeMode]||0)+Math.max(0,(Date.now()-state.activeStart)/1000);return o}
-function renderTimer(){var s=totalSeconds(),r=Number(state.payRate||25);q('#topTimer').textContent=fmt(s);q('#topPay').textContent=money(s/3600*r);q('#shiftAction').textContent=state.activeStart?'Go to QUEUE':'Start shift'}
-setInterval(renderTimer,1000);q('#payRate').value=state.payRate;q('#payRate').oninput=function(){state.payRate=Math.max(0,Number(this.value||0));save();renderTimer()};
-function setMode(m){state.mode=m;save();qa('[data-mode]').forEach(function(x){x.classList.toggle('active',x.dataset.mode===m)});renderFocus()}
-qa('[data-mode]').forEach(function(x){x.onclick=function(){setMode(x.dataset.mode)}});setMode(state.mode);
-function startShift(){if(state.activeStart)return;var t=q('#manualStart').value,start=Date.now();if(t){var d=new Date(),p=t.split(':');d.setHours(+p[0],+p[1],0,0);if(d.getTime()>Date.now()+60000){alert('That start time is in the future.');return}start=d.getTime()}state.activeStart=start;state.activeMode=state.mode;save();renderTimer()}
-function pauseShift(){if(!state.activeStart)return;state.blocks.push({start:state.activeStart,end:Date.now(),mode:state.activeMode});state.activeStart=null;state.activeMode=null;save();renderTimer()}
-q('#startShift').onclick=startShift;q('#pauseShift').onclick=pauseShift;q('#shiftAction').onclick=function(){if(!state.activeStart)startShift();else tab('queue')};
+function sec(){let s=0;S.blocks.forEach(b=>s+=(b.end-b.start)/1000);if(S.activeStart)s+=(Date.now()-S.activeStart)/1000;return Math.max(0,s)}
+function fmt(s){s=Math.floor(s);return [Math.floor(s/3600),Math.floor((s%3600)/60),s%60].map(x=>String(x).padStart(2,'0')).join(':')}
+function renderTimer(){let s=sec();q('#topTimer').textContent=fmt(s);q('#topPay').textContent='$'+(s/3600*Number(S.rate||25)).toFixed(2)}
+setInterval(renderTimer,1000);renderTimer();
 
-var passCopy={1:{title:'Pass 1 · Door',move:'Work the assigned warm pool in source order. One door at a time.'},2:{title:'Pass 2 · Phone',move:'Work the assigned warm pool in source order. One call at a time.'},3:{title:'Pass 3 · Door',move:'Final follow-up pass. Keep each contact concise and factual.'}};
-function setPass(p){state.pass=+p;save();qa('[data-pass]').forEach(function(x){x.classList.toggle('active',+x.dataset.pass===state.pass)});q('#currentStatus').textContent=passCopy[state.pass].title;q('#focusTitle').textContent=passCopy[state.pass].title;renderFocus();renderProgress()}
-qa('[data-pass]').forEach(function(x){x.onclick=function(){setPass(x.dataset.pass)}});setPass(state.pass);
-function renderFocus(){var text=passCopy[state.pass].move;if(!pool)text='Load your warm list, then work it in source order.';if(state.mode==='Training')text='Finish the training item in front of you, then return to the field workflow.';if(state.mode==='Admin')text='Finish the one admin task in front of you, then return to outreach.';q('#oneMoveText').textContent=text}
-function stableId(c,i){return c.contactId||('row-'+i+'-'+c.name)}
-function outcomeOf(c,i){return state.progress[stableId(c,i)]||null}
-function sourceVoted(c){return truth(c.alreadyVoted)}
-function blockedBySource(c){return /stop\s*contact/i.test(c.lastStatus||'')}
-function isOpen(c,i){return !sourceVoted(c)&&!blockedBySource(c)&&!outcomeOf(c,i)}
-
-function counts(){var o={attempts:0,answered:0,quality:0,voted:0,rides:0,callbacks:0};Object.keys(state.progress).forEach(function(k){var e=state.progress[k];if(!e||!e.outcome)return;o.attempts++;if(['voted','set','location','ballot','ride','question','callback','notint','stop'].includes(e.outcome))o.answered++;if(['voted','location','ballot','ride'].includes(e.outcome))o.quality++;if(e.outcome==='voted')o.voted++;if(e.outcome==='ride')o.rides++;if(e.outcome==='callback')o.callbacks++});return o}
-function renderCounts(){var c=counts();Object.keys(c).forEach(function(k){var e=q('#m-'+k);if(e)e.textContent=c[k]})}
-function renderProgress(){if(!pool||!pool.contacts.length){q('#passProgress').style.width='0%';q('#progressText').textContent='Load warm list to calculate progress.';q('#topQueue').textContent='No list';return}var worked=pool.contacts.filter(function(c,i){return !!outcomeOf(c,i)}).length,total=pool.contacts.length,pct=Math.round(worked/total*100);q('#passProgress').style.width=pct+'%';q('#progressText').textContent=worked+' of '+total+' worked locally · '+pct+'%';q('#topQueue').textContent=worked+'/'+total}
-
-function closeShift(){if(state.activeStart)pauseShift();var sec=totalSeconds();if(sec<1){alert('No local shift time is recorded yet.');return}var c=counts(),m=modeSeconds(),r=Number(state.payRate||25),rec={closedAt:new Date().toISOString(),seconds:Math.round(sec),gross:Number((sec/3600*r).toFixed(2)),rate:r,counts:c,modes:{Training:Math.round(m.Training),Phone:Math.round(m.Phone),Doors:Math.round(m.Doors),Admin:Math.round(m.Admin)},pass:state.pass};state.history.unshift(rec);state.history=state.history.slice(0,12);state.lastCloseout=rec;state.blocks=[];save();showCloseout(rec);renderTimer()}
-q('#closeShift').onclick=function(){if(confirm('Close this local shift and save a local receipt?'))closeShift()};
-function closeoutString(r){return 'GOTV shift closeout · '+new Date(r.closedAt).toLocaleString()+'\nTime: '+fmt(r.seconds)+' · Gross @ '+money(r.rate)+'/hr: '+money(r.gross)+'\nAttempts '+r.counts.attempts+' · Answered '+r.counts.answered+' · Quality '+r.counts.quality+' · Already voted '+r.counts.voted+' · Rides '+r.counts.rides+' · Callbacks '+r.counts.callbacks+'\nMode time: Training '+fmt(r.modes.Training)+' · Phone '+fmt(r.modes.Phone)+' · Doors '+fmt(r.modes.Doors)+' · Admin '+fmt(r.modes.Admin)}
-function showCloseout(r){if(!r)return;q('#closeoutCard').classList.remove('hidden');q('#closeoutText').textContent=closeoutString(r)}
-if(state.lastCloseout)showCloseout(state.lastCloseout);
-
-function copyText(t,b){function done(){var x=b.textContent;b.textContent='Copied';setTimeout(function(){b.textContent=x},900)}if(navigator.clipboard&&window.isSecureContext)navigator.clipboard.writeText(t).then(done).catch(fallback);else fallback();function fallback(){var a=document.createElement('textarea');a.value=t;a.style.position='fixed';a.style.opacity='0';document.body.appendChild(a);a.select();try{document.execCommand('copy');done()}catch(e){}a.remove()}}
-q('#copyCloseout').onclick=function(){copyText(closeoutString(state.lastCloseout),this)};q('#downloadCloseout').onclick=function(){if(!state.lastCloseout)return;downloadJson(state.lastCloseout,'gotv-closeout-'+new Date().toISOString().slice(0,10)+'.json')};
-function downloadJson(x,name){var u=URL.createObjectURL(new Blob([JSON.stringify(x,null,2)],{type:'application/json'})),a=document.createElement('a');a.href=u;a.download=name;a.click();setTimeout(function(){URL.revokeObjectURL(u)},1000)}
-
-function parseExport(text){
-  var raw=String(text||'').replace(/\r/g,''),lines=raw.split('\n').filter(function(x){return x.trim()!==''}),declared=null;
-  lines.forEach(function(l){var m=l.match(/Showing\s+(\d+)\s+of\s+(\d+)/i);if(m)declared=+m[2]});
-  var hi=lines.findIndex(function(l){return l.startsWith('Name\t')});
-  if(hi<0)throw new Error('I could not find the warm-pool column header.');
-  var headers=lines[hi].split('\t'),fields=headers.slice(2),contacts=[];
-  for(var i=hi+1;i<lines.length;i++){
-    var nameLine=lines[i],next=lines[i+1]||'';
-    if(!/\t$/.test(nameLine)&&nameLine.split('\t').length>3)continue;
-    var name=nameLine.split('\t')[0].trim();
-    if(!name||!next.includes('\t'))continue;
-    var vals=next.split('\t'),row={};fields.forEach(function(h,j){row[h]=vals[j]==null?'':vals[j]});
-    contacts.push({
-      name:name,address:row['Address']||'',contactId:row['Contact ID']||'',email:row['Email']||'',
-      homePhone:row['Home Phone']||'',mobilePhone:row['Mobile Phone']||'',
-      lastInteracted:row['Last Interacted With']||'',lastRating:row['Last Rating']||'',lastStatus:row['Last Interaction Status']||'',
-      positiveQuality:row['Positive + Quality Combined Count']||'0',
-      notes:row["Additional House Notes (use this if you've hit the character limit)"]||'',
-      needsRide:row['Needs a ride to the polls?']||'',rideNotes:row['Ride to the polls notes (please include dates/times/any details that will help us coordinate)']||'',
-      votingPlan:row['Did you help them make a voting plan?']||'',alreadyVoted:row['Already Voted?']||'',
-      precinct:row['ts_precinct_code']||''
-    });i++;
-  }
-  if(!contacts.length)throw new Error('No contacts were parsed from this export.');
-  return {loadedAt:new Date().toISOString(),declared:declared,contacts:contacts};
+const scripts=[
+()=> 'Hi '+name()+', it’s Lauren with Community Rising. How are you?',
+()=> 'I’m doing another round of neighborhood check-ins and making sure people know what support is available this week.',
+()=> 'We can help with practical voting stuff too, like official location and hours, nonpartisan ballot information, or transportation if that’s a barrier.',
+()=> 'Are you pretty much all set, or is there anything I can help you figure out?'
+];
+function renderStage(){
+  stage=Math.max(0,Math.min(scripts.length-1,stage));
+  const labels=['LINE 1 · OPEN','LINE 2 · CHECK IN','LINE 3 · OFFER HELP','LINE 4 · HAND THEM THE LANE'];
+  q('#scriptLabel').textContent=labels[stage];
+  q('#scriptLine').textContent=scripts[stage]();
+  q('#responseCard').classList.toggle('hidden',stage<scripts.length-1);
+  q('#nextLine').textContent=stage===scripts.length-1?'RESPONSES':'NEXT';
+  qa('.dot').forEach((d,i)=>{d.classList.toggle('done',i<stage);d.classList.toggle('now',i===stage)});
 }
-function importText(text){
-  try{pool=parseExport(text);savePool();state.currentId=pool.contacts.length?stableId(pool.contacts[0],0):null;save();renderAll();var msg='Loaded '+pool.contacts.length+' contact'+(pool.contacts.length===1?'':'s')+' on this device.';if(pool.declared&&pool.declared!==pool.contacts.length)msg+=' Source screen says '+pool.declared+' total, so this file appears to contain only part of the list.';q('#importMessage').innerHTML='<div class="'+(pool.declared&&pool.declared!==pool.contacts.length?'notice':'receipt')+'">'+esc(msg)+'</div>'}catch(e){q('#importMessage').innerHTML='<div class="alert"><strong>Import problem:</strong> '+esc(e.message)+'</div>'}
-}
-q('#warmFile').onchange=function(){var f=this.files&&this.files[0];if(!f)return;var r=new FileReader();r.onload=function(){importText(r.result)};r.readAsText(f)};
-q('#showPaste').onclick=function(){q('#pasteBox').classList.toggle('hidden')};q('#parsePaste').onclick=function(){importText(q('#warmPaste').value)};
-var drop=q('#dropZone');['dragenter','dragover'].forEach(function(n){drop.addEventListener(n,function(e){e.preventDefault();drop.classList.add('drag')})});['dragleave','drop'].forEach(function(n){drop.addEventListener(n,function(e){e.preventDefault();drop.classList.remove('drag')})});drop.addEventListener('drop',function(e){var f=e.dataTransfer.files&&e.dataTransfer.files[0];if(!f)return;var r=new FileReader();r.onload=function(){importText(r.result)};r.readAsText(f)});
+q('#firstName').oninput=()=>{renderStage();buildNote();q('#topContact').textContent=q('#firstName').value.trim()||'Ready'};
+q('#nextLine').onclick=()=>{if(stage<scripts.length-1){stage++;renderStage()}else q('#responseCard').scrollIntoView({behavior:'smooth'})};
+q('#prevLine').onclick=()=>{stage--;renderStage()};
+q('#restartCall').onclick=()=>{stage=0;branch='';q('#branchBox').innerHTML='';qa('.resp').forEach(x=>x.classList.remove('active'));renderStage()};
+renderStage();
 
-function currentIndex(){if(!pool||!pool.contacts.length)return -1;var idx=pool.contacts.findIndex(function(c,i){return stableId(c,i)===state.currentId});return idx<0?0:idx}
-function currentContact(){var i=currentIndex();return i<0?null:pool.contacts[i]}
-function setCurrent(i){if(!pool||!pool.contacts.length)return;i=Math.max(0,Math.min(pool.contacts.length-1,i));state.currentId=stableId(pool.contacts[i],i);save();renderAll()}
-function visibleContacts(){if(!pool)return[];var term=q('#queueSearch').value.trim().toLowerCase(),f=state.filter;return pool.contacts.map(function(c,i){return {c:c,i:i,id:stableId(c,i)}}).filter(function(x){var p=outcomeOf(x.c,x.i),match=!term||(x.c.name+' '+x.c.contactId).toLowerCase().includes(term);if(!match)return false;if(f==='open')return isOpen(x.c,x.i);if(f==='worked')return !!p;if(f==='voted')return sourceVoted(x.c)||(p&&p.outcome==='voted');if(f==='ride')return truth(x.c.needsRide)||(p&&p.outcome==='ride');return true})}
-function nextOpen(from,dir){if(!pool)return -1;var n=pool.contacts.length;for(var step=1;step<=n;step++){var i=(from+dir*step+n)%n;if(isOpen(pool.contacts[i],i))return i}return from}
-
-function renderQueue(){
-  var has=!!(pool&&pool.contacts&&pool.contacts.length);q('#queueCard').classList.toggle('hidden',!has);q('#activeContactCard').classList.toggle('hidden',!has);q('#queueListCard').classList.toggle('hidden',!has);q('#queueManageCard').classList.toggle('hidden',!has);
-  if(!has){renderProgress();return}
-  var worked=pool.contacts.filter(function(c,i){return !!outcomeOf(c,i)}).length,open=pool.contacts.filter(isOpen).length,srcV=pool.contacts.filter(sourceVoted).length;
-  q('#q-loaded').textContent=pool.contacts.length;q('#q-open').textContent=open;q('#q-worked').textContent=worked;q('#q-voted').textContent=srcV;
-  var i=currentIndex(),c=pool.contacts[i],p=outcomeOf(c,i);
-  q('#qName').textContent=c.name||'Unnamed';q('#qMeta').textContent=(i+1)+' of '+pool.contacts.length+(p?' · worked locally: '+p.outcome:'');
-  q('#qPhone').textContent=c.mobilePhone||c.homePhone||'—';q('#qAddress').textContent=c.address||'—';q('#qLast').textContent=[c.lastInteracted,c.lastStatus].filter(Boolean).join(' · ')||'—';q('#qId').textContent=c.contactId||'—';q('#qQuality').textContent=c.positiveQuality||'0';q('#qRide').textContent=c.needsRide||'—';q('#qPlan').textContent=c.votingPlan||'—';q('#qAlready').textContent=c.alreadyVoted||'—';
-  var notes=[c.notes,c.rideNotes].filter(Boolean);q('#qNotes').innerHTML=notes.length?notes.map(function(n){return '<p>'+esc(n)+'</p>'}).join(''):'<p>No operational notes in the imported fields.</p>';q('#opsNotesWrap').classList.toggle('hidden',!notes.length);
-  var badges=[];if(sourceVoted(c))badges.push('<span class="chip green">SOURCE: ALREADY VOTED</span>');if(blockedBySource(c))badges.push('<span class="chip red">SOURCE: STOP CONTACT</span>');if(truth(c.needsRide))badges.push('<span class="chip yellow">RIDE FLAG</span>');if(+c.positiveQuality>0)badges.push('<span class="chip pink">'+esc(c.positiveQuality)+' prior positive/quality</span>');if(p)badges.push('<span class="chip">TODAY: '+esc(p.outcome)+'</span>');q('#qBadges').innerHTML=badges.join('');
-  var rows=visibleContacts();q('#queueListTitle').textContent=(state.filter==='open'?'Open':state.filter==='worked'?'Worked today':state.filter==='voted'?'Already voted':state.filter==='ride'?'Ride flags':'All')+' · '+rows.length;
-  q('#queueRows').innerHTML=rows.slice(0,80).map(function(x){var pp=outcomeOf(x.c,x.i),st=sourceVoted(x.c)?'source voted':blockedBySource(x.c)?'stop contact':pp?pp.outcome:'open';return '<button class="listRow '+(x.i===i?'active':'')+'" data-qi="'+x.i+'"><div><strong>'+esc(x.c.name)+'</strong><span>'+esc([x.c.lastInteracted,x.c.lastStatus].filter(Boolean).join(' · ')||x.c.contactId)+'</span></div><span class="state">'+esc(st)+'</span></button>'}).join('')||'<div class="notice">No contacts match this view.</div>';
-  qa('[data-qi]').forEach(function(b){b.onclick=function(){setCurrent(+b.dataset.qi);q('#activeContactCard').scrollIntoView({behavior:'smooth',block:'start'})}});
-  q('#topQueue').textContent=worked+'/'+pool.contacts.length;renderProgress();renderCall();
-}
-q('#queueSearch').oninput=renderQueue;qa('[data-filter]').forEach(function(b){b.onclick=function(){state.filter=b.dataset.filter;save();qa('[data-filter]').forEach(function(x){x.classList.toggle('active',x.dataset.filter===state.filter)});renderQueue()}});
-q('#prevContact').onclick=function(){setCurrent(nextOpen(currentIndex(),-1))};q('#nextContact').onclick=function(){setCurrent(nextOpen(currentIndex(),1))};q('#openCall').onclick=function(){renderCall();tab('call')};
-q('#forgetList').onclick=function(){if(confirm('Forget the imported warm list on this device? Your eCanvasser data is unaffected.')){pool=null;savePool();state.currentId=null;state.progress={};save();renderAll()}};
-q('#exportProgress').onclick=function(){if(!pool)return;downloadJson({exportedAt:new Date().toISOString(),sourceCount:pool.contacts.length,progress:state.progress},'gotv-local-progress-'+new Date().toISOString().slice(0,10)+'.json')};
-
-function firstNameOf(name){return String(name||'').trim().split(/\s+/)[0]||'[First Name]'}
-function buildScript(){var c=currentContact(),n=firstNameOf(c&&c.name),s;if(tone==='quick')s='Hi '+n+', it’s Lauren with Community Rising. Quick neighborhood check-in: we’re helping with voting logistics this week, things like locations, ballot information, and transportation. Are you pretty much all set, or do you need anything?';else if(tone==='warm')s='Hi '+n+', it’s Lauren with Community Rising. How’ve you been? I’m checking back in with some of the folks I’ve connected with around the neighborhood. We’re helping with practical voting logistics this week too, so if you need a location, ballot information, or help with transportation, I can point you in the right direction. Are you all set?';else s='Hi '+n+', it’s Lauren with Community Rising. How are you? I’m doing another round of neighborhood check-ins and making sure folks know what support is available this week. We can help with practical voting stuff too, like early-vote locations, ballot information, or transportation. Are you pretty much set, or is there anything I can help you figure out?';q('#scriptText').textContent=s}
-qa('[data-tone]').forEach(function(b){b.onclick=function(){tone=b.dataset.tone;qa('[data-tone]').forEach(function(x){x.classList.toggle('active',x===b)});buildScript()}});
-function renderCall(){var c=currentContact();q('#callName').textContent=c?c.name:'No warm list loaded';q('#callContext').textContent=c?[c.mobilePhone||c.homePhone,c.lastInteracted,c.lastStatus].filter(Boolean).join(' · '):'Load your list in QUEUE, or use the generic script below.';buildScript()}
-
-var outcomes={
-voted:{say:'Okay, love that. You’re all set. I’m going to mark you as done on my end so you don’t keep getting GOTV check-ins from me. Have a good one!',log:'Mark the actual call disposition, mark already voted, and stop further GOTV contact.',level:'Quality',note:'Confirmed already voted'},
-set:{say:'Perfect. I mainly wanted to make sure you knew the help was there. If anything changes, call or text me.',log:'Log only what they actually said. Do not invent a voting plan.',level:'Positive',note:'Community check-in only'},
-location:{say:'Absolutely. Let me pull up the official information so I give you the right location and hours.',log:'Verify county and site before sharing. Record a plan only if they actually make one.',level:'Quality',note:'Provided early-voting location or hours'},
-ballot:{say:'Yep. I can send you a nonpartisan ballot lookup so you can see exactly what’s on your ballot and read through it yourself.',log:'Use Georgia My Voter Page and/or VOTE411. Stay neutral about candidates and choices.',level:'Quality',note:'Provided nonpartisan ballot information'},
-ride:{say:'I can help get the ride request started. What day or time would work best, and is this still the best number for someone to reach you?',log:'Use the current ride-request workflow in eCanvasser. Do not promise a pickup you do not control.',level:'Quality',note:'Requested ride assistance'},
-question:{say:'Tell me what you’re trying to figure out. If I don’t know it, I’ll pull up the official information rather than guess.',log:'Use an official or nonpartisan source. Keep the note factual.',level:'Quality',note:'Community check-in only'},
-callback:{say:'Absolutely. What time would be better for me to check back?',log:'Log Call Back and requested timing.',level:'Contact',note:'Requested callback'},
-notint:{say:'No problem. I appreciate you taking the call. Have a good one.',log:'Log Not Interested.',level:'Contact',note:'Community check-in only'},
-stop:{say:'Got it. I’ll update that on my end. Take care.',log:'STOP CONTACT. Record the opt-out accurately and do not call or text again.',level:'Contact',note:'Community check-in only',stop:true},
-voicemail:{say:'Hi [First Name], it’s Lauren with Community Rising. I’m checking in with some neighbors and making sure people have the voting information or logistical help they need this week. Feel free to call or text me back at this number. Talk soon.',log:'Use the correct left-message/voicemail disposition. Do not mark Answered.',level:'Contact',note:'Community check-in only'},
-noanswer:{say:'No script needed unless you leave an approved voicemail.',log:'Use the correct No Answer disposition. Do not mark Answered.',level:'Contact',note:'Community check-in only'},
-wrong:{say:'Sorry about that. Thanks for letting me know.',log:'Log Wrong Number and update/remove the bad number as required.',level:'Contact',note:'Community check-in only'},
-disc:{say:'No script needed.',log:'Log line broken/disconnected. Do not count as Answered.',level:'Contact',note:'Community check-in only'}
+const R={
+voted:["Okay, perfect. I’m glad you got it done. I’ll update my notes so you don’t keep getting GOTV check-ins from me.","Set Did they vote = Yes and Already Voted = Yes. Log the interaction and stop further GOTV contact."],
+allset:["Perfect. I mainly wanted to make sure you knew the help was available. If anything comes up, you have my number.","Log only what they actually said. No need to force a plan."],
+notyet:["No problem. If it helps, I can give you the official options and hours and you can decide what works best for you.","If they actually choose a day, place, or method, mark voting plan = Yes and capture the details."],
+location:["Absolutely. Let me pull up the official information so I give you the right location and hours.","Open HELP and use the official source before sharing location details."],
+ballot:["Yep. I can send you a nonpartisan ballot lookup so you can see exactly what’s on your ballot and read through it yourself.","Use Georgia My Voter Page or VOTE411. Do not recommend candidates."],
+ride:["I can help get the ride request started. What day or time would work best, and is this still the best number for someone to reach you?","Set Needs a ride = Yes. Use Quality. Add ride notes and confirm the best number. Program Team handles coordination."],
+time:["Totally. If you want, I can send you the official voting hours so you can see whether any option fits.","Keep it logistical. If they make a plan, record it."],
+mail:["Got it. If you need it, I can send you the official place to check ballot status or return information.","Use official information and record only what they tell you."],
+skeptical:["I understand. I’m not here to tell you what to do. If you want official voting information or have a logistics question, I can help with that.","Stay neutral. Do not argue."],
+who:["That’s your decision. I work with a nonpartisan program, so I can’t tell you who to vote for. I can send you nonpartisan information about what’s on your ballot.","Use VOTE411 or Georgia My Voter Page."],
+callback:["Absolutely. What time would be better for me to check back?","Set Call Back and put the timing in Additional House Notes."],
+notint:["No problem. I appreciate you taking the call. Have a good one.","Set Not Interested."],
+stop:["Got it. I’ll update that on my end. Take care.","Set STOP CONTACT. Do not contact again."],
+voicemail:["Hi "+name()+", it’s Lauren with Community Rising. I’m checking in and making sure people have the voting information or logistical help they need this week. Feel free to call or text me back at this number.","Set Left Message. Do not mark Answered."],
+noanswer:["No live script needed.","Set No Answer. Do not mark Answered."],
+wrong:["Sorry about that. Thanks for letting me know.","Set Wrong Number and update the bad number in the official system."],
+disc:["No live script needed.","Set Disconnected. Do not mark Answered."]
 };
-function selectOutcome(k){var c=currentContact(),i=currentIndex(),o=outcomes[k];qa('.outcome').forEach(function(x){x.classList.toggle('active',x.dataset.outcome===k)});q('#outcomeReply').innerHTML='<div class="'+(o.stop?'replyBox stopBox':'replyBox')+'"><strong>SAY:</strong><p>'+esc(o.say.replace('[First Name]',firstNameOf(c&&c.name)))+'</p></div><div class="logBox"><strong>THEN:</strong><p>'+esc(o.log)+'</p></div><div class="actions"><button class="btn purple" id="buildLog">Build LOG</button><button class="btn lime" id="outcomeNext">Next person →</button><button class="btn" id="openHelp">Resources</button></div>';if(c){state.progress[stableId(c,i)]={outcome:k,at:Date.now(),noteLevel:o.level,noteOutcome:o.note};save();renderCounts();renderProgress();renderQueue()}
-q('#buildLog').onclick=function(){seedLog(o);tab('log')};q('#outcomeNext').onclick=function(){advanceNext()};q('#openHelp').onclick=function(){tab('help')}}
-qa('.outcome').forEach(function(b){b.onclick=function(){selectOutcome(b.dataset.outcome)}});
 
-function seedLog(o){var c=currentContact();q('#logName').value=c?firstNameOf(c.name):'';q('#noteLevel').value=o.level;q('#noteOutcome').value=o.note;q('#noteDetails').value='';q('#noteNext').value='';buildNote()}
-function buildNote(){var n=q('#logName').value.trim()||'[First Name]',level=q('#noteLevel').value,out=q('#noteOutcome').value,det=q('#noteDetails').value.trim(),nx=q('#noteNext').value.trim(),d=new Date(),s=level+' '+(d.getMonth()+1)+'/'+d.getDate()+' '+n+': '+out+'.';if(det)s+=' '+det.replace(/\s+/g,' ');if(nx)s+=' Next step: '+nx.replace(/\s+/g,' ')+'.';q('#notePreview').textContent=s}
-['logName','noteLevel','noteOutcome','noteDetails','noteNext'].forEach(function(id){q('#'+id).addEventListener('input',buildNote);q('#'+id).addEventListener('change',buildNote)});buildNote();
-q('#copyNote').onclick=function(){copyText(q('#notePreview').textContent,this)};q('#clearNote').onclick=function(){q('#logName').value='';q('#noteDetails').value='';q('#noteNext').value='';q('#noteLevel').value='Quality';q('#noteOutcome').selectedIndex=0;buildNote()};
-function advanceNext(){if(!pool){tab('queue');return}var ni=nextOpen(currentIndex(),1);setCurrent(ni);q('#outcomeReply').innerHTML='';qa('.outcome').forEach(function(x){x.classList.remove('active')});q('#logName').value='';q('#noteDetails').value='';q('#noteNext').value='';buildNote();tab('queue')}
-q('#logNext').onclick=advanceNext;
+qa('.resp').forEach(b=>b.onclick=()=>{
+  branch=b.dataset.r;
+  qa('.resp').forEach(x=>x.classList.toggle('active',x===b));
+  const r=R[branch];
+  q('#branchBox').innerHTML='<div class="saybox"><b>SAY:</b><p>'+r[0]+'</p></div><div class="logbox"><b>THEN:</b><p>'+r[1]+'</p></div><div class="actions"><button class="btn primary" id="openTasks">FINISH TASKS</button><button class="btn" id="openNotes">HOUSE NOTES</button><button class="btn" id="openHelp">HELP</button></div>';
+  preset();
+  q('#openTasks').onclick=()=>tab('tasks');q('#openNotes').onclick=()=>tab('notes');q('#openHelp').onclick=()=>tab('help');
+});
 
-function renderAll(){qa('[data-filter]').forEach(function(x){x.classList.toggle('active',x.dataset.filter===state.filter)});renderTimer();renderCounts();renderProgress();renderFocus();renderQueue();renderCall()}
-renderAll();
+function setSeg(k,v){vals[k]=v;qa('[data-seg="'+k+'"] button').forEach(x=>x.classList.toggle('active',x.dataset.v===v));if(k==='needsRide')q('#rideNotesWrap').classList.toggle('hidden',v!=='Yes');if(k==='madePlan')q('#planWrap').classList.toggle('hidden',v!=='Yes');renderRail();buildNote()}
+qa('[data-seg] button').forEach(b=>b.onclick=()=>setSeg(b.parentElement.dataset.seg,b.dataset.v));
+
+function preset(){
+  if(branch==='voted'){q('#interactionStatus').value='Answered';setSeg('notePrefix','Quality');setSeg('didVote','Yes');setSeg('alreadyVoted','Yes')}
+  else if(branch==='ride'){q('#interactionStatus').value='Answered';setSeg('notePrefix','Quality');setSeg('needsRide','Yes')}
+  else if(branch==='callback')q('#interactionStatus').value='Call Back';
+  else if(branch==='notint')q('#interactionStatus').value='Not Interested';
+  else if(branch==='stop')q('#interactionStatus').value='STOP CONTACT';
+  else if(branch==='voicemail')q('#interactionStatus').value='Left Message';
+  else if(branch==='noanswer')q('#interactionStatus').value='No Answer';
+  else if(branch==='wrong')q('#interactionStatus').value='Wrong Number';
+  else if(branch==='disc')q('#interactionStatus').value='Disconnected';
+  renderRail();buildNote();
+}
+
+q('#interactionStatus').onchange=()=>{renderRail();buildNote()};
+['rideNotes','planDetails','houseNotes'].forEach(id=>q('#'+id).oninput=buildNote);
+
+function renderRail(){
+  const st=q('#interactionStatus').value||'Not set';
+  q('#railInteraction').textContent=st;
+  q('#railPQ').textContent=vals.notePrefix||'Not set';
+  q('#railDidVote').textContent=vals.didVote||'Not set';
+  q('#railRide').textContent=vals.needsRide||'Not set';
+  q('#railPlan').textContent=vals.madePlan||'Not set';
+  q('#railAlready').textContent=vals.alreadyVoted||'Not set';
+}
+
+function checklist(){
+  const st=q('#interactionStatus').value,answered=st==='Answered',ride=vals.needsRide==='Yes',plan=vals.madePlan==='Yes';
+  const items=[
+    ['Interaction status selected',!!st],
+    ['Positive or Quality chosen for an answered conversation',!answered||!!vals.notePrefix],
+    ['Did they vote? accounted for on a live GOTV conversation',!answered||!!vals.didVote],
+    ['Already Voted? accounted for when relevant',!(vals.didVote==='Yes')||vals.alreadyVoted==='Yes'],
+    ['Ride details captured when Needs a ride = Yes',!ride||!!q('#rideNotes').value.trim()],
+    ['Voting-plan details captured when plan = Yes',!plan||!!q('#planDetails').value.trim()],
+    ['Additional House Notes completed for a live conversation',!answered||!!q('#houseNotes').value.trim()]
+  ];
+  q('#readyChecklist').innerHTML=items.map(x=>'<div class="check '+(x[1]?'done':'')+'"><span class="checkdot"></span><span>'+x[0]+'</span></div>').join('');
+  return items.every(x=>x[1]);
+}
+
+function buildNote(){
+  const st=q('#interactionStatus').value,answered=st==='Answered',prefix=answered?(vals.notePrefix||''):'';
+  const d=new Date(),ds=(d.getMonth()+1)+'/'+d.getDate(),bits=[];
+  if(q('#houseNotes').value.trim())bits.push(q('#houseNotes').value.trim());
+  if(vals.didVote)bits.push('Did they vote: '+vals.didVote+'.');
+  if(vals.alreadyVoted)bits.push('Already Voted: '+vals.alreadyVoted+'.');
+  if(vals.needsRide)bits.push('Needs a ride to the polls: '+vals.needsRide+'.');
+  if(vals.needsRide==='Yes'&&q('#rideNotes').value.trim())bits.push('Ride to the polls notes: '+q('#rideNotes').value.trim()+'.');
+  if(vals.madePlan)bits.push('Helped make a voting plan: '+vals.madePlan+'.');
+  if(vals.madePlan==='Yes'&&q('#planDetails').value.trim())bits.push('Voting plan: '+q('#planDetails').value.trim()+'.');
+  const head=(prefix?prefix+' ':'')+ds+' '+name()+': ';
+  q('#notePreview').textContent=head+(bits.join(' ')||'[add factual notes]');
+  checklist();renderRail();
+}
+buildNote();renderRail();
+
+q('#copyNote').onclick=()=>{
+  if(navigator.clipboard)navigator.clipboard.writeText(q('#notePreview').textContent);
+  const old=q('#copyNote').textContent;q('#copyNote').textContent='Copied';setTimeout(()=>q('#copyNote').textContent=old,900)
+};
+
+function resetContact(){
+  stage=0;branch='';q('#firstName').value='';q('#interactionStatus').value='';q('#rideNotes').value='';q('#planDetails').value='';q('#houseNotes').value='';
+  vals={notePrefix:'',didVote:'',alreadyVoted:'',needsRide:'',madePlan:''};
+  qa('[data-seg] button,.resp').forEach(x=>x.classList.remove('active'));q('#rideNotesWrap').classList.add('hidden');q('#planWrap').classList.add('hidden');q('#branchBox').innerHTML='';q('#topContact').textContent='Ready';renderStage();buildNote()
+}
+q('#resetTasks').onclick=resetContact;
+
+function renderMetrics(){
+  q('#topContact').textContent=q('#firstName').value.trim()||'Ready';
+}
+q('#finishContact').onclick=()=>{
+  if(!checklist()){alert('A required eCanvasser field is still open. Check the READY CHECK.');return}
+  S.metrics.attempts++;
+  const st=q('#interactionStatus').value;
+  if(st==='Answered')S.metrics.answered++;
+  if(vals.notePrefix==='Quality')S.metrics.quality++;
+  if(vals.notePrefix==='Positive')S.metrics.positive++;
+  if(vals.didVote==='Yes'||vals.alreadyVoted==='Yes')S.metrics.voted++;
+  if(vals.needsRide==='Yes')S.metrics.rides++;
+  save();resetContact();tab('host');
+};
+
+q('#resetTasks').onclick=resetContact;
+renderTimer();renderMetrics();
 })();
 </script>
 </body>
