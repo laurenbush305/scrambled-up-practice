@@ -1,7 +1,7 @@
 {
   "serverId": "pub648-20261027",
-  "revision": 7,
-  "updatedAt": "2026-10-27T23:24:39.614Z",
+  "revision": 8,
+  "updatedAt": "2026-10-27T23:25:10.541Z",
   "teams": [
     {
       "name": "Smart Bunnies",
@@ -27,7 +27,7 @@
       "name": "Uncoordinated High-Fives",
       "joker": "",
       "r1": 7,
-      "r2": "",
+      "r2": 7,
       "r3": "",
       "r4": "",
       "r5": "",
