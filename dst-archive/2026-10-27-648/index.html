@@ -18,15 +18,49 @@ table{width:100%;border-collapse:collapse;min-width:900px}th,td{padding:9px 7px;
 </head>
 <body>
 <header><div class="wrap"><div class="top"><div class="brand">Dirty South Trivia · <span>Host Cockpit</span></div><div class="badge">PUB QUIZ 648 · 10/27/26</div></div>
-<div class="tabs"><button class="tab active" data-view="go">GO</button><button class="tab" data-view="host">HOST</button><button class="tab" data-view="score">SCORE</button><button class="tab" data-view="setup">SETUP</button><a class="tab" href="/">ALL SHOWS ↗</a><a class="tab" target="_blank" rel="noopener" href="https://open.spotify.com/playlist/4BIIkosO5Q8AFwDe5fCyC9?si=5f365ce42f03439b">🎵 SPOTIFY ↗</a></div></div></header>
+<div class="tabs"><button class="tab active" data-view="go">GO</button><button class="tab" data-view="host">HOST</button><button class="tab" data-view="score">SCORE</button><button class="tab" data-view="setup">SETUP</button><button class="tab" data-view="extras">OPTIONAL GAMES</button><a class="tab" href="/">ALL SHOWS ↗</a><a class="tab" target="_blank" rel="noopener" href="https://open.spotify.com/playlist/4BIIkosO5Q8AFwDe5fCyC9?si=5f365ce42f03439b">🎵 SPOTIFY ↗</a></div></div></header>
 <main>
 <section id="go" class="view active">
 <div class="card"><div class="eyebrow">Tonight = autopilot</div><div class="title">Pub Quiz 648 · Halloween Edition · 10/27/26</div><div class="read"><div class="readLabel">Your only job</div>Follow the blue READ THIS boxes. Pronunciations and host notes stay separate from the script so you can move fast without guessing.</div><div class="autopilot"><div><b style="color:var(--blue)">BLUE = READ THIS</b>Say it out loud.</div><div><b style="color:var(--yellow)">YELLOW = PRONOUNCE</b>Glance, then keep moving.</div><div><b style="color:#f3b6ff">PURPLE = HOST NOTE</b>For you, not automatically for the mic.</div><div><b style="color:var(--lime)">GREEN = ANSWER</b>Hidden until you reveal it.</div></div><div class="actions"><button class="bigbtn" id="startHost">START HOST MODE</button><button class="bigbtn blue" data-jump="score">SCOREBOARD</button></div></div>
-<div class="card"><div class="eyebrow">Round map</div><div class="read">R1 Random → R2 Please Make It Stop → R3 Out For Blood → R4 One-Star Accommodations (video) → R5 I, Robot or I Read It on the Internet? → R6 Rock the Vote → Tiebreaker only if needed.</div><div class="note">Joker: Eligible in R1–R6 this week, including Round 5. Choose one round per team. Round 6 is worth 2 points per correct answer before any Joker doubling.</div></div>
+<div class="card"><div class="eyebrow">Round map</div><div class="read">R1 Random → R2 Speak of the Dead → R3 Magic: The Gathering → R4 Costume Party (video) → R5 Trick or Trivia? → R6 Dead Giveaways → Tiebreaker only if needed.</div><div class="note">Joker: Eligible in R1–R6 this week, including Round 5. Choose one round per team. Round 6 is worth 2 points per correct answer before any Joker doubling.</div></div>
 <div class="card"><div class="eyebrow">Prizes</div><div class="prize"><label>1st place<input id="p1" placeholder="Tonight's prize"></label><label>2nd place<input id="p2" placeholder="Tonight's prize"></label><label>3rd place<input id="p3" placeholder="Tonight's prize"></label></div></div>
 </section>
 <section id="host" class="view"><div id="stageCard" class="card"></div><div class="stageNav"><button class="bigbtn ghost" id="prevStage">← BACK</button><button class="bigbtn" id="nextStage">NEXT →</button></div></section>
 <section id="score" class="view"><div class="card"><div class="eyebrow">Scoreboard</div><div class="title">Live scores</div><div class="read"><div class="readLabel">Photo workflow</div>Send one score sheet photo at a time in this chat. I grade it. The cockpit fields below are your manual backup until live sync is connected.</div><div id="syncStatus" class="missing">CHAT SYNC CONNECTING…</div><div class="rawWarn">ENTER RAW ROUND SCORE ONLY. If a team used its Joker, choose the Joker round and the cockpit doubles it automatically. Do not type the doubled score.</div><div id="missingBox" class="missing" style="margin-top:12px">Add teams when the first slips come in.</div><div class="actions"><button class="bigbtn blue" id="addTeam">+ ADD TEAM</button><button class="bigbtn ghost" id="clearGame">CLEAR GAME</button></div></div><div class="scoreWrap"><table><thead><tr><th>Team</th><th>Joker</th><th>R1 raw</th><th>R2 raw</th><th>R3 raw</th><th>R4 raw</th><th>R5 raw</th><th>R6 raw pts</th><th>Total</th><th>Rank</th><th></th></tr></thead><tbody id="scoreBody"></tbody></table></div><div class="card" style="margin-top:14px"><div class="eyebrow">Mic-ready</div><div id="micUpdate" class="read">Standings will appear here once scores come in.</div></div><div class="card"><div class="eyebrow">Scoring reminders</div><div class="small"><b>R1-R5:</b> 1 point per correct, max 8. <b>R5:</b> TRUE or FALSE, Joker IS eligible. <b>R6:</b> 2 points per correct, raw max 16. <b>Joker:</b> doubles one eligible round automatically.</div></div></section>
+<section id="extras" class="view">
+  <div class="card">
+    <div class="eyebrow">Off by default · Extras only</div>
+    <div class="title">Optional Mini-Games</div>
+    <div class="read"><div class="readLabel">Your show, your call</div>These are on the shelf if you ever need them. <b>They never appear in the normal HOST sequence and never change trivia scores.</b> You can run all six trivia rounds and ignore this tab entirely.</div>
+  </div>
+  <div class="card">
+    <div class="eyebrow">Optional Game 1 · Unscored</div>
+    <div class="title">Cursed Facebook Marketplace</div>
+    <div class="read"><div class="readLabel">READ THIS · ONLY IF PLAYING</div>
+    All right, I want you to imagine you're selling a <b>cursed object</b> on Facebook Marketplace. Write a listing with the item, its price, and a short description of what makes it cursed.
+    <p>For example: “Antique mirror, $40. Shows you how you'll die. Pickup only.”</p>
+    You can give us up to <b>three listings on one answer sheet</b>. We're looking for the funniest and weirdest answers. I'll play a song while you think. Bring the sheet up when you're done, and we'll choose our favorites!</div>
+    <div class="hostNote"><div class="hostLabel">HOST ONLY</div>Play one song for writing time. Collect one answer sheet per team, up to three listings each. Choose winner(s), or let staff judge. Check submissions before reading them aloud, especially if any are too vulgar for the venue. This activity awards a prize if available, <b>zero trivia points</b>.</div>
+  </div>
+  <div class="card">
+    <div class="eyebrow">Optional Game 2 · Unscored</div>
+    <div class="title">Halloween Music Challenge</div>
+    <div class="read"><div class="readLabel">READ THIS · ONLY IF PLAYING</div>
+    Who wants to win some free drinks? I need <b>six volunteers</b>! We're splitting you into two teams. Each team needs one captain, and <b>only the captain can raise their hand</b> to answer. I'll play a bit of a Halloween song, and your job is to name the <b>artist</b>. Once a captain raises their hand, I'll stop the music. If they miss it, the other team can hear a little more and try. <b>One guess per team per song.</b> First team to three correct artists wins!</div>
+    <div class="hostNote"><div class="hostLabel">HOST ONLY</div>Two groups of three, one captain per group. Play Matt's numbered files in order. The first group to three correct answers wins a round of shots, if approved by the venue. Never add mini-game results to the trivia leaderboard. Music files are in Matt's Dropbox at <b>Wild Heaven / Pub 648 / Mini Game - 648</b>.</div>
+    <div class="pron">PRONOUNCE: BLUE ÖYSTER CULT = BLOO OY-ster KULT · BILLIE EILISH = BIL-ee EYE-lish · DOJA CAT = DOH-juh KAT</div>
+    <div style="overflow-x:auto;margin-top:16px"><table style="min-width:550px"><thead><tr><th>#</th><th>Artist (correct answer)</th><th>Track</th></tr></thead><tbody><tr><td style="width:50px">01</td><td><b>The Cranberries</b></td><td>Zombie</td></tr>
+<tr><td style="width:50px">02</td><td><b>Michael Jackson</b></td><td>Thriller</td></tr>
+<tr><td style="width:50px">03</td><td><b>Rob Zombie</b></td><td>Dragula</td></tr>
+<tr><td style="width:50px">04</td><td><b>Billie Eilish</b></td><td>bury a friend</td></tr>
+<tr><td style="width:50px">05</td><td><b>Blue Öyster Cult</b></td><td>(Don’t Fear) The Reaper</td></tr>
+<tr><td style="width:50px">06</td><td><b>Rihanna</b></td><td>Disturbia</td></tr>
+<tr><td style="width:50px">07</td><td><b>Doja Cat</b></td><td>Demons</td></tr>
+<tr><td style="width:50px">08</td><td><b>Talking Heads</b></td><td>Psycho Killer</td></tr>
+<tr><td style="width:50px">09</td><td><b>Olivia Rodrigo</b></td><td>vampire</td></tr>
+<tr><td style="width:50px">10</td><td><b>DJ Jazzy Jeff &amp; The Fresh Prince</b></td><td>A Nightmare on My Street</td></tr></tbody></table></div>
+  </div>
+</section>
 <section id="setup" class="view"><div class="card"><div class="eyebrow">Setup</div><div class="title">Current setup</div><div class="read">Use the current cord/setup for tonight.</div><div class="grid3" style="margin-top:14px"><div class="setupBox pink">🎤<b>MIC</b>Current setup</div><div class="setupBox yellow">💻<b>LAPTOP / MUSIC</b>Current setup</div><div class="setupBox blue">🔊<b>SPEAKER</b>Current setup</div></div></div></section>
 </main>
 <script>
