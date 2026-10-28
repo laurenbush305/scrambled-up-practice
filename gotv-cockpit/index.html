@@ -88,6 +88,40 @@
 #host .chip small{font-size:11px}
 }
 
+
+/* Desktop operator mode: answer choices alongside the live spoken script. */
+@media(min-width:981px){
+  #host .grid{grid-template-columns:minmax(0,1.68fr) minmax(370px,.83fr);gap:18px;align-items:start}
+  #host .stage-body>.say{font-size:clamp(32px,2.65vw,39px);line-height:1.27;max-width:none}
+  #host .stage-body .script-meta{grid-template-columns:1fr 1fr}
+  #host .task-panel.sticky{top:14px;padding:17px 19px;max-height:calc(100vh - 28px);overflow-y:auto;overscroll-behavior:contain;scrollbar-gutter:stable}
+  #host .desktop-response-dock .connect-results{margin:0 0 13px;gap:7px}
+  #host .desktop-response-dock .connect-results button{padding:7px 9px}
+  #host .desktop-response-dock .responses{margin-top:0}
+  #host .desktop-response-dock .chips{gap:8px}
+  #host .desktop-response-dock .chip{min-height:63px;font-size:13px;padding:10px 11px}
+  #host .desktop-response-dock .chip small{font-size:10px;line-height:1.35}
+  #host .desktop-response-dock .freeze-card{margin:11px 0 16px}
+  #host .desktop-response-dock .freeze-card summary{font-size:12px;padding:10px 12px}
+  #host .desktop-response-dock + .task-top{border-top:1px solid var(--line);padding-top:15px}
+  #host .task-panel .next-task{padding:11px;margin-top:12px}
+  #host .task-panel .next-task h3{font-size:15px}
+  #host .task-panel .next-task p{font-size:11px}
+}
+@media(min-width:981px) and (max-height:790px){
+  #host .stage-body{padding:20px 24px 14px}
+  #host .stage-body>.say{font-size:clamp(31px,2.5vw,36px);line-height:1.23;margin-bottom:14px}
+  #host .stage-body .script-meta{margin-top:12px}
+  #host .stage-body .script-meta>div{padding:10px 12px}
+  #host .stage-top{padding:11px 20px}
+  #host .stage-controls{padding:0 22px 14px}
+  #host .progress{padding:0 22px 14px}
+}
+@media(max-width:980px){
+  #host .desktop-response-dock{margin-bottom:15px}
+  #host .desktop-response-dock .responses{margin-top:8px}
+}
+
 </style>
 </head>
 <body>
@@ -107,7 +141,10 @@
 </article>
 <div class="host-toolbar"><div class="host-phase"><strong id="focus-title">Start with hello.</strong><span id="focus-sub">Read the line. Listen. Tap what you hear.</span></div><button class="utility" id="new-call">Start over</button></div>
 <div class="step-rail" aria-label="Jump between script sections"><button data-step="0">1 · Say why</button><button data-step="1">2 · Offer help</button><button data-step="2">3 · What’s undecided?</button><button data-step="3">4 · Choose the service</button></div>
-<div class="connect-results"><span>No live answer?</span><button data-route="voicemail">Voicemail</button><button data-route="noanswer">No answer</button><button data-route="wrong">Wrong number</button></div>
+<p class="end-note" id="last-receipt">eCanvasser stays open beside you. The next line stays here.</p>
+</div>
+<aside class="panel task-panel sticky" aria-labelledby="tasks-title">
+<div class="desktop-response-dock" aria-label="Call outcomes and responses"><div class="connect-results"><span>No live answer?</span><button data-route="voicemail">Voicemail</button><button data-route="noanswer">No answer</button><button data-route="wrong">Wrong number</button></div>
 <div class="responses" id="responses"><div class="section-head"><span class="eyebrow">What did they say?</span><span class="small muted">Tap the closest answer</span></div>
 <div class="chips" id="response-main">
 <button class="chip" data-route="voted">Already voted<small>Record Yes · assess the check-in</small></button>
@@ -129,9 +166,8 @@
 <p><b>They said a lot:</b> “Okay, I’m going to repeat that back so I make sure I understood you.”</p>
 <div class="backup-tip">Give the reason for calling before relying on someone remembering an earlier conversation.</div>
 </div></details>
-<p class="end-note" id="last-receipt">eCanvasser stays open beside you. The next line stays here.</p>
 </div>
-<aside class="panel task-panel sticky" aria-labelledby="tasks-title">
+
 <div class="task-top"><div><div class="eyebrow">Only what matters now</div><h3 id="tasks-title">Next move</h3></div><span class="count" id="task-count">Not started</span></div>
 <p class="small muted" id="task-hint">A note or confirmation appears only when this branch needs it.</p>
 <div class="next-task" id="next-task" aria-live="polite"><span class="eyebrow">Your next task</span><h3 id="next-task-title">Start the conversation.</h3><p id="next-task-copy">Your notes and task fields will be ready when you need them.</p><button class="utility" id="task-action">Review call fields</button></div>
