@@ -126,6 +126,27 @@
 #host .next-task.review-ready{background:#f5f1ff;border-color:#c8b9ef}
 #host .next-task.review-ready .utility{background:var(--lime);color:var(--ink);text-decoration:none;padding:9px 12px;border-radius:7px;margin-top:8px;font-weight:800}
 #host .next-task.review-ready .utility:focus-visible{outline:3px solid var(--purple);outline-offset:3px}
+
+/* Host 15: laptop-first navigation that reads like a cockpit. */
+#host .desk-flow{display:grid;grid-template-columns:1.05fr 1.35fr .9fr;gap:8px;margin:3px 0 14px}
+#host .desk-flow button{min-height:46px;border:1px solid var(--line);background:#fff;border-radius:11px;font-size:12px;font-weight:900;letter-spacing:.04em;text-align:left;padding:9px 13px}
+#host .desk-flow button span{display:inline-grid;place-items:center;width:23px;height:23px;border-radius:50%;background:var(--ink);color:#fff;margin-right:8px;font-size:11px}
+#host .desk-flow button:hover{border-color:var(--purple);background:#faf8ff}
+#host .stage-top{gap:10px}
+#host .stage-top .stage-reset{margin-left:auto;border:1px solid #ff7fbb;background:#311a30;color:#fff;border-radius:999px;padding:8px 13px;font-size:11px;font-weight:900;letter-spacing:.055em;white-space:nowrap}
+#host .stage-top .stage-reset:hover{background:#4b2442;border-color:#ff9bc8}
+#host .shortcut-note{font-size:10px;color:var(--muted);font-weight:650}
+#host .step-rail{gap:7px}
+#host .step-rail button{min-height:43px;padding:8px 10px;line-height:1.2}
+#host .stage-controls{grid-template-columns:auto minmax(220px,1fr) auto}
+#host .stage-controls .btn{min-height:50px}
+#host .desktop-response-dock>.responses>.section-head{margin-bottom:9px}
+#host .desktop-response-dock>.responses>.section-head .eyebrow{font-size:11px;color:#5e5270}
+@media(max-width:980px){
+  #host .desk-flow{grid-template-columns:1fr 1fr 1fr}
+  #host .desk-flow button{font-size:10px;padding:8px}
+  #host .stage-top .stage-reset{font-size:10px;padding:7px 9px}
+}
 </style>
 </head>
 <body>
@@ -134,17 +155,22 @@
 <nav class="nav" role="tablist" aria-label="Cockpit rooms"><button role="tab" id="tab-host" data-tab="host" aria-controls="host" aria-selected="true">Host the call</button><button role="tab" id="tab-shift" data-tab="shift" aria-controls="shift" aria-selected="false">Shift & receipts</button><button role="tab" id="tab-desk" data-tab="desk" aria-controls="desk" aria-selected="false">Resource desk</button></nav>
 <main>
 <section id="host" role="tabpanel" aria-labelledby="tab-host">
+<div class="desk-flow" aria-label="Call navigation">
+  <button data-desk-jump="script"><span>1</span> SCRIPT</button>
+  <button data-desk-jump="responses"><span>2</span> WHAT THEY SAID</button>
+  <button data-desk-jump="checkout"><span>3</span> CHECKOUT</button>
+</div>
 <div class="grid"><div>
 <article class="stage" aria-labelledby="stage-title">
-<div class="stage-top"><span><span class="live-dot"></span><span id="stage-title">01 / OPEN</span></span><span class="route-position" id="route-position">Opening · 1 of 4</span><span class="eyebrow" id="stage-label">Say this</span></div>
+<div class="stage-top"><span><span class="live-dot"></span><span id="stage-title">01 / OPEN</span></span><span class="route-position" id="route-position">Opening · 1 of 4</span><span class="eyebrow" id="stage-label">Say this</span><button class="stage-reset" id="new-call" type="button">↺ START OVER</button></div>
 <div class="stage-body"><p class="say" id="say" aria-live="polite"></p>
-<div class="continuity-picker" id="continuity-picker" role="group" aria-label="Choose relationship context to adapt the opening"><span>KNOW THEM FROM?</span><button data-touch="spoke" aria-pressed="false">We spoke before</button><button data-touch="stopped" aria-pressed="false">Stopped by / left card</button><button data-touch="new" aria-pressed="false">First contact</button><button data-touch="" aria-pressed="true">Not sure</button></div>
+<div class="continuity-picker" id="continuity-picker" role="group" aria-label="Choose relationship context to adapt the opening"><span>WHAT HAPPENED LAST TIME?</span><button data-touch="spoke" aria-pressed="false">We spoke</button><button data-touch="voicemail" aria-pressed="false">Left voicemail</button><button data-touch="stopped" aria-pressed="false">Stopped by / left card</button><button data-touch="new" aria-pressed="false">First contact</button><button data-touch="" aria-pressed="true">Not sure</button></div>
 <div class="cue" id="cue">Purpose before rapport</div><div class="script-meta"><div><span>Listen for</span><p id="listen-for">Their answer and whether it is a good time.</p></div><div><span>Do now</span><p id="do-now">Pause. Do not fill anything out yet.</p></div></div><div class="script-source"><span>SOURCE</span><strong id="source-note">Community Rising voter card · adapted for a phone call</strong></div><p class="direction" id="direction"></p><div class="route-resources" id="route-resources"></div><p class="return-note" id="return-note" hidden></p></div>
 <div class="stage-controls"><button class="btn ghost" id="back">← Back</button><button class="btn pink" id="next">They answered →</button><button class="btn ghost" id="wrap">Wrap up</button></div>
 <div class="progress" id="progress" aria-label="Opening progress"></div>
 </article>
-<div class="host-toolbar"><div class="host-phase"><strong id="focus-title">Start with hello.</strong><span id="focus-sub">Read the line. Listen. Tap what you hear.</span></div><button class="utility" id="new-call">Start over</button></div>
-<div class="step-rail" aria-label="Jump between script sections"><button data-step="0">1 · Say why</button><button data-step="1">2 · Offer help</button><button data-step="2">3 · What’s undecided?</button><button data-step="3">4 · Choose the service</button></div>
+<div class="host-toolbar"><div class="host-phase"><strong id="focus-title">Start with hello.</strong><span id="focus-sub">Read the line. Listen. Tap what you hear.</span></div><span class="shortcut-note">Alt + ← / → moves through script</span></div>
+<div class="step-rail" aria-label="Jump between script sections"><button data-step="0">👋 OPEN</button><button data-step="1">💬 IF THEY NEED MORE</button><button data-step="2">🧭 WHAT THEY NEED</button><button data-step="3">✅ WRAP</button></div>
 <p class="end-note" id="last-receipt">eCanvasser stays open beside you. The next line stays here.</p>
 </div>
 <aside class="panel task-panel sticky" aria-labelledby="tasks-title">
@@ -238,12 +264,14 @@ let C=Object.assign(blank(),read(KEYS.draft,true)||{}),activeRoom='host';
 C.history=Array.isArray(C.history)?C.history:[];
 C.resumeStack=Array.isArray(C.resumeStack)?C.resumeStack:[];
 const TOUCH_OPENINGS={
-spoke:'Hi [First Name], it’s Lauren, the captain for Decatur with Community Rising. We spoke a little while back. I just wanted to check in before Election Day. Have you already voted, or are you still figuring that part out?',
-stopped:'Hi [First Name], my name is Lauren. I’m the captain for Decatur with Community Rising. I was out in the neighborhood before and may have left one of our cards. I just wanted to check in before Election Day. Have you already voted?',
-new:'Hi [First Name], my name is Lauren. I’m the captain for Decatur with Community Rising. I’m not gonna take up too much of your time. I’m just checking in before Election Day to see if you’ve already voted, or if there’s anything you’re still trying to figure out.',
-'':'Hi [First Name], my name is Lauren. I’m the captain for Decatur with Community Rising. Just calling to check in before Election Day. Have you already voted, or are you still figuring out when you’re going?'
+spoke:'Hi [First Name], it’s Lauren, the captain for Decatur with Community Rising. We spoke a little while back. I just wanted to follow up and see if you’ve already voted or if you’re still figuring out your plan.',
+voicemail:'Hi [First Name], it’s Lauren, the captain for Decatur with Community Rising. I left you a voicemail before, so I just wanted to follow up. Have you already voted, or are you still figuring out your plan?',
+stopped:'Hi [First Name], my name is Lauren. I’m the captain for Decatur with Community Rising. I was out in the neighborhood before and may have left one of our cards. I just wanted to follow up and see if you’ve already voted or if you’re still figuring out your plan.',
+new:'Hi [First Name], my name is Lauren. I’m the captain for Decatur with Community Rising. I’m not gonna take up too much of your time. We’ve been sharing voting information with neighbors, and I wanted to see if you’ve already voted or if you’re still figuring out your plan.',
+'':'Hi [First Name], my name is Lauren. I’m the captain for Decatur with Community Rising. I’m not gonna take up too much of your time. We’ve been sharing voting information with neighbors, and I wanted to see if you’ve already voted or if you’re still figuring out your plan.'
 };
 const VOICEMAILS={
+voicemail:'Hi, this message is for [First Name]. My name is Lauren. I’m the captain for Decatur with Community Rising. I left you a voicemail before and just wanted to follow up. If you have any questions about voting information, feel free to call me or text me back at this number. Have a good one.',
 spoke:'Hi, this message is for [First Name]. My name is Lauren. I’m the captain for Decatur with Community Rising. We spoke before, and I just wanted to follow up before Election Day. If you have any questions about where to vote, what’s on the ballot, or getting there, feel free to call me or text me back at this number. Have a good one.',
 stopped:'Hi, this message is for [First Name]. My name is Lauren. I’m the captain for Decatur with Community Rising. I was out in the neighborhood before and may have left one of our cards. Just calling to check in before Election Day. If you have any questions about voting locations, the ballot, or transportation, feel free to call me or text me back at this number. Have a good one.',
 new:'Hi, this message is for [First Name]. My name is Lauren. I’m the captain for Decatur with Community Rising. Just calling to introduce myself and check in before Election Day. We’ve been reaching out to neighbors about polling places, ballots, and transportation. If you have a question, feel free to call or text me back at this number. Have a good one.',
@@ -280,7 +308,13 @@ close:{label:'Checkout',terminal:true,steps:[{title:'CHECKOUT',cue:'Conversation
 };
 const statusFor={voted:'Answered',allset:'Answered',location:'Answered',ballot:'Answered',ride:'Answered',callback:'Call Back',notyet:'Answered',plan:'Answered',busy:'Answered',who:'Answered',why:'Answered',doubt:'Answered',notinterested:'Not Interested',stop:'STOP CONTACT',voicemail:'No Answer',noanswer:'No Answer',wrong:'Wrong Number',disconnected:'Line broken/disconnected'};
 function room(name){activeRoom=name;applyFocus();$$('[role=tabpanel]').forEach(el=>el.hidden=el.id!==name);$$('[role=tab]').forEach(el=>el.setAttribute('aria-selected',el.dataset.tab===name));$('.mobile-dock').hidden=name!=='host';window.scrollTo({top:0});}
-$$('[data-tab]').forEach(b=>b.addEventListener('click',()=>room(b.dataset.tab)));
+$('[data-tab]').forEach(b=>b.addEventListener('click',()=>room(b.dataset.tab)));
+$('[data-desk-jump]').forEach(b=>b.addEventListener('click',()=>{
+  const where=b.dataset.deskJump;
+  if(where==='script'){$('.stage').scrollIntoView({behavior:'smooth',block:'start'});return;}
+  if(where==='responses'){$('#responses').scrollIntoView({behavior:'smooth',block:'start'});return;}
+  if(where==='checkout'){openReview();$('#all-fields').scrollIntoView({behavior:'smooth',block:'start'});}
+}));
 function setChanged(){C.logged=false;$('#logged').checked=false;$('#note-status').textContent='';$('#validation').textContent='';saveDraft();renderTasks();}
 function saveDraft(){write(KEYS.draft,C,true)}
 function currentScript(){if(!C.route){const r=OPEN[Math.max(0,Math.min(3,C.step))];return C.step===0?{...r,say:TOUCH_OPENINGS[C.touchType]||TOUCH_OPENINGS['']}:r}const route=ROUTES[C.route]||ROUTES.close;const r=route.steps[Math.max(0,Math.min(route.steps.length-1,C.routeStep))];return C.route==='voicemail'?{...r,say:VOICEMAILS[C.touchType]||VOICEMAILS['']}:r}
@@ -345,7 +379,7 @@ else if(C.route==='voted'){title='Already voted. Review the check-in.';copy='Vot
 else if(C.status){title='Stay with the conversation.';copy='No form work right now. Read the big line and tap what they say.';target='stage-title';action='Stay with the script ↑';}
 $('#next-task-title').textContent=title;$('#next-task-copy').textContent=copy;$('#task-action').textContent=action;$('#next-task').classList.toggle('review-ready',C.route==='voted');currentTaskTarget=target;}
 $('#task-action').addEventListener('click',()=>{const target=currentTaskTarget;if(target==='review'||target==='all-fields')openReview();const el=$('#'+target);el.scrollIntoView({behavior:'smooth',block:'center'});const input=el.querySelector('textarea,input:not([type=checkbox])');if(input)input.focus({preventScroll:true})});
-document.addEventListener('keydown',e=>{if(!e.altKey||activeRoom!=='host'||$('#reset-dialog').open||['INPUT','TEXTAREA','SELECT'].includes(document.activeElement.tagName))return;if(e.key==='ArrowRight'){e.preventDefault();$('#next').click()}if(e.key==='ArrowLeft'){e.preventDefault();$('#back').click()}});
+document.addEventListener('keydown',e=>{if(!e.altKey||activeRoom!=='host'||$('#reset-dialog').open||['INPUT','TEXTAREA','SELECT'].includes(document.activeElement.tagName))return;if(e.key==='ArrowRight'){e.preventDefault();$('#next').click()}if(e.key==='ArrowLeft'){e.preventDefault();$('#back').click()}if(e.key.toLowerCase()==='r'){e.preventDefault();$('#new-call').click()}});
 
 renderStage();renderTasks();renderShift();persistShift();setInterval(renderClock,1000);let observedDay=dayKey();setInterval(()=>{const current=dayKey();if(current!==observedDay){observedDay=current;renderShift()}},30000);
 })();
