@@ -28,6 +28,66 @@
 @media(max-width:760px){.plan-card-grid{grid-template-columns:1fr}.script-source{align-items:flex-start;flex-direction:column;gap:2px}}
 .continuity-picker{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin:0 0 11px;padding:9px 11px;background:#fff;border:1px solid var(--line);border-radius:11px}.continuity-picker span{font-size:9px;font-weight:850;letter-spacing:.12em;color:#7557b5;margin-right:4px}.continuity-picker button{border:1px solid #d8d3e4;background:#fff;border-radius:999px;padding:6px 9px;font-size:10px;font-weight:750}.continuity-picker button[aria-pressed=true]{background:var(--ink);border-color:var(--ink);color:#fff}.introvert-note{margin:0 0 11px;padding:9px 12px;border-left:3px solid var(--cyan);background:#eefbfc;color:#3f4656;font-size:11px}.introvert-note strong{color:var(--ink);font-size:9px;letter-spacing:.11em}.freeze-card{margin:0 0 11px;padding:12px 14px;background:#fff8dc;border:1px solid #eadc99;border-radius:11px}.freeze-card>strong{display:block;font-size:9px;letter-spacing:.12em;color:#6f5812;margin-bottom:7px}.freeze-card p{font-size:11px;color:#443f31;margin:4px 0}.freeze-card b{color:var(--ink)}
 @media(max-width:760px){.continuity-picker{align-items:flex-start}.continuity-picker span{width:100%}}
+
+/* Host 14: script-first hierarchy for fast live-call reading. */
+#host>.grid{margin-top:6px}
+#host .stage{border:1px solid #47405b;box-shadow:0 12px 30px #16122614}
+#host .stage-top{padding:13px 25px;background:#19162a}
+#host .stage-body{padding:25px 29px 19px}
+#host .stage-body>.say{font-size:clamp(32px,3.2vw,45px);line-height:1.27;font-weight:690;letter-spacing:-.024em;max-width:38ch;margin:0 0 23px;color:#fff}
+#host .stage-body>.cue{display:none}
+#host .stage-body .script-meta{margin-top:16px}
+#host .stage-body .script-meta>div{padding:12px 14px}
+#host .stage-body .script-meta span{font-size:10px}
+#host .stage-body .script-meta p{font-size:13px;line-height:1.48}
+#host .script-source{margin:15px 0 0;font-size:10px;opacity:.78}
+#host .continuity-picker{margin:0 0 3px;background:#252136;border-color:#4a415f;padding:10px 12px;gap:7px}
+#host .continuity-picker span{color:#b9dfe4;font-size:10px;letter-spacing:.09em}
+#host .continuity-picker button{border-color:#635a76;background:#302b43;color:#fff;font-size:11px;min-height:34px}
+#host .continuity-picker button[aria-pressed=true]{background:var(--lime);border-color:var(--lime);color:var(--ink)}
+#host .stage-controls{padding-top:5px}
+#host .stage-controls #next{font-size:15px;min-height:54px}
+#host .host-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:13px 0 9px}
+#host .host-phase strong{display:block;font-size:13px;color:var(--ink)}
+#host .host-phase span{display:block;font-size:11px;color:var(--muted)}
+#host .host-toolbar .utility{white-space:nowrap}
+#host .step-rail{margin-bottom:14px}
+#host .step-rail button{font-size:11px;min-height:39px}
+#host .responses{margin-top:17px}
+#host .chips{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+#host .chip{font-size:14px;min-height:62px;padding:12px 14px;line-height:1.3}
+#host .chip small{font-size:11px;line-height:1.45;margin-top:4px}
+#host .freeze-card{margin:17px 0 0;padding:0;background:#fff;border:1px solid var(--line);border-radius:12px}
+#host .freeze-card summary{font-size:13px;letter-spacing:0;color:#594d76;font-weight:760;cursor:pointer;padding:13px 15px;list-style-position:inside}
+#host .freeze-card[open] summary{border-bottom:1px solid var(--line)}
+#host .freeze-lines{padding:10px 16px 15px}
+#host .freeze-card p{font-size:13px;line-height:1.55;color:#393347;margin:11px 0}
+#host .freeze-card b{color:var(--ink)}
+#host .backup-tip{border-left:3px solid var(--cyan);padding:8px 10px;background:#f0fafb;font-size:12px;color:#4b5261;margin-top:13px}
+#host .next-task{background:#f8f7fb;border-color:#e6e0ee}
+#host .next-task h3{font-size:17px}
+@media(max-width:760px){
+#host .stage-top{padding:12px 18px}
+#host .stage-body{padding:20px 20px 17px}
+#host .stage-body>.say{font-size:clamp(29px,7.4vw,36px);line-height:1.34;max-width:none;margin-bottom:18px}
+#host .stage-body .script-meta{gap:7px}
+#host .stage-body .script-meta>div{padding:10px 12px}
+#host .continuity-picker{padding:9px 10px}
+#host .continuity-picker span{width:100%}
+#host .continuity-picker button{font-size:10px}
+#host .step-rail button{font-size:10px;padding:7px 4px}
+#host .chips{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+#host .chip{min-height:66px;font-size:13px;padding:11px}
+#host .chip small{font-size:10px}
+#host .host-toolbar{align-items:flex-start}
+}
+@media(max-width:440px){
+#host .stage-body>.say{font-size:30px}
+#host .chips{grid-template-columns:1fr}
+#host .chip{min-height:55px;font-size:14px}
+#host .chip small{font-size:11px}
+}
+
 </style>
 </head>
 <body>
@@ -36,18 +96,17 @@
 <nav class="nav" role="tablist" aria-label="Cockpit rooms"><button role="tab" id="tab-host" data-tab="host" aria-controls="host" aria-selected="true">Host the call</button><button role="tab" id="tab-shift" data-tab="shift" aria-controls="shift" aria-selected="false">Shift & receipts</button><button role="tab" id="tab-desk" data-tab="desk" aria-controls="desk" aria-selected="false">Resource desk</button></nav>
 <main>
 <section id="host" role="tabpanel" aria-labelledby="tab-host">
-<div class="intro"><div><div class="eyebrow">Your live call room</div><h2 id="focus-title">Start with hello.</h2><p id="focus-sub">Read the line. Listen. Tap what you hear.</p></div><button class="utility" id="new-call">Start over</button></div>
 <div class="grid"><div>
-<div class="continuity-picker" role="group" aria-label="Choose the true relationship context"><span>BEFORE YOU DIAL · HOW DO I KNOW THEM?</span><button data-touch="spoke" aria-pressed="false">We spoke before</button><button data-touch="stopped" aria-pressed="false">I stopped by / left a card</button><button data-touch="new" aria-pressed="false">No prior conversation</button><button data-touch="" aria-pressed="true">Not sure</button></div>
-<div class="introvert-note"><strong>INTROVERT MODE:</strong> Give the reason before asking them to remember you. The full language is here so you do not have to invent context while someone is waiting on the phone.</div>
-<div class="freeze-card" aria-label="Rescue lines for unexpected moments"><strong>IF YOUR BRAIN GOES BLANK, SAY ONE OF THESE</strong><p><b>They want the point:</b> “Absolutely. I’m calling for a quick pre-Election Day check-in to find out whether you already voted or need help with anything practical.”</p><p><b>Need a second:</b> “Give me one second. I want to make sure I’m giving you the right information.”</p><p><b>Do not know:</b> “I’m not sure, and I don’t want to guess. Let me write that down and follow up.”</p><p><b>Lost the thread:</b> “Let me slow down for a second. The main thing I want to know is what would be most helpful for you right now.”</p><p><b>They said a lot:</b> “Okay, I’m going to repeat that back so I make sure I understood you.”</p></div>
-<div class="step-rail" aria-label="Script sections"><button data-step="0">1 · Say why</button><button data-step="1">2 · Offer help</button><button data-step="2">3 · What’s undecided?</button><button data-step="3">4 · Choose the service</button></div>
 <article class="stage" aria-labelledby="stage-title">
 <div class="stage-top"><span><span class="live-dot"></span><span id="stage-title">01 / OPEN</span></span><span class="route-position" id="route-position">Opening · 1 of 4</span><span class="eyebrow" id="stage-label">Say this</span></div>
-<div class="stage-body"><div class="cue" id="cue">Take a breath. You know how to do this.</div><div class="script-source"><span>WHY THIS IS HERE</span><strong id="source-note">Community Rising voter card · adapted for a phone call</strong></div><p class="say" id="say" aria-live="polite"></p><div class="script-meta"><div><span>Listen for</span><p id="listen-for">Their answer and whether it is a good time.</p></div><div><span>Do now</span><p id="do-now">Pause. Do not fill anything out yet.</p></div></div><p class="direction" id="direction"></p><div class="route-resources" id="route-resources"></div><p class="return-note" id="return-note" hidden></p></div>
+<div class="stage-body"><p class="say" id="say" aria-live="polite"></p>
+<div class="continuity-picker" id="continuity-picker" role="group" aria-label="Choose relationship context to adapt the opening"><span>KNOW THEM FROM?</span><button data-touch="spoke" aria-pressed="false">We spoke before</button><button data-touch="stopped" aria-pressed="false">Stopped by / left card</button><button data-touch="new" aria-pressed="false">First contact</button><button data-touch="" aria-pressed="true">Not sure</button></div>
+<div class="cue" id="cue">Purpose before rapport</div><div class="script-meta"><div><span>Listen for</span><p id="listen-for">Their answer and whether it is a good time.</p></div><div><span>Do now</span><p id="do-now">Pause. Do not fill anything out yet.</p></div></div><div class="script-source"><span>SOURCE</span><strong id="source-note">Community Rising voter card · adapted for a phone call</strong></div><p class="direction" id="direction"></p><div class="route-resources" id="route-resources"></div><p class="return-note" id="return-note" hidden></p></div>
 <div class="stage-controls"><button class="btn ghost" id="back">← Back</button><button class="btn pink" id="next">They answered →</button><button class="btn ghost" id="wrap">Wrap up</button></div>
 <div class="progress" id="progress" aria-label="Opening progress"></div>
 </article>
+<div class="host-toolbar"><div class="host-phase"><strong id="focus-title">Start with hello.</strong><span id="focus-sub">Read the line. Listen. Tap what you hear.</span></div><button class="utility" id="new-call">Start over</button></div>
+<div class="step-rail" aria-label="Jump between script sections"><button data-step="0">1 · Say why</button><button data-step="1">2 · Offer help</button><button data-step="2">3 · What’s undecided?</button><button data-step="3">4 · Choose the service</button></div>
 <div class="connect-results"><span>No live answer?</span><button data-route="voicemail">Voicemail</button><button data-route="noanswer">No answer</button><button data-route="wrong">Wrong number</button></div>
 <div class="responses" id="responses"><div class="section-head"><span class="eyebrow">What did they say?</span><span class="small muted">Tap the closest answer</span></div>
 <div class="chips" id="response-main">
@@ -62,6 +121,14 @@
 <details class="more" id="more"><summary>More responses & call results</summary><div class="chips">
 <button class="chip" data-route="notyet">Haven’t thought about it</button><button class="chip" data-route="plan">They want help with a plan</button><button class="chip" data-route="busy">I don’t have time</button><button class="chip" data-route="who">Who should I vote for?</button><button class="chip" data-route="doubt">My vote doesn’t matter</button><button class="chip" data-route="notinterested">Not interested</button><button class="chip" data-route="stop">Please stop contacting me</button><button class="chip" data-route="disconnected">Disconnected</button>
 </div></details></div>
+<details class="freeze-card" aria-label="Extra lines for unexpected moments"><summary>Need a line? Open five quick backup phrases</summary><div class="freeze-lines">
+<p><b>They want the point:</b> “Absolutely. I’m calling for a quick pre-Election Day check-in to find out whether you already voted or need help with anything practical.”</p>
+<p><b>Need a second:</b> “Give me one second. I want to make sure I’m giving you the right information.”</p>
+<p><b>Do not know:</b> “I’m not sure, and I don’t want to guess. Let me write that down and follow up.”</p>
+<p><b>Lost the thread:</b> “Let me slow down for a second. The main thing I want to know is what would be most helpful for you right now.”</p>
+<p><b>They said a lot:</b> “Okay, I’m going to repeat that back so I make sure I understood you.”</p>
+<div class="backup-tip">Give the reason for calling before relying on someone remembering an earlier conversation.</div>
+</div></details>
 <p class="end-note" id="last-receipt">eCanvasser stays open beside you. The next line stays here.</p>
 </div>
 <aside class="panel task-panel sticky" aria-labelledby="tasks-title">
@@ -177,7 +244,7 @@ $$('[data-tab]').forEach(b=>b.addEventListener('click',()=>room(b.dataset.tab)))
 function setChanged(){C.logged=false;$('#logged').checked=false;$('#note-status').textContent='';$('#validation').textContent='';saveDraft();renderTasks();}
 function saveDraft(){write(KEYS.draft,C,true)}
 function currentScript(){if(!C.route){const r=OPEN[Math.max(0,Math.min(3,C.step))];return C.step===0?{...r,say:TOUCH_OPENINGS[C.touchType]||TOUCH_OPENINGS['']}:r}const route=ROUTES[C.route]||ROUTES.close;const r=route.steps[Math.max(0,Math.min(route.steps.length-1,C.routeStep))];return C.route==='voicemail'?{...r,say:VOICEMAILS[C.touchType]||VOICEMAILS['']}:r}
-function renderStage(){$$('[data-touch]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.touch===C.touchType));$$('[data-step]').forEach(b=>{if(!C.route&&Number(b.dataset.step)===C.step)b.setAttribute('aria-current','step');else b.removeAttribute('aria-current')});const route=ROUTES[C.route],r=currentScript(),total=route?route.steps.length:OPEN.length,index=route?C.routeStep:C.step;document.body.classList.toggle('checkout',C.route==='close');$('#stage-title').textContent=r.title;$('#stage-label').textContent=C.route==='close'?'Do this now':'Say this';$('#route-position').textContent=(route?route.label:'Opening')+' · '+(index+1)+' of '+total;$('#say').textContent=r.say;$('#cue').textContent=r.cue||'Your next line';$('#listen-for').textContent=r.listen||'Their answer.';$('#do-now').textContent=r.do||r.direction||'Follow the next line.';$('#source-note').textContent=SOURCE_NOTES[C.route||'opening']||'Community Rising workflow';$('#direction').textContent=r.do||r.direction||'';let nextLabel=r.next;if(!nextLabel){if(route){if(index<total-1)nextLabel='Next line →';else if(route.terminal)nextLabel='Go to checkout →';else if(C.resumeStack.length)nextLabel='Return to '+ROUTES[C.resumeStack.at(-1).route].label+' →';else nextLabel='Back to listening →'}else nextLabel=OPEN[C.step].next}$('#next').textContent=nextLabel;$('#next').hidden=C.route==='close';$('#wrap').hidden=C.route==='close';$('#back').disabled=!C.route&&C.step===0&&!C.history.length;$('#focus-title').textContent=C.route==='close'?'Finish the record.':C.route?'One line at a time.':['Say exactly why you called.','Explain the useful part.','Find what is still open.','Handle one thing.'][C.step];$('#focus-sub').textContent=C.route==='close'?'The conversation is over. Only the applicable record is showing.':C.route?'Read the big line, then follow the two small prompts.':'Read the line. Listen. Tap what you hear.';$('#progress').replaceChildren(...Array.from({length:total},(_,i)=>{const e=document.createElement('span');e.className=i<=index?'active':'';return e}));$$('[data-route]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.route===C.route));$('#responses').classList.toggle('is-paused',!!C.route&&C.route!=='close');$('#route-resources').replaceChildren();(LINKS[r.links]||[]).forEach(([text,href])=>{const a=document.createElement('a');a.href=href;a.target='_blank';a.rel='noopener noreferrer';a.textContent=text;$('#route-resources').append(a)});const fieldTarget={ride:'ride-fields',plan:'plan-fields',callback:'callback-fields',voicemail:'voicemail-fields'}[C.route];if(fieldTarget){const b=document.createElement('button');b.textContent='Open the one thing to record ↓';b.addEventListener('click',()=>$('#'+fieldTarget).scrollIntoView({behavior:'smooth',block:'center'}));$('#route-resources').append(b)}const returning=C.resumeStack.length&&C.route!=='close';$('#return-note').hidden=!returning;if(returning)$('#return-note').textContent='After this, I’ll return you to: '+ROUTES[C.resumeStack.at(-1).route].label+'.';renderTasks()}
+function renderStage(){$('[data-touch]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.touch===C.touchType));$('#continuity-picker').hidden=!!C.route;$$('[data-step]').forEach(b=>{if(!C.route&&Number(b.dataset.step)===C.step)b.setAttribute('aria-current','step');else b.removeAttribute('aria-current')});const route=ROUTES[C.route],r=currentScript(),total=route?route.steps.length:OPEN.length,index=route?C.routeStep:C.step;document.body.classList.toggle('checkout',C.route==='close');$('#stage-title').textContent=r.title;$('#stage-label').textContent=C.route==='close'?'Do this now':'Say this';$('#route-position').textContent=(route?route.label:'Opening')+' · '+(index+1)+' of '+total;$('#say').textContent=r.say;$('#cue').textContent=r.cue||'Your next line';$('#listen-for').textContent=r.listen||'Their answer.';$('#do-now').textContent=r.do||r.direction||'Follow the next line.';$('#source-note').textContent=SOURCE_NOTES[C.route||'opening']||'Community Rising workflow';$('#direction').textContent=r.do||r.direction||'';let nextLabel=r.next;if(!nextLabel){if(route){if(index<total-1)nextLabel='Next line →';else if(route.terminal)nextLabel='Go to checkout →';else if(C.resumeStack.length)nextLabel='Return to '+ROUTES[C.resumeStack.at(-1).route].label+' →';else nextLabel='Back to listening →'}else nextLabel=OPEN[C.step].next}$('#next').textContent=nextLabel;$('#next').hidden=C.route==='close';$('#wrap').hidden=C.route==='close';$('#back').disabled=!C.route&&C.step===0&&!C.history.length;$('#focus-title').textContent=C.route==='close'?'Finish the record.':C.route?'One line at a time.':['Say exactly why you called.','Explain the useful part.','Find what is still open.','Handle one thing.'][C.step];$('#focus-sub').textContent=C.route==='close'?'The conversation is over. Only the applicable record is showing.':C.route?'Read the big line, then follow the two small prompts.':'Read the line. Listen. Tap what you hear.';$('#progress').replaceChildren(...Array.from({length:total},(_,i)=>{const e=document.createElement('span');e.className=i<=index?'active':'';return e}));$$('[data-route]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.route===C.route));$('#responses').classList.toggle('is-paused',!!C.route&&C.route!=='close');$('#route-resources').replaceChildren();(LINKS[r.links]||[]).forEach(([text,href])=>{const a=document.createElement('a');a.href=href;a.target='_blank';a.rel='noopener noreferrer';a.textContent=text;$('#route-resources').append(a)});const fieldTarget={ride:'ride-fields',plan:'plan-fields',callback:'callback-fields',voicemail:'voicemail-fields'}[C.route];if(fieldTarget){const b=document.createElement('button');b.textContent='Open the one thing to record ↓';b.addEventListener('click',()=>$('#'+fieldTarget).scrollIntoView({behavior:'smooth',block:'center'}));$('#route-resources').append(b)}const returning=C.resumeStack.length&&C.route!=='close';$('#return-note').hidden=!returning;if(returning)$('#return-note').textContent='After this, I’ll return you to: '+ROUTES[C.resumeStack.at(-1).route].label+'.';renderTasks()}
 function remember(){C.history.push({step:C.step,route:C.route,routeStep:C.routeStep,resumeStack:structuredClone(C.resumeStack)});C.history=C.history.slice(-40)}
 function applyStatus(value){const wasLive=answered();C.status=value;if(!answered()){Object.assign(C,{quality:'N/A',vote:'',already:'',ride:'',plan:'',rideNotes:'',phoneConfirmed:false,rideExplained:false,planNotes:'',planDay:'',planTime:'',planTransport:'',planBring:'',planMail:false,planConfirmed:false,callbackNotes:''});}else if(!wasLive){C.quality='';}}
 function chooseRoute(name){remember();if(C.route&&C.route!=='close'&&C.route!==name)C.resumeStack.push({route:C.route,routeStep:C.routeStep});C.route=name;C.routeStep=0;if(statusFor[name])applyStatus(statusFor[name]);if(name==='voted'){C.vote='Yes';C.already='Yes'}if(name==='ride')C.ride='Yes';if(name==='plan')C.plan='Yes';if(name==='voicemail')C.status=C.messageLeft?'Left Message':'No Answer';if(name==='notinterested'||name==='stop')C.quality='N/A';setChanged();renderStage();$('#more').open=false;}
