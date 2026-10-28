@@ -1,7 +1,7 @@
 {
   "serverId": "pub648-20261027",
-  "revision": 24,
-  "updatedAt": "2026-10-28T00:20:20.623Z",
+  "revision": 25,
+  "updatedAt": "2026-10-28T00:20:47.404Z",
   "teams": [
     {
       "name": "Smart Bunnies",
@@ -31,7 +31,7 @@
       "r3": 8,
       "r4": 8,
       "r5": 8,
-      "r6": ""
+      "r6": 14
     },
     {
       "name": "Mudlarks",
