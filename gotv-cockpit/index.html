@@ -416,8 +416,8 @@ close:{label:'Checkout',terminal:true,steps:[{title:'CHECKOUT',cue:'Conversation
 };
 const statusFor={voted:'Answered',allset:'Answered',location:'Answered',ballot:'Answered',ride:'Answered',callback:'Call Back',notyet:'Answered',plan:'Answered',busy:'Answered',who:'Answered',why:'Answered',doubt:'Answered',notinterested:'Not Interested',stop:'STOP CONTACT',voicemail:'No Answer',noanswer:'No Answer',wrong:'Wrong Number',disconnected:'Line broken/disconnected'};
 function room(name){activeRoom=name;applyFocus();$$('[role=tabpanel]').forEach(el=>el.hidden=el.id!==name);$$('[role=tab]').forEach(el=>el.setAttribute('aria-selected',el.dataset.tab===name));$('.mobile-dock').hidden=name!=='host';window.scrollTo({top:0});}
-$('[data-tab]').forEach(b=>b.addEventListener('click',()=>room(b.dataset.tab)));
-$('[data-desk-jump]').forEach(b=>b.addEventListener('click',()=>{
+$$('[data-tab]').forEach(b=>b.addEventListener('click',()=>room(b.dataset.tab)));
+$$('[data-desk-jump]').forEach(b=>b.addEventListener('click',()=>{
   const where=b.dataset.deskJump;
   if(where==='script'){$('.stage').scrollIntoView({behavior:'smooth',block:'start'});return;}
   if(where==='responses'){$('#responses').scrollIntoView({behavior:'smooth',block:'start'});return;}
@@ -470,7 +470,7 @@ $('#download-receipts').addEventListener('click',()=>{const content=shift.receip
 let focusOn=read('captain-decatur-host-focus')===true;
 function applyFocus(){document.body.classList.toggle('focus',focusOn&&activeRoom==='host');$('#focus-mode').setAttribute('aria-pressed',focusOn);$('#focus-mode').textContent=focusOn?'Exit focus':'Focus view';}
 applyFocus();$('#focus-mode').addEventListener('click',()=>{focusOn=!focusOn;write('captain-decatur-host-focus',focusOn);applyFocus()});
-$('[data-touch]').forEach(b=>b.addEventListener('click',()=>{C.touchType=b.dataset.touch;$('#new-call').textContent='START OVER';saveDraft();renderStage()}));
+$$('[data-touch]').forEach(b=>b.addEventListener('click',()=>{C.touchType=b.dataset.touch;$('#new-call').textContent='START OVER';saveDraft();renderStage()}));
 $$('[data-step]').forEach(b=>b.addEventListener('click',()=>{remember();C.step=Number(b.dataset.step);C.route='';C.routeStep=0;saveDraft();renderStage();renderTasks()}));
 $('#jump-script').addEventListener('click',()=>{room('host');$('.stage').scrollIntoView({behavior:'smooth',block:'start'})});
 $('#jump-tasks').addEventListener('click',()=>{room('host');$('.task-panel').scrollIntoView({behavior:'smooth',block:'start'})});
