@@ -33,3 +33,12 @@ Canonical reusable Notion Skill: https://app.notion.com/p/40625df5cad18120a018c3
 ## Active reference
 Show Vault: https://dirty-south-trivia-show-vault.onrender.com/
 Halloween show 648 (2026-10-27): https://dirty-south-trivia-show-vault.onrender.com/2026-10-27-648/
+
+## 5. Host-stage microphone script and category convention (Lauren's November 3 correction)
+- **Every scored round must display a prominent heading: `CATEGORY: <exact round title>`**, before the spoken questions or introduction. This is a standard operating requirement for every weekly edition.
+- The active on-mic content must read like a real host script that Lauren can say naturally without mental translation. Label it **READ ALOUD** or **READ THIS**; never put an internal packet instruction such as "don't read this question" in the on-mic reading box.
+- **Internet-only Question 1:** provide a short spoken prompt inviting players to find the question at DirtySouthTrivia.com. Keep Matt's original internal direction verbatim in a collapsed host-only reference, with the official answer hidden until reveal.
+- **Weekly rules:** build one clear spoken Joker explanation from this week's *specific* round headers. For Pub 650 only, Joker is permitted in R1–R4, not in Guess Who/R5 or R6. No contradictory general Joker text should appear in the active host notes. Preserve Matt's conflicting boilerplate word-for-word in a collapsed reference labeled "Original Matt packet wording".
+- Preserve all original source sentences in the edition's archived original document or transcript. For the few sections Lauren explicitly requests be adapted into microphone-ready language, put the complete original behind an expandable reference and show the cleaned-up spoken version by default. Otherwise do not edit or shorten any original spoken wording. Source archival fidelity and on-mic usability are both mandatory.
+- For multiple-choice questions, Matt's actual question and all options belong together in the on-mic question box. Put separate yellow **HOST-ONLY PRONOUNCE** cues below, even for simple words. Reveal the correct option only on click. Never fabricate an extra explanation when the packet gives none.
+- Before publishing, personally read the GO -> RULES -> ROUND 1 flow as a live emcee: can Lauren read it straight aloud without encountering notes, contradictory scoring claims, a leaked answer, or vague shorthand? Fix anything that fails.
