@@ -1,6 +1,6 @@
 const http=require("http");
 const BASE="https://raw.githubusercontent.com/laurenbush305/scrambled-up-practice/trivia-cockpit-644/";
-const SCORE_FILES={"pub646-20261020":"dst-host/scores.json","pub648-20261027":"dst-archive/2026-10-27-648/scores.json"};
+const SCORE_FILES={"pub646-20261020":"dst-host/scores.json","pub648-20261027":"dst-archive/2026-10-27-648/scores.json","pub650-20261103":"dst-archive/2026-11-03-650/scores.json"};
 const server=http.createServer(async(req,res)=>{
   res.setHeader("Access-Control-Allow-Origin","*");
   res.setHeader("Cache-Control","no-store, no-cache, must-revalidate");
