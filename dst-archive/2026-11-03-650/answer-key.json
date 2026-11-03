@@ -1,0 +1,211 @@
+{
+  "edition": "2026-11-03",
+  "quizNumber": 650,
+  "sourcePath": "/Wild Heaven/Pub 650/Pub Quiz 650.docx",
+  "internetQuestion": {
+    "url": "https://www.dirtysouthtrivia.com/",
+    "question": "The words “Seoul” and “Kyoto” both mean the same thing in their respective languages. What do they mean?",
+    "answer": "Capital (or capital city)",
+    "verifiedOn": "2026-11-03"
+  },
+  "rounds": [
+    {
+      "number": 1,
+      "title": "Random",
+      "pointsPerCorrect": 1,
+      "maxPoints": 8,
+      "jokerAllowed": true,
+      "answers": [
+        "Capital (or capital city)",
+        "Seven",
+        "Albatross",
+        "Abraham Lincoln",
+        "D. Classic Harley-Davidson engines (CORRECT)",
+        "Lois Lane",
+        "Five",
+        "B. A passageway for crowds entering or leaving a theater or amphitheater (CORRECT)"
+      ],
+      "notes": [
+        "OFFICIAL INTERNET ANSWER · DirtySouthTrivia.com · Seoul/Kyoto (checked 2026-11-03). Do not read the website question aloud.",
+        "",
+        "",
+        "",
+        "MULTIPLE CHOICE — read each answer option, but never say which is correct until revealing.",
+        "",
+        "Alaska, California, Hawaii, Oregon, and Washington",
+        "MULTIPLE CHOICE — read each answer option, but never say which is correct until revealing."
+      ]
+    },
+    {
+      "number": 2,
+      "title": "In The Middle",
+      "pointsPerCorrect": 1,
+      "maxPoints": 8,
+      "jokerAllowed": true,
+      "answers": [
+        "Jessica",
+        "Pulp Fiction",
+        "Lose",
+        "Aim",
+        "Truman",
+        "Insurgent",
+        "Stills",
+        "The Baker"
+      ],
+      "notes": [
+        "the middle name of actress",
+        "Tarantino’s first three released features as sole director",
+        "an ‘80s game show",
+        "military commands & an Imagine Dragons song",
+        "U.S. presidents in order",
+        "Veronica Roth’s book trilogy",
+        "the musical group",
+        "Rub a dub dub, three men in a tub"
+      ]
+    },
+    {
+      "number": 3,
+      "title": "One Simple Word",
+      "pointsPerCorrect": 1,
+      "maxPoints": 8,
+      "jokerAllowed": true,
+      "answers": [
+        "Spare",
+        "Fine",
+        "Still",
+        "Bye",
+        "Mean",
+        "Cheers",
+        "Up",
+        "Man"
+      ],
+      "notes": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "Rain Man, Iron Man, Inside Man, Yes Man"
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Cheap Knockoffs · Video Round",
+      "pointsPerCorrect": 1,
+      "maxPoints": 8,
+      "jokerAllowed": true,
+      "answers": [
+        "Chucky —Child’s Play",
+        "Pac-Man",
+        "My Little Pony",
+        "Freddy Krueger —A Nightmare on Elm Street",
+        "Dwayne “The Rock” Johnson",
+        "The Terminator ",
+        "Rainbow Brite ",
+        "Darth Vader —Star Wars"
+      ]
+    },
+    {
+      "number": 5,
+      "title": "Guess Who",
+      "pointsByClue": [
+        10,
+        8,
+        6,
+        4,
+        2
+      ],
+      "maxPoints": 10,
+      "jokerAllowed": false,
+      "answer": "Wednesday Addams",
+      "oneGuessPerTeam": true,
+      "incorrectPoints": 0,
+      "note": "Matt's generic header says 1 point; specific 5-clue intro establishes 10/8/6/4/2 scoring; use specific clue points."
+    },
+    {
+      "number": 6,
+      "title": "What Year Is It, Anyway?",
+      "pointsPerCorrect": 2,
+      "maxPoints": 16,
+      "jokerAllowed": false,
+      "answers": [
+        "Toronto Raptors",
+        "Greta Thunberg",
+        "An Egg",
+        "Lil Nas X",
+        "Area 51",
+        "The Mandalorian",
+        "James Earl Jones",
+        "2019"
+      ],
+      "notes": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    }
+  ],
+  "tiebreaker": {
+    "question": "To the nearest whole minute, how long after Neil Armstrong did Buzz Aldrin first step onto the Moon? The Price Is Right rules do NOT apply. The closest answer wins.",
+    "answer": "19 minutes",
+    "rule": "Closest wins; over allowed"
+  },
+  "optionalMiniGames": [
+    {
+      "title": "Corporate Apology Mad-Libs",
+      "warning": "Packet's sample intro mistakenly references Powerball"
+    },
+    {
+      "title": "Hip-Hop Music",
+      "tracks": [
+        {
+          "number": 1,
+          "text": "Future – Turn On The Lights"
+        },
+        {
+          "number": 2,
+          "text": "The Pharcyde – Passing Me By"
+        },
+        {
+          "number": 3,
+          "text": "Megan Thee Stallion - Body"
+        },
+        {
+          "number": 4,
+          "text": "Outkast – So Fresh So Clean"
+        },
+        {
+          "number": 5,
+          "text": "Mac Miller – Self Care"
+        },
+        {
+          "number": 6,
+          "text": "Travis Scott - Sicko Mode"
+        },
+        {
+          "number": 7,
+          "text": "Kendrick Lamar – Not Like Us"
+        },
+        {
+          "number": 8,
+          "text": "Arrested Development – Everyday People"
+        },
+        {
+          "number": 9,
+          "text": "Fugees – Fu-Gee-La"
+        },
+        {
+          "number": 10,
+          "text": "Busta Rhymes – Put Your Hands Where My Eyes Can See"
+        }
+      ]
+    }
+  ]
+}
