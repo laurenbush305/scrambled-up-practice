@@ -1,7 +1,7 @@
 {
   "serverId": "pub650-20261103",
-  "revision": 10,
-  "updatedAt": "2026-11-04T01:11:46.591Z",
+  "revision": 11,
+  "updatedAt": "2026-11-04T01:23:09.204Z",
   "teams": [
     {
       "name": "Miss Ashley and her Beautiful Friend, Camille.",
@@ -11,7 +11,7 @@
       "r3": 8,
       "r4": 7,
       "r5": 8,
-      "r6": ""
+      "r6": 10
     },
     {
       "name": "She's From Epiphany",
@@ -21,7 +21,7 @@
       "r3": 8,
       "r4": 7,
       "r5": 6,
-      "r6": ""
+      "r6": 12
     },
     {
       "name": "Stripper Polls",
@@ -31,7 +31,7 @@
       "r3": 8,
       "r4": 8,
       "r5": 8,
-      "r6": ""
+      "r6": 10
     },
     {
       "name": "Bloodbath + Beyond",
@@ -41,7 +41,7 @@
       "r3": 8,
       "r4": 6,
       "r5": 10,
-      "r6": ""
+      "r6": 10
     },
     {
       "name": "Smart Bunnies",
@@ -51,7 +51,7 @@
       "r3": 8,
       "r4": 8,
       "r5": 8,
-      "r6": ""
+      "r6": 16
     }
   ]
 }
