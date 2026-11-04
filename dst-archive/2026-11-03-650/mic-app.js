@@ -17,6 +17,10 @@ function answer(s,q,i){
 function question(n,wording,hint,reveal){return '<article class="q"><div class="qhead">READ ALOUD · QUESTION '+n+'</div><div class="question">'+wording+'</div>'+pron(hint)+'<details class="answer"><summary>REVEAL ANSWER · READ ALOUD</summary><div class="answertext">'+reveal+'</div></details></article>';}
 function render(){
  if(!stages.length)return;step=Math.max(0,Math.min(stages.length-1,step));const s=stages[step],name=s.title;
+ const rm=String(s.label||"").match(/ROUND ([1-6])/);
+ const roundNow=$("round-now");
+ if(rm){roundNow.textContent='ROUND '+rm[1];roundNow.classList.remove('nonround');}
+ else{roundNow.textContent=s.label||'SHOW';roundNow.classList.add('nonround');}
  $("progress").textContent='STEP '+(step+1)+' OF '+stages.length;
  $("category").textContent=s.category?'CATEGORY: '+s.category:name;
  let out="";
