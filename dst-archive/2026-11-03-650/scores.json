@@ -1,7 +1,7 @@
 {
   "serverId": "pub650-20261103",
-  "revision": 2,
-  "updatedAt": "2026-11-04T00:14:28.194Z",
+  "revision": 3,
+  "updatedAt": "2026-11-04T00:23:07.236Z",
   "teams": [
     {
       "name": "Miss Ashley and her Beautiful Friend, Camille.",
@@ -17,7 +17,7 @@
       "name": "She's From Epiphany",
       "joker": "",
       "r1": 6,
-      "r2": "",
+      "r2": 7,
       "r3": "",
       "r4": "",
       "r5": "",
