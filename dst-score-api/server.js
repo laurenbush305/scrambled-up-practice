@@ -10,9 +10,16 @@ const server=http.createServer(async(req,res)=>{
       const url=new URL(req.url,"http://localhost");
       const quiz=url.searchParams.get("quiz")||"pub646-20261020";
       if(!Object.prototype.hasOwnProperty.call(SCORE_FILES,quiz)){res.writeHead(404,{"Content-Type":"application/json"});return res.end(JSON.stringify({error:"Unknown quiz"}));}
-      const r=await fetch(BASE+SCORE_FILES[quiz]+"?t="+Date.now(),{cache:"no-store",headers:{"User-Agent":"dst-score-api"}});
-      const body=await r.text();
-      res.writeHead(r.ok?200:r.status,{"Content-Type":"application/json; charset=utf-8"});
+      const apiUrl="https://api.github.com/repos/laurenbush305/scrambled-up-practice/contents/"+SCORE_FILES[quiz]+"?ref=trivia-cockpit-644&t="+Date.now();
+      const r=await fetch(apiUrl,{cache:"no-store",headers:{"User-Agent":"dst-score-api","Accept":"application/vnd.github+json"}});
+      if(!r.ok){
+        const body=await r.text();
+        res.writeHead(r.status,{"Content-Type":"application/json; charset=utf-8"});
+        return res.end(body);
+      }
+      const file=await r.json();
+      const body=Buffer.from(file.content||"","base64").toString("utf8");
+      res.writeHead(200,{"Content-Type":"application/json; charset=utf-8","Cache-Control":"no-store, no-cache, must-revalidate"});
       return res.end(body);
     }catch(e){res.writeHead(502,{"Content-Type":"application/json"});return res.end(JSON.stringify({error:"score fetch failed"}));}
   }
