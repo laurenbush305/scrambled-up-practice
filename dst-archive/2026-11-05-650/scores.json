@@ -1,7 +1,7 @@
 {
   "serverId": "bone650-20261105",
-  "revision": 1,
-  "updatedAt": "2026-11-06T01:24:31.880Z",
+  "revision": 2,
+  "updatedAt": "2026-11-06T01:35:05.055Z",
   "teams": [
     {
       "name": "Neighbors",
@@ -44,10 +44,10 @@
       "r6": ""
     },
     {
-      "name": "Meme II Sobriety",
-      "joker": "",
+      "name": "Menace II Sobriety",
+      "joker": "R2",
       "r1": 6,
-      "r2": "",
+      "r2": 8,
       "r3": "",
       "r4": "",
       "r5": "",
