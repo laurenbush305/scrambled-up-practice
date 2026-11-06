@@ -118,12 +118,70 @@ select,input{color:var(--ink);background:#fff;border:1.5px solid var(--ink);bord
   .studyTest{justify-content:stretch}.studyTest .btn{width:100%}
 }
 
+
+/* FUN PASS V6 */
+.view.active{animation:viewIn .26s cubic-bezier(.2,.8,.2,1)}
+@keyframes viewIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.modeGrid{grid-template-columns:repeat(3,1fr)}
+.btn:active,.answer:active,.tf:active,.routeNode:active{transform:translate(1px,1px);box-shadow:1px 1px 0 var(--ink)}
+.studyMemory{margin:18px 0 0;padding:14px;border:1.6px dashed var(--grape);border-radius:18px;background:#faf2ff}
+.studyMemory b{color:var(--grape)}
+.memoryControls{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 0}
+.memoryHidden{filter:blur(7px);user-select:none;cursor:pointer;transition:.2s}
+.memoryHidden.revealed{filter:none}
+.passport{display:flex;gap:6px;flex-wrap:wrap;margin:12px 0 4px}
+.stamp{width:34px;height:34px;border:1.5px solid var(--ink);border-radius:50%;display:grid;place-items:center;background:#fff;color:#bcaeb6;font-weight:900}
+.stamp.on{background:#ffe4ee;color:var(--berry);transform:rotate(-7deg)}
+.wineLab{display:grid;grid-template-columns:1.05fr .95fr;gap:18px;align-items:start}
+.wineCardWrap{perspective:1200px}
+.wineCard{min-height:410px;position:relative;transform-style:preserve-3d;transition:transform .5s;cursor:pointer}
+.wineCard.flipped{transform:rotateY(180deg)}
+.wineFace{position:absolute;inset:0;backface-visibility:hidden;border:2px solid var(--ink);border-radius:28px;padding:28px;background:#fff;box-shadow:8px 8px 0 var(--rose);display:flex;flex-direction:column;justify-content:center}
+.wineBack{transform:rotateY(180deg);background:linear-gradient(145deg,#fff7cd,#ffe8f1 55%,#eaf8f5);box-shadow:8px 8px 0 var(--grape)}
+.wineTerm{font:750 clamp(44px,7vw,78px)/.9 var(--display);color:var(--grape);letter-spacing:-.04em}
+.wineCue{font-size:13px;letter-spacing:.12em;font-weight:900;color:var(--berry);margin-bottom:12px}
+.wineDefinition{font:650 clamp(25px,3.2vw,38px)/1.18 var(--display);color:var(--ink)}
+.wineExample{margin-top:18px;padding:12px 14px;border:1.4px solid var(--ink);border-radius:14px;background:#fff;font-size:14px;line-height:1.5}
+.wineSide{border:2px solid var(--ink);border-radius:24px;background:#fff;padding:20px;box-shadow:6px 6px 0 var(--sky)}
+.wineProgressDots{display:flex;gap:7px;flex-wrap:wrap;margin:10px 0 18px}.wineDot{width:24px;height:24px;border-radius:50%;border:1.5px solid var(--ink);background:#fff}.wineDot.on{background:var(--butter)}
+.wineQuizBox{margin-top:18px;padding-top:18px;border-top:1.5px solid var(--line)}
+.routeBuild{min-height:76px;border:2px dashed var(--grape);border-radius:20px;padding:12px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;background:#faf2ff;margin-bottom:16px}
+.routeBuild .placed{padding:9px 11px;border:1.5px solid var(--ink);border-radius:999px;background:#fff4c8;font-weight:800}
+.scrambleChoices{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.scrambleChoice{border:2px solid var(--ink);border-radius:18px;background:#fff;padding:16px;text-align:left;font-weight:900;box-shadow:3px 3px 0 var(--ink)}
+.scrambleChoice:hover{background:#fff0f5}.scrambleChoice.used{opacity:.25;pointer-events:none;box-shadow:none}
+.scrambleChoice.wrong{animation:shake .28s;background:#ffe4e5}
+@keyframes shake{25%{transform:translateX(-5px)}50%{transform:translateX(5px)}75%{transform:translateX(-3px)}}
+.scrambleScore{display:flex;justify-content:space-between;gap:12px;margin:12px 0;font-weight:900;color:var(--grape)}
+.micRecorder{margin-top:18px;border:1.6px solid var(--ink);border-radius:18px;padding:14px;background:#effbfc}
+.micRecorderTop{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.recDot{display:inline-block;width:10px;height:10px;border-radius:50%;background:#bbb;margin-right:6px}.recDot.live{background:#e84e58;animation:pulse 1s infinite}
+@keyframes pulse{50%{opacity:.35}}
+.recTimer{font-weight:900;color:var(--grape);font-variant-numeric:tabular-nums}
+.micPrivacy{font-size:11px;color:#735f6a;margin-top:8px}
+.micRecorder audio{width:100%;margin-top:10px}
+.soundBtn{min-width:44px}
+.gameToast{position:fixed;left:50%;top:18%;transform:translate(-50%,-20px) scale(.95);opacity:0;z-index:200;background:#fff;border:2px solid var(--ink);border-radius:999px;padding:12px 18px;box-shadow:5px 5px 0 var(--grape);font-weight:900;pointer-events:none;transition:.25s}
+.gameToast.show{opacity:1;transform:translate(-50%,0) scale(1)}
+.confettiPiece{position:fixed;z-index:190;pointer-events:none;font-size:22px;animation:confettiFall 1.2s ease-out forwards}
+@keyframes confettiFall{from{transform:translateY(-20px) rotate(0);opacity:1}to{transform:translateY(260px) rotate(320deg);opacity:0}}
+.hqUpgrade{display:grid;grid-template-columns:180px 1fr;gap:18px;align-items:center;margin:16px 0}
+.readyRing{width:160px;height:160px;border-radius:50%;display:grid;place-items:center;position:relative;background:conic-gradient(var(--berry) 0deg,var(--berry) var(--readyDeg),#f1e5e8 var(--readyDeg))}
+.readyRing:after{content:"";position:absolute;inset:16px;border-radius:50%;background:#fff}
+.readyRing b,.readyRing span{position:relative;z-index:1}.readyRing b{font:750 42px/1 var(--display);display:block;text-align:center}.readyRing span{display:block;font-size:10px;letter-spacing:.12em;font-weight:900;color:var(--grape);text-align:center}
+.badgeGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px}
+.funBadge{border:1.6px solid var(--ink);border-radius:16px;padding:13px;background:#f4eeef;color:#a28f9a;min-height:88px}
+.funBadge.on{background:linear-gradient(145deg,#fff4c8,#ffe6ef);color:var(--ink);box-shadow:3px 3px 0 var(--grape)}
+.funBadge b{display:block;margin-bottom:4px}.funBadge span{font-size:11px;line-height:1.35}
+@media(max-width:820px){.modeGrid{grid-template-columns:1fr 1fr}.wineLab,.hqUpgrade{grid-template-columns:1fr}.scrambleChoices{grid-template-columns:1fr}.badgeGrid{grid-template-columns:1fr 1fr}.wineCard{min-height:360px}}
+@media(max-width:520px){.modeGrid{grid-template-columns:1fr}.badgeGrid{grid-template-columns:1fr}.readyRing{margin:auto}}
+
 </style></head><body>
 <div class="countdown" id="countdown"><div><div class="label" id="countLabel">GET READY</div><div class="num" id="countNum">3</div></div></div>
-<div class="app"><header class="top"><div class="wordmark">ATL WINE WALK<span>Host Training Lab</span></div><div class="topstats"><div class="chip hideMobile">GAME READ <b id="gameRead">0</b></div><div class="chip">STREAK <b id="streak">0</b></div><button class="topbtn" id="menuBtn">MENU</button></div></header>
-<div class="menu" id="menu"><button data-nav="home">Home</button><button data-nav="study">Study Mode</button><button data-nav="campaign">Walk the Route</button><button data-nav="rapid">Rapid Pour</button><button data-nav="prohibition">Prohibition Showdown</button><button data-nav="mic">Host Mic Check</button><button data-nav="hq">Progress HQ</button></div>
+<div class="app"><header class="top"><div class="wordmark">ATL WINE WALK<span>Host Training Lab</span></div><div class="topstats"><div class="chip hideMobile">HOST READY <b id="gameRead">0</b></div><div class="chip">STREAK <b id="streak">0</b></div><button class="topbtn" id="menuBtn">MENU</button></div></header>
+<div class="menu" id="menu"><button data-nav="home">Home</button><button data-nav="study">Study Mode</button><button data-nav="wine">Wine 101 Flight</button><button data-nav="scramble">Route Scramble</button><button data-nav="campaign">Walk the Route</button><button data-nav="rapid">Rapid Pour</button><button data-nav="prohibition">Prohibition Showdown</button><button data-nav="mic">Host Mic Check</button><button data-nav="hq">Progress HQ</button></div>
 <main>
-<section id="home" class="view active"><div class="hero"><div><div class="eyebrow">ATLANTA • WINE • STORIES • LET'S GO</div><h1>Learn Atlanta one pour at a time.</h1><p class="lede">Walk the route, unlock each stop, rehearse the stories out loud, play the Prohibition round, and let the game keep track of what needs another sip. Thorough training, but make it fun to open.</p><div class="actions"><button class="btn primary" id="startStudy">START STUDYING →</button><button class="btn wine" id="resumeCampaign">PRACTICE THE ROUTE</button><button class="btn" id="homeRapid">QUIZ ME</button></div></div><div class="heroCard"><div class="heroCopy"><b>Your route is the game.</b><span>4 pours • 2 bonus stories • downtown Atlanta</span></div></div></div><div class="studyFirst"><div><div class="eyebrow">NEW HERE? START HERE.</div><h3>Study the walk before the walk studies you.</h3><p>Learn every stop in order with the actual story beats, wine recommendation, dates, names, and hosting cue. Nothing is graded in Study Mode.</p></div><button class="btn primary" data-nav="study">OPEN STUDY MODE →</button></div><div class="routeStrip" id="homeRoute"></div><div class="modeGrid"><div class="mode"><div><div class="n">01 // MAIN CAMPAIGN</div><h3>Walk the Route</h3><p>One Atlanta stop at a time. Clear Spot Check + Story Recall + Mic Check to unlock the next place.</p></div><button class="btn small" data-nav="campaign">ENTER</button></div><div class="mode"><div><div class="n">02 // QUICK RECALL</div><h3>Rapid Pour</h3><p>10 mixed questions. Training Pace or a timed 20-second Game Pace.</p></div><button class="btn small" data-nav="rapid">PLAY</button></div><div class="mode"><div><div class="n">03 // TOUR GAME</div><h3>Prohibition Showdown</h3><p>The exact 10 True/False prompts from the training script, scored +10 / -5.</p></div><button class="btn small" data-nav="prohibition">PLAY</button></div><div class="mode"><div><div class="n">04 // PERFORMANCE</div><h3>Host Mic Check</h3><p>Speak first. Reveal the anchor beats after. Self-grade the delivery, not your typing.</p></div><button class="btn small" data-nav="mic">REHEARSE</button></div></div><div class="foot">Source basis: your uploaded <strong>Urban Wine Walks: Atlanta, GA</strong> training guide. Venue facts, wine recommendations, history, route order, and the Prohibition game are taken from that source.</div></section>
+<section id="home" class="view active"><div class="hero"><div><div class="eyebrow">ATLANTA • WINE • STORIES • LET'S GO</div><h1>Learn Atlanta one pour at a time.</h1><p class="lede">Walk the route, unlock each stop, rehearse the stories out loud, play the Prohibition round, and let the game keep track of what needs another sip. Thorough training, but make it fun to open.</p><div class="actions"><button class="btn primary" id="startStudy">START STUDYING →</button><button class="btn wine" id="resumeCampaign">PRACTICE THE ROUTE</button><button class="btn" id="homeRapid">QUIZ ME</button></div></div><div class="heroCard"><div class="heroCopy"><b>Your route is the game.</b><span>4 pours • 2 bonus stories • downtown Atlanta</span></div></div></div><div class="studyFirst"><div><div class="eyebrow">NEW HERE? START HERE.</div><h3>Study the walk before the walk studies you.</h3><p>Learn every stop in order with the actual story beats, wine recommendation, dates, names, and hosting cue. Nothing is graded in Study Mode.</p></div><button class="btn primary" data-nav="study">OPEN STUDY MODE →</button></div><div class="routeStrip" id="homeRoute"></div><div class="modeGrid"><div class="mode"><div><div class="n">00 // LEARN THE LANGUAGE</div><h3>Wine 101 Flight</h3><p>Flip through the tour’s wine basics, hide the answers, then pour yourself a five-question check.</p></div><button class="btn small" data-nav="wine">STUDY WINE</button></div><div class="mode"><div><div class="n">01 // MAIN CAMPAIGN</div><h3>Walk the Route</h3><p>One Atlanta stop at a time. Clear Spot Check + Story Recall + Mic Check to unlock the next place.</p></div><button class="btn small" data-nav="campaign">ENTER</button></div><div class="mode"><div><div class="n">02 // QUICK RECALL</div><h3>Rapid Pour</h3><p>10 mixed questions. Training Pace or a timed 20-second Game Pace.</p></div><button class="btn small" data-nav="rapid">PLAY</button></div><div class="mode"><div><div class="n">03 // TOUR GAME</div><h3>Prohibition Showdown</h3><p>The exact 10 True/False prompts from the training script, scored +10 / -5.</p></div><button class="btn small" data-nav="prohibition">PLAY</button></div><div class="mode"><div><div class="n">04 // PERFORMANCE</div><h3>Host Mic Check</h3><p>Speak first. Reveal the anchor beats after. Self-grade the delivery, not your typing.</p></div><button class="btn small" data-nav="mic">REHEARSE</button></div><div class="mode"><div><div class="n">05 // ROUTE MEMORY</div><h3>Route Scramble</h3><p>The stops get shuffled. Put downtown Atlanta back in the right order without peeking.</p></div><button class="btn small" data-nav="scramble">SCRAMBLE IT</button></div></div><div class="foot">Source basis: your uploaded <strong>Urban Wine Walks: Atlanta, GA</strong> training guide. Venue facts, wine recommendations, history, route order, and the Prohibition game are taken from that source.</div></section>
 <section id="study" class="view">
       <div class="sectionHead">
         <div><div class="eyebrow">STUDY MODE // NO QUIZ YET</div><h2>Take the tour before the test.</h2></div>
@@ -133,11 +191,21 @@ select,input{color:var(--ink);background:#fff;border:1.5px solid var(--ink);bord
       <div class="routeStrip" id="studyRoute"></div>
       <div class="focus" id="studyFocus"></div>
     </section>
-<section id="campaign" class="view"><div class="sectionHead"><div><div class="eyebrow">MAIN CAMPAIGN</div><h2>Walk the Route</h2></div><div class="subnote"><span id="sceneCount">0</span>/9 cleared</div></div><div class="routeStrip" id="campaignRoute"></div><div class="focus" id="focus"></div></section>
+<section id="wine" class="view">
+      <div class="sectionHead"><div><div class="eyebrow">WINE 101 FLIGHT</div><h2>Learn the language without becoming annoying.</h2></div><div class="subnote"><span id="wineLearnedCount">0</span>/8 cards learned</div></div>
+      <div class="studyIntro">These are the exact wine concepts your tour script teaches before the first pour. Flip the cards, mark what sticks, then test yourself.</div>
+      <div class="wineLab" id="wineLab"></div>
+    </section>
+    <section id="scramble" class="view">
+      <div class="sectionHead"><div><div class="eyebrow">ROUTE SCRAMBLE</div><h2>Put Atlanta back in order.</h2></div><button class="btn small" id="newScramble">RESHUFFLE</button></div>
+      <div class="studyIntro">Tap the route in the order you would physically host it. One wrong turn does not hurt your score. It just means Atlanta sent you around the block.</div>
+      <div class="scrambleShell" id="scrambleShell"></div>
+    </section>
+    <section id="campaign" class="view"><div class="sectionHead"><div><div class="eyebrow">MAIN CAMPAIGN</div><h2>Walk the Route</h2></div><div class="subnote"><span id="sceneCount">0</span>/9 cleared</div></div><div class="routeStrip" id="campaignRoute"></div><div class="focus" id="focus"></div></section>
 <section id="rapid" class="view"><div class="sectionHead"><div><div class="eyebrow">RAPID POUR</div><h2>Quick recall.</h2></div><div><select id="pace"><option value="training">Training Pace</option><option value="game">Game Pace - 20 sec</option></select> <button class="btn small" id="newRapid">NEW ROUND</button></div></div><div class="gameShell"><div class="gameTop"><span>QUESTION <b id="rapidNum">1</b>/10</span><span id="rapidClock">READY</span></div><div class="question" id="rapidCard"></div></div></section>
 <section id="prohibition" class="view"><div class="sectionHead"><div><div class="eyebrow">PROHIBITION SHOWDOWN</div><h2>True or false?</h2></div><button class="btn small" id="newPro">RESTART</button></div><div class="gameShell"><div class="gameTop"><span>SCORE <b id="proScore">0</b></span><span><b id="proNum">1</b>/10</span></div><div class="question" id="proCard"></div></div></section>
 <section id="mic" class="view"><div class="sectionHead"><div><div class="eyebrow">HOST MIC CHECK</div><h2>Say it like a guide.</h2></div><button class="btn small" id="newMic">NEW PROMPT</button></div><div class="gameShell"><div class="question" id="micCard"></div></div></section>
-<section id="hq" class="view"><div class="sectionHead"><div><div class="eyebrow">PROGRESS HQ</div><h2>The receipts.</h2></div><div><button class="btn small" id="exportBtn">EXPORT</button> <label class="btn small">IMPORT<input id="importInput" type="file" accept=".json" hidden></label></div></div><div class="reportGrid"><div class="stat"><b id="hqRead">0</b><span>Game Read</span></div><div class="stat"><b id="hqAcc">0%</b><span>Accuracy</span></div><div class="stat"><b id="hqScenes">0/9</b><span>Route</span></div><div class="stat"><b id="hqWeak">0</b><span>Rematches</span></div></div><div class="focusBody" style="border:1px solid rgba(245,234,217,.2);background:#1a0d12"><h3>Mastery by lane</h3><div id="bars"></div><h3 style="margin-top:24px">Next mix</h3><div class="coach" id="coach"></div><div class="actions"><button class="btn wine" id="playWeak">PLAY REMATCH ROUND</button><button class="btn" id="resetBtn">RESET PROGRESS</button></div></div></section>
+<section id="hq" class="view"><div class="sectionHead"><div><div class="eyebrow">PROGRESS HQ</div><h2>The receipts.</h2></div><div><button class="btn small" id="exportBtn">EXPORT</button> <label class="btn small">IMPORT<input id="importInput" type="file" accept=".json" hidden></label></div></div><div class="reportGrid"><div class="stat"><b id="hqRead">0</b><span>Host Ready</span></div><div class="stat"><b id="hqAcc">0%</b><span>Accuracy</span></div><div class="stat"><b id="hqScenes">0/9</b><span>Route Stops</span></div><div class="stat"><b id="hqWeak">0</b><span>Rematches</span></div></div><div class="focusBody" style="border:1px solid rgba(245,234,217,.2);background:#1a0d12"><h3>Mastery by lane</h3><div id="bars"></div><h3 style="margin-top:24px">Next mix</h3><div class="coach" id="coach"></div><div class="actions"><button class="btn wine" id="playWeak">PLAY REMATCH ROUND</button><button class="btn" id="resetBtn">RESET PROGRESS</button></div></div></section>
 </main></div>
 <script>
 const PHOTOS={
@@ -228,4 +296,208 @@ document.getElementById('newMic').onclick=()=>{micI=(micI+1)%DATA.mic.length;ren
 function renderHQ(){const acc=state.attempts.length?Math.round(state.attempts.filter(x=>x.ok).length/state.attempts.length*100):0;document.getElementById('hqRead').textContent=gameRead();document.getElementById('hqAcc').textContent=acc+'%';document.getElementById('hqScenes').textContent=Object.keys(state.cleared).length+'/9';document.getElementById('hqWeak').textContent=Object.keys(state.weak).length;const lanes=['Route','Wine Basics','Atlanta History','Stops','Prohibition','Host Flow'];document.getElementById('bars').innerHTML=lanes.map(l=>{const a=state.attempts.filter(x=>x.lane===l),p=a.length?Math.round(a.filter(x=>x.ok).length/a.length*100):0;return `<div class="barRow"><b>${l}</b><div class="bar"><i style="width:${p}%"></i></div><span>${p}%</span></div>`}).join('');let msg='Start by clearing the route in order. The app needs a few receipts before it gets nosy.';if(Object.keys(state.weak).length)msg=`${Object.keys(state.weak).length} item${Object.keys(state.weak).length===1?'':'s'} are waiting for a rematch. The next Rapid Pour is weighting missed questions more heavily.`;if(Object.keys(state.cleared).length>=7&&acc>=80)msg='Facts are strong. Spend the next session in Host Mic Check so the material sounds like you, not a script.';if(Object.keys(state.cleared).length===9&&acc>=85&&state.micDone>=9)msg='Full-tour rehearsal territory. Run the whole route from Olympic Rings to closing without notes.';document.getElementById('coach').textContent=msg}
 document.getElementById('playWeak').onclick=()=>{newRapid();nav('rapid')};document.getElementById('exportBtn').onclick=()=>{const b=new Blob([JSON.stringify(state,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='atl-wine-host-lab-progress.json';a.click();URL.revokeObjectURL(a.href)};document.getElementById('importInput').onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{state=Object.assign(defaultState(),JSON.parse(r.result));save();renderHQ()}catch(err){alert('That progress file could not be read.')}};r.readAsText(f)};document.getElementById('resetBtn').onclick=()=>{if(confirm('Reset all ATL Wine Walk Host Lab progress on this browser?')){state=defaultState();save();renderHQ();routeMarkup('homeRoute')}};
 hud();renderStudy();renderCampaign();renderMic();renderHQ();
-</script></body></html>
+</script>
+<script>
+/* FUN PASS V6 */
+const WINE_CARDS=[
+  {term:"Acidity",cue:"MOUTH-WATERING = ACIDITY",def:"What makes wine feel crisp and refreshing. Higher acid feels lighter and more food-friendly; lower acid feels softer and rounder.",memory:"Think citrus. If your mouth waters, acidity is doing the work."},
+  {term:"Tannins",cue:"STRONG TEA GRIP",def:"The dry, slightly grippy feeling that mostly shows up in red wines. Tannins come from grape skins, seeds, and oak aging.",memory:"That strong-tea dryness on your gums? Tannins."},
+  {term:"Body",cue:"THE MILK LADDER",def:"How heavy or light the wine feels in your mouth. Light is like skim milk, medium like whole milk, full like cream.",memory:"Skim → whole → cream. Color does not decide body."},
+  {term:"Sweetness",cue:"SUGAR, NOT FRUIT",def:"Sweetness is about residual sugar. A wine can taste like peaches or strawberries and still be completely dry.",memory:"Fruity does not automatically mean sweet."},
+  {term:"Structure",cue:"THE BALANCING ACT",def:"How acid, tannins, alcohol, and body work together and hold the wine together.",memory:"Four pieces: acid + tannins + alcohol + body."},
+  {term:"Terroir",cue:"TASTES LIKE WHERE IT LIVES",def:"The idea that wine reflects its place: soil, climate, elevation, weather, and surrounding environment.",memory:"Same grape, different place, different wine."},
+  {term:"Flavor",cue:"NAME WHAT YOU NOTICE",def:"Fruit, citrus, herbs, spice, and other aroma compounds. You do not need fancy language; if you taste apple, say apple.",memory:"No sidewalk licking required."},
+  {term:"How to Taste",cue:"LOOK • SMELL • SIP • FEEL",def:"The script’s simple tasting method: look at it, smell it, sip it, then pay attention to how it feels.",memory:"Four moves. No aggressive swirling necessary."}
+];
+const MEMORY_TRICKS={
+  start:"1.2 miles • 4 wine stops • 2 bonus stops • about 2 hours • same park to start and finish.",
+  history:"1732 → late 1800s → 1907 → 1983. Colony dream, boom, Prohibition, comeback.",
+  mural:"Cambron → activists/community → past + present → civil rights as a living journey.",
+  sundial:"71–73 floors • 723 feet • 360° view • Champagne. The 7s are doing overtime.",
+  lumen:"Floor 6 • amber + marble • live entertainment • Sauvignon Blanc / Chardonnay / Chablis.",
+  redphone:"Georgia 1907–1935 vs. national 1920–1933. Then lockers, blind tigers, jug trains, moonshine.",
+  atalian:"Muzo Saritas • cinematic Italian • Rosé / Pinot Noir • Prohibition game happens here.",
+  whiteoak:"2012 • 17,000 sq ft • two-story glass cellar • 450+ labels • Cabernet Sauvignon.",
+  close:"Favorite wine → thank them → reviews → drink what you like and don’t overthink it."
+};
+const ROUTE_ORDER=["Olympic Rings","Freedom Fighters Mural","The Sun Dial","Lumen Lounge","Red Phone Booth","Atalian","White Oak","Back to Centennial Olympic Park"];
+let wineI=0,wineCheck=null,scrambleRound=null,soundOn=true,activeRecorder=null;
+
+const oldNavV6=nav;
+nav=function(id){oldNavV6(id);if(id==="wine")renderWineLab();if(id==="scramble")renderScramble();};
+
+gameRead=function(){
+  state.wineLearned=state.wineLearned||{};
+  const wine=Object.keys(state.wineLearned).length/WINE_CARDS.length;
+  const acc=state.attempts.length?state.attempts.filter(x=>x.ok).length/state.attempts.length:0;
+  const route=Object.keys(state.cleared||{}).length/9;
+  const mic=Math.min((state.micDone||0)/9,1);
+  return Math.round((wine*.20+acc*.30+route*.30+mic*.20)*100);
+};
+
+function beepTone(freq,dur=.09,type="sine",vol=.035){
+  if(!soundOn)return;
+  try{const C=window.AudioContext||window.webkitAudioContext,c=new C(),o=c.createOscillator(),g=c.createGain();o.type=type;o.frequency.value=freq;g.gain.value=vol;o.connect(g);g.connect(c.destination);o.start();o.stop(c.currentTime+dur)}catch(e){}
+}
+function sfx(kind){
+  if(kind==="good"){beepTone(620,.07);setTimeout(()=>beepTone(820,.09),70)}
+  if(kind==="bad"){beepTone(210,.12,"triangle",.025)}
+  if(kind==="unlock"){beepTone(520,.07);setTimeout(()=>beepTone(690,.07),70);setTimeout(()=>beepTone(920,.12),140)}
+}
+function toast(msg,party=false){
+  let t=document.getElementById("gameToast");if(!t){t=document.createElement("div");t.id="gameToast";t.className="gameToast";document.body.appendChild(t)}
+  t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),1800);
+  if(party){
+    const bits=["🍑","🍇","🥂","🍾","✨","🍷"];
+    for(let i=0;i<18;i++){const p=document.createElement("span");p.className="confettiPiece";p.textContent=bits[i%bits.length];p.style.left=(10+Math.random()*80)+"vw";p.style.top=(6+Math.random()*10)+"vh";p.style.animationDelay=(Math.random()*.18)+"s";document.body.appendChild(p);setTimeout(()=>p.remove(),1500)}
+  }
+}
+function win(msg){sfx("unlock");toast(msg,true)}
+
+const soundBtn=document.createElement("button");soundBtn.className="topbtn soundBtn";soundBtn.type="button";soundBtn.textContent="🔊";soundBtn.title="Sound on/off";
+soundBtn.onclick=()=>{soundOn=!soundOn;soundBtn.textContent=soundOn?"🔊":"🔇";toast(soundOn?"Sound on":"Sound off")};
+document.querySelector(".topstats")?.insertBefore(soundBtn,document.getElementById("menuBtn"));
+
+const feedbackObserver=new MutationObserver(()=>{
+  document.querySelectorAll(".feedback.show:not([data-sfx])").forEach(f=>{
+    f.dataset.sfx="1";const txt=f.textContent||"";
+    if(/CORRECT/i.test(txt)){sfx("good");toast("Nice pour. +1 to the brain 🍷")}
+    if(/MISS|NOPE/i.test(txt)){sfx("bad")}
+  });
+});
+feedbackObserver.observe(document.body,{subtree:true,childList:true,attributes:true,attributeFilter:["class"]});
+
+function renderWineLab(){
+  state.wineLearned=state.wineLearned||{};
+  wineI=Math.max(0,Math.min(wineI,WINE_CARDS.length-1));
+  const c=WINE_CARDS[wineI],learned=Object.keys(state.wineLearned).length;
+  document.getElementById("wineLearnedCount").textContent=learned;
+  const lab=document.getElementById("wineLab");
+  lab.innerHTML=`
+    <div class="wineCardWrap">
+      <div class="wineCard" id="wineFlip">
+        <div class="wineFace wineFront"><div class="wineCue">CARD ${wineI+1} OF ${WINE_CARDS.length}</div><div class="wineTerm">${c.term}</div><div class="wineExample">Tap the card to flip it.</div></div>
+        <div class="wineFace wineBack"><div class="wineCue">${c.cue}</div><div class="wineDefinition">${c.def}</div><div class="wineExample"><b>Memory hook:</b> ${c.memory}</div></div>
+      </div>
+    </div>
+    <aside class="wineSide">
+      <div class="eyebrow">YOUR FLIGHT</div>
+      <h3>Eight ideas. That’s it.</h3>
+      <div class="wineProgressDots">${WINE_CARDS.map(x=>`<span class="wineDot ${state.wineLearned[x.term]?"on":""}"></span>`).join("")}</div>
+      <p class="scene">Flip each concept until you can explain it in regular-person language. Marking a card learned does not grade you. It just tracks what you have reviewed.</p>
+      <div class="actions"><button class="btn" id="winePrev" ${wineI===0?"disabled":""}>← PREV</button><button class="btn wine" id="wineAgain">AGAIN</button><button class="btn primary" id="wineGot">GOT IT ✓</button></div>
+      <div class="wineQuizBox">
+        <div class="eyebrow">WHEN YOU’RE READY</div>
+        <button class="btn ${learned===WINE_CARDS.length?"primary":""}" id="wineQuizStart">POUR ME A 5-Q CHECK →</button>
+      </div>
+    </aside>`;
+  document.getElementById("wineFlip").onclick=e=>e.currentTarget.classList.toggle("flipped");
+  document.getElementById("winePrev").onclick=()=>{if(wineI>0){wineI--;renderWineLab()}};
+  document.getElementById("wineAgain").onclick=()=>{wineI=(wineI+1)%WINE_CARDS.length;renderWineLab()};
+  document.getElementById("wineGot").onclick=()=>{state.wineLearned[c.term]=true;save();sfx("good");if(Object.keys(state.wineLearned).length===WINE_CARDS.length)win("Wine 101 flight reviewed 🥂");wineI=(wineI+1)%WINE_CARDS.length;renderWineLab()};
+  document.getElementById("wineQuizStart").onclick=startWineCheck;
+}
+function startWineCheck(){
+  const pool=[...WINE_CARDS].sort(()=>Math.random()-.5).slice(0,5);
+  wineCheck={pool,i:0,score:0};renderWineQuestion();
+}
+function renderWineQuestion(){
+  const lab=document.getElementById("wineLab"),q=wineCheck.pool[wineCheck.i];
+  if(!q){const passed=wineCheck.score>=4;lab.innerHTML=`<div class="question"><div class="qmeta">WINE 101 ROUND REPORT</div><div class="qtext">${wineCheck.score}/5 right.</div><div class="coach">${passed?"You can explain the basics without sounding like a wine textbook. Exactly the assignment.":"Review the cards that felt slippery, then pour another round."}</div><div class="actions"><button class="btn primary" id="wineAgainQuiz">RUN ANOTHER 5</button><button class="btn" id="wineBackCards">BACK TO CARDS</button></div></div>`;if(passed)win("Wine basics unlocked 🍇");document.getElementById("wineAgainQuiz").onclick=startWineCheck;document.getElementById("wineBackCards").onclick=renderWineLab;return}
+  const distract=WINE_CARDS.filter(x=>x.term!==q.term).sort(()=>Math.random()-.5).slice(0,3);
+  const opts=[q,...distract].sort(()=>Math.random()-.5);
+  lab.innerHTML=`<div class="question"><div class="qmeta">WINE 101 • ${wineCheck.i+1}/5</div><div class="qtext">Which definition belongs to <em>${q.term}</em>?</div><div class="answers" id="wineAnswers">${opts.map(x=>`<button class="answer" data-term="${x.term}">${x.def}</button>`).join("")}</div><div class="feedback" id="wineFeedback"></div></div>`;
+  document.querySelectorAll("#wineAnswers .answer").forEach(b=>b.onclick=()=>{
+    if(document.getElementById("wineAnswers").dataset.done)return;document.getElementById("wineAnswers").dataset.done="1";
+    const ok=b.dataset.term===q.term;b.classList.add(ok?"correct":"wrong");record({id:"wine:"+q.term,lane:"Wine Basics",ok});
+    if(ok)wineCheck.score++;const f=document.getElementById("wineFeedback");f.classList.add("show");f.innerHTML=`<strong>${ok?"CORRECT":"MISS"}</strong><br><b>${q.cue}</b> — ${q.memory}<div class="actions"><button class="btn small primary" id="wineNextQ">NEXT →</button></div>`;document.getElementById("wineNextQ").onclick=()=>{wineCheck.i++;renderWineQuestion()}
+  });
+}
+
+function freshScramble(){scrambleRound={pool:[...ROUTE_ORDER].sort(()=>Math.random()-.5),placed:[],mistakes:0};renderScramble()}
+function renderScramble(){
+  if(!scrambleRound)freshScramble();
+  const box=document.getElementById("scrambleShell");
+  const r=scrambleRound;
+  box.innerHTML=`<div class="scrambleScore"><span>NEXT: ${r.placed.length+1} OF ${ROUTE_ORDER.length}</span><span>WRONG TURNS: ${r.mistakes}</span></div><div class="routeBuild">${r.placed.length?r.placed.map(x=>`<span class="placed">${x}</span>`).join(""):"Your route will build here…"}</div><div class="scrambleChoices">${r.pool.map(x=>`<button class="scrambleChoice ${r.placed.includes(x)?"used":""}" data-stop="${x}">${x}</button>`).join("")}</div>`;
+  box.querySelectorAll(".scrambleChoice").forEach(b=>b.onclick=()=>{
+    const expected=ROUTE_ORDER[r.placed.length];
+    if(b.dataset.stop===expected){r.placed.push(expected);sfx("good");if(r.placed.length===ROUTE_ORDER.length){state.routeScrambleBest=state.routeScrambleBest==null?r.mistakes:Math.min(state.routeScrambleBest,r.mistakes);save();renderScramble();win(r.mistakes===0?"PERFECT ROUTE. No wrong turns. 🗺️🥂":"Route rebuilt. Atlanta forgives the detour. 🍑");return}renderScramble()}
+    else{r.mistakes++;b.classList.add("wrong");sfx("bad");setTimeout(()=>b.classList.remove("wrong"),350);document.querySelector(".scrambleScore span:last-child").textContent="WRONG TURNS: "+r.mistakes}
+  });
+}
+document.getElementById("newScramble").onclick=()=>{scrambleRound=null;freshScramble()};
+
+const oldStudyV6=renderStudy;
+renderStudy=function(){
+  oldStudyV6();
+  const s=DATA.stops[state.studyIndex],focus=document.getElementById("studyFocus");if(!focus)return;
+  const body=focus.querySelector(".studyBody");if(!body)return;
+  const mem=document.createElement("div");mem.className="studyMemory";mem.innerHTML=`<div class="studyPanelLabel">MEMORY HOOK</div><b>${MEMORY_TRICKS[s.id]||"Tell the story in your own words."}</b><div class="passport">${DATA.stops.map(x=>`<span class="stamp ${state.studied?.[x.id]?"on":""}">${state.studied?.[x.id]?"✓":"·"}</span>`).join("")}</div>`;body.insertBefore(mem,body.querySelector(".studyNav"));
+  const list=focus.querySelector(".studyPanel .beatList");
+  if(list){
+    const controls=document.createElement("div");controls.className="memoryControls";controls.innerHTML='<button class="btn small" id="coverFacts">COVER THE FACTS & TEST ME</button><button class="btn small" id="showFacts">SHOW ALL</button>';list.parentNode.insertBefore(controls,list);
+    const original=[...list.querySelectorAll(".beat")].map(x=>x.innerHTML);
+    document.getElementById("coverFacts").onclick=()=>{[...list.querySelectorAll(".beat")].forEach((x,i)=>{x.dataset.full=original[i];x.innerHTML=`<b>${String(i+1).padStart(2,"0")}</b><span>Tap to reveal</span>`;x.classList.add("memoryHidden");x.onclick=()=>{x.innerHTML=x.dataset.full;x.classList.add("revealed");x.onclick=null}})};
+    document.getElementById("showFacts").onclick=()=>{[...list.querySelectorAll(".beat")].forEach((x,i)=>{x.innerHTML=original[i];x.classList.remove("memoryHidden","revealed");x.onclick=null})};
+  }
+  const done=document.getElementById("studyDone");if(done){done.textContent=state.studied?.[s.id]?"PASSPORT STAMPED ✓":"STAMP MY PASSPORT ✓";const old=done.onclick;done.onclick=()=>{old();sfx("good");toast("Stop reviewed. Passport stamped 🍷")}}
+};
+
+function enhanceRecorder(container){
+  if(!container||container.querySelector(".micRecorder"))return;
+  const box=document.createElement("div");box.className="micRecorder";box.innerHTML=`<div class="micRecorderTop"><div><span class="recDot" id="recDot"></span><b>Record yourself</b></div><span class="recTimer">00:00</span></div><div class="actions"><button class="btn small primary recStart">START RECORDING</button><button class="btn small recStop" disabled>STOP</button></div><div class="micPrivacy">Audio stays in this browser session. It is not uploaded anywhere.</div><div class="recPlayback"></div>`;container.appendChild(box);
+  const start=box.querySelector(".recStart"),stop=box.querySelector(".recStop"),timer=box.querySelector(".recTimer"),dot=box.querySelector(".recDot"),play=box.querySelector(".recPlayback");
+  start.onclick=async()=>{
+    if(activeRecorder&&activeRecorder.mediaRecorder?.state==="recording"){toast("Stop the other recording first.");return}
+    if(!navigator.mediaDevices?.getUserMedia||!window.MediaRecorder){toast("Recording is not supported in this browser.");return}
+    try{
+      const stream=await navigator.mediaDevices.getUserMedia({audio:true}),chunks=[],mr=new MediaRecorder(stream);let secs=0;
+      activeRecorder={mediaRecorder:mr,stream};
+      mr.ondataavailable=e=>chunks.push(e.data);
+      mr.onstop=()=>{clearInterval(activeRecorder?.timer);stream.getTracks().forEach(t=>t.stop());const url=URL.createObjectURL(new Blob(chunks,{type:mr.mimeType||"audio/webm"}));play.innerHTML=`<audio controls src="${url}"></audio>`;dot.classList.remove("live");start.disabled=false;stop.disabled=true;timer.textContent="PLAY IT BACK ↑";activeRecorder=null;sfx("good")};
+      mr.start();dot.classList.add("live");start.disabled=true;stop.disabled=false;timer.textContent="00:00";activeRecorder.timer=setInterval(()=>{secs++;timer.textContent=String(Math.floor(secs/60)).padStart(2,"0")+":"+String(secs%60).padStart(2,"0")},1000);
+    }catch(e){toast("Microphone permission was not available.")}
+  };
+  stop.onclick=()=>{if(activeRecorder?.mediaRecorder?.state==="recording")activeRecorder.mediaRecorder.stop()};
+}
+const oldMicV6=renderMic;
+renderMic=function(){oldMicV6();enhanceRecorder(document.getElementById("micCard"))};
+const oldGateV6=renderGate;
+renderGate=function(s){oldGateV6(s);if(gate==="mic")enhanceRecorder(document.getElementById("gatePanel"))};
+
+function badgeData(){
+  const studied=Object.keys(state.studied||{}).length,cleared=Object.keys(state.cleared||{}).length,wine=Object.keys(state.wineLearned||{}).length;
+  const pro=state.attempts.filter(x=>x.lane==="Prohibition"),proPct=pro.length?pro.filter(x=>x.ok).length/pro.length:0;
+  return [
+    ["🍷","FIRST SIP","Answer anything correctly.",state.attempts.some(x=>x.ok)],
+    ["🍇","WINE WHISPERER","Review all 8 Wine 101 cards.",wine===8],
+    ["🗺️","NO WRONG TURNS","Finish Route Scramble.",state.routeScrambleBest!=null],
+    ["🍑","ATL STUDENT","Review all 9 Study Mode stops.",studied===9],
+    ["📞","PROHIBITION PRO","Reach 80% after 10 Prohibition answers.",pro.length>=10&&proPct>=.8],
+    ["🎙️","MIC'D UP","Complete 5 Mic Checks.",(state.micDone||0)>=5],
+    ["🥂","FULL TOUR","Clear all 9 campaign stops.",cleared===9],
+    ["✨","HOST READY","Reach 85% Host Ready.",gameRead()>=85]
+  ];
+}
+const oldHQV6=renderHQ;
+renderHQ=function(){
+  oldHQV6();
+  const hq=document.getElementById("hq");if(!hq)return;
+  const firstStat=hq.querySelector(".stat span");if(firstStat)firstStat.textContent="Host Ready";
+  const statSpans=hq.querySelectorAll(".stat span");if(statSpans[2])statSpans[2].textContent="Route Stops";
+  let up=hq.querySelector(".hqUpgrade");if(!up){up=document.createElement("div");up.className="hqUpgrade";hq.querySelector(".reportGrid").after(up)}
+  const ready=gameRead();up.innerHTML=`<div class="readyRing" style="--readyDeg:${ready*3.6}deg"><div><b>${ready}%</b><span>HOST READY</span></div></div><div><h3>What Host Ready means</h3><p class="scene">A blend of Wine 101 review, quiz accuracy, route completion, and Mic Check practice. It is not a mystery score anymore.</p><div class="coach">${ready<35?"Start with Wine 101 + Study Mode. Learn first, then test.":ready<65?"You know the material. Now mix in Route Scramble and campaign gates.":ready<85?"Strong foundation. Spend more time speaking the stories out loud and replaying misses.":"You are in full-tour rehearsal territory. Run the whole thing without notes."}</div></div>`;
+  let badge=hq.querySelector(".badgeSection");if(!badge){badge=document.createElement("div");badge.className="focusBody badgeSection";badge.style.cssText="border:2px solid var(--ink);background:#fff;border-radius:24px;margin-top:14px";hq.appendChild(badge)}
+  badge.innerHTML=`<h3>Passport Badges</h3><div class="badgeGrid">${badgeData().map(([icon,name,desc,on])=>`<div class="funBadge ${on?"on":""}"><b>${icon} ${name}</b><span>${desc}</span></div>`).join("")}</div>`;
+};
+
+const oldCampaignV6=renderCampaign;
+renderCampaign=function(){oldCampaignV6();if(Object.keys(state.cleared||{}).length===9&&!state.routeCelebrated){state.routeCelebrated=true;save();setTimeout(()=>win("FULL TOUR UNLOCKED 🥂🍑"),250)}};
+
+document.querySelectorAll("[data-nav='wine'],[data-nav='scramble']").forEach(b=>b.onclick=()=>nav(b.dataset.nav));
+document.querySelectorAll(".mode p").forEach(p=>p.style.overflow="visible");
+hud();renderStudy();renderMic();renderHQ();
+</script>
+
+</body></html>
