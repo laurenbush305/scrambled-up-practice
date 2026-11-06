@@ -1,7 +1,7 @@
 {
   "serverId": "bone650-20261105",
-  "revision": 2,
-  "updatedAt": "2026-11-06T01:35:05.055Z",
+  "revision": 3,
+  "updatedAt": "2026-11-06T01:36:31.173Z",
   "teams": [
     {
       "name": "Neighbors",
@@ -27,7 +27,7 @@
       "name": "Rapture Rejects",
       "joker": "",
       "r1": 4,
-      "r2": "",
+      "r2": 5,
       "r3": "",
       "r4": "",
       "r5": "",
@@ -37,7 +37,7 @@
       "name": "Señor Moos",
       "joker": "",
       "r1": 3,
-      "r2": "",
+      "r2": 4,
       "r3": "",
       "r4": "",
       "r5": "",
