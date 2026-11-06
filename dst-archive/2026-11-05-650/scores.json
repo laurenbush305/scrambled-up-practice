@@ -1,7 +1,7 @@
 {
   "serverId": "bone650-20261105",
-  "revision": 9,
-  "updatedAt": "2026-11-06T02:29:12.311Z",
+  "revision": 10,
+  "updatedAt": "2026-11-06T02:34:18.735Z",
   "teams": [
     {
       "name": "Neighbors",
@@ -11,7 +11,7 @@
       "r3": 8,
       "r4": 7,
       "r5": 10,
-      "r6": ""
+      "r6": 16
     },
     {
       "name": "Ayesha Curry",
