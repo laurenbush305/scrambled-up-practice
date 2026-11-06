@@ -1,7 +1,7 @@
 {
   "serverId": "bone650-20261105",
-  "revision": 6,
-  "updatedAt": "2026-11-06T01:51:20.822Z",
+  "revision": 7,
+  "updatedAt": "2026-11-06T01:54:03.092Z",
   "teams": [
     {
       "name": "Neighbors",
@@ -38,7 +38,7 @@
       "joker": "",
       "r1": 3,
       "r2": 4,
-      "r3": "",
+      "r3": 7,
       "r4": "",
       "r5": "",
       "r6": ""
