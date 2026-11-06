@@ -1,6 +1,57 @@
 {
   "serverId": "bone650-20261105",
-  "revision": 0,
-  "updatedAt": "2026-11-05T20:31:01.118Z",
-  "teams": []
+  "revision": 1,
+  "updatedAt": "2026-11-06T01:24:31.880Z",
+  "teams": [
+    {
+      "name": "Neighbors",
+      "joker": "",
+      "r1": 8,
+      "r2": "",
+      "r3": "",
+      "r4": "",
+      "r5": "",
+      "r6": ""
+    },
+    {
+      "name": "Ayesha Curry",
+      "joker": "",
+      "r1": 8,
+      "r2": "",
+      "r3": "",
+      "r4": "",
+      "r5": "",
+      "r6": ""
+    },
+    {
+      "name": "Rapture Rejects",
+      "joker": "",
+      "r1": 4,
+      "r2": "",
+      "r3": "",
+      "r4": "",
+      "r5": "",
+      "r6": ""
+    },
+    {
+      "name": "Señor Moos",
+      "joker": "",
+      "r1": 3,
+      "r2": "",
+      "r3": "",
+      "r4": "",
+      "r5": "",
+      "r6": ""
+    },
+    {
+      "name": "Meme II Sobriety",
+      "joker": "",
+      "r1": 6,
+      "r2": "",
+      "r3": "",
+      "r4": "",
+      "r5": "",
+      "r6": ""
+    }
+  ]
 }
