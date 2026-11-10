@@ -7,14 +7,23 @@ button,.btn{border:0;border-radius:12px;padding:11px 14px;background:var(--pink)
 main{max-width:1060px;margin:auto;padding:16px 14px 110px}.hidden{display:none!important}.panel,.card{background:var(--panel);border:1px solid var(--edge);border-radius:16px;padding:18px;margin-bottom:14px}.round{display:inline-block;background:var(--green);color:#10131b;font-size:22px;font-weight:1000;padding:7px 11px;border-radius:11px;letter-spacing:.04em}.round.non{background:var(--blue)}.step{color:var(--pink);font-size:12px;letter-spacing:.1em;font-weight:900;margin-top:8px}.cat{font-size:clamp(24px,4vw,35px);margin:4px 0 12px;line-height:1.15}
 .read{background:#0d172b;border-left:4px solid var(--blue);padding:15px 16px;border-radius:10px;font-size:20px;line-height:1.55}.tag{font-size:11px;color:var(--blue);font-weight:950;letter-spacing:.08em;margin-bottom:5px}.q{border-bottom:1px solid #343753;padding:15px 0}.q:last-child{border-bottom:0}.question{font-size:20px;line-height:1.52;margin:5px 0}.pron{color:var(--gold);font-size:14px;font-weight:800;line-height:1.5;margin:7px 0}.host{color:var(--purple);background:#201a31;border:1px solid #4d4167;border-radius:9px;padding:9px 11px;font-size:13px;margin:8px 0}.warning{color:#ffe4a2;background:#2b2213;border:1px solid #685326;border-radius:9px;padding:10px 11px;font-size:13px;margin:8px 0}
 details{margin-top:8px}summary{cursor:pointer;font-weight:850}details.answer{background:#10251b;border:1px solid #3d6748;border-radius:10px;padding:10px 12px}details.answer summary{color:var(--green)}.answertext{font-size:19px;margin-top:8px}.source summary{color:#cbd0e8;font-size:13px}.source .src{white-space:pre-wrap;color:#adb1c6;font-size:13px;padding:8px 3px}
-.nav{display:flex;gap:9px;position:sticky;bottom:8px;background:#080914f3;border:1px solid var(--edge);border-radius:14px;padding:9px}.nav button{flex:1}.soft{color:var(--muted);font-size:13px}.actions{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}.airport{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:7px;margin:10px 0}.airport div{background:#20233a;padding:9px;border-radius:8px}
-.scorewrap{overflow:auto}.scoretable{border-collapse:collapse;width:100%;min-width:850px}.scoretable th,.scoretable td{border-bottom:1px solid #333752;padding:8px;text-align:left}.scoretable th{font-size:12px;color:#cbd0e8}.scoretable input,.scoretable select{width:80px;background:#0e1021;color:#fff;border:1px solid #4b4f70;border-radius:7px;padding:7px}.scoretable .team{width:220px}.total{font-weight:950;color:var(--green)}.status{padding:9px 11px;border-radius:9px;background:#20233a;color:#cfd4ea;margin:9px 0}.extras h2{margin:0 0 5px}.tracks{columns:2;column-gap:28px}.tracks li{break-inside:avoid;margin:6px 0}@media(max-width:700px){.read,.question{font-size:18px}.panel,.card{padding:14px}.tracks{columns:1}.nav button{font-size:14px}}
+.hosttools{position:sticky;top:61px;z-index:15;display:grid;grid-template-columns:auto minmax(180px,1fr) auto auto;gap:8px;background:#0b0c19f5;border:1px solid var(--edge);border-radius:14px;padding:9px;margin-bottom:12px;box-shadow:0 8px 24px #0007}.hosttools button,.hosttools select{min-height:46px}.jump{width:100%;background:#171a31;color:#fff;border:1px solid #4d5276;border-radius:10px;padding:10px 12px;font:inherit;font-weight:800}.nav{display:grid;grid-template-columns:auto 1fr 1fr auto;gap:9px;position:sticky;bottom:8px;background:#080914f3;border:1px solid var(--edge);border-radius:14px;padding:9px;z-index:15}.nav button{min-height:48px}.nav .wide{min-width:0}.scorePrompt{width:100%;min-height:180px;background:#0c0e1d;color:#f7f7ff;border:1px solid #4a4f72;border-radius:10px;padding:12px;font:13px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;resize:vertical}.soft{color:var(--muted);font-size:13px}.actions{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}.airport{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:7px;margin:10px 0}.airport div{background:#20233a;padding:9px;border-radius:8px}
+.scorewrap{overflow:auto}.scoretable{border-collapse:collapse;width:100%;min-width:850px}.scoretable th,.scoretable td{border-bottom:1px solid #333752;padding:8px;text-align:left}.scoretable th{font-size:12px;color:#cbd0e8}.scoretable input,.scoretable select{width:80px;background:#0e1021;color:#fff;border:1px solid #4b4f70;border-radius:7px;padding:7px}.scoretable .team{width:220px}.total{font-weight:950;color:var(--green)}.status{padding:9px 11px;border-radius:9px;background:#20233a;color:#cfd4ea;margin:9px 0}.extras h2{margin:0 0 5px}.tracks{columns:2;column-gap:28px}.tracks li{break-inside:avoid;margin:6px 0}@media(max-width:700px){.read,.question{font-size:18px}.panel,.card{padding:14px}.tracks{columns:1}.hosttools{top:106px;grid-template-columns:1fr 1fr}.hosttools .jump{grid-column:1/-1}.nav{grid-template-columns:1fr 1fr}.nav button{font-size:14px}.nav .edge{display:none}}
 </style></head>
 <body><header><div class="shell top"><div class="brand">🎤 Dirty South Trivia <em>· Pub 652 · Nov 10</em></div><nav class="tabs"><button class="active" data-tab="host">HOST</button><button data-tab="score">SCOREBOARD</button><button data-tab="tie">TIEBREAKER</button><button data-tab="extras">OPTIONAL GAMES</button></nav></div></header>
 <main>
-<section id="host"><div class="panel"><div id="round" class="round non">SHOW</div><div id="step" class="step">STEP 1 OF 10</div><h1 id="category" class="cat">Dirty South Trivia</h1><div id="body"></div></div><div class="nav"><button id="back" class="muted-btn">← BACK</button><button id="next">NEXT →</button></div></section>
-<section id="score" class="hidden"><div class="panel"><div class="round non">SCORES</div><h1 class="cat">Pub 652 Scoreboard</h1><div class="soft">R1–R5 max 8 · R6 max 16 · Joker allowed R1–R4 and R6 · R5 NO Joker · perfect max with R6 Joker: 72.</div><div id="sync" class="status">Loading live score feed…</div><div class="actions"><button id="startScoreChat">START SCOREKEEPER CHAT ↗</button><button id="copyScorePrompt" class="muted-btn">COPY PROMPT AGAIN</button><button id="addTeam">ADD TEAM</button><button id="refresh" class="muted-btn">REFRESH LIVE</button></div><div id="chatLaunchStatus" class="status">Scorekeeper launcher ready. It will copy tonight’s scoring instructions, then open a fresh ChatGPT chat.</div><div class="scorewrap"><table class="scoretable"><thead><tr><th>Team</th><th>Joker</th><th>R1</th><th>R2</th><th>R3</th><th>R4</th><th>R5</th><th>R6</th><th>Total</th><th></th></tr></thead><tbody id="scoreRows"></tbody></table></div><p class="soft">Manual edits on this page are stored only on this device. Chat scorekeeping can update the GitHub-backed live feed; when its revision increases, this page pulls those scores in.</p></div></section>
-<section id="tie" class="hidden"><div class="panel"><div class="round non">ONLY IF NEEDED</div><h1 class="cat">Tiebreaker</h1><p class="soft">Use this only when a prize position is tied after all scored rounds are complete. It is intentionally outside the normal HOST sequence.</p><div class="read"><div class="tag">READ ALOUD</div>In pounds, how much did Raytheon’s first commercial microwave oven weigh in 1947? The Price Is Right rules do NOT apply. The closest answer wins.</div><div class="pron">PRONOUNCE · Raytheon: RAY-thee-on</div><details class="answer"><summary>REVEAL TIEBREAKER ANSWER</summary><div class="answertext">The answer is 750 pounds.</div></details></div></section>
+<section id="host">
+<div class="hosttools">
+  <button id="restart" class="muted-btn">↺ START OVER</button>
+  <select id="jumpSelect" class="jump" aria-label="Jump to a show step"></select>
+  <button id="topBack" class="muted-btn">← BACK</button>
+  <button id="topNext">NEXT →</button>
+</div>
+<div class="panel"><div id="round" class="round non">SHOW</div><div id="step" class="step">STEP 1 OF 9</div><h1 id="category" class="cat">Dirty South Trivia</h1><div id="body"></div></div>
+<div class="nav"><button id="bottomRestart" class="muted-btn edge">↺ START</button><button id="back" class="muted-btn wide">← BACK</button><button id="next" class="wide">NEXT →</button><button id="scrollTop" class="muted-btn edge">↑ TOP</button></div>
+</section>
+<section id="score" class="hidden"><div class="panel"><div class="round non">SCORES</div><h1 class="cat">Pub 652 Scoreboard</h1><div class="soft">R1–R5 max 8 · R6 max 16 · Joker allowed R1–R4 and R6 · R5 NO Joker · perfect max with R6 Joker: 72.</div><div id="sync" class="status">Loading live score feed…</div><div class="actions"><a id="startScoreChat" class="btn" href="https://chatgpt.com/" target="_blank" rel="noopener">START SCOREKEEPER CHAT ↗</a><button id="copyScorePrompt" class="muted-btn">COPY SCOREKEEPER PROMPT</button><button id="addTeam">ADD TEAM</button><button id="refresh" class="muted-btn">REFRESH LIVE</button></div><div id="chatLaunchStatus" class="status">1) Click COPY SCOREKEEPER PROMPT. 2) Click START SCOREKEEPER CHAT. 3) Paste and send. The chat link is a real link, so Chrome should not block it.</div><details><summary>Scorekeeper prompt · fallback if clipboard acts up</summary><textarea id="scorePromptBox" class="scorePrompt" readonly></textarea></details><div class="scorewrap"><table class="scoretable"><thead><tr><th>Team</th><th>Joker</th><th>R1</th><th>R2</th><th>R3</th><th>R4</th><th>R5</th><th>R6</th><th>Total</th><th></th></tr></thead><tbody id="scoreRows"></tbody></table></div><p class="soft">Manual edits on this page are stored only on this device. Chat scorekeeping can update the GitHub-backed live feed; when its revision increases, this page pulls those scores in.</p></div></section>
+<section id="tie" class="hidden"><div class="panel"><div class="round non">ONLY IF NEEDED</div><h1 class="cat">Tiebreaker</h1><p class="soft">Use this only when a prize position is tied after all scored rounds are complete. It is intentionally outside the normal HOST sequence.</p><div class="read"><div class="tag">READ ALOUD</div>In pounds, how much did Raytheon’s first commercial microwave oven weigh in 1947? The Price Is Right rules do NOT apply. The closest answer wins.</div><div class="pron">PRONOUNCE · Raytheon: RAY-thee-on</div><details class="answer"><summary>REVEAL TIEBREAKER ANSWER</summary><div class="answertext">The answer is 750 pounds.</div></details><div class="actions"><button id="returnClose">RETURN TO WINNERS + GOODNIGHT →</button><button id="returnR6" class="muted-btn">← RETURN TO ROUND 6</button></div></div></section>
 <section id="extras" class="hidden extras"><div class="panel"><div class="round non">OPTIONAL</div><h1 class="cat">Optional Games</h1><p class="soft">These never appear in normal HOST navigation and never affect trivia scores.</p><div id="extraBody"></div></div></section>
 <div class="soft"><details><summary>Source & archive references</summary><p><a href="./original-source-script.txt">Full extracted Matt packet</a> · <a href="https://www.dropbox.com/preview/Wild%20Heaven/Pub%20652/Pub%20Quiz%20652.docx" target="_blank" rel="noopener">Original Word packet in Dropbox</a></p></details></div>
 </main>
@@ -34,8 +43,38 @@ function renderHost(){stage=Math.max(0,Math.min(stage,DATA.stages.length-1));con
  if(s.listRound){h+='<details class="answer"><summary>REVEAL · ACCEPTED TOP 10</summary><div class="airport">'+s.accepted.map((a,i)=>'<div><b>'+(i+1)+'.</b> '+esc(a)+pron(s.acceptedPron?.[i]||"")+'</div>').join('')+'</div><div class="soft">Teams need any eight. <a href="'+s.source+'" target="_blank" rel="noopener">Matt’s linked source ↗</a></div></details>';}
  if(s.pron&&!s.listRound)h+=pron(s.pron);if(s.answer)h+=reveal("The answer is "+s.answer+".","","");
  if(s.after)h+='<div class="read" style="margin-top:14px"><div class="tag">READ AFTER ROUND 6</div>'+s.after+'</div>';if(s.afterOriginal)h+=source(s.afterOriginal);
- $("body").innerHTML=h;$("back").disabled=stage===0;$("next").disabled=stage===DATA.stages.length-1;$("back").textContent=stage===0?"← BACK":"← "+DATA.stages[stage-1].title;$("next").textContent=stage===DATA.stages.length-1?"DONE ✓":DATA.stages[stage+1].title+" →";localStorage.setItem("dstStage652_20261110",stage);window.scrollTo(0,0);}
-$("back").onclick=()=>{stage--;renderHost()};$("next").onclick=()=>{stage++;renderHost()};
+ $("body").innerHTML=h;
+ const first=stage===0,last=stage===DATA.stages.length-1;
+ for(const id of ["back","topBack"])$(id).disabled=first;
+ for(const id of ["next","topNext"])$(id).disabled=last;
+ const backLabel=first?"← BACK":"← "+DATA.stages[stage-1].title;
+ const nextLabel=last?"DONE ✓":DATA.stages[stage+1].title+" →";
+ $("back").textContent=backLabel;$("topBack").textContent=backLabel;
+ $("next").textContent=nextLabel;$("topNext").textContent=nextLabel;
+ fillJump();$("jumpSelect").value=String(stage);
+ localStorage.setItem("dstStage652_20261110",stage);window.scrollTo(0,0);}
+function goStage(n){
+  stage=Math.max(0,Math.min(Number(n),DATA.stages.length-1));
+  renderHost();
+}
+function fillJump(){
+  const sel=$("jumpSelect");
+  sel.innerHTML=DATA.stages.map((s,i)=>'<option value="'+i+'">'+(i+1)+'. '+esc(s.category||s.title)+'</option>').join('');
+  sel.value=String(stage);
+}
+function startOver(){
+  stage=0;
+  localStorage.setItem("dstStage652_20261110","0");
+  renderHost();
+}
+$("back").onclick=()=>goStage(stage-1);
+$("next").onclick=()=>goStage(stage+1);
+$("topBack").onclick=()=>goStage(stage-1);
+$("topNext").onclick=()=>goStage(stage+1);
+$("restart").onclick=startOver;
+$("bottomRestart").onclick=startOver;
+$("scrollTop").onclick=()=>window.scrollTo({top:0,behavior:"smooth"});
+$("jumpSelect").onchange=e=>goStage(e.target.value);
 function total(t){let base=0;for(const k of ["r1","r2","r3","r4","r5","r6"])base+=Number(t[k]||0);if(DATA.score.jokerAllowed.includes(t.joker))base+=Number(t[t.joker.toLowerCase()]||0);return base}
 function save(){localStorage.setItem("dstScores652_20261110",JSON.stringify(teams));renderScores()}
 function renderScores(){const body=$("scoreRows");body.innerHTML='';teams.sort((a,b)=>total(b)-total(a));teams.forEach((t,i)=>{const tr=document.createElement("tr");let cells='<td><input class="team" value="'+esc(t.name||"")+'" data-i="'+i+'" data-k="name"></td><td><select data-i="'+i+'" data-k="joker"><option value="">—</option>'+DATA.score.jokerAllowed.map(x=>'<option '+(t.joker===x?'selected':'')+'>'+x+'</option>').join('')+'</select></td>';for(const k of ["r1","r2","r3","r4","r5","r6"])cells+='<td><input type="number" min="0" max="'+DATA.score.max[k]+'" value="'+esc(t[k]??"")+'" data-i="'+i+'" data-k="'+k+'"></td>';cells+='<td class="total">'+total(t)+'</td><td><button class="muted-btn del" data-i="'+i+'">×</button></td>';tr.innerHTML=cells;body.appendChild(tr)});body.querySelectorAll("input,select").forEach(el=>el.onchange=e=>{const i=Number(e.target.dataset.i),k=e.target.dataset.k,v=e.target.value;if(k.startsWith("r")&&v!==""&&(Number(v)<0||Number(v)>DATA.score.max[k])){alert("That round is out of range.");renderScores();return}teams[i][k]=k.startsWith("r")?(v===""?"":Number(v)):v;save()});body.querySelectorAll(".del").forEach(b=>b.onclick=e=>{teams.splice(Number(e.target.dataset.i),1);save()})}
@@ -64,11 +103,10 @@ function copyScorePrompt(){
   return false;
 }
 $("copyScorePrompt").onclick=()=>copyScorePrompt();
-$("startScoreChat").onclick=()=>{
-  const copied=copyScorePrompt();
-  window.open("https://chatgpt.com/","_blank");
-  if(copied)$("chatLaunchStatus").textContent="✅ Prompt copied and a fresh ChatGPT chat opened. Paste and send.";
-};
+$("startScoreChat").addEventListener("click",()=>{ copyScorePrompt(); });
+$("scorePromptBox").value=SCORE_CHAT_PROMPT;
 
-renderHost();renderScores();renderExtras();sync();
+$("returnClose").onclick=()=>{document.querySelector('[data-tab="host"]').click();goStage(DATA.stages.length-1);};
+$("returnR6").onclick=()=>{document.querySelector('[data-tab="host"]').click();goStage(DATA.stages.findIndex(s=>s.title==="Wave Until You’re Blue"));};
+fillJump();renderHost();renderScores();renderExtras();sync();
 </script></body></html>
