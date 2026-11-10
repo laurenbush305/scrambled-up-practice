@@ -1,4 +1,4 @@
-const CACHE="host-run-deluxe-v7";
+const CACHE="host-run-season-lock-v8";
 const CORE=[
   "./","./index.html","./manifest.json","./icon.svg",
   "./assets/route-map.jpg","./assets/olympic-rings.jpg","./assets/freedom-fighters-mural.jpg",

@@ -1005,9 +1005,11 @@ body{padding-bottom:76px}
   border:1px solid rgba(255,215,107,.18)
 }
 .visual-map-card img{
-  width:100%;border-radius:18px;border:1px solid rgba(255,215,107,.18);
+  width:100%;height:auto;border-radius:18px;border:1px solid rgba(255,215,107,.18);
   box-shadow:0 16px 45px rgba(0,0,0,.28)
 }
+.route-map-link{display:block;color:#FFD979;text-decoration:none}
+.route-map-link:focus-visible{outline:3px solid #9CE1FF;outline-offset:4px;border-radius:18px}
 .visual-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
 .visual-card{
   overflow:hidden;border-radius:22px;border:1px solid rgba(255,215,107,.18);
@@ -1051,7 +1053,7 @@ body{padding-bottom:76px}
   padding:8px 10px;border-radius:999px;font-size:10px;font-weight:900;letter-spacing:.07em
 }
 .mode-toggle.active{background:linear-gradient(90deg,#FFD979,#FF4D9C);color:#210713;border-color:#FFE9A7}
-.stage-visual{width:100%;max-height:320px;object-fit:cover;border-radius:18px;border:1px solid rgba(255,215,107,.16);margin:4px 0 16px}
+.stage-visual{width:100%;height:clamp(220px,32vw,320px);object-fit:cover;border-radius:18px;border:1px solid rgba(255,215,107,.16);margin:4px 0 16px}
 .emergency-line{
   padding:14px 16px;margin:12px 0;border-radius:14px;
   background:linear-gradient(100deg,rgba(255,217,121,.09),rgba(255,77,156,.08));
@@ -1143,6 +1145,60 @@ body{padding-bottom:76px}
   h1{font-size:44px}.visual-filmstrip{height:220px}.bottom-dock{bottom:max(7px,env(safe-area-inset-bottom))}
 }
 
+/* =========================================================
+   FINAL LOCK PASS — GLOBAL AUDIO ACCESSIBILITY CONTROLLER
+   ========================================================= */
+.app{padding-bottom:210px}
+.audio-controller{
+  position:fixed;z-index:108;left:50%;bottom:82px;transform:translateX(-50%);
+  width:min(880px,calc(100% - 28px));padding:10px 12px;border-radius:18px;
+  border:1px solid rgba(255,215,107,.30);
+  background:linear-gradient(135deg,rgba(36,8,38,.98),rgba(10,13,28,.98));
+  box-shadow:0 18px 55px rgba(0,0,0,.48);backdrop-filter:blur(18px)
+}
+.audio-controller-top{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.audio-controller-title{display:flex;align-items:center;gap:8px;margin-right:auto;min-width:142px}
+.audio-controller-title strong{font-size:11px;letter-spacing:.12em;color:#FFD979}
+.audio-controller-title span{font-size:10px;color:#DCC7E1}
+.audio-transport{display:flex;gap:6px;flex-wrap:wrap}
+.audio-control{
+  min-height:42px;padding:8px 10px;border-radius:11px;border:1px solid rgba(255,215,107,.20);
+  background:rgba(255,255,255,.045);color:#FFF8FF;font-size:10px;font-weight:900;letter-spacing:.05em
+}
+.audio-control:hover:not(:disabled){background:rgba(255,217,121,.11);border-color:#FFD979}
+.audio-control:disabled{opacity:.38;cursor:not-allowed}
+.audio-setting{display:flex;align-items:center;gap:6px;color:#DCC7E1;font-size:9px;font-weight:900;letter-spacing:.08em}
+.audio-setting select{
+  min-height:42px;border-radius:11px;border:1px solid rgba(255,215,107,.24);
+  background:#211027;color:#FFF8FF;padding:0 28px 0 10px;font-weight:900
+}
+.caption-panel{
+  margin-top:9px;padding:10px 12px;max-height:112px;overflow:auto;border-radius:12px;
+  border:1px solid rgba(156,225,255,.23);background:rgba(156,225,255,.07)
+}
+.caption-panel[hidden]{display:none}
+.caption-panel strong{display:block;color:#9CE1FF;font-size:9px;letter-spacing:.15em;margin-bottom:4px}
+.caption-panel p{margin:0;color:#FFF8FF;font-size:13px;line-height:1.45}
+.audio-control:focus-visible,.audio-setting select:focus-visible{outline:3px solid #9CE1FF;outline-offset:2px}
+
+@media(max-width:760px){
+  .app{padding-bottom:285px}
+  .audio-controller{bottom:79px;padding:9px 10px}
+  .audio-controller-top{align-items:stretch}
+  .audio-controller-title{width:100%;min-width:0}
+  .audio-transport{display:grid;grid-template-columns:repeat(4,1fr);width:100%}
+  .audio-control{min-height:44px;padding:9px 7px}
+  .audio-setting{flex:1}.audio-setting select{flex:1;min-width:88px}
+  .menu button,.grade,.choice,.tf,.visual-answer,.mode-toggle,.audio-btn{min-height:44px}
+  .audio-btn{padding:11px 13px}
+}
+
+@media(max-width:430px){
+  .app{padding-bottom:340px}
+  .audio-controller{width:calc(100% - 20px);bottom:max(78px,calc(env(safe-area-inset-bottom) + 72px))}
+  .caption-panel{max-height:96px}
+}
+
 </style>
 </head>
 <body>
@@ -1160,7 +1216,7 @@ body{padding-bottom:76px}
       <span class="pill">🔥 <b id="hudStreak">0</b></span>
       <span class="pill hide-sm">DAYS <b id="hudStudyDays">0</b></span>
       <span class="pill save-pill" id="savePill">SAVED</span>
-      <button class="btn small ghost" id="menuBtn" type="button">MENU</button>
+      <button class="btn small ghost" id="menuBtn" type="button" aria-expanded="false" aria-controls="menu">MENU</button>
     </div>
   </header>
   <div class="menu" id="menu">
@@ -1181,6 +1237,29 @@ body{padding-bottom:76px}
     <button data-nav="weak">The Reunion</button>
     <button data-nav="hq">Progress HQ</button>
   </div>
+
+  <aside class="audio-controller" id="audioController" aria-label="Global audio playback controls">
+    <div class="audio-controller-top">
+      <div class="audio-controller-title"><strong>AUDIO</strong><span id="audioStatus" aria-live="polite">READY</span></div>
+      <div class="audio-transport" aria-label="Playback controls">
+        <button class="audio-control" id="audioPlay" type="button" disabled>▶ PLAY</button>
+        <button class="audio-control" id="audioPause" type="button" disabled>Ⅱ PAUSE</button>
+        <button class="audio-control" id="audioResume" type="button" disabled>↻ RESUME</button>
+        <button class="audio-control" id="audioStop" type="button" disabled>■ STOP</button>
+      </div>
+      <label class="audio-setting" for="audioSpeed">SPEED
+        <select id="audioSpeed" aria-label="Audio playback speed">
+          <option value="0.75">0.75x</option><option value="1">1x</option><option value="1.25">1.25x</option>
+          <option value="1.5">1.5x</option><option value="1.75">1.75x</option><option value="2">2x</option>
+        </select>
+      </label>
+      <button class="audio-control" id="captionToggle" type="button" aria-pressed="true">CC ON</button>
+    </div>
+    <div class="caption-panel" id="captionPanel" hidden>
+      <strong>NOW SPEAKING • CAPTIONS</strong>
+      <p id="captionText"></p>
+    </div>
+  </aside>
 
   <main>
     <section class="view active" id="view-home">
@@ -1209,10 +1288,10 @@ body{padding-bottom:76px}
       
       
       <div class="visual-filmstrip" aria-label="Atlanta wine tour visual preview">
-        <img src="assets/sun-dial.jpg" alt="Sun Dial exterior from the training packet" loading="eager">
-        <img src="assets/lumen-lounge.jpg" alt="Lumen Lounge from the training packet" loading="eager">
-        <img src="assets/atalian.jpg" alt="Atalian from the training packet" loading="eager">
-        <img src="assets/white-oak.jpg" alt="White Oak from the training packet" loading="eager">
+        <img src="assets/sun-dial.jpg" width="602" height="658" alt="Sun Dial exterior from the training packet" loading="eager">
+        <img src="assets/lumen-lounge.jpg" width="602" height="509" alt="Lumen Lounge from the training packet" loading="eager">
+        <img src="assets/atalian.jpg" width="602" height="509" alt="Atalian from the training packet" loading="eager">
+        <img src="assets/white-oak.jpg" width="602" height="527" alt="White Oak from the training packet" loading="eager">
       </div>
       <div class="smart-next" id="homeSmartNext">
         <div><div class="kicker">YOUR NEXT EPISODE</div><h3 id="homeNextTitle">Loading your best next move…</h3><p id="homeNextWhy"></p></div>
@@ -1287,7 +1366,10 @@ body{padding-bottom:76px}
           <h3>1.2 miles • 4 pours • 2 bonus stops • back to Centennial</h3>
           <p>The map image comes directly from the training script. Use it for route shape; the photo cards below are your visual-location memory.</p>
         </div>
-        <img src="assets/route-map.jpg" alt="Atlanta Urban Wine Walks route map from the training script" loading="eager">
+        <a class="route-map-link" href="assets/route-map.jpg" target="_blank" rel="noopener" aria-label="Open the full-size Atlanta route map">
+          <img src="assets/route-map.jpg" width="975" height="388" alt="Atlanta Urban Wine Walks route map from the training script" loading="eager">
+          <span class="footer-note">TAP MAP FOR FULL SIZE ↗</span>
+        </a>
       </div>
       <div class="visual-grid" id="visualGrid"></div>
       <div class="visual-quiz-shell" id="visualQuizShell">
@@ -1478,7 +1560,7 @@ body{padding-bottom:76px}
       </div>
       <div class="panel">
         <h3>What the progress controls do</h3>
-        <p class="control-copy"><strong>Export</strong> downloads a backup. <strong>Import</strong> restores a valid backup. <strong>Reset scores</strong> clears attempts, misses, route grades, and badges but keeps your private host notes. <strong>Nuclear reset</strong> removes everything saved by this app on this browser.</p>
+        <p class="control-copy"><strong>Export</strong> downloads a backup. <strong>Import</strong> restores a valid backup. <strong>Reset scores</strong> clears attempts, misses, route grades, and badges but keeps your private host notes and study-day history. <strong>Nuclear reset</strong> removes everything saved by this app on this browser, including audio preferences.</p>
       </div>
     </section>
   </main>
@@ -1521,12 +1603,27 @@ function normalizeState(raw){
   if(!raw||typeof raw!=="object"||Array.isArray(raw))return next;
   const numberKeys=["xp","streak","bestStreak","quizCorrect","quizTotal","micDone","sessions","rumorCorrect","rumorTotal","recallPoints","recallTotal","deliveryPoints","deliveryTotal","lastSaved","visualCorrect","visualTotal","deepCorrect","deepTotal","hotSeatPoints","hotSeatTotal","cramDone"];
   numberKeys.forEach(k=>{const v=Number(raw[k]);if(Number.isFinite(v)&&v>=0)next[k]=v});
-  ["lane","badges","weak"].forEach(k=>{if(raw[k]&&typeof raw[k]==="object"&&!Array.isArray(raw[k]))next[k]=raw[k]});
-  if(raw.routeDone&&typeof raw.routeDone==="object")Object.entries(raw.routeDone).forEach(([k,v])=>{if(["nailed","almost","missed"].includes(v))next.routeDone[k]=v});
-  if(raw.pronunciation&&typeof raw.pronunciation==="object")Object.entries(raw.pronunciation).forEach(([k,v])=>{if(["nailed","almost","missed"].includes(v))next.pronunciation[k]=v});
+  if(raw.lane&&typeof raw.lane==="object"&&!Array.isArray(raw.lane))Object.entries(raw.lane).forEach(([k,v])=>{if(v&&typeof v==="object"&&Number.isFinite(Number(v.correct))&&Number.isFinite(Number(v.total))&&Number(v.correct)>=0&&Number(v.total)>=Number(v.correct))next.lane[String(k).slice(0,80)]={correct:Number(v.correct),total:Number(v.total)}});
+  if(raw.badges&&typeof raw.badges==="object"&&!Array.isArray(raw.badges))Object.entries(raw.badges).forEach(([k,v])=>{if(v===true)next.badges[String(k).slice(0,80)]=true});
+  if(raw.weak&&typeof raw.weak==="object"&&!Array.isArray(raw.weak))Object.entries(raw.weak).forEach(([k,v])=>{if(v&&/^(q|mic|route|rumor|deep|visual|hot|pron):.{1,100}$/.test(k))next.weak[k]=true});
+  const routeIds=new Set(DATA.routeStages.map(x=>x.id));
+  if(raw.routeDone&&typeof raw.routeDone==="object")Object.entries(raw.routeDone).forEach(([k,v])=>{if(routeIds.has(k)&&["nailed","almost","missed"].includes(v))next.routeDone[k]=v});
+  const terms=new Set(DATA.pronunciations.map(x=>x.term));
+  if(raw.pronunciation&&typeof raw.pronunciation==="object")Object.entries(raw.pronunciation).forEach(([k,v])=>{if(terms.has(k)&&["nailed","almost","missed"].includes(v))next.pronunciation[k]=v});
   if(raw.hostNotes&&typeof raw.hostNotes==="object")Object.entries(raw.hostNotes).forEach(([k,v])=>{if(typeof v==="string")next.hostNotes[k]=v.slice(0,10000)});
   if(Array.isArray(raw.studyDates))next.studyDates=[...new Set(raw.studyDates.filter(x=>typeof x==="string"&&/^\d{4}-\d{2}-\d{2}$/.test(x)))].slice(-730);
   return next;
+}
+function isValidBackup(raw){
+  if(!raw||typeof raw!=="object"||Array.isArray(raw))return false;
+  if(!["xp","quizTotal","routeDone","weak","hostNotes","studyDates"].every(k=>Object.prototype.hasOwnProperty.call(raw,k)))return false;
+  const numberKeys=["xp","streak","bestStreak","quizCorrect","quizTotal","micDone","sessions","rumorCorrect","rumorTotal","recallPoints","recallTotal","deliveryPoints","deliveryTotal","lastSaved","visualCorrect","visualTotal","deepCorrect","deepTotal","hotSeatPoints","hotSeatTotal","cramDone"];
+  if(numberKeys.some(k=>Object.prototype.hasOwnProperty.call(raw,k)&&(!Number.isFinite(Number(raw[k]))||Number(raw[k])<0)))return false;
+  const pairs=[["quizCorrect","quizTotal",1],["rumorCorrect","rumorTotal",1],["recallPoints","recallTotal",2],["deliveryPoints","deliveryTotal",2],["visualCorrect","visualTotal",1],["deepCorrect","deepTotal",1],["hotSeatPoints","hotSeatTotal",2]];
+  if(pairs.some(([n,d,max])=>Number(raw[n]||0)>Number(raw[d]||0)*max))return false;
+  if(!Array.isArray(raw.studyDates))return false;
+  if(["routeDone","weak","hostNotes"].some(k=>!raw[k]||typeof raw[k]!=="object"||Array.isArray(raw[k])))return false;
+  return true;
 }
 function loadState(){
   try{
@@ -1588,6 +1685,17 @@ function producerLine(correct){
   ];
   const a=correct?yes:no; return a[Math.floor(Math.random()*a.length)];
 }
+let lastAnswerAt=0;
+function lockAnswer(root){
+  const now=Date.now();
+  if(!root||root.dataset.answerLocked==="true"||now-lastAnswerAt<450)return false;
+  lastAnswerAt=now;
+  root.dataset.answerLocked="true";
+  root.querySelectorAll("button").forEach(b=>b.disabled=true);
+  return true;
+}
+function unlockAnswer(root){if(root)root.removeAttribute("data-answer-locked")}
+function updateWeakCount(){const el=document.getElementById("weakCount");if(el)el.textContent=getWeakItems().length}
 function pct(n,d,maxPer=1){
   if(!d)return 0;
   return Math.max(0,Math.min(100,Math.round((n/(d*maxPer))*100)));
@@ -1629,7 +1737,10 @@ function nav(name){
   window.scrollTo({top:0,behavior:"smooth"});
 }
 document.querySelectorAll("[data-nav]").forEach(b=>b.addEventListener("click",()=>nav(b.dataset.nav)));
-document.getElementById("menuBtn").addEventListener("click",()=>document.getElementById("menu").classList.toggle("show"));
+document.getElementById("menuBtn").addEventListener("click",()=>{
+  const menu=document.getElementById("menu"),open=menu.classList.toggle("show");
+  document.getElementById("menuBtn").setAttribute("aria-expanded",String(open));
+});
 
 function buildHomeRoute(){
   const box=document.getElementById("homeRoute");
@@ -1772,11 +1883,14 @@ function renderPronounce(){
   document.getElementById("pronTotal").textContent=pron.pool.length;
   document.getElementById("pronCleared").textContent=Object.keys(state.pronunciation||{}).filter(k=>state.pronunciation[k]==="nailed").length;
   const card=document.getElementById("pronounceCard");
+  unlockAnswer(card);
   card.innerHTML=`<div class="qmeta"><span>${p.context}</span><span>NAME CARD</span></div><div class="pronounce-term">${p.term}</div><p class="lede" style="font-size:15px">Say it out loud before revealing the packet’s phonetic cue.</p><button class="btn primary" id="revealPron" type="button">REVEAL NAME CARD</button><div class="receipt" id="pronReceipt"><div class="pron-phonetic">[${p.phonetic}]</div><p>Say it three times, then once inside a normal sentence.</p><div class="pron-actions"><button class="grade" data-pg="nailed" type="button">CLEAN</button><button class="grade" data-pg="almost" type="button">ONE MORE TAKE</button><button class="grade" data-pg="missed" type="button">ABSOLUTELY NOT 😂</button></div></div>`;
   document.getElementById("revealPron").addEventListener("click",()=>document.getElementById("pronReceipt").classList.add("show"));
+  let pronAnswered=false;
   card.querySelectorAll("[data-pg]").forEach(b=>b.addEventListener("click",()=>{
+    if(pronAnswered||!lockAnswer(card))return;pronAnswered=true;
     state.pronunciation=state.pronunciation||{}; state.pronunciation[p.term]=b.dataset.pg;
-    if(b.dataset.pg==="nailed"){delete state.weak["pron:"+p.term];award(40,"Pronunciation",true)} else {state.weak["pron:"+p.term]=true;award(0,"Pronunciation",b.dataset.pg==="almost")}
+    if(b.dataset.pg==="nailed"){delete state.weak["pron:"+p.term];award(40,"Pronunciation",true)} else {state.weak["pron:"+p.term]=true;award(0,"Pronunciation",false)}
     pron.i++;saveState();renderPronounce();
   }));
 }
@@ -1808,7 +1922,7 @@ function renderConfessional(){
     if(rg===null||dg===null)return;
     state.recallTotal++;state.recallPoints+=rg;state.deliveryTotal++;state.deliveryPoints+=dg;
     if(rg<2||dg<2)state.weak["mic:wm"+(confIndex%DATA.wineCast.length+1)]=true;
-    award((rg+dg)*40,"Wine Cast",(rg+dg)>=2);
+    award((rg+dg)*40,"Wine Cast",rg===2&&dg===2);
     document.getElementById("confStatus").innerHTML=`<strong>${producerLine(rg===2&&dg===2)}</strong> Facts: ${rg===2?"strong":rg===1?"partial":"missed"} • Delivery: ${dg===2?"tour ready":dg===1?"needs polish":"restart"}.`;
     card.querySelectorAll("[data-rg],[data-dg]").forEach(x=>x.disabled=true);
   }
@@ -1948,12 +2062,16 @@ function answerProhibition(val){
 document.getElementById("nextMicTop").addEventListener("click",()=>{micIndex=(micIndex+1)%DATA.speaking.length;renderMic()});
 function renderMic(){
   const m=DATA.speaking[micIndex];
-  document.getElementById("micCard").innerHTML=`<div class="mic-title">${m.q}</div><div class="mic-prompt">${m.prompt}</div><button class="btn primary" id="revealMic" type="button">REVEAL ANCHOR BEATS</button><div class="reveal" id="micReveal"><div class="anchor-chips">${m.anchors.map(a=>`<span class="chip">${a}</span>`).join("")}</div><div class="grade-row"><button class="grade" data-grade="nailed" type="button">NAILED IT</button><button class="grade" data-grade="almost" type="button">ALMOST</button><button class="grade" data-grade="missed" type="button">MISSED</button></div></div>`;
+  const micCard=document.getElementById("micCard");
+  unlockAnswer(micCard);
+  micCard.innerHTML=`<div class="mic-title">${m.q}</div><div class="mic-prompt">${m.prompt}</div><button class="btn primary" id="revealMic" type="button">REVEAL ANCHOR BEATS</button><div class="reveal" id="micReveal"><div class="anchor-chips">${m.anchors.map(a=>`<span class="chip">${a}</span>`).join("")}</div><div class="grade-row"><button class="grade" data-grade="nailed" type="button">NAILED IT</button><button class="grade" data-grade="almost" type="button">ALMOST</button><button class="grade" data-grade="missed" type="button">MISSED</button></div></div>`;
   document.getElementById("revealMic").addEventListener("click",()=>document.getElementById("micReveal").classList.add("show"));
+  let micAnswered=false;
   document.querySelectorAll("#micCard .grade").forEach(b=>b.addEventListener("click",()=>{
-    const g=b.dataset.grade;state.micDone++;
-    if(g==="nailed")award(120,m.lane,true);
-    else if(g==="almost"){award(60,m.lane,true);state.weak["mic:"+m.id]=true;saveState()}
+    if(micAnswered||!lockAnswer(micCard))return;micAnswered=true;
+    const g=b.dataset.grade,deliveryGrade=g==="nailed"?2:g==="almost"?1:0;state.micDone++;state.deliveryTotal++;state.deliveryPoints+=deliveryGrade;
+    if(g==="nailed"){delete state.weak["mic:"+m.id];award(120,m.lane,true)}
+    else if(g==="almost"){award(60,m.lane,false);state.weak["mic:"+m.id]=true;saveState()}
     else {award(0,m.lane,false);state.weak["mic:"+m.id]=true;saveState()}
     micIndex=(micIndex+1)%DATA.speaking.length;renderMic();
   }));
@@ -2011,9 +2129,10 @@ function renderWeak(){
   }
 }
 function answerWeakQuestion(val){
+  if(!lockAnswer(document.getElementById("weakCard")))return;
   const q=weakCurrent.q,correct=val===q.a,fb=document.getElementById("weakFeedback");fb.classList.add("show");
   if(correct){delete state.weak["q:"+q.id];award(80,q.lane,true)} else award(0,q.lane,false);
-  saveState();
+  saveState();updateWeakCount();
   fb.innerHTML=`<strong>${correct?"CLEARED":"STILL QUEUED"}</strong><br>${q.ex}<div style="margin-top:12px"><button class="btn small primary" id="nextWeak" type="button">NEXT WEAK SPOT →</button></div>`;
   document.getElementById("nextWeak").addEventListener("click",renderWeak);
 }
@@ -2059,9 +2178,9 @@ document.getElementById("exportBtn").addEventListener("click",()=>{
 });
 document.getElementById("importInput").addEventListener("change",e=>{
   const f=e.target.files[0];if(!f)return;
-  const r=new FileReader();r.onload=()=>{try{const parsed=JSON.parse(r.result);if(!parsed||typeof parsed!=="object"||Array.isArray(parsed))throw new Error("invalid backup");state=normalizeState(parsed);saveState();renderHQ();renderSmartNext();alert("Progress restored. Production found the tapes.")}catch(err){alert("That progress file could not be read.")}finally{e.target.value=""}};r.readAsText(f);
+  const r=new FileReader();r.onload=()=>{try{const parsed=JSON.parse(r.result);if(!isValidBackup(parsed))throw new Error("invalid backup");state=normalizeState(parsed);saveState();renderHQ();renderSmartNext();alert("Progress restored. Production found the tapes.")}catch(err){alert("That file is not a valid HOST RUN progress backup. Your current progress was not changed.")}finally{e.target.value=""}};r.readAsText(f);
 });
-document.getElementById("resetBtn").addEventListener("click",()=>{  if(confirm("Nuclear reset removes every score, miss, badge, route grade, study day, and private host note saved by this app on this browser. Continue?")){state=freshState();saveState();renderHQ();renderSmartNext()}
+document.getElementById("resetBtn").addEventListener("click",()=>{  if(confirm("Nuclear reset removes every score, miss, badge, route grade, study day, private host note, and audio preference saved by this app on this browser. Continue?")){localStorage.removeItem(AUDIO_PREFS_KEY);audioPrefs={speed:1,captions:true};stopSpeech();state=freshState();saveState();renderHQ();renderSmartNext()}
 });
 
 
@@ -2109,39 +2228,81 @@ updateHud=function(){
   const d=document.getElementById("hudStudyDays");if(d)d.textContent=studyDayCount();
 }
 
-function speakText(text,rate=.94){
-  if(!("speechSynthesis" in window)){alert("This browser does not support speech playback.");return}
-  window.speechSynthesis.cancel();
-  const u=new SpeechSynthesisUtterance(text);
-  u.rate=rate;u.pitch=1.03;u.volume=1;
+const AUDIO_PREFS_KEY="atlWineHostRunAudioPrefs";
+const AUDIO_SPEEDS=[.75,1,1.25,1.5,1.75,2];
+function loadAudioPrefs(){
+  try{
+    const raw=JSON.parse(localStorage.getItem(AUDIO_PREFS_KEY)||"null")||{};
+    const speed=AUDIO_SPEEDS.includes(Number(raw.speed))?Number(raw.speed):1;
+    return {speed,captions:raw.captions!==false};
+  }catch(e){return {speed:1,captions:true}}
+}
+let audioPrefs=loadAudioPrefs();
+let audioRunId=0;
+let audioPlayback={segments:[],index:0,status:"idle",currentText:""};
+
+function saveAudioPrefs(){localStorage.setItem(AUDIO_PREFS_KEY,JSON.stringify(audioPrefs))}
+function speechSupported(){return "speechSynthesis" in window&&"SpeechSynthesisUtterance" in window}
+function preferredVoice(){
   const voices=window.speechSynthesis.getVoices();
-  const preferred=voices.find(v=>/Samantha|Ava|Jenny|Aria|Google US English/i.test(v.name))||voices.find(v=>/^en/i.test(v.lang));
-  if(preferred)u.voice=preferred;
+  return voices.find(v=>/Samantha|Ava|Jenny|Aria|Google US English/i.test(v.name))||voices.find(v=>/^en/i.test(v.lang));
+}
+function updateAudioController(){
+  const hasAudio=audioPlayback.segments.length>0,speaking=audioPlayback.status==="speaking",paused=audioPlayback.status==="paused";
+  const status=document.getElementById("audioStatus"),caption=document.getElementById("captionPanel"),captionText=document.getElementById("captionText");
+  const labels={idle:"READY",speaking:`NOW PLAYING • ${audioPrefs.speed}x`,paused:"PAUSED",stopped:"STOPPED",ended:"COMPLETE",error:"UNAVAILABLE"};
+  status.textContent=labels[audioPlayback.status]||"READY";
+  document.getElementById("audioPlay").disabled=!hasAudio||speaking||paused;
+  document.getElementById("audioPause").disabled=!speaking;
+  document.getElementById("audioResume").disabled=!paused;
+  document.getElementById("audioStop").disabled=!hasAudio||audioPlayback.status==="stopped"||audioPlayback.status==="ended";
+  document.getElementById("audioSpeed").value=String(audioPrefs.speed);
+  const cc=document.getElementById("captionToggle");cc.textContent=audioPrefs.captions?"CC ON":"CC OFF";cc.setAttribute("aria-pressed",String(audioPrefs.captions));
+  captionText.textContent=audioPlayback.currentText;
+  caption.hidden=!audioPrefs.captions||!audioPlayback.currentText;
+}
+function speakCurrentSegment(runId){
+  if(runId!==audioRunId||audioPlayback.index>=audioPlayback.segments.length){audioPlayback.status="ended";updateAudioController();return}
+  const text=audioPlayback.segments[audioPlayback.index];audioPlayback.currentText=text;audioPlayback.status="speaking";updateAudioController();
+  const u=new SpeechSynthesisUtterance(text);u.rate=audioPrefs.speed;u.pitch=1.03;u.volume=1;
+  const voice=preferredVoice();if(voice)u.voice=voice;
+  u.onend=()=>{if(runId!==audioRunId||audioPlayback.status!=="speaking")return;audioPlayback.index++;speakCurrentSegment(runId)};
+  u.onerror=e=>{if(runId!==audioRunId||["canceled","interrupted"].includes(e.error))return;audioPlayback.status="error";updateAudioController()};
   window.speechSynthesis.speak(u);
 }
-function speakQueue(texts,idx=0){
-  if(!("speechSynthesis" in window)){alert("This browser does not support speech playback.");return}
-  window.speechSynthesis.cancel();
-  const go=(i)=>{
-    if(i>=texts.length)return;
-    const u=new SpeechSynthesisUtterance(texts[i]);u.rate=.94;u.pitch=1.03;
-    const voices=window.speechSynthesis.getVoices();
-    const preferred=voices.find(v=>/Samantha|Ava|Jenny|Aria|Google US English/i.test(v.name))||voices.find(v=>/^en/i.test(v.lang));
-    if(preferred)u.voice=preferred;
-    u.onend=()=>go(i+1);
-    window.speechSynthesis.speak(u);
-  };go(idx);
+function startSpeech(segments,idx=0){
+  const clean=segments.map(x=>String(x||"").trim()).filter(Boolean);
+  if(!speechSupported()){audioPlayback={segments:clean,index:0,status:"error",currentText:clean[0]||""};updateAudioController();alert("This browser does not support speech playback. Captions are still available in the audio controller.");return}
+  audioRunId++;if(window.speechSynthesis.paused)window.speechSynthesis.resume();window.speechSynthesis.cancel();audioPlayback={segments:clean,index:Math.max(0,idx),status:"speaking",currentText:clean[Math.max(0,idx)]||""};
+  speakCurrentSegment(audioRunId);
 }
+function pauseSpeech(){if(speechSupported()&&audioPlayback.status==="speaking"){window.speechSynthesis.pause();audioPlayback.status="paused";updateAudioController()}}
+function resumeSpeech(){if(speechSupported()&&audioPlayback.status==="paused"){window.speechSynthesis.resume();audioPlayback.status="speaking";updateAudioController()}}
+function stopSpeech(){audioRunId++;if(speechSupported()){if(window.speechSynthesis.paused)window.speechSynthesis.resume();window.speechSynthesis.cancel()}if(audioPlayback.segments.length)audioPlayback.status="stopped";updateAudioController()}
+function replaySpeech(){
+  if(!audioPlayback.segments.length)return;
+  const i=audioPlayback.status==="ended"?0:Math.min(audioPlayback.index,audioPlayback.segments.length-1);startSpeech(audioPlayback.segments,i);
+}
+function speakText(text){startSpeech([text])}
+function speakQueue(texts,idx=0){startSpeech(texts,idx)}
+
+document.getElementById("audioPlay").addEventListener("click",replaySpeech);
+document.getElementById("audioPause").addEventListener("click",pauseSpeech);
+document.getElementById("audioResume").addEventListener("click",resumeSpeech);
+document.getElementById("audioStop").addEventListener("click",stopSpeech);
+document.getElementById("audioSpeed").addEventListener("change",e=>{audioPrefs.speed=Number(e.target.value);saveAudioPrefs();updateAudioController()});
+document.getElementById("captionToggle").addEventListener("click",()=>{audioPrefs.captions=!audioPrefs.captions;saveAudioPrefs();updateAudioController()});
+updateAudioController();
 
 function nextModule(){
   const r=readiness(),weak=getWeakItems().length;
   if(weak>0)return {view:"weak",title:"The Reunion",why:`${weak} missed item${weak===1?" is":"s are"} waiting. Clean up the drama before adding more.`};
-  if(state.visualTotal<5)return {view:"visuals",title:"Atlanta Location Scout",why:"Your brain deserves pictures. Learn the rooms and the route shape before drilling more text."};
-  if(r.recognition<85)return {view:"rapid",title:"Rapid Pour",why:`Recognition is ${r.recognition}%. Build fast fact retrieval toward the 85% greenlight line.`};
-  if((state.deepTotal||0)<10)return {view:"deep",title:"Producer’s Cut",why:"The main facts are moving. Add the source details that make the material feel owned, not memorized."};
-  if(r.recall<80)return {view:"confessional",title:"Confessional Booth",why:"Multiple choice is helping. Now produce the wine stories with no answer choices."};
-  if((state.hotSeatTotal||0)<6)return {view:"hotseat",title:"Guest Hot Seat",why:"Practice the follow-up questions real guests can throw at you without warning."};
-  if(r.delivery<80)return {view:"mic",title:"Host Mic Check",why:"You know the facts. Now make them sound effortless and like you."};
+  if(state.visualTotal<7||r.visual<80)return {view:"visuals",title:"Atlanta Location Scout",why:`Visual memory is ${r.visual}% after ${state.visualTotal} of 7 minimum tries. Lock the rooms to the route.`};
+  if(state.quizTotal<30||r.recognition<85)return {view:"rapid",title:"Rapid Pour",why:`Recognition is ${r.recognition}% after ${state.quizTotal} of 30 minimum answers. Build fast retrieval toward the 85% greenlight line.`};
+  if(state.deepTotal<10||r.deep<80)return {view:"deep",title:"Producer’s Cut",why:`Producer’s Cut is ${r.deep}% after ${state.deepTotal} of 10 minimum answers. Own the source details, not just the headlines.`};
+  if(state.recallTotal<6||r.recall<80)return {view:"confessional",title:"Confessional Booth",why:`Free recall is ${r.recall}% after ${state.recallTotal} of 6 minimum takes. Produce the wine stories with no answer choices.`};
+  if(state.hotSeatTotal<6||r.hot<80)return {view:"hotseat",title:"Guest Hot Seat",why:`Guest Hot Seat is ${r.hot}% after ${state.hotSeatTotal} of 6 minimum answers. Practice the follow-ups real guests can throw at you.`};
+  if(state.deliveryTotal<6||r.delivery<80)return {view:"mic",title:"Host Mic Check",why:`Host delivery is ${r.delivery}% after ${state.deliveryTotal} of 6 minimum grades. Make the facts sound effortless and like you.`};
   if(r.route<100)return {view:"route",title:"Dress Rehearsal",why:"Put every story back in geographic order and run the room from start to finish."};
   return {view:"cram",title:"Ten-Minute Cram",why:"You are in maintenance mode. Keep the whole tour warm with a short full-system review."};
 }
@@ -2159,6 +2320,7 @@ nav=function(name){
   const target=document.getElementById("view-"+name);if(!target)return;
   target.classList.add("active");
   document.getElementById("menu").classList.remove("show");
+  document.getElementById("menuBtn").setAttribute("aria-expanded","false");
   if(name==="season")renderSeason();
   if(name==="visuals")renderVisuals();
   if(name==="cram")renderCram();
@@ -2246,8 +2408,8 @@ renderCast=function(){
     const w=DATA.wineCast[i];document.getElementById("castConfessional").innerHTML=`<strong>${w.name.toUpperCase()} CONFESSIONAL</strong><p style="font-size:20px;line-height:1.45;margin:8px 0 0">${w.confessional}</p>`;
   }));
   box.querySelectorAll("[data-note]").forEach(t=>t.addEventListener("input",()=>{state.hostNotes=state.hostNotes||{};state.hostNotes[t.dataset.note]=t.value;saveState()}));
-  box.querySelectorAll("[data-hear-term]").forEach(b=>b.addEventListener("click",()=>speakText(decodeURIComponent(b.dataset.hearTerm),.84)));
-  box.querySelectorAll("[data-hear-take]").forEach(b=>b.addEventListener("click",()=>speakText(decodeURIComponent(b.dataset.hearTake),.91)));
+  box.querySelectorAll("[data-hear-term]").forEach(b=>b.addEventListener("click",()=>speakText(decodeURIComponent(b.dataset.hearTerm))));
+  box.querySelectorAll("[data-hear-take]").forEach(b=>b.addEventListener("click",()=>speakText(decodeURIComponent(b.dataset.hearTake))));
 }
 
 /* ----- route study vs dress rehearsal ----- */
@@ -2271,6 +2433,7 @@ renderRoute=function(){
     b.textContent=(i+1)+". "+s.title;b.addEventListener("click",()=>{currentStage=i;renderRoute()});navBox.appendChild(b);
   });
   const s=DATA.routeStages[currentStage],v=visualForRoute(s.id),card=document.getElementById("stageCard");
+  unlockAnswer(card);
   const anchorsClass=routeMode==="rehearsal"?"anchor-list hidden-anchors":"anchor-list";
   card.innerHTML=`${v?`<img class="stage-visual" src="${v.image}" alt="${v.name}">`:""}
     <div class="kicker">${s.eyebrow}</div><h2 style="font-size:clamp(32px,5vw,54px)">${s.title}</h2>
@@ -2282,13 +2445,15 @@ renderRoute=function(){
     ${routeMode==="rehearsal"?`<button class="btn small reveal-anchors-btn" id="revealRouteAnchors" type="button">REVEAL ANCHORS AFTER I SPEAK</button>`:""}
     <div class="prompt-box"><strong>${routeMode==="rehearsal"?"DRESS REHEARSAL — HOST IT COLD":"HOST IT OUT LOUD"}</strong><p style="font-size:19px;line-height:1.45">${s.prompt}</p>
     <div class="grade-row"><button class="grade" data-grade="nailed" type="button">NAILED IT</button><button class="grade" data-grade="almost" type="button">ALMOST</button><button class="grade" data-grade="missed" type="button">MISSED</button></div></div>`;
-  document.getElementById("playStageCue").addEventListener("click",()=>speakText(s.emergencyLine,.91));
+  document.getElementById("playStageCue").addEventListener("click",()=>speakText(s.emergencyLine));
   const rr=document.getElementById("revealRouteAnchors");if(rr)rr.addEventListener("click",()=>{document.getElementById("routeAnchors").classList.remove("hidden-anchors");rr.remove()});
+  let routeAnswered=false;
   card.querySelectorAll(".grade").forEach(btn=>btn.addEventListener("click",()=>{
+    if(routeAnswered||!lockAnswer(card))return;routeAnswered=true;
     const g=btn.dataset.grade;
     state.routeDone[s.id]=g;state.sessions++;markStudyDay();
     if(g==="nailed"){delete state.weak["route:"+s.id];award(120,s.lane,true)}
-    else if(g==="almost"){state.weak["route:"+s.id]=true;award(70,s.lane,true)}
+    else if(g==="almost"){state.weak["route:"+s.id]=true;award(70,s.lane,false)}
     else {state.weak["route:"+s.id]=true;award(0,s.lane,false)}
     if(currentStage<DATA.routeStages.length-1)currentStage++;renderRoute();
   }));
@@ -2346,8 +2511,10 @@ renderWeak=function(){
     if(q.type==="tf")card.innerHTML=`<div class="reunion-label">PRODUCER’S CUT REUNION</div><div class="qtext">${q.q}</div><div class="truth-grid"><button class="tf true" data-dweak="true" type="button">TRUE</button><button class="tf false" data-dweak="false" type="button">FALSE</button></div><div class="feedback" id="dweakFeedback"></div>`;
     else card.innerHTML=`<div class="reunion-label">PRODUCER’S CUT REUNION</div><div class="qtext">${q.q}</div><div class="choices">${q.choices.map((c,i)=>`<button class="choice" data-dweak="${i}" type="button">${c}</button>`).join("")}</div><div class="feedback" id="dweakFeedback"></div>`;
     card.querySelectorAll("[data-dweak]").forEach(b=>b.addEventListener("click",()=>{
+      if(!lockAnswer(card))return;
       const val=q.type==="tf"?(b.dataset.dweak==="true"):Number(b.dataset.dweak),correct=val===q.a;
       if(correct){delete state.weak["deep:"+q.id];award(80,"Producer's Cut",true)}else award(0,"Producer's Cut",false);
+      updateWeakCount();
       const fb=document.getElementById("dweakFeedback");fb.classList.add("show");fb.innerHTML=`<strong>${correct?"CLEARED":"STILL ON THE COUCH"}</strong><br>${q.ex}<div style="margin-top:12px"><button class="btn small primary" id="nextDWeak" type="button">NEXT REUNION TOPIC →</button></div>`;document.getElementById("nextDWeak").addEventListener("click",renderWeak);saveState();
     }));return;
   }
@@ -2357,6 +2524,7 @@ renderWeak=function(){
 /* ----- guest hot seat ----- */
 function renderHotSeat(){
   const h=DATA.hotSeat[hotIndex%DATA.hotSeat.length],card=document.getElementById("hotSeatCard");if(!card)return;
+  unlockAnswer(card);
   card.innerHTML=`<div class="qmeta"><span>GUEST QUESTION</span><span>${hotIndex%DATA.hotSeat.length+1}/${DATA.hotSeat.length}</span></div>
     <div class="mic-title">${h.q}</div><p class="mic-prompt">Answer out loud first. Keep it warm, short, and normal-person.</p>
     <button class="btn primary" id="revealHot" type="button">REVEAL SOURCE-SUPPORTED ANSWER</button>
@@ -2364,8 +2532,9 @@ function renderHotSeat(){
     <div class="audio-row"><button class="audio-btn" id="playHot" type="button">▶ PLAY BENCHMARK</button></div>
     <div class="grade-row"><button class="grade" data-hg="2" type="button">I’D SAY THAT CLEANLY</button><button class="grade" data-hg="1" type="button">NEEDS A LITTLE POLISH</button><button class="grade" data-hg="0" type="button">GIRL, START OVER</button></div></div>`;
   document.getElementById("revealHot").addEventListener("click",()=>document.getElementById("hotAnswer").classList.add("show"));
-  card.querySelectorAll("[data-hg]").forEach(b=>b.addEventListener("click",()=>{const v=Number(b.dataset.hg);state.hotSeatTotal++;state.hotSeatPoints+=v;if(v===2)delete state.weak["hot:"+h.id];else state.weak["hot:"+h.id]=true;award(v*40,"Guest Hot Seat",v>0);hotIndex=(hotIndex+1)%DATA.hotSeat.length;renderHotSeat()}));
-  const ph=document.getElementById("playHot");if(ph)ph.addEventListener("click",()=>speakText(h.a,.92));
+  let hotAnswered=false;
+  card.querySelectorAll("[data-hg]").forEach(b=>b.addEventListener("click",()=>{if(hotAnswered||!lockAnswer(card))return;hotAnswered=true;const v=Number(b.dataset.hg);state.hotSeatTotal++;state.hotSeatPoints+=v;if(v===2)delete state.weak["hot:"+h.id];else state.weak["hot:"+h.id]=true;award(v*40,"Guest Hot Seat",v===2);hotIndex=(hotIndex+1)%DATA.hotSeat.length;renderHotSeat()}));
+  const ph=document.getElementById("playHot");if(ph)ph.addEventListener("click",()=>speakText(h.a));
 }
 document.getElementById("newHotSeat").addEventListener("click",()=>{hotIndex=(hotIndex+1)%DATA.hotSeat.length;renderHotSeat()});
 
@@ -2374,11 +2543,11 @@ function renderCram(){
   const box=document.getElementById("cramDeck");if(!box)return;
   box.innerHTML=DATA.cramSections.map((s,i)=>`<article class="cram-card ${cramCleared.has(i)?"cram-done":""}" data-ci="${i}">
     <button class="cram-head" type="button" data-cram-open="${i}"><span>${s.title}</span><span>${cramCleared.has(i)?"✓":"+"}</span></button>
-    <div class="cram-body" id="cram-body-${i}"><ul>${s.items.map(x=>`<li>${x}</li>`).join("")}</ul><div class="audio-row"><button class="audio-btn" data-cram-audio="${i}" type="button">▶ PLAY THIS SECTION</button><button class="audio-btn" data-cram-done="${i}" type="button">${cramCleared.has(i)?"CLEARED ✓":"MARK CLEAN"}</button></div></div>
+    <div class="cram-body" id="cram-body-${i}"><ul>${s.items.map(x=>`<li>${x}</li>`).join("")}</ul><div class="audio-row"><button class="audio-btn" data-cram-audio="${i}" type="button">▶ PLAY THIS SECTION</button><button class="audio-btn" data-cram-done="${i}" type="button" ${cramCleared.has(i)?"disabled":""}>${cramCleared.has(i)?"CLEARED ✓":"MARK CLEAN"}</button></div></div>
   </article>`).join("");
   box.querySelectorAll("[data-cram-open]").forEach(b=>b.addEventListener("click",()=>document.getElementById("cram-body-"+b.dataset.cramOpen).classList.toggle("show")));
   box.querySelectorAll("[data-cram-audio]").forEach(b=>b.addEventListener("click",()=>speakQueue(DATA.cramSections[Number(b.dataset.cramAudio)].items)));
-  box.querySelectorAll("[data-cram-done]").forEach(b=>b.addEventListener("click",()=>{const i=Number(b.dataset.cramDone);cramCleared.add(i);markStudyDay();if(cramCleared.size===DATA.cramSections.length){state.cramDone++;award(250,"Cram Mode",true)}else saveState();renderCram()}));
+  box.querySelectorAll("[data-cram-done]").forEach(b=>b.addEventListener("click",()=>{const i=Number(b.dataset.cramDone);if(cramCleared.has(i))return;cramCleared.add(i);markStudyDay();if(cramCleared.size===DATA.cramSections.length){state.cramDone++;award(250,"Cram Mode",true)}else saveState();renderCram()}));
   document.getElementById("cramCount").textContent=`${cramCleared.size}/${DATA.cramSections.length}`;
   document.getElementById("cramProgress").style.width=(cramCleared.size/DATA.cramSections.length*100)+"%";
 }
@@ -2392,7 +2561,7 @@ renderPronounce=function(){
   _renderPronounceV5();
   const card=document.getElementById("pronounceCard");if(!card)return;
   const p=pron.pool[pron.i];if(!p)return;
-  const btn=document.createElement("button");btn.type="button";btn.className="audio-btn";btn.textContent="▶ HEAR THE TERM";btn.addEventListener("click",()=>speakText(p.term,.78));
+  const btn=document.createElement("button");btn.type="button";btn.className="audio-btn";btn.textContent="▶ HEAR THE TERM";btn.addEventListener("click",()=>speakText(p.term));
   card.insertBefore(btn,card.querySelector("#revealPron"));
 }
 
@@ -2440,6 +2609,7 @@ renderSeason=function(){
 
 renderWeak=function(){
   const items=getWeakItems(),count=document.getElementById("weakCount"),empty=document.getElementById("weakEmpty"),card=document.getElementById("weakCard");
+  unlockAnswer(card);
   count.textContent=items.length;
   if(!items.length){empty.style.display="block";card.style.display="none";return}
   empty.style.display="none";card.style.display="block";
@@ -2471,8 +2641,10 @@ renderWeak=function(){
     const r=weakCurrent.r;
     card.innerHTML=`<div class="reunion-label">REUNION RECEIPT</div><div class="qmeta"><span>${r.wine}</span><span>RUMOR REPLAY</span></div><div class="qtext">${r.claim}</div><div class="truth-grid"><button class="tf true" data-rweak="true" type="button">TRUE</button><button class="tf false" data-rweak="false" type="button">FALSE</button></div><div class="feedback" id="rweakFeedback"></div>`;
     card.querySelectorAll("[data-rweak]").forEach(b=>b.addEventListener("click",()=>{
+      if(!lockAnswer(card))return;
       const correct=(b.dataset.rweak==="true")===r.answer;
       if(correct){delete state.weak["rumor:"+r.id];award(80,"Wine Cast",true)}else award(0,"Wine Cast",false);
+      updateWeakCount();
       const fb=document.getElementById("rweakFeedback");fb.classList.add("show");fb.innerHTML=`<strong>${correct?"CLEARED":"STILL ON THE COUCH"}</strong><br>${producerLine(correct)}<br><br>${r.receipt}<div style="margin-top:12px"><button class="btn small primary" id="nextRWeak" type="button">NEXT REUNION TOPIC →</button></div>`;
       document.getElementById("nextRWeak").addEventListener("click",renderWeak);saveState();
     }));return;
@@ -2481,9 +2653,11 @@ renderWeak=function(){
   const anchors=item.anchors,prompt=item.prompt,key=weakCurrent.kind+":"+item.id;
   card.innerHTML=`<div class="qmeta"><span>${item.lane}</span><span>SPEAKING REPLAY</span></div><div class="qtext">${prompt}</div><button class="btn primary" id="weakReveal" type="button">REVEAL ANCHORS</button><div class="reveal" id="weakRevealBox"><div class="anchor-chips">${anchors.map(a=>`<span class="chip">${a}</span>`).join("")}</div><div class="grade-row"><button class="grade" data-grade="nailed" type="button">CLEARED</button><button class="grade" data-grade="almost" type="button">KEEP IT QUEUED</button><button class="grade" data-grade="missed" type="button">MISSED</button></div></div>`;
   document.getElementById("weakReveal").addEventListener("click",()=>document.getElementById("weakRevealBox").classList.add("show"));
+  let weakSpokenAnswered=false;
   document.querySelectorAll("#weakCard .grade").forEach(b=>b.addEventListener("click",()=>{
+    if(weakSpokenAnswered||!lockAnswer(card))return;weakSpokenAnswered=true;
     if(b.dataset.grade==="nailed"){delete state.weak[key];award(80,item.lane,true)}
-    else if(b.dataset.grade==="almost")award(30,item.lane,true);
+    else if(b.dataset.grade==="almost")award(30,item.lane,false);
     else award(0,item.lane,false);
     saveState();renderWeak();
   }));
@@ -2559,16 +2733,20 @@ renderWeak=function(){
     const v=item.visual,opts=shuffle([v,...shuffle(DATA.visualStops.filter(x=>x.id!==v.id)).slice(0,3)]);
     card.innerHTML=`<div class="reunion-label">VISUAL SCOUT REUNION</div><img class="stage-visual" src="${v.image}" alt="Mystery Atlanta wine tour stop"><div class="qtext" style="font-size:34px">Name this location.</div><div class="visual-options">${opts.map(x=>`<button class="visual-answer" data-vweak="${x.id}" type="button">${x.name}</button>`).join("")}</div><div class="feedback" id="customWeakFeedback"></div>`;
     card.querySelectorAll("[data-vweak]").forEach(b=>b.addEventListener("click",()=>{
+      if(!lockAnswer(card))return;
       const correct=b.dataset.vweak===v.id;if(correct){delete state.weak["visual:"+v.id];award(80,"Visual Memory",true)}else award(0,"Visual Memory",false);
+      updateWeakCount();
       card.querySelectorAll("[data-vweak]").forEach(x=>x.disabled=true);const fb=document.getElementById("customWeakFeedback");fb.classList.add("show");fb.innerHTML=`<strong>${correct?"LOCATION LOCKED":"STILL IN THE WRONG LOBBY"}</strong><br>${v.cue}<div style="margin-top:12px"><button class="btn small primary" id="nextCustomWeak" type="button">NEXT REUNION TOPIC →</button></div>`;document.getElementById("nextCustomWeak").addEventListener("click",renderWeak);saveState();
     }));wireImageFallbacks(card);return;
   }
   if(item.kind==="pron"){
     const p=item.pronunciation;card.innerHTML=`<div class="reunion-label">NAME-CARD REUNION</div><div class="qmeta"><span>${p.context}</span><span>PRONUNCIATION</span></div><div class="qtext">${p.term}</div><p>Say it before Production reveals the packet cue.</p><button class="btn primary" id="revealCustomWeak" type="button">REVEAL PHONETIC CUE</button><div class="reveal" id="customWeakReveal"><div class="pron-phonetic">[${p.phonetic}]</div><div class="audio-row"><button class="audio-btn" id="hearCustomWeak" type="button">▶ HEAR THE TERM</button></div><div class="grade-row"><button class="grade" data-pweak="nailed" type="button">CLEAN</button><button class="grade" data-pweak="missed" type="button">STILL QUEUED</button></div></div>`;
-    document.getElementById("revealCustomWeak").addEventListener("click",()=>document.getElementById("customWeakReveal").classList.add("show"));document.getElementById("hearCustomWeak").addEventListener("click",()=>speakText(p.term,.78));card.querySelectorAll("[data-pweak]").forEach(b=>b.addEventListener("click",()=>{if(b.dataset.pweak==="nailed"){delete state.weak["pron:"+p.term];state.pronunciation[p.term]="nailed";award(60,"Pronunciation",true)}else award(0,"Pronunciation",false);saveState();renderWeak()}));return;
+    let pronWeakAnswered=false;
+    document.getElementById("revealCustomWeak").addEventListener("click",()=>document.getElementById("customWeakReveal").classList.add("show"));document.getElementById("hearCustomWeak").addEventListener("click",()=>speakText(p.term));card.querySelectorAll("[data-pweak]").forEach(b=>b.addEventListener("click",()=>{if(pronWeakAnswered||!lockAnswer(card))return;pronWeakAnswered=true;if(b.dataset.pweak==="nailed"){delete state.weak["pron:"+p.term];state.pronunciation[p.term]="nailed";award(60,"Pronunciation",true)}else award(0,"Pronunciation",false);saveState();renderWeak()}));return;
   }
   const h=item.hot;card.innerHTML=`<div class="reunion-label">GUEST HOT-SEAT REUNION</div><div class="qtext">${h.q}</div><p>Answer in one warm, useful breath.</p><button class="btn primary" id="revealCustomWeak" type="button">SHOW SOURCE-SUPPORTED ANSWER</button><div class="reveal" id="customWeakReveal"><p style="line-height:1.55">${h.a}</p><div class="anchor-chips">${h.anchors.map(a=>`<span class="chip">${a}</span>`).join("")}</div><div class="grade-row"><button class="grade" data-hweak="2" type="button">CLEAN</button><button class="grade" data-hweak="1" type="button">STILL QUEUED</button></div></div>`;
-  document.getElementById("revealCustomWeak").addEventListener("click",()=>document.getElementById("customWeakReveal").classList.add("show"));card.querySelectorAll("[data-hweak]").forEach(b=>b.addEventListener("click",()=>{const grade=Number(b.dataset.hweak);if(grade===2){delete state.weak["hot:"+h.id];award(80,"Guest Hot Seat",true)}else award(30,"Guest Hot Seat",true);saveState();renderWeak()}));
+  let hotWeakAnswered=false;
+  document.getElementById("revealCustomWeak").addEventListener("click",()=>document.getElementById("customWeakReveal").classList.add("show"));card.querySelectorAll("[data-hweak]").forEach(b=>b.addEventListener("click",()=>{if(hotWeakAnswered||!lockAnswer(card))return;hotWeakAnswered=true;const grade=Number(b.dataset.hweak);if(grade===2){delete state.weak["hot:"+h.id];award(80,"Guest Hot Seat",true)}else award(30,"Guest Hot Seat",false);saveState();renderWeak()}));
 }
 
 function wireImageFallbacks(root=document){
@@ -2582,7 +2760,7 @@ const _renderVisualsV7=renderVisuals;renderVisuals=function(){_renderVisualsV7()
 const _renderVisualQuizV7=renderVisualQuiz;renderVisualQuiz=function(){_renderVisualQuizV7();wireImageFallbacks(document.getElementById("visualQuizCard"))}
 const _renderCastV7=renderCast;renderCast=function(){_renderCastV7();wireImageFallbacks(document.getElementById("castGrid"))}
 
-let guidedMode=false,guidedLastStage=-1;
+let guidedMode=false,guidedLastStage=-1,guidedSpeechTimer=null;
 const _renderRouteV7=renderRoute;
 renderRoute=function(){
   const wasLast=currentStage===DATA.routeStages.length-1;
@@ -2590,12 +2768,13 @@ renderRoute=function(){
   document.querySelectorAll("#stageNav .stage-btn").forEach((b,i)=>{const g=state.routeDone&&state.routeDone[DATA.routeStages[i].id];if(g)b.classList.add(g)});
   const banner=document.getElementById("guidedBanner");if(banner)banner.classList.toggle("show",guidedMode);
   wireImageFallbacks(document.getElementById("view-route"));
-  if(guidedMode&&guidedLastStage!==currentStage){guidedLastStage=currentStage;const s=DATA.routeStages[currentStage];setTimeout(()=>speakText(`${s.title}. ${s.scene} ${s.prompt}`,.91),180)}
-  document.querySelectorAll("#stageCard .grade").forEach(b=>b.addEventListener("click",()=>{if(guidedMode&&wasLast){guidedMode=false;guidedLastStage=-1;setTimeout(()=>{document.getElementById("guidedBanner").classList.remove("show");speakText("Episode complete. Ask for the favorite wine, thank the group, invite a review, and land the relaxed wine philosophy.",.91)},260)}}));
+  if(guidedSpeechTimer){clearTimeout(guidedSpeechTimer);guidedSpeechTimer=null}
+  if(guidedMode&&guidedLastStage!==currentStage){guidedLastStage=currentStage;const s=DATA.routeStages[currentStage];guidedSpeechTimer=setTimeout(()=>{guidedSpeechTimer=null;speakText(`${s.title}. ${s.scene} ${s.prompt}`)},180)}
+  document.querySelectorAll("#stageCard .grade").forEach(b=>b.addEventListener("click",()=>{if(guidedMode&&wasLast){guidedMode=false;guidedLastStage=-1;if(guidedSpeechTimer)clearTimeout(guidedSpeechTimer);guidedSpeechTimer=setTimeout(()=>{guidedSpeechTimer=null;document.getElementById("guidedBanner").classList.remove("show");speakText("Episode complete. Ask for the favorite wine, thank the group, invite a review, and land the relaxed wine philosophy.")},260)}}));
   const r=readiness();document.getElementById("routeDone").textContent=r.routeNailed;document.getElementById("routeProgress").style.width=r.route+"%";
 }
-document.getElementById("playEpisode").addEventListener("click",()=>{guidedMode=true;guidedLastStage=-1;currentStage=0;routeMode="rehearsal";syncRouteModeUI();nav("route")});
-document.getElementById("stopEpisode").addEventListener("click",()=>{guidedMode=false;guidedLastStage=-1;if("speechSynthesis" in window)window.speechSynthesis.cancel();document.getElementById("guidedBanner").classList.remove("show")});
+document.getElementById("playEpisode").addEventListener("click",()=>{stopSpeech();guidedMode=true;guidedLastStage=-1;currentStage=0;routeMode="rehearsal";syncRouteModeUI();nav("route")});
+document.getElementById("stopEpisode").addEventListener("click",()=>{guidedMode=false;guidedLastStage=-1;if(guidedSpeechTimer){clearTimeout(guidedSpeechTimer);guidedSpeechTimer=null}stopSpeech();document.getElementById("guidedBanner").classList.remove("show")});
 
 const _renderHQV7=renderHQ;
 renderHQ=function(){
