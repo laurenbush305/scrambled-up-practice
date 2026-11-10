@@ -1,0 +1,173 @@
+{
+  "edition": "2026-11-10",
+  "quizNumber": 652,
+  "sourcePath": "/Wild Heaven/Pub 652/Pub Quiz 652.docx",
+  "internetQuestion": {
+    "question": "Apple’s famous dystopian Super Bowl commercial introducing the Macintosh was directed by what filmmaker who later made Gladiator and The Martian?",
+    "answer": "Ridley Scott",
+    "url": "https://www.dirtysouthtrivia.com/",
+    "verifiedOn": "2026-11-10"
+  },
+  "round5Source": "https://www.visualcapitalist.com/ranked-the-10-busiest-airports-in-north-america/",
+  "rounds": [
+    {
+      "number": 1,
+      "title": "Random",
+      "pointsPerCorrect": 1,
+      "maxPoints": 8,
+      "jokerAllowed": true,
+      "answers": [
+        "Ridley Scott",
+        "Estimated Time of Arrival",
+        "Ocarina of Time",
+        "The Land Yacht",
+        "My Humps",
+        "Egypt",
+        "March of Dimes",
+        "Samosa"
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Some Assembly Required",
+      "pointsPerCorrect": 1,
+      "maxPoints": 8,
+      "jokerAllowed": true,
+      "answers": [
+        "Sazerac",
+        "Nirvana",
+        "Microwave Oven",
+        "Trombone",
+        "The Powerpuff Girls",
+        "Hummus",
+        "Tiramisu",
+        "Blink-182"
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Find The Connection",
+      "pointsPerCorrect": 1,
+      "maxPoints": 8,
+      "jokerAllowed": true,
+      "answers": [
+        "Kangaroo",
+        "Charlie Kirk",
+        "Marvel",
+        "America",
+        "Hook, Line, and Sinker",
+        "Morgan Freeman",
+        "Planet Hollywood",
+        "Captains"
+      ],
+      "notes": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "Matt's parenthetical source list says Captain Phillips, but Question 3's answer is Marvel. The connection itself is Captains; the obvious mapping is Captain Kangaroo, Captain Kirk, Captain Marvel, Captain America, Captain Hook, Captain Morgan, Captain Planet. Preserve Matt's original note in source archive."
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Blue Wave",
+      "pointsPerCorrect": 1,
+      "maxPoints": 8,
+      "jokerAllowed": true,
+      "answers": [
+        "Squirtle",
+        "Mr. Freeze",
+        "Dory",
+        "Brainy Smurf",
+        "Tobias Fünke",
+        "Mystique / Raven",
+        "Gonzo",
+        "Bluey"
+      ],
+      "videoUrl": "https://www.youtube.com/watch?v=_Q91KV0hTZU"
+    },
+    {
+      "number": 5,
+      "title": "Gate Expectations",
+      "pointsPerCorrect": 1,
+      "maxPoints": 8,
+      "jokerAllowed": false,
+      "acceptedAnswers": [
+        "Hartsfield-Jackson Atlanta (ATL)",
+        "Dallas Fort Worth (DFW)",
+        "Chicago O’Hare (ORD)",
+        "Denver International (DEN)",
+        "Los Angeles International (LAX)",
+        "John F. Kennedy (JFK)",
+        "Orlando International (MCO)",
+        "Miami International (MIA)",
+        "Harry Reid International (LAS)",
+        "San Francisco International (SFO)"
+      ],
+      "source": "https://www.visualcapitalist.com/ranked-the-10-busiest-airports-in-north-america/",
+      "note": "Teams name any eight of these ten; max 8 points."
+    },
+    {
+      "number": 6,
+      "title": "Wave Until You’re Blue",
+      "pointsPerCorrect": 2,
+      "maxPoints": 16,
+      "jokerAllowed": true,
+      "answers": [
+        "Point Break",
+        "Glass Animals",
+        "Tsunami",
+        "Alien",
+        "The 1980s (1981)",
+        "Amplitude modulation",
+        "Sonar",
+        "Tidal"
+      ],
+      "note": "Round 6 header says 2 points per correct and does not prohibit Joker. Matt's general rule says all rounds are Joker-eligible unless excluded; Round 5 is explicitly excluded, so R6 remains eligible."
+    }
+  ],
+  "tiebreaker": {
+    "question": "In pounds, how much did Raytheon’s first commercial microwave oven weigh in 1947? The Price Is Right rules do NOT apply. The closest answer wins.",
+    "answer": "750 pounds",
+    "rule": "Closest wins; over allowed"
+  },
+  "joker": {
+    "allowedRounds": [
+      "R1",
+      "R2",
+      "R3",
+      "R4",
+      "R6"
+    ],
+    "notAllowed": [
+      "R5"
+    ],
+    "maxPerfectTotal": 72
+  },
+  "optionalMiniGames": [
+    {
+      "title": "Political Ad Junk Mail",
+      "scored": false,
+      "sourceMismatch": "Matt's game prompt is political-ad junk mail, but the sample intro still says Powerball."
+    },
+    {
+      "title": "Music — 2013 Alternative Hits",
+      "scored": false,
+      "tracks": [
+        "Daft Punk – Get Lucky",
+        "Arcade Fire – Reflecktor",
+        "Fitz and the Tantrums – Out of My League",
+        "Capital Cities – Safe & Sound",
+        "Cage the Elephant – Come A Little Closer",
+        "Tame Impala – Elephant",
+        "Muse – Panic Station",
+        "Pearl Jam – Sirens",
+        "Grouplove – Ways To Go",
+        "Bastille – Pompeii"
+      ]
+    }
+  ]
+}
