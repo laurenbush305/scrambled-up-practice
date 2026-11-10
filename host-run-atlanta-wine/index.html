@@ -982,17 +982,17 @@ body{padding-bottom:76px}
 
 .visual-filmstrip{
   display:grid;grid-template-columns:1.2fr .9fr .9fr 1.1fr;gap:8px;margin:16px 0 18px;
-  height:180px
+  height:auto;align-items:start;overflow:hidden
 }
 .visual-filmstrip img{
-  width:100%;height:100%;object-fit:cover;border-radius:14px;
+  width:100%;height:180px;object-fit:cover;border-radius:14px;
   border:1px solid rgba(255,215,107,.18);filter:saturate(1.04) contrast(1.02)
 }
 .visual-filmstrip img:nth-child(2){transform:translateY(10px)}
 .visual-filmstrip img:nth-child(3){transform:translateY(-8px)}
 .smart-next{
-  display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center;
-  padding:20px 22px;margin:8px 0 18px;border-radius:18px;
+  display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center;position:relative;z-index:2;clear:both;
+  padding:20px 22px;margin:24px 0 18px;border-radius:18px;
   border:1px solid rgba(255,215,107,.20);
   background:linear-gradient(100deg,rgba(255,217,121,.10),rgba(228,46,132,.12),rgba(255,255,255,.025))
 }
@@ -1082,7 +1082,7 @@ body{padding-bottom:76px}
 
 .bottom-dock{
   position:fixed;left:50%;bottom:12px;transform:translateX(-50%);z-index:80;
-  display:flex;gap:4px;padding:7px;border-radius:18px;
+  display:none;gap:4px;padding:7px;border-radius:18px;
   background:rgba(20,7,25,.88);backdrop-filter:blur(18px) saturate(135%);
   border:1px solid rgba(255,215,107,.20);box-shadow:0 18px 55px rgba(0,0,0,.38)
 }
@@ -1123,14 +1123,15 @@ body{padding-bottom:76px}
 .btn:focus-visible,.grade:focus-visible,.choice:focus-visible,.tf:focus-visible,.stage-btn:focus-visible,.audio-btn:focus-visible{outline:3px solid #9CE1FF;outline-offset:3px}
 
 @media(max-width:760px){
-  .visual-filmstrip{grid-template-columns:1fr 1fr;height:260px}
+  .visual-filmstrip{grid-template-columns:1fr 1fr;height:auto}
+  .visual-filmstrip img{height:160px}
   .visual-filmstrip img:nth-child(n){transform:none}
   .visual-grid,.visual-map-card,.visual-quiz-card{grid-template-columns:1fr}
   .visual-card-media{height:220px}
   .visual-quiz-card img{height:260px}
   .smart-next{grid-template-columns:1fr}
   .cram-progress{grid-template-columns:1fr}
-  .bottom-dock{width:calc(100% - 18px);justify-content:space-between;bottom:7px}
+  .bottom-dock{display:flex;width:calc(100% - 18px);justify-content:space-between;bottom:7px}
   .bottom-dock button{min-width:0;flex:1}
   .readiness-grid{grid-template-columns:1fr 1fr}
   .guided-banner{align-items:flex-start;flex-direction:column}
@@ -1142,15 +1143,16 @@ body{padding-bottom:76px}
   .brand{gap:7px}.brandmark{width:36px;height:36px;flex:0 0 36px}.brandtext{font-size:11px}.brandtext span{display:none}
   .hud{gap:5px}.hud .pill:nth-child(3){display:none}.pill{padding:6px 7px}.save-pill{font-size:9px}
   .menu{position:fixed;left:12px;right:12px;top:62px;max-height:72vh;overflow:auto}
-  h1{font-size:44px}.visual-filmstrip{height:220px}.bottom-dock{bottom:max(7px,env(safe-area-inset-bottom))}
+  h1{font-size:44px}.visual-filmstrip{height:auto}.visual-filmstrip img{height:145px}.bottom-dock{bottom:max(7px,env(safe-area-inset-bottom))}
 }
 
 /* =========================================================
    FINAL LOCK PASS — GLOBAL AUDIO ACCESSIBILITY CONTROLLER
    ========================================================= */
-.app{padding-bottom:210px}
+.app{padding-bottom:96px}
+.app.audio-active{padding-bottom:230px}
 .audio-controller{
-  position:fixed;z-index:108;left:50%;bottom:82px;transform:translateX(-50%);
+  position:fixed;z-index:108;left:50%;bottom:18px;transform:translateX(-50%);
   width:min(880px,calc(100% - 28px));padding:10px 12px;border-radius:18px;
   border:1px solid rgba(255,215,107,.30);
   background:linear-gradient(135deg,rgba(36,8,38,.98),rgba(10,13,28,.98));
@@ -1180,10 +1182,18 @@ body{padding-bottom:76px}
 .caption-panel strong{display:block;color:#9CE1FF;font-size:9px;letter-spacing:.15em;margin-bottom:4px}
 .caption-panel p{margin:0;color:#FFF8FF;font-size:13px;line-height:1.45}
 .audio-control:focus-visible,.audio-setting select:focus-visible{outline:3px solid #9CE1FF;outline-offset:2px}
+.audio-controller.is-idle{
+  left:auto;right:18px;bottom:18px;transform:none;width:auto;max-width:520px;padding:8px 10px
+}
+.audio-controller.is-idle .audio-controller-title{min-width:0;margin-right:6px}
+.audio-controller.is-idle .audio-transport{display:none}
+.audio-controller.is-idle .caption-panel{display:none}
 
 @media(max-width:760px){
-  .app{padding-bottom:285px}
+  .app{padding-bottom:112px}
+  .app.audio-active{padding-bottom:305px}
   .audio-controller{bottom:79px;padding:9px 10px}
+  .audio-controller.is-idle{left:auto;right:10px;bottom:max(70px,calc(env(safe-area-inset-bottom) + 64px));transform:none;width:auto}
   .audio-controller-top{align-items:stretch}
   .audio-controller-title{width:100%;min-width:0}
   .audio-transport{display:grid;grid-template-columns:repeat(4,1fr);width:100%}
@@ -1194,8 +1204,10 @@ body{padding-bottom:76px}
 }
 
 @media(max-width:430px){
-  .app{padding-bottom:340px}
+  .app{padding-bottom:112px}
+  .app.audio-active{padding-bottom:340px}
   .audio-controller{width:calc(100% - 20px);bottom:max(78px,calc(env(safe-area-inset-bottom) + 72px))}
+  .audio-controller.is-idle{width:auto;left:auto;right:10px;bottom:max(70px,calc(env(safe-area-inset-bottom) + 64px))}
   .caption-panel{max-height:96px}
 }
 
@@ -2249,6 +2261,9 @@ function preferredVoice(){
 }
 function updateAudioController(){
   const hasAudio=audioPlayback.segments.length>0,speaking=audioPlayback.status==="speaking",paused=audioPlayback.status==="paused";
+  const controller=document.getElementById("audioController"),app=document.getElementById("app");
+  controller.classList.toggle("is-idle",!hasAudio);
+  app.classList.toggle("audio-active",hasAudio);
   const status=document.getElementById("audioStatus"),caption=document.getElementById("captionPanel"),captionText=document.getElementById("captionText");
   const labels={idle:"READY",speaking:`NOW PLAYING • ${audioPrefs.speed}x`,paused:"PAUSED",stopped:"STOPPED",ended:"COMPLETE",error:"UNAVAILABLE"};
   status.textContent=labels[audioPlayback.status]||"READY";
