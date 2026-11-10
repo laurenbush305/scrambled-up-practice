@@ -69,7 +69,22 @@
         "",
         "",
         "Matt's parenthetical source list says Captain Phillips, but Question 3's answer is Marvel. The connection itself is Captains; the obvious mapping is Captain Kangaroo, Captain Kirk, Captain Marvel, Captain America, Captain Hook, Captain Morgan, Captain Planet. Preserve Matt's original note in source archive."
-      ]
+      ],
+      "acceptedAnswers": {
+        "3": [
+          "Marvel",
+          "Marvel Comics",
+          "Captain Marvel"
+        ],
+        "8": [
+          "Captain",
+          "Captains",
+          "Captain-themed answers",
+          "Captain Marvel",
+          "Captain Phillips"
+        ]
+      },
+      "scoringNote": "GENEROUS SCORING: Q3 — accept Marvel, Marvel Comics, or Captain Marvel if the team clearly understands the clue/connection. Q8 — accept Captain, Captains, Captain-themed answers, Captain Marvel, Captain Phillips, or another clear Captain-based variation that demonstrates the connection. Do not penalize harmless singular/plural, punctuation, spelling, or wording differences."
     },
     {
       "number": 4,
