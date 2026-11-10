@@ -1,0 +1,1391 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HOST RUN • Atlanta Wine Walks — Private Training Cut</title>
+<style>
+:root{
+  --ink:#171515; --paper:#08080A; --paper2:#111116; --wine:#6f1731; --wine2:#8d2948;
+  --peach:#D8D9E2; --peach2:#17171E; --brass:#B9BAC4; --line:#34343D; --muted:#A8A9B4;
+  --green:#435346; --red:#b5322d; --shadow:0 14px 40px rgba(43,28,20,.10);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;}
+button,input,select{font:inherit}
+button{cursor:pointer}
+.app{max-width:980px;margin:0 auto;min-height:100vh;padding:18px}
+.topbar{display:flex;gap:14px;align-items:center;justify-content:space-between;border-bottom:1px solid var(--ink);padding:4px 0 14px;position:sticky;top:0;background:rgba(246,239,228,.96);backdrop-filter:blur(10px);z-index:20}
+.brand{display:flex;align-items:center;gap:10px;min-width:0}
+.brandmark{width:40px;height:40px;border:1px solid var(--ink);border-radius:50%;display:grid;place-items:center;font-weight:900;letter-spacing:-.04em;background:var(--peach2)}
+.brandtext{font-weight:900;letter-spacing:.08em;font-size:13px;line-height:1.05}
+.brandtext span{display:block;font-weight:500;letter-spacing:.02em;color:var(--muted);margin-top:4px}
+.hud{display:flex;gap:12px;align-items:center;font-size:12px;font-weight:800;white-space:nowrap}
+.hud b{font-size:14px}
+.pill{border:1px solid var(--ink);border-radius:999px;padding:7px 10px;background:var(--paper2)}
+.view{display:none;padding:28px 0 50px}
+.view.active{display:block}
+.kicker{font-size:12px;font-weight:900;letter-spacing:.15em;text-transform:uppercase;color:var(--wine);margin-bottom:8px}
+h1,h2,h3,p{margin-top:0}
+h1{font-size:clamp(44px,8vw,86px);line-height:.88;letter-spacing:-.065em;margin-bottom:16px;max-width:800px}
+h2{font-size:clamp(30px,5vw,54px);line-height:.95;letter-spacing:-.045em;margin-bottom:12px}
+h3{font-size:21px;letter-spacing:-.025em}
+.lede{font-size:18px;line-height:1.55;color:#3f3934;max-width:700px}
+.hero-grid{display:grid;grid-template-columns:1.3fr .7fr;gap:22px;align-items:end}
+.route-art{border:1px solid var(--ink);background:var(--paper2);padding:20px;box-shadow:var(--shadow)}
+.skyline{height:110px;position:relative;overflow:hidden;border-bottom:1px solid var(--ink);margin-bottom:16px;background:linear-gradient(180deg,#1A0B12 0%,#09090D 78%)}
+.skyline:before,.skyline:after{content:"";position:absolute;bottom:0;background:var(--ink)}
+.skyline:before{left:7%;width:7%;height:45%;box-shadow:74px -18px 0 -10px var(--ink),145px -2px 0 -2px var(--ink),215px -37px 0 -12px var(--ink),280px -6px 0 -2px var(--ink),350px -27px 0 -10px var(--ink),435px -3px 0 -4px var(--ink),520px -22px 0 -10px var(--ink),600px -8px 0 -4px var(--ink)}
+.skyline:after{left:51%;width:5px;height:82%;transform:translateX(-50%);box-shadow:0 -6px 0 0 var(--ink)}
+.route-line{display:grid;grid-template-columns:auto 1fr;gap:10px}
+.route-stop{display:contents}
+.route-dot{width:28px;height:28px;border-radius:50%;border:1px solid var(--ink);display:grid;place-items:center;background:var(--paper2);font-size:11px;font-weight:900;position:relative}
+.route-dot:after{content:"";position:absolute;top:28px;width:1px;height:30px;background:var(--ink)}
+.route-stop:last-child .route-dot:after{display:none}
+.route-name{padding:3px 0 20px;font-size:13px;font-weight:800}
+.actions{display:grid;grid-template-columns:1fr;gap:10px}
+.btn{min-height:50px;border:1px solid var(--ink);background:var(--paper2);color:var(--ink);padding:13px 16px;font-weight:900;text-align:left;display:flex;justify-content:space-between;align-items:center;transition:.15s}
+.btn:hover{transform:translateY(-1px);box-shadow:4px 4px 0 var(--ink)}
+.btn.primary{background:var(--wine);color:white}
+.btn.peach{background:var(--peach2)}
+.btn.ghost{background:transparent}
+.btn.small{min-height:40px;padding:9px 12px;font-size:13px}
+.mode-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:28px}
+.mode-card{border:1px solid var(--ink);background:var(--paper2);padding:18px;min-height:160px;display:flex;flex-direction:column;justify-content:space-between}
+.mode-card .num{font-size:12px;font-weight:900;color:var(--wine);letter-spacing:.12em}
+.mode-card p{font-size:14px;color:var(--muted);line-height:1.45;margin-bottom:0}
+.panel{border:1px solid var(--ink);background:var(--paper2);padding:22px;box-shadow:var(--shadow)}
+.panel + .panel{margin-top:14px}
+.section-head{display:flex;gap:12px;align-items:flex-end;justify-content:space-between;margin-bottom:16px}
+.section-head .mini{font-size:12px;color:var(--muted);font-weight:700}
+.progress-track{height:8px;background:#09090D;border:1px solid var(--ink);overflow:hidden}
+.progress-fill{height:100%;width:0;background:var(--wine);transition:width .25s}
+.stage-layout{display:grid;grid-template-columns:.35fr .65fr;gap:14px}
+.stage-nav{display:flex;flex-direction:column;gap:8px}
+.stage-btn{border:1px solid var(--line);background:transparent;padding:11px;text-align:left;font-weight:800}
+.stage-btn.done{background:#151B24;border-color:var(--green)}
+.stage-btn.current{background:var(--peach2);border-color:var(--ink)}
+.stage-card{border:1px solid var(--ink);background:var(--paper2);padding:24px}
+.stage-scene{font-size:15px;color:var(--muted);line-height:1.5;margin-bottom:20px}
+.anchor-list{margin:0 0 22px;padding-left:18px;line-height:1.55}
+.anchor-list li{margin-bottom:8px}
+.prompt-box{border-top:1px solid var(--ink);padding-top:18px}
+.prompt-box strong{display:block;color:var(--wine);font-size:12px;letter-spacing:.12em;margin-bottom:7px}
+.grade-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+.grade{border:1px solid var(--ink);background:transparent;min-height:44px;font-weight:900}
+.grade[data-grade="nailed"]{background:#18212C}
+.grade[data-grade="almost"]{background:#211A28}
+.grade[data-grade="missed"]{background:#30111E}
+.question-card{max-width:760px;margin:0 auto;border:1px solid var(--ink);background:var(--paper2);padding:24px;box-shadow:var(--shadow)}
+.qmeta{display:flex;justify-content:space-between;gap:10px;font-size:12px;font-weight:900;letter-spacing:.09em;color:var(--wine);text-transform:uppercase;margin-bottom:14px}
+.qtext{font-size:clamp(26px,5vw,48px);line-height:1.02;letter-spacing:-.04em;margin-bottom:22px}
+.choices{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.choice{min-height:56px;border:1px solid var(--ink);background:#F7F7FA;padding:12px;text-align:left;font-weight:800}
+.choice.correct{background:#18212C}
+.choice.wrong{background:#30111E}
+.feedback{margin-top:16px;border-top:1px solid var(--line);padding-top:14px;line-height:1.5;display:none}
+.feedback.show{display:block}
+.gamebar{display:flex;justify-content:space-between;gap:10px;align-items:center;margin:0 auto 12px;max-width:760px}
+.scorebig{font-weight:900}
+.timer{font-variant-numeric:tabular-nums;font-weight:900}
+.truth-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tf{min-height:68px;font-weight:950;border:1px solid var(--ink);background:var(--paper2);font-size:18px}
+.tf.true{background:#151B24}.tf.false{background:#241018}
+.mic-card{max-width:760px;margin:0 auto;border:1px solid var(--ink);background:var(--paper2);padding:26px}
+.mic-title{font-size:12px;letter-spacing:.14em;font-weight:900;color:var(--wine);margin-bottom:10px}
+.mic-prompt{font-size:clamp(28px,5vw,46px);line-height:1.03;letter-spacing:-.04em;margin-bottom:20px}
+.reveal{display:none;border-top:1px solid var(--ink);margin-top:18px;padding-top:18px}
+.reveal.show{display:block}
+.anchor-chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--ink);padding:8px 10px;background:var(--peach2);font-size:13px;font-weight:800}
+.countdown{position:fixed;inset:0;background:rgba(246,239,228,.97);z-index:100;display:none;place-items:center;text-align:center}
+.countdown.show{display:grid}
+.count-number{font-size:min(35vw,240px);font-weight:950;letter-spacing:-.09em;line-height:.8}
+.count-label{font-size:14px;font-weight:900;letter-spacing:.18em;color:var(--wine);margin-top:20px}
+.hq-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}
+.stat{border:1px solid var(--ink);background:var(--paper2);padding:16px}
+.stat b{font-size:32px;display:block;letter-spacing:-.05em}
+.stat span{font-size:11px;text-transform:uppercase;font-weight:900;letter-spacing:.1em;color:var(--muted)}
+.lane-row{display:grid;grid-template-columns:140px 1fr 48px;gap:10px;align-items:center;margin:12px 0}
+.lane-row .bar{height:10px;background:#09090D;border:1px solid var(--line)}
+.lane-row .bar i{display:block;height:100%;background:var(--wine);width:0}
+.lane-row strong{font-size:13px}
+.lane-row em{font-style:normal;font-weight:900;text-align:right}
+.badges{display:flex;flex-wrap:wrap;gap:8px}
+.badge{border:1px solid var(--ink);padding:10px 12px;background:#0D0D12;color:#6F707A;font-weight:900;font-size:12px}
+.badge.unlocked{background:var(--peach2);color:var(--ink)}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap}
+.notice{border-left:4px solid var(--wine);padding:12px 14px;background:#111116;font-size:13px;line-height:1.45}
+.menu{display:none;position:absolute;right:18px;top:70px;border:1px solid var(--ink);background:var(--paper2);padding:8px;z-index:30;box-shadow:var(--shadow)}
+.menu.show{display:grid;gap:6px}
+.menu button{border:0;background:transparent;text-align:left;padding:9px 10px;font-weight:800}
+.footer-note{font-size:12px;color:var(--muted);line-height:1.5;border-top:1px solid var(--line);padding-top:14px;margin-top:28px}
+@media(max-width:760px){
+  .hero-grid,.stage-layout{grid-template-columns:1fr}
+  .mode-grid{grid-template-columns:1fr}
+  .hq-grid{grid-template-columns:1fr 1fr}
+  .choices{grid-template-columns:1fr}
+  .stage-nav{display:grid;grid-template-columns:repeat(2,1fr)}
+  .lane-row{grid-template-columns:110px 1fr 42px}
+  .hud .hide-sm{display:none}
+}
+
+.cast-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.cast-card{border:1px solid var(--ink);background:var(--paper2);padding:20px;position:relative;overflow:hidden}
+.cast-card:before{content:"CAST";position:absolute;right:12px;top:10px;font-size:10px;font-weight:950;letter-spacing:.18em;color:var(--wine)}
+.cast-archetype{font-size:11px;font-weight:950;letter-spacing:.12em;text-transform:uppercase;color:var(--wine);margin-bottom:8px}
+.cast-name{font-size:30px;font-weight:950;letter-spacing:-.04em;margin-bottom:4px}
+.cast-pron{font-size:12px;color:var(--muted);margin-bottom:12px}
+.cast-tagline{font-family:Georgia,serif;font-style:italic;font-size:17px;line-height:1.45;margin-bottom:16px}
+.cast-meta{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.cast-dossier{display:none;border-top:1px solid var(--line);padding-top:14px;margin-top:14px}
+.cast-dossier.show{display:block}
+.cast-dossier h4{font-size:12px;letter-spacing:.12em;color:var(--wine);text-transform:uppercase;margin:14px 0 7px}
+.cast-dossier ul{padding-left:18px;line-height:1.5}
+.cast-dossier li{margin-bottom:5px}
+.confessional{margin-top:18px;border:1px solid var(--ink);background:var(--peach2);padding:18px}
+.confessional strong{font-size:11px;letter-spacing:.14em;color:var(--wine)}
+.reality-banner{border:1px solid var(--ink);background:var(--wine);color:white;padding:14px 16px;margin-bottom:16px;font-weight:900;letter-spacing:.03em}
+@media(max-width:760px){.cast-grid{grid-template-columns:1fr}}
+
+
+/* V3 — THE REALITY SEASON */
+.season-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.episode{border:1px solid var(--ink);background:var(--paper2);padding:18px;min-height:180px;display:flex;flex-direction:column;justify-content:space-between}
+.episode .ep{font-size:10px;font-weight:950;letter-spacing:.16em;color:var(--wine)}
+.episode h3{margin:8px 0}
+.episode p{font-size:13px;color:var(--muted);line-height:1.45}
+.trailer{border:1px solid var(--ink);background:var(--ink);color:white;padding:22px;margin-bottom:18px;position:relative}
+.trailer:before{content:"TONIGHT ON HOST RUN";font-size:10px;letter-spacing:.18em;font-weight:950;color:var(--peach);display:block;margin-bottom:9px}
+.trailer p{font-family:Georgia,serif;font-size:20px;line-height:1.45;margin:0}
+.mastery4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.mastery-card{border:1px solid var(--ink);background:var(--paper2);padding:16px}
+.mastery-card b{font-size:30px;display:block;letter-spacing:-.05em}
+.mastery-card span{font-size:10px;font-weight:950;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.mastery-meter{height:8px;border:1px solid var(--ink);margin-top:10px;background:#09090D}
+.mastery-meter i{display:block;height:100%;background:var(--wine)}
+.greenlight{border:1px solid var(--ink);padding:18px;margin-top:14px;background:#111116}
+.greenlight.ready{background:#18212C}
+.split-edit{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}
+.edit-box{border:1px solid var(--line);padding:14px;background:white}
+.edit-box strong{font-size:10px;letter-spacing:.14em;color:var(--wine)}
+.edit-box p{margin:8px 0 0;line-height:1.5}
+.host-note{width:100%;min-height:92px;border:1px solid var(--ink);background:#F7F7FA;padding:12px;font:inherit;resize:vertical}
+.producer-note{border-left:4px solid var(--peach);padding:10px 12px;background:#121217;margin:12px 0;font-size:13px;line-height:1.45}
+.rumor-card,.pronounce-card,.conf-card{max-width:780px;margin:0 auto;border:1px solid var(--ink);background:var(--paper2);padding:26px;box-shadow:var(--shadow)}
+.rumor-claim,.pronounce-term,.conf-question{font-size:clamp(30px,5vw,54px);line-height:1.02;letter-spacing:-.045em;margin:12px 0 22px}
+.receipt{display:none;border-top:1px solid var(--ink);margin-top:16px;padding-top:16px;line-height:1.55}
+.receipt.show{display:block}
+.score-strip{display:flex;justify-content:space-between;gap:12px;align-items:center;max-width:780px;margin:0 auto 12px;font-size:12px;font-weight:900}
+.pron-phonetic{font-family:Georgia,serif;font-size:28px;margin:14px 0}
+.pron-actions{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}
+.private-label{font-size:10px;letter-spacing:.15em;font-weight:950;color:var(--wine)}
+.tour-label{font-size:10px;letter-spacing:.15em;font-weight:950;color:var(--green)}
+.conf-two-grades{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
+.grade-box{border:1px solid var(--line);padding:14px}
+.grade-box h4{margin:0 0 10px;font-size:12px;letter-spacing:.1em;color:var(--wine)}
+.final-score{font-size:clamp(54px,9vw,100px);font-weight:950;letter-spacing:-.08em;line-height:.8}
+.reunion-label{display:inline-block;background:var(--wine);color:white;padding:6px 9px;font-size:10px;font-weight:950;letter-spacing:.13em;margin-bottom:10px}
+.source-lock{border:1px dashed var(--ink);padding:12px;margin-top:14px;font-size:12px;line-height:1.45;color:var(--muted)}
+@media(max-width:760px){
+  .season-grid,.mastery4,.split-edit,.conf-two-grades{grid-template-columns:1fr}
+}
+
+
+/* =========================================================
+   V4 VISUAL SYSTEM — PRIVATE UNSCRIPTED-TV TRAINING CUT
+   NO BEIGE. NO PEACH. NO TUSCAN TASTING ROOM.
+   ========================================================= */
+:root{
+  --ink:#F7F7FA;
+  --paper:#08080A;
+  --paper2:#111116;
+  --wine:#8A0C32;
+  --wine2:#C5194A;
+  --peach:#D8D9E2;
+  --peach2:#17171E;
+  --brass:#B9BAC4;
+  --line:#34343D;
+  --muted:#A8A9B4;
+  --green:#C4C7D0;
+  --shadow:0 24px 80px rgba(0,0,0,.48);
+}
+*{box-sizing:border-box}
+html{background:#08080A}
+body{
+  margin:0;
+  color:#F7F7FA;
+  background:
+    radial-gradient(circle at 15% 8%, rgba(197,25,74,.22), transparent 28%),
+    radial-gradient(circle at 88% 22%, rgba(112,13,48,.22), transparent 25%),
+    linear-gradient(180deg,#070709 0%,#0B0B10 42%,#08080A 100%);
+  font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+  min-height:100vh;
+}
+body:before{
+  content:"";
+  position:fixed;inset:0;pointer-events:none;z-index:-1;
+  background:
+    linear-gradient(115deg,transparent 0 44%,rgba(255,255,255,.025) 45%,transparent 47%),
+    repeating-linear-gradient(90deg,rgba(255,255,255,.012) 0 1px,transparent 1px 90px);
+}
+.shell{max-width:1180px;margin:0 auto;padding:18px 22px 72px}
+.topbar{
+  border:1px solid #2E2E36;
+  border-top:2px solid #BFC0C8;
+  background:rgba(9,9,12,.92);
+  padding:10px 12px;
+  backdrop-filter:blur(18px);
+  box-shadow:0 12px 45px rgba(0,0,0,.35);
+  position:sticky;top:10px;z-index:50;
+}
+.brandmark{
+  width:44px;height:44px;border-radius:0;
+  border:1px solid #E9E9EE;
+  background:linear-gradient(145deg,#B31343,#4A061C);
+  color:white;box-shadow:inset 0 0 0 1px rgba(255,255,255,.15);
+  font-family:"Arial Black",Arial,sans-serif;
+}
+.brandcopy strong{
+  font-family:"Arial Black",Arial,sans-serif;
+  letter-spacing:.08em;font-size:15px
+}
+.brandcopy span{color:#9EA0AA;letter-spacing:.15em;font-size:9px}
+.pill{
+  border:1px solid #363640;
+  border-radius:2px;background:#0D0D12;color:#D4D5DC;
+  box-shadow:none;font-size:11px;letter-spacing:.05em
+}
+.pill b{color:#F7F7FA}
+.menu{
+  background:#0B0B10;border:1px solid #3B3B45;
+  box-shadow:0 20px 60px rgba(0,0,0,.6)
+}
+.menu button{color:#EDEEF2}
+.menu button:hover{background:#8A0C32;color:white}
+
+.view{animation:tvIn .25s ease}
+@keyframes tvIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.kicker{
+  color:#D9DAE2;font-size:10px;letter-spacing:.26em;
+  position:relative;padding-left:34px
+}
+.kicker:before{
+  content:"";position:absolute;left:0;top:50%;width:24px;height:2px;
+  background:linear-gradient(90deg,#C5194A,#E8E8ED)
+}
+h1,h2,h3,.cast-name,.rumor-claim,.pronounce-term,.conf-question{
+  color:#FAFAFC;
+}
+h1{
+  font-family:"Arial Black",Arial,sans-serif;
+  font-size:clamp(52px,8vw,104px);line-height:.88;
+  letter-spacing:-.065em;text-transform:uppercase;
+  text-shadow:0 10px 45px rgba(197,25,74,.18)
+}
+h2{
+  font-family:"Arial Black",Arial,sans-serif;
+  letter-spacing:-.045em;text-transform:uppercase
+}
+h3{font-family:"Arial Black",Arial,sans-serif;letter-spacing:-.02em}
+.lede{color:#C0C1C8;max-width:760px;line-height:1.65}
+
+.hero{
+  border:1px solid #31313A;
+  padding:34px;
+  background:
+    linear-gradient(120deg,rgba(138,12,50,.3),transparent 38%),
+    linear-gradient(180deg,#111118,#0A0A0F);
+  box-shadow:0 30px 90px rgba(0,0,0,.5);
+  position:relative;overflow:hidden
+}
+.hero:after{
+  content:"SEASON 01  •  ATLANTA";
+  position:absolute;right:-34px;top:34px;transform:rotate(90deg);
+  font-size:9px;letter-spacing:.25em;color:#777984;font-weight:900
+}
+.hero-copy{position:relative;z-index:1}
+.hero .kicker{color:#F0F0F4}
+
+.route-art,.panel,.stage-card,.question-card,.mic-card,.cast-card,
+.episode,.mastery-card,.rumor-card,.pronounce-card,.conf-card,.stat{
+  background:linear-gradient(180deg,#14141A,#0F0F14);
+  border:1px solid #33333C;
+  color:#F7F7FA;
+  box-shadow:0 18px 55px rgba(0,0,0,.32)
+}
+.route-art{border-top:2px solid #BFC0C8}
+.skyline{
+  background:
+    radial-gradient(circle at 50% 0%,rgba(197,25,74,.3),transparent 50%),
+    linear-gradient(180deg,#15151D,#09090D);
+  border-color:#45454E;
+}
+.skyline:before,.skyline:after{background:#D6D6DC}
+.route-dot{
+  background:#0B0B0F;border:1px solid #AEB0B8;color:#F7F7FA;
+  box-shadow:0 0 0 5px rgba(138,12,50,.22)
+}
+.route-dot:after{background:#51515C}
+
+.btn{
+  border:1px solid #484852;background:#111117;color:#F3F3F6;
+  min-height:48px;border-radius:2px;box-shadow:none;
+  letter-spacing:.055em;text-transform:uppercase;font-size:11px;
+  position:relative;overflow:hidden
+}
+.btn:after{
+  content:"";position:absolute;inset:0 auto 0 -40%;width:32%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.08),transparent);
+  transform:skewX(-18deg);transition:.35s
+}
+.btn:hover{transform:translateY(-1px);box-shadow:0 10px 28px rgba(0,0,0,.45);border-color:#C9CAD0}
+.btn:hover:after{left:120%}
+.btn.primary,.btn.spotlight{
+  background:linear-gradient(135deg,#A00E3B,#640720);
+  border-color:#C51C4C;color:white
+}
+.btn.ghost{background:transparent}
+.btn.small{min-height:42px}
+
+.mode-grid{gap:12px}
+.mode-card{
+  background:linear-gradient(145deg,#15151B,#0E0E13);
+  border:1px solid #33333D;border-top:2px solid #73747E;
+  min-height:190px;position:relative;overflow:hidden
+}
+.mode-card:after{
+  content:"";position:absolute;width:140px;height:140px;border-radius:50%;
+  background:rgba(138,12,50,.12);right:-55px;bottom:-70px
+}
+.mode-card .num,.episode .ep,.cast-archetype,.mic-title,.qmeta,.private-label{
+  color:#D7D8DF
+}
+.mode-card h3{font-size:25px}
+.mode-card p{color:#AEB0B9;line-height:1.55}
+
+.trailer{
+  background:
+    linear-gradient(100deg,rgba(197,25,74,.75),rgba(93,6,31,.42) 35%,transparent 70%),
+    #09090D;
+  border:1px solid #494952;border-left:4px solid #C5194A;
+  padding:28px 28px 28px 30px;
+  box-shadow:0 20px 70px rgba(0,0,0,.4)
+}
+.trailer:before{color:#E4E4EA;letter-spacing:.28em}
+.trailer p{font-size:23px;color:white}
+
+.season-grid{gap:10px}
+.episode{
+  min-height:210px;border-top:1px solid #7D7E87;
+  position:relative;overflow:hidden
+}
+.episode:before{
+  content:"";position:absolute;left:0;bottom:0;width:100%;height:3px;
+  background:linear-gradient(90deg,#C5194A,#5F071F,transparent)
+}
+.episode .ep{color:#BFC0C8}
+.episode h3{font-size:27px;margin:10px 0}
+.episode p{color:#A9ABB5}
+.episode:hover{border-color:#777984;transform:translateY(-2px);transition:.18s}
+
+.reality-banner{
+  background:linear-gradient(90deg,#8A0C32,#4D061B);
+  border:1px solid #D02658;
+  color:white;letter-spacing:.08em;text-transform:uppercase;
+  box-shadow:0 15px 45px rgba(93,6,31,.35)
+}
+
+.cast-grid{gap:12px}
+.cast-card{
+  padding:0;min-height:310px;
+  background:
+    radial-gradient(circle at 85% 14%,rgba(197,25,74,.3),transparent 22%),
+    linear-gradient(155deg,#16161D,#0C0C10);
+  border-top:2px solid #B8B9C1;
+}
+.cast-card:before{
+  content:"CAST FILE";right:16px;top:14px;color:#A6A7B0;letter-spacing:.24em
+}
+.cast-card>*{margin-left:22px;margin-right:22px}
+.cast-card .cast-archetype{margin-top:22px}
+.cast-name{
+  font-family:"Arial Black",Arial,sans-serif;
+  font-size:38px;text-transform:uppercase;line-height:.95;
+  max-width:80%
+}
+.cast-pron{color:#91939D}
+.cast-tagline{
+  border-left:3px solid #A4123D;padding-left:14px;
+  color:#E5E5E9;font-size:17px;margin-top:20px
+}
+.cast-dossier{
+  background:#0B0B10;margin:18px 0 0!important;padding:20px 22px 24px;
+  border-top:1px solid #3B3B44
+}
+.cast-dossier h4{color:#CACBD2}
+.chip{
+  background:#17171E;border:1px solid #454550;color:#E8E8EC;
+  border-radius:1px
+}
+.confessional{
+  background:
+    linear-gradient(125deg,rgba(138,12,50,.28),transparent 48%),
+    #0D0D12;
+  border:1px solid #474750;border-left:3px solid #C5194A
+}
+.confessional strong{color:#E2E2E7}
+
+.split-edit{gap:10px}
+.edit-box{
+  background:#0B0B10;border:1px solid #34343D;color:#E9E9ED
+}
+.edit-box:first-child{border-top:2px solid #C5194A}
+.edit-box:last-child{border-top:2px solid #C4C5CC}
+.private-label{color:#E46A8C!important}
+.tour-label{color:#D2D3DA}
+.producer-note{
+  background:#121217;border-left:3px solid #C5194A;color:#D1D2D8
+}
+.host-note{
+  background:#09090D;color:#F4F4F6;border:1px solid #474751;
+  border-radius:2px
+}
+.host-note:focus{outline:1px solid #C5194A}
+
+.question-card,.rumor-card,.pronounce-card,.conf-card,.mic-card{
+  border-top:2px solid #A8A9B1;
+  background:
+    radial-gradient(circle at 82% 8%,rgba(138,12,50,.2),transparent 28%),
+    linear-gradient(180deg,#14141A,#0A0A0F);
+  padding:30px
+}
+.qmeta{color:#B9BAC3}
+.qtext{color:#FAFAFC}
+.choice{
+  background:#0D0D12;color:#F0F0F3;border:1px solid #393943;
+  border-radius:2px
+}
+.choice:hover{border-color:#B1B2BA;background:#17171E}
+.choice.correct{background:#1B2530;border-color:#8293A8;color:white}
+.choice.wrong{background:#32101C;border-color:#B4234D;color:white}
+.tf{
+  background:#101015;color:#F6F6F8;border:1px solid #43434C;border-radius:2px
+}
+.tf.true{background:#151A20}
+.tf.false{background:#241018}
+.feedback,.receipt,.reveal{border-color:#42424A;color:#D3D4DA}
+.grade{
+  background:#101015;color:#F2F2F4;border-color:#404049;
+  border-radius:2px
+}
+.grade:hover{border-color:#C8C9D0}
+.grade[data-grade="nailed"]{background:#18212C}
+.grade[data-grade="almost"]{background:#211A28}
+.grade[data-grade="missed"]{background:#30111E}
+
+.rumor-claim,.pronounce-term,.conf-question{
+  font-family:"Arial Black",Arial,sans-serif;
+  text-transform:uppercase;
+}
+.reunion-label{
+  background:#9F123E;color:white;border:1px solid #D22256;
+  letter-spacing:.18em
+}
+
+.mastery4{gap:8px}
+.mastery-card{
+  border-top:2px solid #6C6D76;
+  background:#101015
+}
+.mastery-card b{color:white}
+.mastery-card span{color:#9C9DA7}
+.mastery-meter,.progress-track,.lane-row .bar{
+  background:#09090D;border:1px solid #383841
+}
+.mastery-meter i,.progress-fill,.lane-row .bar i{
+  background:linear-gradient(90deg,#700827,#C5194A)
+}
+.greenlight{
+  background:linear-gradient(120deg,rgba(138,12,50,.18),transparent),#111116;
+  border:1px solid #3F3F48;border-left:4px solid #8A0C32
+}
+.greenlight.ready{
+  background:linear-gradient(120deg,rgba(197,25,74,.28),transparent),#121217;
+  border-left-color:#E3E3E7
+}
+.notice{
+  background:#111116;color:#C9CAD1;border-left:3px solid #C5194A
+}
+.source-lock{
+  background:#0C0C10;border:1px dashed #44444E;color:#9597A1
+}
+.stat{border-top:2px solid #595A64}
+.stat strong,.stat b{color:white}
+.badge{
+  background:#0D0D12;color:#6F707A;border:1px solid #303039
+}
+.badge.unlocked{
+  background:linear-gradient(135deg,#7F0A2D,#31040F);
+  color:white;border-color:#B41443
+}
+.stage-btn{
+  color:#C9CAD1;border:1px solid #34343E;background:#0D0D12
+}
+.stage-btn:hover{border-color:#81828B}
+.stage-btn.done{background:#151B24;border-color:#566577;color:#F4F4F6}
+.stage-btn.current{
+  background:linear-gradient(90deg,#7F0B2E,#31040F);
+  border-color:#B71746;color:white
+}
+.prompt-box{border-color:#44444D}
+.prompt-box strong{color:#D4D5DB}
+.footer-note{color:#81838E}
+.countdown{
+  background:rgba(5,5,8,.97);color:white
+}
+.count-num{
+  font-family:"Arial Black",Arial,sans-serif;color:white;
+  text-shadow:0 0 55px rgba(197,25,74,.45)
+}
+.count-label{color:#D6D7DD}
+
+.section-head{
+  border-bottom:1px solid #2D2D35;padding-bottom:16px;margin-bottom:18px
+}
+.score-strip{color:#C3C4CB}
+.truth-grid{gap:8px}
+.pron-phonetic{color:#E5E5EA}
+.source-lock strong{color:#D9DAE0}
+
+/* television lower-third feeling on key cards */
+.stage-card:before,.question-card:before,.mic-card:before,.rumor-card:before,.pronounce-card:before,.conf-card:before{
+  content:"HOST RUN • ATLANTA";
+  display:block;width:max-content;
+  padding:5px 8px;margin:-30px 0 22px -30px;
+  background:#8A0C32;color:white;
+  font-size:9px;font-weight:950;letter-spacing:.17em
+}
+.stage-card:before{margin:-24px 0 20px -24px}
+
+/* remove any lingering warm surfaces from inline legacy UI */
+[style*="#F7F7FA"],[style*="#f4"],[style*="#f3"],[style*="#ead"],[style*="#e6"],[style*="#ffd"]{
+  color:inherit;
+}
+a{color:#E0E0E6}
+::selection{background:#C5194A;color:white}
+
+@media(max-width:760px){
+  .shell{padding:12px 12px 60px}
+  .topbar{top:6px}
+  .hero{padding:24px 20px}
+  h1{font-size:52px}
+  .hero:after{display:none}
+  .cast-name{font-size:31px}
+}
+
+</style>
+</head>
+<body>
+<div class="countdown" id="countdown" aria-live="assertive"><div><div class="count-number" id="countNumber">3</div><div class="count-label" id="countLabel">GET READY</div></div></div>
+
+<div class="app" id="app">
+  <header class="topbar">
+    <div class="brand">
+      <div class="brandmark">ATL</div>
+      <div class="brandtext">HOST RUN<span>The Reality Season • Atlanta Wine Walks</span></div>
+    </div>
+    <div class="hud">
+      <span class="pill hide-sm">LVL <b id="hudLevel">1</b></span>
+      <span class="pill">XP <b id="hudXp">0</b></span>
+      <span class="pill">🔥 <b id="hudStreak">0</b></span>
+      <button class="btn small ghost" id="menuBtn" type="button">MENU</button>
+    </div>
+  </header>
+  <div class="menu" id="menu">
+    <button data-nav="home">Home</button>
+    <button data-nav="season">Control Room</button>
+    <button data-nav="route">Route Run</button>
+    <button data-nav="cast">Meet the Wine Cast</button>
+    <button data-nav="rumors">Receipts or Rumors</button>
+    <button data-nav="pronounce">Say Her Name Correctly</button>
+    <button data-nav="confessional">Confessional Booth</button>
+    <button data-nav="rapid">Rapid Pour</button>
+    <button data-nav="prohibition">Prohibition Showdown</button>
+    <button data-nav="mic">Host Mic Check</button>
+    <button data-nav="weak">The Reunion</button>
+    <button data-nav="hq">Progress HQ</button>
+  </div>
+
+  <main>
+    <section class="view active" id="view-home">
+      <div class="hero-grid">
+        <div>
+          <div class="kicker">HOST RUN • SEASON ONE</div>
+          <h1>Six wines. Four stops. One host gets greenlit.</h1>
+          <p class="lede">Your private study show is dramatic on purpose. Learn the facts through jokes, receipts, confessionals and reunion drama, then switch into a clean Tour-Ready Take so the real guests get Lauren, not a reality-TV impression.</p>
+          <div class="actions">
+            <button class="btn primary" type="button" data-nav="season">START THE SEASON <span>→</span></button>
+            <button class="btn" type="button" id="startRoute">RUN THE ACTUAL ROUTE <span>→</span></button>
+            <button class="btn spotlight" type="button" id="startRapid">QUICK POUR: 10 QUESTIONS <span>↗</span></button>
+            <button class="btn" type="button" data-nav="cast">MEET THE WINE CAST <span>🍷</span></button>
+            <button class="btn" type="button" data-nav="hq">OPEN PROGRESS HQ <span>+</span></button>
+          </div>
+        </div>
+        <div class="route-art">
+          <div class="skyline" aria-label="Stylized Atlanta skyline"></div>
+          <div class="route-line" id="homeRoute"></div>
+        </div>
+      </div>
+      
+      <div class="trailer" style="margin-top:18px">
+        <p><strong>PREVIOUSLY ON HOST RUN:</strong> Champagne survived war, Chardonnay changed personalities, Rosé corrected everybody’s job-title confusion, Pinot Noir had feelings, and Cabernet brought paperwork from the Judgment of Paris. Your assignment: remember the facts well enough to make the real tour feel effortless.</p>
+      </div>
+
+<div class="mode-grid">
+        <div class="mode-card"><div><div class="num">01 / CAST</div><h3>Meet the Wine Cast</h3><p>Private-study edit + clean Tour-Ready Take + your own host notes.</p></div><button class="btn small" type="button" data-nav="cast">MEET THE CAST →</button></div>
+        <div class="mode-card"><div><div class="num">02 / RECEIPTS</div><h3>Receipts or Rumors</h3><p>Myths, plot twists, and facts. Wrong answers come back at the reunion.</p></div><button class="btn small" type="button" data-nav="rumors">CHECK THE RECEIPTS →</button></div>
+        <div class="mode-card"><div><div class="num">03 / NAME CARD</div><h3>Say Her Name Correctly</h3><p>Thirty source-supplied pronunciations so the host never gets ambushed by “Pouilly-Fumé.”</p></div><button class="btn small" type="button" data-nav="pronounce">RUN PRONUNCIATION →</button></div>
+        <div class="mode-card"><div><div class="num">04 / CONFESSIONAL</div><h3>Confessional Booth</h3><p>No choices. Tell the wine story from memory, reveal the receipts, then grade facts and delivery separately.</p></div><button class="btn small" type="button" data-nav="confessional">ENTER THE BOOTH →</button></div>
+        <div class="mode-card"><div><div class="num">05 / LIVE ROOM</div><h3>Host Mic Check</h3><p>Practice the actual stop stories out loud. This is where studying becomes hosting.</p></div><button class="btn small" type="button" data-nav="mic">OPEN MIC CHECK →</button></div>
+        <div class="mode-card"><div><div class="num">06 / REUNION</div><h3>The Reunion</h3><p>Everything you miss comes back. Nothing gets to quietly disappear because it embarrassed you once.</p></div><button class="btn small" type="button" data-nav="weak">FACE THE REUNION →</button></div>
+      </div>
+      <p class="footer-note">Built from your <strong>Urban Wine Walks: Atlanta, GA</strong> tour script plus Najee’s <strong>Atlanta Wine Descriptions</strong> study packet received Nov. 9, 2026. Route facts follow the tour script; deep-dive wine profiles follow the new study packet.</p>
+    </section>
+
+
+    <section class="view" id="view-season">
+      <div class="section-head">
+        <div><div class="kicker">SEASON HQ</div><h2>Will production clear you for the full walk?</h2></div>
+        <button class="btn small" type="button" data-nav="hq">DEEP STATS →</button>
+      </div>
+      <div class="trailer"><p id="seasonTrailer">The cast has arrived. Production is reviewing the footage.</p></div>
+      <div class="mastery4">
+        <div class="mastery-card"><b id="seasonRecognition">0%</b><span>Recognition</span><div class="mastery-meter"><i id="meterRecognition" style="width:0"></i></div></div>
+        <div class="mastery-card"><b id="seasonRecall">0%</b><span>Free Recall</span><div class="mastery-meter"><i id="meterRecall" style="width:0"></i></div></div>
+        <div class="mastery-card"><b id="seasonDelivery">0%</b><span>Host Delivery</span><div class="mastery-meter"><i id="meterDelivery" style="width:0"></i></div></div>
+        <div class="mastery-card"><b id="seasonRoute">0%</b><span>Route</span><div class="mastery-meter"><i id="meterRoute" style="width:0"></i></div></div>
+      </div>
+      <div class="greenlight" id="greenlightBox">
+        <div class="private-label">PRODUCTION DECISION</div>
+        <h3 id="greenlightTitle" style="margin-top:7px">Still in rehearsals.</h3>
+        <p id="greenlightCopy" style="margin-bottom:0;line-height:1.5"></p>
+      </div>
+      <div style="height:18px"></div>
+      <div class="season-grid">
+        <div class="episode"><div><div class="ep">EP 01</div><h3>Meet the Cast</h3><p>Learn the ridiculous private memory hook and the clean version you can actually say to guests.</p></div><button class="btn small" data-nav="cast" type="button">ROLL OPENING CREDITS →</button></div>
+        <div class="episode"><div><div class="ep">EP 02</div><h3>Receipts or Rumors</h3><p>Fact-check the legends. Dom Pérignon’s publicist is already nervous.</p></div><button class="btn small" data-nav="rumors" type="button">SHOW RECEIPTS →</button></div>
+        <div class="episode"><div><div class="ep">EP 03</div><h3>Rapid Pour</h3><p>Recognition under pressure. Sixty wine questions plus route, history and tour material.</p></div><button class="btn small" data-nav="rapid" type="button">START QUICK FIRE →</button></div>
+        <div class="episode"><div><div class="ep">EP 04</div><h3>Say Her Name</h3><p>Pronunciation reveal and self-grade using the packet’s phonetics.</p></div><button class="btn small" data-nav="pronounce" type="button">READ THE NAME CARD →</button></div>
+        <div class="episode"><div><div class="ep">EP 05</div><h3>Confessional Booth</h3><p>Free recall with zero answer choices. This is where “I recognize it” becomes “I know it.”</p></div><button class="btn small" data-nav="confessional" type="button">ENTER CONFESSIONAL →</button></div>
+        <div class="episode"><div><div class="ep">EP 06</div><h3>Route + Mic Check</h3><p>Put the facts back into the actual walking tour and practice delivery.</p></div><button class="btn small" data-nav="route" type="button">GO ON LOCATION →</button></div>
+        <div class="episode"><div><div class="ep">REUNION</div><h3>Unresolved Drama</h3><p>Missed material returns until it clears. Production keeps the tapes.</p></div><button class="btn small" data-nav="weak" type="button">FACE THE REUNION →</button></div>
+        <div class="episode"><div><div class="ep">BONUS</div><h3>Prohibition Showdown</h3><p>The exact tour-game material stays separate so you can practice hosting the guest game too.</p></div><button class="btn small" data-nav="prohibition" type="button">PLAY THE GAME →</button></div>
+        <div class="episode"><div><div class="ep">FINALE</div><h3>Full Walk</h3><p>Greenlight target: 85% recognition, 80% recall, 80% delivery, full route, no reunion backlog.</p></div><button class="btn small" data-nav="hq" type="button">CHECK READINESS →</button></div>
+      </div>
+      <div class="source-lock"><strong>Source lock:</strong> route/history material follows the Urban Wine Walks Atlanta tour script. Deep-dive wine facts and phonetics follow Najee’s Nov. 9 Atlanta Wine Descriptions packet. The jokes are private memory devices; the Tour-Ready Takes separate them from what you would actually say to guests.</div>
+    </section>
+
+    <section class="view" id="view-rumors">
+      <div class="section-head">
+        <div><div class="kicker">RECEIPTS OR RUMORS</div><h2>The producers said what?</h2></div>
+        <button class="btn small" id="restartRumors" type="button">NEW EPISODE</button>
+      </div>
+      <div class="score-strip"><span>Receipt <span id="rumorNum">1</span>/18</span><span>Correct: <span id="rumorScore">0</span></span></div>
+      <div class="rumor-card" id="rumorCard"></div>
+    </section>
+
+    <section class="view" id="view-pronounce">
+      <div class="section-head">
+        <div><div class="kicker">SAY HER NAME CORRECTLY</div><h2>Do not get caught mispronouncing somebody on camera.</h2></div>
+        <button class="btn small" id="shufflePronounce" type="button">SHUFFLE</button>
+      </div>
+      <div class="score-strip"><span>Card <span id="pronNum">1</span>/<span id="pronTotal">30</span></span><span>Cleared: <span id="pronCleared">0</span></span></div>
+      <div class="pronounce-card" id="pronounceCard"></div>
+    </section>
+
+    <section class="view" id="view-confessional">
+      <div class="section-head">
+        <div><div class="kicker">CONFESSIONAL BOOTH</div><h2>Camera’s up. No answer choices.</h2></div>
+        <button class="btn small" id="newConfessional" type="button">NEW CAST MEMBER</button>
+      </div>
+      <div class="notice"><strong>Rule:</strong> speak before you reveal. Your private joke can get you to the fact, but your final answer should sound like you hosting actual humans.</div>
+      <div style="height:14px"></div>
+      <div class="conf-card" id="confessionalCard"></div>
+    </section>
+
+    <section class="view" id="view-route">
+      <div class="section-head">
+        <div><div class="kicker">ROUTE RUN</div><h2>Walk it in order.</h2></div>
+        <div class="mini"><span id="routeDone">0</span>/10 scenes cleared</div>
+      </div>
+      <div class="progress-track"><div class="progress-fill" id="routeProgress"></div></div>
+      <div style="height:16px"></div>
+      <div class="stage-layout">
+        <nav class="stage-nav" id="stageNav" aria-label="Route stages"></nav>
+        <article class="stage-card" id="stageCard"></article>
+      </div>
+    </section>
+
+
+    <section class="view" id="view-cast">
+      <div class="section-head">
+        <div><div class="kicker">THE WINE CAST • SEASON 01</div><h2>Meet the cast. Learn the edit. Keep the receipts.</h2></div>
+        <button class="btn small" id="randomCast" type="button">RANDOM CONFESSIONAL</button>
+      </div>
+      <div class="reality-banner">Six wines. Four tour stops. Several centuries of drama. Your job: know the edit well enough to host it without sounding memorized.</div>
+      <div class="cast-grid" id="castGrid"></div>
+      <div class="confessional" id="castConfessional">
+        <strong>CONFESSIONAL BOOTH</strong>
+        <p style="font-size:20px;line-height:1.45;margin:8px 0 0">Pick a cast member, speak the story out loud, then roll into Rapid Pour or Mic Check to see whether it stuck.</p>
+      </div>
+    </section>
+
+    <section class="view" id="view-rapid">
+      <div class="section-head">
+        <div><div class="kicker">RAPID POUR</div><h2>Quick recall. No notes.</h2></div>
+        <div class="toolbar">
+          <select id="paceSelect" aria-label="Pace">
+            <option value="training">Training Pace</option>
+            <option value="game">Game Pace • 20 sec</option>
+          </select>
+          <button class="btn small" id="restartRapid" type="button">NEW ROUND</button>
+        </div>
+      </div>
+      <div class="gamebar"><div class="scorebig">Question <span id="rapidNum">1</span>/10</div><div class="timer" id="rapidTimer">READY</div></div>
+      <div class="question-card" id="rapidCard"></div>
+    </section>
+
+    <section class="view" id="view-prohibition">
+      <div class="section-head">
+        <div><div class="kicker">PROHIBITION SHOWDOWN</div><h2>True, false, and a little chaos.</h2></div>
+        <button class="btn small" id="restartProhibition" type="button">RESTART</button>
+      </div>
+      <div class="gamebar"><div class="scorebig">Score: <span id="proScore">0</span></div><div><span id="proNum">1</span>/10</div></div>
+      <div class="question-card" id="proCard"></div>
+    </section>
+
+    <section class="view" id="view-mic">
+      <div class="section-head">
+        <div><div class="kicker">HOST MIC CHECK</div><h2>Say it like a guide.</h2></div>
+        <button class="btn small" id="nextMicTop" type="button">NEW PROMPT</button>
+      </div>
+      <div class="notice">Default rule: <strong>speak first.</strong> The benchmark stays hidden until you tap Reveal. You are training delivery, not typing speed.</div>
+      <div style="height:14px"></div>
+      <div class="mic-card" id="micCard"></div>
+    </section>
+
+    <section class="view" id="view-weak">
+      <div class="section-head">
+        <div><div class="kicker">THE REUNION</div><h2>Every missed fact gets a reunion seat.</h2></div>
+        <div class="mini"><span id="weakCount">0</span> queued</div>
+      </div>
+      <div id="weakEmpty" class="panel">Nobody is currently booked for the reunion. Missed quiz items and speaking prompts will automatically return here.</div>
+      <div class="question-card" id="weakCard" style="display:none"></div>
+    </section>
+
+    <section class="view" id="view-hq">
+      <div class="section-head">
+        <div><div class="kicker">PROGRESS HQ</div><h2>Your host-readiness board.</h2></div>
+        <div class="toolbar">
+          <button class="btn small" id="exportBtn" type="button">EXPORT PROGRESS</button>
+          <label class="btn small" style="cursor:pointer">IMPORT <input id="importInput" type="file" accept=".json" hidden></label>
+          <button class="btn small ghost" id="resetBtn" type="button">RESET</button>
+        </div>
+      </div>
+      <div class="hq-grid">
+        <div class="stat"><b id="statXp">0</b><span>Total XP</span></div>
+        <div class="stat"><b id="statAccuracy">0%</b><span>Quiz Accuracy</span></div>
+        <div class="stat"><b id="statStreak">0</b><span>Best Streak</span></div>
+        <div class="stat"><b id="statScenes">0/10</b><span>Route Scenes</span></div>
+      </div>
+      <div class="panel">
+        <h3>Greenlight Board</h3>
+        <p style="font-size:13px;color:var(--muted)">Recognition = quiz performance. Free Recall = confessionals. Host Delivery = spoken delivery self-grades. Route = scenes cleared. This keeps “I recognize the answer” separate from “I can actually say it.”</p>
+        <div class="mastery4">
+          <div class="mastery-card"><b id="hqRecognition">0%</b><span>Recognition</span></div>
+          <div class="mastery-card"><b id="hqRecall">0%</b><span>Free Recall</span></div>
+          <div class="mastery-card"><b id="hqDelivery">0%</b><span>Delivery</span></div>
+          <div class="mastery-card"><b id="hqRoutePct">0%</b><span>Route</span></div>
+        </div>
+      </div>
+      <div class="panel">
+        <h3>Production Scoreboard</h3>
+        <div id="laneMastery"></div>
+      </div>
+      <div class="panel">
+        <h3>Badges</h3>
+        <div class="badges" id="badges"></div>
+      </div>
+      <div class="panel">
+        <h3>Next move</h3>
+        <p id="nextMove" class="lede" style="font-size:16px;margin-bottom:0"></p>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script>
+const DATA = {"routeStages":[{"id":"welcome","order":0,"eyebrow":"CENTENNIAL OLYMPIC PARK","title":"Meet at the Olympic Rings","lane":"Host Flow","scene":"Start here. Set the tone before anyone has a glass in hand.","anchors":["The tour is 1.2 miles, with 4 wine stops, 2 bonus stops, and an approximate 2-hour run time.","The tour begins and ends at Centennial Olympic Park.","Wine should feel approachable. The tour is a wine experience, not a wine class."],"prompt":"Give your opening out loud. Hit the meeting point, what guests can expect, and the tone of the experience."},{"id":"winebasics","order":1,"eyebrow":"BEFORE THE FIRST POUR","title":"Wine Basics","lane":"Wine Basics","scene":"Give guests just enough vocabulary to make the rest of the walk click.","anchors":["Acidity = crisp, refreshing, mouth-watering sensation.","Tannins = dry, grippy feeling, mostly in reds; from grape skins, seeds, and oak aging.","Body = how heavy or light wine feels.","Sweetness is about sugar, not fruitiness.","Structure balances acid, tannins, alcohol, and body.","Terroir is the idea that wine tastes like where it comes from.","Taste simply: look, smell, sip, notice how it feels."],"prompt":"Explain acidity, tannins, body, sweetness, structure, and terroir in normal-person language."},{"id":"history","order":2,"eyebrow":"ATLANTA / GEORGIA WINE HISTORY","title":"From Vineyard Colony to Comeback","lane":"Atlanta History","scene":"Before the mural, the script gives the arc of Georgia wine history.","anchors":["1732: Georgia was established with hopes of becoming England’s “Vineyard Colony.”","Late 19th century: Georgia became the 6th largest wine-producing state, with more than 20,000 acres of vineyards.","1907: Georgia enacted statewide prohibition, 12 years before national Prohibition.","1983: Georgia Farm Winery Act helped restart the industry; at least 40% of grapes used in farm-winery wines had to be grown in Georgia.","Dahlonega Plateau and Upper Hiwassee Highlands are official AVAs.","Atlanta became the culinary and retail heartbeat of Southern wine culture."],"prompt":"Tell the Georgia wine-history story as a clean timeline. Try to land 1732, late 1800s, 1907, and 1983 without looking."},{"id":"mural","order":3,"eyebrow":"BONUS STOP 01","title":"Freedom Fighters Mural","lane":"Stops","scene":"Corner of Andrew Young Intl Blvd & Williams St NW.","anchors":["Created by muralist Yehimi Cambron.","Features activists and community members.","Bridges the historic Civil Rights Movement and contemporary social justice movements.","The script frames civil rights as an ongoing, living journey rather than a closed chapter of the 1960s."],"prompt":"Host this stop out loud. Name the artist and explain why the mural belongs in an Atlanta story walk even though it is not about wine."},{"id":"sundial","order":4,"eyebrow":"STOP 01 / FIRST POUR","title":"The Sun Dial Bar","lane":"Stops","scene":"210 Peachtree St • uppermost floors of the Westin Peachtree Plaza.","anchors":["Recommended wine: Champagne.","The Sun Dial occupies floors 71–73.","It sits 723 feet above the city.","It offers a 360-degree panorama of the Atlanta skyline.","The script describes the wine program as celebratory, with high-quality producers suited to the upscale, romantic atmosphere."],"prompt":"Sell the first stop in 30 seconds. Include the height/floors, skyline payoff, and the recommended wine."},{"id":"lumen","order":5,"eyebrow":"STOP 02","title":"Lumen Lounge","lane":"Stops","scene":"181 Peachtree St • Ritz-Carlton, floor 6.","anchors":["Recommended wines: Sauvignon Blanc or Chardonnay / Chablis.","Polished contemporary lobby lounge.","Low amber lighting and marble surfaces.","Frequently hosts live entertainment.","The script emphasizes a sophisticated global wine selection, with high-quality whites and stellar reds."],"prompt":"Transition from the dramatic skyline energy of Sun Dial into Lumen Lounge. Make the mood shift clear."},{"id":"redphone","order":6,"eyebrow":"BONUS STOP 02","title":"Red Phone Booth","lane":"Prohibition","scene":"17 Andrew Young International Blvd • the group does not go inside.","anchors":["Georgia’s statewide prohibition began in 1907 and lasted until 1935.","National Prohibition lasted 1920–1933.","Wealthy citizens used private locker clubs.","Working-class residents frequented “blind tiger” saloons serving low-alcohol near-beer.","Alcohol came in on railroad “jug trains.”","Appalachian foothills became hotbeds for illicit moonshine production."],"prompt":"Tell the Atlanta/Georgia Prohibition story like you are standing in front of the Red Phone Booth."},{"id":"atalian","order":7,"eyebrow":"STOP 03","title":"Atalian","lane":"Stops","scene":"60 Andrew Young International Blvd.","anchors":["Recommended wines: Rosé or Pinot Noir.","Glamorous fine-dining Italian restaurant.","Founded by veteran restaurateur Muzo Saritas.","Cinematic, theatrical design with velvet textures, glowing chandeliers, and plush booth seating.","The script frames wine as a central pillar of an “abundance-first” dining experience."],"prompt":"Host Atalian in 30 seconds, then explain where the Prohibition True/False game fits into the flow."},{"id":"whiteoak","order":8,"eyebrow":"STOP 04 / FINAL POUR","title":"White Oak","lane":"Stops","scene":"270 Peachtree St NW.","anchors":["Recommended wine: Cabernet Sauvignon.","Established in 2012 by Cindy and Alan LeBlanc.","17,000-square-foot space.","Southern comfort meets Southern European coastal culinary traditions.","Features a two-story glass wine cellar.","The script says the wine list has more than 450 labels."],"prompt":"Give the final-stop setup. Make White Oak feel like the satisfying, substantial ending to the walk."},{"id":"closing","order":9,"eyebrow":"RETURN TO THE PARK","title":"Close the Walk","lane":"Host Flow","scene":"Bring the group back to Centennial Olympic Park and land the experience.","anchors":["Ask guests which wine was their favorite.","Thank them for being open to trying new things and trusting you to guide them.","Invite reviews on the platform they used to book.","Final idea: drink what you like, try new things, and do not overthink it."],"prompt":"Close the tour out loud. Ask for a favorite, thank the group, mention reviews, and end with the script’s relaxed wine philosophy."}],"questions":[{"id":"w1","lane":"Wine Basics","type":"mc","q":"What does acidity do in wine?","choices":["Makes it feel crisp and mouth-watering","Makes it automatically sweet","Only changes the color","Means it has more tannins"],"a":0,"ex":"The script describes acidity as crisp, refreshing, and mouth-watering."},{"id":"w2","lane":"Wine Basics","type":"mc","q":"What is the script’s everyday comparison for tannins?","choices":["Strong tea","Sparkling water","Cream","Orange juice"],"a":0,"ex":"Tannins create a dry, grippy feeling, like strong tea."},{"id":"w3","lane":"Wine Basics","type":"mc","q":"Where do tannins come from?","choices":["Grape skins, seeds, and oak aging","Only added sugar","Only yeast","Carbonation"],"a":0,"ex":"The script names grape skins, seeds, and oak aging."},{"id":"w4","lane":"Wine Basics","type":"mc","q":"Body means…","choices":["How heavy or light the wine feels","How dark the wine looks","How expensive it is","How long the label is"],"a":0,"ex":"Body is about weight/feel. The script uses skim milk, whole milk, and cream as comparisons."},{"id":"w5","lane":"Wine Basics","type":"tf","q":"A wine can taste fruity and still be dry.","a":true,"ex":"Correct. Sweetness is about sugar, not fruitiness."},{"id":"w6","lane":"Wine Basics","type":"mc","q":"Structure is the balance of…","choices":["Acid, tannins, alcohol, and body","Only fruit and sugar","Color and price","Region and label design"],"a":0,"ex":"That is the exact framework in the script."},{"id":"w7","lane":"Wine Basics","type":"mc","q":"Terroir is basically the idea that…","choices":["Wine tastes like where it comes from","All wines from one grape taste the same","Wine should always be aged in oak","Only French wine has regional character"],"a":0,"ex":"Soil, climate, elevation, weather, and surrounding environment can shape the wine."},{"id":"w8","lane":"Wine Basics","type":"mc","q":"What is the simple tasting sequence in the script?","choices":["Look → smell → sip → notice how it feels","Sip → swirl → score → spit","Smell → rate → pair → post","Look → photograph → sip → rank"],"a":0,"ex":"The script keeps tasting simple: look, smell, sip, pay attention to how it feels."},{"id":"w9","lane":"Wine Basics","type":"tf","q":"White wines are always light-bodied and red wines are always full-bodied.","a":false,"ex":"The script explicitly says whites can be full and reds can be light."},{"id":"w10","lane":"Wine Basics","type":"mc","q":"What is the only rule that really matters on this tour?","choices":["If you like it, it’s good","Always order the recommended wine","Never mix wine styles","Only red wine counts"],"a":0,"ex":"The script’s core rule: if you like it, it’s good."},{"id":"h1","lane":"Atlanta History","type":"mc","q":"In what year was Georgia established in the script’s wine-history timeline?","choices":["1732","1789","1865","1907"],"a":0,"ex":"1732."},{"id":"h2","lane":"Atlanta History","type":"mc","q":"What early wine ambition did Georgia have?","choices":["To become England’s “Vineyard Colony”","To ban grapes","To export only whiskey","To replace Savannah with vineyards"],"a":0,"ex":"The script says Georgia hoped to become England’s “Vineyard Colony.”"},{"id":"h3","lane":"Atlanta History","type":"mc","q":"Where were grapes planted in the early colonial effort?","choices":["Savannah’s Trustees Garden","Centennial Olympic Park","Dahlonega Square","Piedmont Park"],"a":0,"ex":"Savannah’s Trustees Garden."},{"id":"h4","lane":"Atlanta History","type":"mc","q":"By the late 19th century, Georgia ranked what among U.S. wine-producing states?","choices":["6th largest","2nd largest","12th largest","25th largest"],"a":0,"ex":"The script says 6th largest."},{"id":"h5","lane":"Atlanta History","type":"mc","q":"About how many vineyard acres does the script cite for Georgia’s late-1800s boom?","choices":["More than 20,000","About 2,000","About 500","More than 100,000"],"a":0,"ex":"More than 20,000 acres."},{"id":"h6","lane":"Atlanta History","type":"mc","q":"Georgia enacted statewide prohibition in…","choices":["1907","1920","1933","1935"],"a":0,"ex":"1907, twelve years before national Prohibition took effect."},{"id":"h7","lane":"Atlanta History","type":"mc","q":"What 1983 law helped restart Georgia’s wine industry?","choices":["Georgia Farm Winery Act","Georgia Vineyard Relief Act","Southern Wine Act","Farm Tourism Act"],"a":0,"ex":"Georgia Farm Winery Act of 1983."},{"id":"h8","lane":"Atlanta History","type":"mc","q":"Under the script’s description of the Georgia Farm Winery Act, at least what share of grapes had to be grown in Georgia?","choices":["40%","20%","51%","75%"],"a":0,"ex":"At least 40%."},{"id":"h9","lane":"Atlanta History","type":"mc","q":"Which two official AVAs does the script name?","choices":["Dahlonega Plateau + Upper Hiwassee Highlands","Napa Valley + Sonoma Coast","Blue Ridge + Savannah Coast","Athens Hills + Peachtree Plains"],"a":0,"ex":"Dahlonega Plateau and Upper Hiwassee Highlands."},{"id":"h10","lane":"Atlanta History","type":"mc","q":"How far north of Atlanta does the script place the historic North Georgia vineyards?","choices":["About 60–80 miles","About 10–20 miles","About 150–200 miles","About 300 miles"],"a":0,"ex":"About 60 to 80 miles north."},{"id":"r1","lane":"Route","type":"mc","q":"Where does the tour meet?","choices":["Olympic Rings in Centennial Olympic Park","The Sun Dial lobby","Red Phone Booth","White Oak"],"a":0,"ex":"Meet at the Olympic Rings in Centennial Olympic Park."},{"id":"r2","lane":"Route","type":"mc","q":"How long is the route?","choices":["1.2 miles","2.5 miles","0.5 miles","4 miles"],"a":0,"ex":"The guide says 1.2 miles."},{"id":"r3","lane":"Route","type":"mc","q":"How many wine stops and bonus stops?","choices":["4 wine stops + 2 bonus stops","3 + 3","5 + 1","4 + 4"],"a":0,"ex":"Four wine stops and two bonus stops."},{"id":"r4","lane":"Route","type":"mc","q":"What comes immediately after the Freedom Fighters Mural?","choices":["The Sun Dial Bar","Lumen Lounge","Red Phone Booth","Atalian"],"a":0,"ex":"Freedom Fighters Mural → Sun Dial."},{"id":"r5","lane":"Route","type":"mc","q":"What comes immediately after Lumen Lounge?","choices":["Red Phone Booth","White Oak","Freedom Fighters Mural","Centennial Olympic Park"],"a":0,"ex":"Lumen Lounge → Red Phone Booth."},{"id":"r6","lane":"Route","type":"mc","q":"Which stop is last?","choices":["White Oak","Atalian","Lumen Lounge","Sun Dial"],"a":0,"ex":"White Oak is the fourth and final wine stop."},{"id":"s1","lane":"Stops","type":"mc","q":"Who created the Freedom Fighters mural?","choices":["Yehimi Cambron","Cindy LeBlanc","Muzo Saritas","Alan LeBlanc"],"a":0,"ex":"The script names muralist Yehimi Cambron."},{"id":"s2","lane":"Stops","type":"mc","q":"What wine does the script recommend at The Sun Dial?","choices":["Champagne","Pinot Noir","Cabernet Sauvignon","Rosé"],"a":0,"ex":"Champagne."},{"id":"s3","lane":"Stops","type":"mc","q":"The Sun Dial occupies which floors?","choices":["71–73","60–62","40–42","6–8"],"a":0,"ex":"Floors 71 through 73."},{"id":"s4","lane":"Stops","type":"mc","q":"How high above the city does the script place The Sun Dial?","choices":["723 feet","500 feet","1,000 feet","320 feet"],"a":0,"ex":"723 feet."},{"id":"s5","lane":"Stops","type":"mc","q":"Which wines are recommended at Lumen Lounge?","choices":["Sauvignon Blanc and Chardonnay / Chablis","Champagne and Rosé","Cabernet Sauvignon and Pinot Noir","Riesling and Syrah"],"a":0,"ex":"Sauvignon Blanc or Chardonnay / Chablis."},{"id":"s6","lane":"Stops","type":"mc","q":"Lumen Lounge is on what floor of the Ritz-Carlton?","choices":["6","71","12","2"],"a":0,"ex":"Floor 6."},{"id":"s7","lane":"Stops","type":"mc","q":"Who founded Atalian, according to the script?","choices":["Muzo Saritas","Cindy LeBlanc","Alan LeBlanc","Yehimi Cambron"],"a":0,"ex":"Veteran restaurateur Muzo Saritas."},{"id":"s8","lane":"Stops","type":"mc","q":"Which wines are recommended at Atalian?","choices":["Rosé and Pinot Noir","Champagne and Chardonnay","Cabernet Sauvignon and Merlot","Sauvignon Blanc and Riesling"],"a":0,"ex":"Rosé and Pinot Noir."},{"id":"s9","lane":"Stops","type":"mc","q":"Which wine is recommended at White Oak?","choices":["Cabernet Sauvignon","Champagne","Sauvignon Blanc","Rosé"],"a":0,"ex":"Cabernet Sauvignon."},{"id":"s10","lane":"Stops","type":"mc","q":"How many labels does the script say White Oak’s wine list boasts?","choices":["Over 450","About 75","Exactly 200","Over 1,500"],"a":0,"ex":"More than 450 labels."},{"id":"s11","lane":"Stops","type":"mc","q":"Who established White Oak in 2012?","choices":["Cindy and Alan LeBlanc","Muzo and Cindy Saritas","Yehimi and Alan Cambron","The Ritz-Carlton"],"a":0,"ex":"Cindy and Alan LeBlanc."},{"id":"s12","lane":"Stops","type":"mc","q":"What visual feature anchors White Oak’s wine program?","choices":["A two-story glass wine cellar","A rooftop vineyard","A rotating tasting bar","A cellar beneath Centennial Park"],"a":0,"ex":"A floor-to-ceiling, two-story glass wine cellar."},{"id":"p1","lane":"Prohibition","type":"tf","q":"The national Prohibition ban began in February 1921 and ended in November 1934.","a":false,"ex":"FALSE. The script gives January 16, 1920 to December 5, 1933."},{"id":"p2","lane":"Prohibition","type":"tf","q":"National Prohibition lasted 13 years of “Dry.”","a":true,"ex":"TRUE."},{"id":"p3","lane":"Prohibition","type":"tf","q":"The Prohibition Party used an alpaca as its mascot.","a":false,"ex":"FALSE. The script says camel."},{"id":"p4","lane":"Prohibition","type":"tf","q":"Doctors never prescribed medicinal whiskey for ailments.","a":false,"ex":"FALSE. The script says doctors absolutely prescribed medicinal whiskey."},{"id":"p5","lane":"Prohibition","type":"tf","q":"Wine was allowed for religious ceremonies.","a":true,"ex":"TRUE."},{"id":"p6","lane":"Prohibition","type":"tf","q":"Due to Prohibition, organized crime spiked.","a":true,"ex":"TRUE. The script uses Al Capone as an example of bootlegging wealth and power."},{"id":"p7","lane":"Prohibition","type":"tf","q":"Illegal secret bars, or speakeasies, never thrived.","a":false,"ex":"FALSE. The script says speakeasies rose dramatically."},{"id":"p8","lane":"Prohibition","type":"tf","q":"The 18th Amendment did not outlaw drinking itself, only selling, producing, and transporting intoxicating liquor.","a":true,"ex":"TRUE, according to the tour game."},{"id":"p9","lane":"Prohibition","type":"tf","q":"Average alcohol consumption never dropped during Prohibition.","a":false,"ex":"FALSE. The script says it dropped 70% in the early years and remained lower afterward."},{"id":"p10","lane":"Prohibition","type":"tf","q":"The federal government ordered industrial alcohol poisoned, leading to more than 10,000 deaths.","a":true,"ex":"TRUE, according to the tour game."},{"id":"f1","lane":"Host Flow","type":"mc","q":"What question does the conclusion tell you to ask guests?","choices":["What was everybody’s favorite wine?","Who spent the most?","Which stop had the best food?","Who wants another tour right now?"],"a":0,"ex":"Ask which wine was everyone’s favorite."},{"id":"f2","lane":"Host Flow","type":"mc","q":"What does the conclusion invite guests to leave?","choices":["A review","A tip card","A wine score sheet","A written quiz"],"a":0,"ex":"The script asks for reviews on Google, TripAdvisor, or the booking platform."},{"id":"f3","lane":"Host Flow","type":"tf","q":"The tour script says guests need wine knowledge before attending.","a":false,"ex":"FALSE. It explicitly says guests do not need to know anything about wine."},{"id":"wc1","lane":"Wine Cast","type":"mc","q":"Which statement is the legal/geographic flex behind true Champagne?","choices":["It must come from Champagne, France","It must be 100% Chardonnay","It must be sweet","It must be aged 50 years"],"a":0,"ex":"Champagne is a protected geographic name. Sparkling wine from elsewhere is not Champagne."},{"id":"wc2","lane":"Wine Cast","type":"mc","q":"What creates Champagne’s bubbles?","choices":["A second fermentation inside the bottle","Shaking the bottle","Adding sparkling water","Oak aging"],"a":0,"ex":"Yeast consumes sugar during a second bottle fermentation, trapping carbon dioxide as bubbles."},{"id":"wc3","lane":"Wine Cast","type":"tf","q":"Dom Pérignon invented Champagne.","a":false,"ex":"False. The training material says he was actually trying to prevent the bubbles."},{"id":"wc4","lane":"Wine Cast","type":"mc","q":"Which flavor family is strongly associated with Champagne aging on lees?","choices":["Brioche and toast","Jalapeño and dill","Banana and coconut only","Blueberry jam"],"a":0,"ex":"Lees aging contributes brioche, toast, almond, and biscuit notes."},{"id":"wc5","lane":"Wine Cast","type":"mc","q":"Sauvignon Blanc’s name literally points to which idea?","choices":["Wild White","Royal White","Sweet White","Golden White"],"a":0,"ex":"The material traces Sauvignon to French sauvage, meaning wild."},{"id":"wc6","lane":"Wine Cast","type":"mc","q":"Which place is famous for turning Sauvignon Blanc’s volume all the way up?","choices":["Marlborough, New Zealand","Rioja, Spain","Napa only","Champagne, France"],"a":0,"ex":"Marlborough made the intense tropical/citrus New Zealand style globally famous."},{"id":"wc7","lane":"Wine Cast","type":"tf","q":"Sauvignon Blanc is one parent of Cabernet Sauvignon.","a":true,"ex":"True. Cabernet Franc is the other parent."},{"id":"wc8","lane":"Wine Cast","type":"mc","q":"What is the classic Sauvignon Blanc pairing in the material?","choices":["Goat cheese","Chocolate cake","Ribeye","Blue cheese only"],"a":0,"ex":"Goat cheese is the famous Loire pairing."},{"id":"wc9","lane":"Wine Cast","type":"mc","q":"Chablis is…","choices":["Chardonnay grown in northern Burgundy","A separate grape","Sweet Champagne","A red Bordeaux blend"],"a":0,"ex":"Chablis is Chardonnay, usually in a leaner, mineral-driven style."},{"id":"wc10","lane":"Wine Cast","type":"mc","q":"What winemaking process is closely tied to buttery Chardonnay?","choices":["Malolactic fermentation","Carbonation","Freezing the grapes","Adding sugar after bottling"],"a":0,"ex":"Malolactic fermentation softens malic acid into lactic acid, contributing buttery character."},{"id":"wc11","lane":"Wine Cast","type":"tf","q":"Blanc de Blancs Champagne can mean 100% Chardonnay.","a":true,"ex":"True. Chardonnay is a primary Champagne grape."},{"id":"wc12","lane":"Wine Cast","type":"mc","q":"Which profile best fits Chablis?","choices":["Lean, high-acid, mineral-driven","Sweet, heavy, jammy","High-tannin red","Fortified dessert wine"],"a":0,"ex":"The material describes Chablis as lean, high acid, mineral-driven, and bracingly fresh."},{"id":"wc13","lane":"Wine Cast","type":"mc","q":"Rosé is best understood as…","choices":["A method/style, not a grape","A grape from Provence","Sweet wine only","A Champagne synonym"],"a":0,"ex":"Rosé is made from red grapes handled with limited skin contact."},{"id":"wc14","lane":"Wine Cast","type":"mc","q":"If Rosé had a modern global headquarters, the material gives it to…","choices":["Provence","Bordeaux","Napa","Tuscany"],"a":0,"ex":"Pale, dry Provence Rosé became the model for the modern global style."},{"id":"wc15","lane":"Wine Cast","type":"tf","q":"Modern dry Rosé has to be sweet because it is pink.","a":false,"ex":"False. Dry Rosé is commonly crisp, acidic, and not sweet."},{"id":"wc16","lane":"Wine Cast","type":"mc","q":"White Zinfandel’s famous sweeter style began when…","choices":["Fermentation stopped early and left sugar behind","Red wine was mixed with soda","The wine was frozen","Oak was removed"],"a":0,"ex":"The material describes the sweeter style as an accidental stopped-fermentation moment."},{"id":"wc17","lane":"Wine Cast","type":"mc","q":"Why is Pinot Noir called the Heartbreak Grape?","choices":["Thin skins and extreme growing sensitivity","It is always sweet","It only grows indoors","It cannot age"],"a":0,"ex":"It is prone to rot/disease and highly sensitive to climate."},{"id":"wc18","lane":"Wine Cast","type":"mc","q":"Which note belongs naturally in Pinot Noir’s earthy edit?","choices":["Mushroom","Pineapple soda","Banana cream","Green bell pepper as the signature"],"a":0,"ex":"Mushroom, wet leaves, truffle, tea, and red fruits are classic notes in the material."},{"id":"wc19","lane":"Wine Cast","type":"tf","q":"The movie Sideways gave Pinot Noir a major popularity boost in the U.S.","a":true,"ex":"True. The material describes a major sales boost after the 2004 film."},{"id":"wc20","lane":"Wine Cast","type":"mc","q":"Which pairing fits Pinot Noir especially well?","choices":["Duck or salmon","Only steak","Only spicy curry","Only dessert"],"a":0,"ex":"Duck, salmon, mushrooms, roast chicken, and earthy vegetarian dishes all fit."},{"id":"wc21","lane":"Wine Cast","type":"mc","q":"Cabernet Sauvignon is the natural child of…","choices":["Cabernet Franc + Sauvignon Blanc","Pinot Noir + Chardonnay","Merlot + Syrah","Grenache + Riesling"],"a":0,"ex":"DNA testing identified Cabernet Franc and Sauvignon Blanc as its parents."},{"id":"wc22","lane":"Wine Cast","type":"mc","q":"What happened at the 1976 Judgment of Paris?","choices":["Napa Cabernet beat prestigious French Bordeaux in a blind tasting","Champagne was invented","Rosé became illegal","Chablis changed grapes"],"a":0,"ex":"The result helped establish Napa Cabernet as world-class."},{"id":"wc23","lane":"Wine Cast","type":"mc","q":"Which structure best describes Cabernet Sauvignon?","choices":["Full-bodied, high-tannin, age-worthy","Light, sweet, no tannin","Sparkling and delicate","Always low-acid white"],"a":0,"ex":"Cab is built around firm tannins, structure, and aging potential."},{"id":"wc24","lane":"Wine Cast","type":"mc","q":"Why is Cabernet such a steakhouse classic?","choices":["Tannins bind with fat and protein","It is always served warm","It has no tannins","It tastes like butter"],"a":0,"ex":"High tannins soften with fatty, protein-rich foods such as steak."},{"id":"wc25","lane":"Wine Cast","type":"mc","q":"Which three grapes does the packet name as Champagne’s primary trio?","choices":["Chardonnay, Pinot Noir, Pinot Meunier","Chardonnay, Riesling, Merlot","Pinot Noir, Syrah, Grenache","Cabernet Franc, Sauvignon Blanc, Chardonnay"],"a":0,"ex":"The packet names Chardonnay, Pinot Noir, and Pinot Meunier."},{"id":"wc26","lane":"Wine Cast","type":"mc","q":"About how much pressure is inside a Champagne bottle according to the packet?","choices":["5–6 atmospheres","1 atmosphere","20–30 atmospheres","No meaningful pressure"],"a":0,"ex":"About 5–6 atmospheres, which the packet compares to a car tire."},{"id":"wc27","lane":"Wine Cast","type":"tf","q":"Non-vintage Champagne is often blended from multiple years for consistency.","a":true,"ex":"True. The packet says many non-vintage Champagnes blend multiple years."},{"id":"wc28","lane":"Wine Cast","type":"mc","q":"What historical underground spaces helped Champagne producers protect wine and shelter communities during war?","choices":["Chalk cellars called crayères","Steel silos","Mountain caves in Bordeaux","Monastery bell towers"],"a":0,"ex":"The packet describes massive chalk cellars called crayères."},{"id":"wc29","lane":"Wine Cast","type":"mc","q":"Which style became dominant partly because British buyers preferred drier Champagne?","choices":["Brut","Demi-sec","Port","Rosé only"],"a":0,"ex":"The packet links the rise of Brut to British preference for drier wine."},{"id":"wc30","lane":"Wine Cast","type":"mc","q":"Cristal’s clear bottle was originally tied to what concern?","choices":["A Russian Tsar wanting to inspect for bombs or poison","Keeping wine colder","Showing the bubbles","Avoiding cork taint"],"a":0,"ex":"The packet says Cristal was bottled clear for a Russian Tsar concerned about bombs or poison."},{"id":"wc31","lane":"Wine Cast","type":"mc","q":"Where does the packet place Sauvignon Blanc’s French origins?","choices":["Loire Valley and Bordeaux","Burgundy only","Champagne only","Rhône Valley only"],"a":0,"ex":"Loire Valley and Bordeaux are the core French origins named."},{"id":"wc32","lane":"Wine Cast","type":"mc","q":"In Bordeaux, Sauvignon Blanc is often blended with…","choices":["Sémillon","Pinot Noir","Cabernet Sauvignon","Grenache"],"a":0,"ex":"The packet says Sauvignon Blanc is often blended with Sémillon in Bordeaux."},{"id":"wc33","lane":"Wine Cast","type":"mc","q":"Which Loire wines does the packet use as classic Sauvignon Blanc examples?","choices":["Sancerre and Pouilly-Fumé","Chablis and Meursault","Barolo and Barbaresco","Rioja and Cava"],"a":0,"ex":"Sancerre and Pouilly-Fumé."},{"id":"wc34","lane":"Wine Cast","type":"tf","q":"Oak is the only way to make Sauvignon Blanc.","a":false,"ex":"False. The packet contrasts crisp stainless-steel styles with rounder, richer oak-aged examples."},{"id":"wc35","lane":"Wine Cast","type":"mc","q":"Which food category does Sauvignon Blanc handle especially well because of its acidity and herbal notes?","choices":["Green, herb-forward foods","Only chocolate","Only steak","Only desserts"],"a":0,"ex":"The packet highlights salads, herbs, goat cheese, seafood and sushi."},{"id":"wc36","lane":"Wine Cast","type":"mc","q":"The packet’s personality shorthand for Sauvignon Blanc is basically…","choices":["Bright, zesty, herbaceous, aromatic","Soft, sleepy, low-acid","Sweet and fortified","Heavy, tannic red"],"a":0,"ex":"Bright, zesty, herbaceous and aggressively aromatic is the packet’s framing."},{"id":"wc37","lane":"Wine Cast","type":"mc","q":"What is Chardonnay’s original home according to the packet?","choices":["Burgundy, France","Marlborough, New Zealand","Napa Valley","Provence"],"a":0,"ex":"Burgundy, France."},{"id":"wc38","lane":"Wine Cast","type":"mc","q":"Chardonnay is genetically the child of Pinot Noir and…","choices":["Gouais Blanc","Sauvignon Blanc","Cabernet Franc","Sémillon"],"a":0,"ex":"The packet names Pinot Noir and Gouais Blanc."},{"id":"wc39","lane":"Wine Cast","type":"mc","q":"What ancient geology does the packet connect to Chablis?","choices":["Kimmeridgian limestone with fossilized oyster shells","Volcanic lava only","Desert sand","Granite from Champagne"],"a":0,"ex":"Kimmeridgian limestone packed with fossilized oyster shells."},{"id":"wc40","lane":"Wine Cast","type":"mc","q":"Cool-climate Chardonnay tends to lean toward…","choices":["Green apple, lemon, high acidity","Blackberry and leather","Only tropical fruit","Heavy tannin"],"a":0,"ex":"The packet lists green apple, lemon, high acidity and a leaner structure."},{"id":"wc41","lane":"Wine Cast","type":"mc","q":"Warmer-climate Chardonnay tends to show more…","choices":["Pineapple, mango, ripe peach","Forest floor and truffle only","Green bell pepper","Cassis and tobacco"],"a":0,"ex":"Pineapple, mango and ripe peach are listed as warmer-climate notes."},{"id":"wc42","lane":"Wine Cast","type":"tf","q":"The packet says American producers once used “Chablis” on inexpensive whites regardless of grape.","a":true,"ex":"True. It is presented as a historical naming controversy."},{"id":"wc43","lane":"Wine Cast","type":"mc","q":"What controls Rosé’s pink color most directly in the packet?","choices":["How long the juice contacts red-grape skins","Adding red food coloring","Oak age alone","Bottle shape"],"a":0,"ex":"Skin-contact time controls the depth of color."},{"id":"wc44","lane":"Wine Cast","type":"mc","q":"Which grapes does the packet name as common Rosé sources?","choices":["Grenache, Syrah, Pinot Noir, Sangiovese","Only Chardonnay","Only Cabernet Sauvignon","Riesling and Sémillon"],"a":0,"ex":"Grenache, Syrah, Pinot Noir, and Sangiovese are specifically named."},{"id":"wc45","lane":"Wine Cast","type":"mc","q":"What modern style made Provence Rosé famous?","choices":["Very pale, bone-dry, crisp, mineral-driven","Dark, sweet, fortified","Heavy oak and tannin","Warm and sparkling only"],"a":0,"ex":"The packet describes Provence as pale, bone-dry, crisp and mineral-driven."},{"id":"wc46","lane":"Wine Cast","type":"tf","q":"The packet says Rosé should only be treated as a summer wine.","a":false,"ex":"False. It specifically says Rosé has become a year-round category."},{"id":"wc47","lane":"Wine Cast","type":"mc","q":"Sparkling Rosé can get its color from…","choices":["Brief skin contact or blending a little red wine","Artificial dye only","Oak smoke","Lees alone"],"a":0,"ex":"Those are the two color routes named in the packet."},{"id":"wc48","lane":"Wine Cast","type":"mc","q":"Which tasting-note set belongs to dry Rosé in the packet?","choices":["Strawberry, watermelon, raspberry, citrus, fresh herbs","Cassis, cedar, tobacco","Brioche, almond, mushroom only","Green pepper, eucalyptus only"],"a":0,"ex":"That fruit-and-herb set is the packet’s dry Rosé profile."},{"id":"wc49","lane":"Wine Cast","type":"mc","q":"Which region anchors Pinot Noir’s history in the packet?","choices":["Burgundy","Provence","Marlborough","Napa only"],"a":0,"ex":"Burgundy is the historic anchor."},{"id":"wc50","lane":"Wine Cast","type":"mc","q":"Why does Pinot Noir tend to be lighter in color and tannin?","choices":["Its skins are thin","It has no skins","It is always diluted","It is a white grape"],"a":0,"ex":"Thin skins help explain the paler ruby color and softer tannins."},{"id":"wc51","lane":"Wine Cast","type":"mc","q":"Which climate does Pinot Noir generally prefer?","choices":["Cool climates","Only tropical climates","Hot deserts","Climate does not matter"],"a":0,"ex":"The packet says Pinot Noir loves cool climates and is extremely climate-sensitive."},{"id":"wc52","lane":"Wine Cast","type":"tf","q":"Pinot Noir mutates easily and is related to Pinot Gris and Pinot Blanc.","a":true,"ex":"True. The packet emphasizes Pinot’s genetic instability."},{"id":"wc53","lane":"Wine Cast","type":"mc","q":"Which profile does the packet associate with Burgundy Pinot Noir?","choices":["Earthy, mushroom and forest floor","Only tropical pineapple","Green pepper only","Butter and vanilla only"],"a":0,"ex":"Burgundy is described as leaning earthy, including mushroom and forest floor."},{"id":"wc54","lane":"Wine Cast","type":"mc","q":"What is one of Pinot Noir’s high-end prestige references in the packet?","choices":["Domaine de la Romanée-Conti","Marlborough Estate","Cristal Winery Napa","White Zinfandel Reserve"],"a":0,"ex":"Domaine de la Romanée-Conti is named as a prestigious Burgundy producer."},{"id":"wc55","lane":"Wine Cast","type":"mc","q":"Where does the packet place Cabernet Sauvignon’s emergence?","choices":["Bordeaux in the 17th century","Champagne in the 1800s","Provence in antiquity","Oregon in 2004"],"a":0,"ex":"The packet says it emerged in 17th-century Bordeaux."},{"id":"wc56","lane":"Wine Cast","type":"mc","q":"Cabernet became a backbone of which Bordeaux area?","choices":["Left Bank","Right Bank only","Champagne district","Loire Valley"],"a":0,"ex":"The packet specifically says Left Bank Bordeaux."},{"id":"wc57","lane":"Wine Cast","type":"mc","q":"Which compound family creates Cab’s green bell pepper, mint and eucalyptus notes?","choices":["Pyrazines","Lees","Lactic acid","Ethyl esters only"],"a":0,"ex":"The packet names pyrazines."},{"id":"wc58","lane":"Wine Cast","type":"mc","q":"Oak aging can add which notes to Cabernet?","choices":["Vanilla, toast, spice, smoke, dark chocolate","Only lemon and lime","Only wet stone","Only strawberry"],"a":0,"ex":"Those are the oak-linked notes listed."},{"id":"wc59","lane":"Wine Cast","type":"mc","q":"With significant age, Cabernet can develop…","choices":["Earth, leather, cigar box, savory complexity","Only watermelon","Only fresh herbs","Only brioche"],"a":0,"ex":"The packet names earth, leather, cigar box and savory complexity."},{"id":"wc60","lane":"Wine Cast","type":"tf","q":"The packet says top Cabernet can age for decades.","a":true,"ex":"True. It cites 20, 30 and even 50 years for top bottles."}],"speaking":[{"id":"m1","lane":"Host Flow","q":"OPENING MIC CHECK","prompt":"Welcome your group and explain what this tour is, what it is not, and the one rule that matters.","anchors":["Wine experience, not wine class","Four wine spots","Wine should make sense","If you like it, it’s good"]},{"id":"m2","lane":"Wine Basics","q":"WINE BASICS MIC CHECK","prompt":"Explain acidity, tannins, body, sweetness, structure, and terroir like you are talking to regular guests, not sommeliers.","anchors":["Acidity = crisp/mouth-watering","Tannins = strong-tea grip","Body = weight/feel","Sweetness = sugar, not fruitiness","Structure = balance","Terroir = place"]},{"id":"m3","lane":"Atlanta History","q":"HISTORY MIC CHECK","prompt":"Give the Georgia wine-history timeline from 1732 through the modern comeback.","anchors":["1732 Vineyard Colony","Late 1800s: 6th-largest, 20,000+ acres","1907 statewide prohibition","1983 Farm Winery Act","North Georgia AVAs","Atlanta as wine-culture hub"]},{"id":"m4","lane":"Stops","q":"MURAL MIC CHECK","prompt":"Host the Freedom Fighters mural stop in under 45 seconds.","anchors":["Yehimi Cambron","Activists + community members","Historic Civil Rights + contemporary social justice","Ongoing living journey"]},{"id":"m5","lane":"Stops","q":"SUN DIAL MIC CHECK","prompt":"Introduce The Sun Dial and make the first pour feel special.","anchors":["Westin Peachtree Plaza","723 feet","Floors 71–73","360-degree views","Champagne"]},{"id":"m6","lane":"Stops","q":"LUMEN MIC CHECK","prompt":"Introduce Lumen Lounge and explain the mood and wine recommendation.","anchors":["Ritz-Carlton floor 6","Amber lighting + marble","Live entertainment","Sauvignon Blanc or Chardonnay/Chablis","Global selection"]},{"id":"m7","lane":"Prohibition","q":"RED PHONE BOOTH MIC CHECK","prompt":"Tell the prohibition story from 1907 to 1935 while standing outside the Red Phone Booth.","anchors":["Georgia dry in 1907","National: 1920–1933","Private locker clubs","Blind tigers","Jug trains","Moonshine","Georgia repeal in 1935"]},{"id":"m8","lane":"Stops","q":"ATALIAN MIC CHECK","prompt":"Introduce Atalian, recommend the wines, and tee up the Prohibition True/False game.","anchors":["Muzo Saritas","Cinematic/theatrical Italian dining","Velvet/chandeliers/plush booths","Rosé or Pinot Noir","Game follows"]},{"id":"m9","lane":"Stops","q":"WHITE OAK MIC CHECK","prompt":"Introduce White Oak as the final wine stop.","anchors":["2012","Cindy + Alan LeBlanc","17,000 sq ft","Two-story glass cellar","450+ labels","Cabernet Sauvignon"]},{"id":"m10","lane":"Host Flow","q":"CLOSING MIC CHECK","prompt":"Close the tour from favorite wine through the final goodbye.","anchors":["Ask favorite wine","Thank group","Invite reviews","Drink what you like","Try new things","Don’t overthink it"]},{"id":"wm1","lane":"Wine Cast","q":"CHAMPAGNE CONFESSIONAL","prompt":"Give a 30-second Champagne story that includes protected geography, the bottle-pressure drama, and the Dom Pérignon myth.","anchors":["Champagne, France","Chardonnay + Pinot Noir + Pinot Meunier","Second bottle fermentation","5–6 atmospheres","Dom Pérignon myth","Lees = brioche/toast"]},{"id":"wm2","lane":"Wine Cast","q":"SAUVIGNON BLANC CONFESSIONAL","prompt":"Explain why Sauvignon Blanc is easy to recognize, then contrast Loire/Bordeaux energy with Marlborough energy.","anchors":["Wild White","Loire + Bordeaux","Marlborough","High acid + herbaceous","Cabernet Sauvignon parent","Goat cheese"]},{"id":"wm3","lane":"Wine Cast","q":"CHARDONNAY CONFESSIONAL","prompt":"Give me Chardonnay’s two personalities: Chablis versus the buttery/oaky style, and explain what winemaking creates the difference.","anchors":["Burgundy","Chablis = Chardonnay","Kimmeridgian limestone","Oak","Malolactic = buttery","Blanc de Blancs"]},{"id":"wm4","lane":"Wine Cast","q":"ROSÉ CONFESSIONAL","prompt":"Explain Rosé to someone who thinks it is a grape. Give the method, Provence connection, and one modern culture note.","anchors":["Method, not grape","Short skin contact","Provence","Dry + crisp","White Zinfandel accident","Sparkling Rosé"]},{"id":"wm5","lane":"Wine Cast","q":"PINOT NOIR CONFESSIONAL","prompt":"Tell the Pinot Noir story like the cast member is literally called the Heartbreak Grape. Include why it is difficult and why people love it.","anchors":["Heartbreak Grape","Thin skins","Burgundy","Cool climate","Cherry + mushroom","Sideways"]},{"id":"wm6","lane":"Wine Cast","q":"CABERNET CONFESSIONAL","prompt":"Give Cabernet Sauvignon the heavyweight edit: origin story, Judgment of Paris, structure, and why steak loves it.","anchors":["Cab Franc + Sauvignon Blanc","Bordeaux","1976 Judgment of Paris","Full body + high tannin","Blackcurrant + cedar","Steak"]}],"wineCast":[{"id":"champagne","name":"Champagne","pron":"sham-pane","archetype":"The Grande Dame","tagline":"I survived war, royalty, bad PR, and six atmospheres of pressure. I can handle brunch.","servedAt":"Sun Dial","plotTwist":"Dom Pérignon did not invent Champagne. He was trying to stop the bubbles.","anchors":["True Champagne only comes from Champagne, France.","Primary grapes: Chardonnay, Pinot Noir, Pinot Meunier.","Bubbles come from a second fermentation inside the bottle.","Bottle pressure is about 5–6 atmospheres.","Lees aging creates brioche, toast, almond, and biscuit notes.","Brut is the dominant dry style; Champagne became celebration through royalty and marketing."],"tasting":["Lemon","Green apple","Pear","White peach","Brioche","Toast","Almond"],"pairings":["Seafood","Caviar","Brie","Triple-cream cheese","Fried food"],"confessional":"Give a 30-second Champagne story that includes protected geography, the bottle-pressure drama, and the Dom Pérignon myth.","privateEdit":"Regulated, war-tested, under five to six atmospheres of pressure, and still expected to make every event look effortless. Honestly, relatable.","tourReady":"True Champagne comes only from Champagne, France, and follows strict rules around geography and production. Its bubbles come from a second fermentation in the bottle, and aging on the lees helps create the brioche and toast notes people associate with the style.","producerNote":"The Dom Pérignon storyline is a PR plot twist: the packet says he did not invent Champagne and was actually trying to prevent the bubbles."},{"id":"sauvblanc","name":"Sauvignon Blanc","pron":"saw-vuhn-yon blahnk","archetype":"The Loud One","tagline":"Subtle left the group chat. I brought citrus, herbs, and opinions.","servedAt":"Lumen Lounge","plotTwist":"Sauvignon Blanc is one of Cabernet Sauvignon’s parents, alongside Cabernet Franc.","anchors":["Its name means “Wild White,” from French sauvage.","Classic French homes: Loire Valley and Bordeaux.","Marlborough, New Zealand made the louder tropical/citrus style globally famous.","Usually bright, high-acid, herbaceous, and intensely aromatic.","Stainless steel keeps it crisp; oak can make it rounder and richer.","Classic pairing: goat cheese; it also loves herbs, salads, seafood, and sushi."],"tasting":["Citrus","Green fruit","Tropical fruit","Fresh herbs","High acidity"],"pairings":["Goat cheese","Salads","Seafood","Sushi","Herb-forward dishes"],"confessional":"Explain why Sauvignon Blanc is easy to recognize, then contrast Loire/Bordeaux energy with Marlborough energy.","privateEdit":"She walks into the room smelling like citrus and herbs and immediately announces herself. Subtle has left the group chat.","tourReady":"Sauvignon Blanc is known for bright acidity and distinctive aromatic character. France gives us classic Loire and Bordeaux expressions, while Marlborough, New Zealand became famous for a louder, intensely aromatic style.","producerNote":"Family-tree chaos: Sauvignon Blanc and Cabernet Franc are the parents of Cabernet Sauvignon."},{"id":"chardonnay","name":"Chardonnay / Chablis","pron":"shaar-duh-nay / shuh-blee","archetype":"The Shape-Shifter","tagline":"Butter bomb? Mineral queen? Blanc de Blancs? Pick a storyline. I contain multitudes.","servedAt":"Lumen Lounge","plotTwist":"Chablis is Chardonnay grown in northern Burgundy, not a different grape.","anchors":["Chardonnay’s original home is Burgundy, France.","It is the genetic child of Pinot Noir and Gouais Blanc.","Chablis is lean, high-acid, mineral-driven Chardonnay from northern Burgundy.","Oak adds vanilla/toast; malolactic fermentation creates buttery softness.","Cool climates lean lemon/green apple; warm climates lean pineapple/mango/ripe peach.","Blanc de Blancs Champagne is 100% Chardonnay."],"tasting":["Green apple","Lemon","Wet stone","Pineapple","Mango","Vanilla","Butter"],"pairings":["Roast chicken","Lobster","Cream sauces","Soft cheese","Oysters with Chablis"],"confessional":"Give me Chardonnay’s two personalities: Chablis versus the buttery/oaky style, and explain what winemaking creates the difference.","privateEdit":"Nobody knows which version of her is coming to the reunion. Lean Chablis? Butter-bomb California? Blanc de Blancs? She contains multitudes.","tourReady":"Chardonnay is unusually adaptable. In Chablis it tends to be lean, high-acid and mineral-driven, while oak and malolactic fermentation can create richer, toastier and more buttery styles.","producerNote":"Chablis is Chardonnay. Same grape, radically different edit."},{"id":"rose","name":"Rosé","pron":"roh-zay","archetype":"The Lifestyle Influencer","tagline":"Everybody thinks I’m just cute and pink. Meanwhile I may be older than your entire red-wine tradition.","servedAt":"Atalian","plotTwist":"Rosé is a method/style, not a grape.","anchors":["Rosé is usually made from red grapes with short skin contact.","Provence, France is the modern global headquarters for pale, dry Rosé.","Common grapes include Grenache, Syrah, Pinot Noir, and Sangiovese.","Modern dry Rosé is crisp, acidic, and light-to-medium bodied.","White Zinfandel became famous after fermentation stopped early and left sugar behind.","Sparkling Rosé can get color from brief skin contact or a small amount of red wine."],"tasting":["Strawberry","Watermelon","Raspberry","Citrus","Fresh herbs"],"pairings":["Seafood","Salads","Mediterranean dishes","Grilled vegetables","Light meats"],"confessional":"Explain Rosé to someone who thinks it is a grape. Give the method, Provence connection, and one modern culture note.","privateEdit":"Stop calling her a grape. Production has corrected you three times. She is a METHOD with excellent branding.","tourReady":"Rosé is a wine style, not a grape. It is usually made from red grapes with limited skin contact, which creates the pink color while keeping the wine fresh and light.","producerNote":"The packet argues that pale, lightly extracted wines may be closer to some ancient wine styles than the bold reds people think of as traditional."},{"id":"pinot","name":"Pinot Noir","pron":"pee-no nuh-waar","archetype":"The Heartbreak Grape","tagline":"I’m thin-skinned, expensive, emotionally complex, and somehow you’re still obsessed with me.","servedAt":"Atalian","plotTwist":"The 2004 movie Sideways gave Pinot Noir a huge U.S. sales boost.","anchors":["Pinot Noir is ancient and deeply tied to Burgundy.","Thin skins make it prone to rot, disease, and climate sensitivity.","It loves cool climates and expresses terroir very transparently.","Typical structure: pale ruby, lighter body, softer tannins, bright acidity.","Classic notes include cherry, raspberry, mushroom, wet leaves, truffle, tea, and rose petals.","It mutates easily and is related to Pinot Gris and Pinot Blanc."],"tasting":["Cherry","Raspberry","Cranberry","Mushroom","Truffle","Tea","Rose petals"],"pairings":["Duck","Salmon","Mushrooms","Roast chicken","Earthy vegetarian dishes"],"confessional":"Tell the Pinot Noir story like the cast member is literally called the Heartbreak Grape. Include why it is difficult and why people love it.","privateEdit":"Thin-skinned, temperamental, expensive, romantic, and one weather event away from a full emotional spiral. The Heartbreak Grape earned her title.","tourReady":"Pinot Noir is a light-bodied, thin-skinned red grape strongly associated with Burgundy and cool climates. It is prized for bright red fruit, earthy complexity and its ability to reflect place.","producerNote":"The 2004 film Sideways gave Pinot Noir a major U.S. popularity boost. Pop culture entered the vineyard and chose favorites."},{"id":"cab","name":"Cabernet Sauvignon","pron":"kab-er-nay saw-vuhn-yon","archetype":"The Heavyweight","tagline":"I built an empire, beat Bordeaux in Paris, and I brought tannins for everybody.","servedAt":"White Oak","plotTwist":"Cabernet Sauvignon is a natural cross between Cabernet Franc and Sauvignon Blanc.","anchors":["Cabernet Sauvignon emerged in Bordeaux and became a Left Bank backbone.","The 1976 Judgment of Paris helped establish Napa Cabernet as world-class.","It is dry, full-bodied, high-tannin, structured, and highly age-worthy.","Classic notes: blackcurrant, blackberry, black cherry, cedar, tobacco, graphite, leather.","Pyrazines can create green bell pepper, mint, and eucalyptus notes.","High tannins make it a classic partner for steak, lamb, and aged cheese."],"tasting":["Blackcurrant","Blackberry","Black cherry","Cedar","Tobacco","Graphite","Leather"],"pairings":["Ribeye","Filet mignon","Lamb","Aged cheeses"],"confessional":"Give Cabernet Sauvignon the heavyweight edit: origin story, Judgment of Paris, structure, and why steak loves it.","privateEdit":"Cabernet Franc and Sauvignon Blanc had one accidental child and that child built a global empire, won Paris, and brought tannins to the reunion.","tourReady":"Cabernet Sauvignon is a natural cross between Cabernet Franc and Sauvignon Blanc. It is typically full-bodied and high in tannin, with classic dark-fruit, cedar and tobacco notes and strong aging potential.","producerNote":"The 1976 Judgment of Paris helped establish Napa Cabernet as world-class after California wines beat prestigious French competitors in a blind tasting."}],"rumors":[{"id":"rr1","wine":"Champagne","claim":"Dom Pérignon invented Champagne.","answer":false,"receipt":"The packet says he did not invent it and was actively trying to prevent bubbly wine.","roast":"Production has revoked the invented-Champagne credit."},{"id":"rr2","wine":"Champagne","claim":"True Champagne is protected by geography and production rules.","answer":true,"receipt":"The packet says true Champagne must come from Champagne, France and follow strict rules.","roast":"The appellation lawyers have entered the group chat."},{"id":"rr3","wine":"Champagne","claim":"Brut became dominant partly because British buyers preferred drier wine.","answer":true,"receipt":"That buyer preference is part of the packet’s history of Brut.","roast":"The customer really did change the storyline."},{"id":"rr4","wine":"Sauvignon Blanc","claim":"Sauvignon Blanc is one of Cabernet Sauvignon’s parents.","answer":true,"receipt":"The other parent is Cabernet Franc.","roast":"The family tree has receipts."},{"id":"rr5","wine":"Sauvignon Blanc","claim":"Marlborough is in France.","answer":false,"receipt":"The packet places Marlborough in New Zealand.","roast":"Geography department would like a word."},{"id":"rr6","wine":"Sauvignon Blanc","claim":"The packet treats goat cheese as a classic Sauvignon Blanc pairing.","answer":true,"receipt":"It calls goat cheese a famous Loire pairing.","roast":"Goat cheese secured a recurring role."},{"id":"rr7","wine":"Chardonnay","claim":"Chablis is a separate grape from Chardonnay.","answer":false,"receipt":"Chablis is Chardonnay grown in northern Burgundy.","roast":"Same cast member. Different wardrobe."},{"id":"rr8","wine":"Chardonnay","claim":"Malolactic fermentation helps create the buttery Chardonnay style.","answer":true,"receipt":"The packet links malolactic fermentation to softer lactic-acid character.","roast":"Butter has a production credit."},{"id":"rr9","wine":"Chardonnay","claim":"Blanc de Blancs Champagne can be 100% Chardonnay.","answer":true,"receipt":"That connection is explicitly stated in the packet.","roast":"Crossover episode confirmed."},{"id":"rr10","wine":"Rosé","claim":"Rosé is a grape.","answer":false,"receipt":"The packet says Rosé is a method/style, usually made from red grapes with limited skin contact.","roast":"Please stop calling this woman by the wrong job title."},{"id":"rr11","wine":"Rosé","claim":"Provence is the packet’s modern headquarters for pale, dry Rosé.","answer":true,"receipt":"Provence is framed as the model that took over the world.","roast":"The yacht has docked in Provence."},{"id":"rr12","wine":"Rosé","claim":"Dry Rosé has to be sweet because it is pink.","answer":false,"receipt":"The packet says modern dry Rosé is crisp, acidic and not sweet.","roast":"Color has been cleared of these allegations."},{"id":"rr13","wine":"Pinot Noir","claim":"Pinot Noir is nicknamed the Heartbreak Grape.","answer":true,"receipt":"Thin skins, rot, disease and climate sensitivity are the reasons given.","roast":"The nickname survived fact-checking."},{"id":"rr14","wine":"Pinot Noir","claim":"Pinot Noir generally thrives in hot climates.","answer":false,"receipt":"The packet says Pinot Noir loves cool climates and needs a narrow Goldilocks zone.","roast":"Heat has been voted off the island."},{"id":"rr15","wine":"Pinot Noir","claim":"Sideways boosted Pinot Noir sales in the U.S.","answer":true,"receipt":"The packet explicitly gives the 2004 film a major pop-culture role.","roast":"A supporting actor stole the whole season."},{"id":"rr16","wine":"Cabernet Sauvignon","claim":"Cabernet Sauvignon is a natural cross between Cabernet Franc and Sauvignon Blanc.","answer":true,"receipt":"DNA testing is the packet’s receipt.","roast":"Nepo baby allegations: substantiated."},{"id":"rr17","wine":"Cabernet Sauvignon","claim":"The Judgment of Paris hurt Napa Cabernet’s reputation.","answer":false,"receipt":"The packet says the blind-tasting result helped establish Napa Cabernet as world-class.","roast":"This was a glow-up episode, not a flop era."},{"id":"rr18","wine":"Cabernet Sauvignon","claim":"Cabernet’s tannins help make steak a strong pairing.","answer":true,"receipt":"The packet says tannins bind with fat and protein.","roast":"Steak and Cab renewed their contract."}],"pronunciations":[{"term":"Champagne","phonetic":"sham-pane","context":"Wine Cast"},{"term":"Pinot Meunier","phonetic":"moon-yay","context":"Champagne grape"},{"term":"Dom Pérignon","phonetic":"dom peh-ree-nyon","context":"Champagne history"},{"term":"cuvées","phonetic":"koo-vayz","context":"Champagne terminology"},{"term":"Reims","phonetic":"rahnce","context":"Champagne region"},{"term":"Cristal","phonetic":"kris-tal","context":"Champagne history"},{"term":"Tsar","phonetic":"zar","context":"Cristal story"},{"term":"Sauvignon Blanc","phonetic":"saw-vuhn-yon blahnk","context":"Wine Cast"},{"term":"Loire","phonetic":"l-whar","context":"Sauvignon Blanc"},{"term":"Bordeaux","phonetic":"bor-doe","context":"Sauvignon Blanc / Cabernet"},{"term":"Sancerre","phonetic":"sahn-sair","context":"Sauvignon Blanc"},{"term":"Pouilly-Fumé","phonetic":"poo-yee foo-may","context":"Sauvignon Blanc"},{"term":"Sémillon","phonetic":"sem-ih-yon","context":"Bordeaux white blend"},{"term":"Marlborough","phonetic":"mahl-buh-ruh","context":"New Zealand"},{"term":"methoxypyrazine","phonetic":"meth-ok-see-peer-uh-zeen","context":"Sauvignon Blanc aroma compound"},{"term":"Chardonnay","phonetic":"shaar-duh-nay","context":"Wine Cast"},{"term":"Chablis","phonetic":"shuh-blee","context":"Chardonnay"},{"term":"Gouais Blanc","phonetic":"goo-ay blahn","context":"Chardonnay parent"},{"term":"Kimmeridgian","phonetic":"kim-uh-rij-ee-un","context":"Chablis limestone"},{"term":"Rosé","phonetic":"roh-zay","context":"Wine Cast"},{"term":"Grenache","phonetic":"greh-nash","context":"Rosé grape"},{"term":"Syrah","phonetic":"sir-aah","context":"Rosé grape"},{"term":"Sangiovese","phonetic":"san-jow-vay-zuh","context":"Rosé grape"},{"term":"Pinot Noir","phonetic":"pee-no nuh-waar","context":"Wine Cast"},{"term":"Pinot Gris","phonetic":"gree","context":"Pinot relative"},{"term":"ethyl esters","phonetic":"eth-uhl ess-terz","context":"Pinot aromatic compounds"},{"term":"Grand Cru","phonetic":"grahn kroo","context":"Burgundy classification"},{"term":"Domaine de la Romanée-Conti","phonetic":"doh-men deu lah roh-mah-nay kon-tee","context":"Pinot prestige"},{"term":"Cabernet Sauvignon","phonetic":"kab-er-nay saw-vuhn-yon","context":"Wine Cast"},{"term":"pyrazines","phonetic":"peer-uh-zeens","context":"Cabernet aroma compounds"}]};
+
+const DEFAULT_STATE = {
+  xp:0, streak:0, bestStreak:0, quizCorrect:0, quizTotal:0,
+  routeDone:{}, weak:{}, micDone:0,
+  lane:{}, badges:{}, sessions:0,
+  rumorCorrect:0, rumorTotal:0,
+  recallPoints:0, recallTotal:0,
+  deliveryPoints:0, deliveryTotal:0,
+  pronunciation:{}, hostNotes:{}
+};
+let state = loadState();
+let currentStage = 0;
+let castIndex = 0;
+let rapid = {pool:[],i:0,answered:false,timer:null,remaining:20};
+let pro = {pool:DATA.questions.filter(q=>q.lane==="Prohibition"),i:0,score:0,answered:false};
+let micIndex = 0;
+let weakCurrent = null;
+let rumor = {pool:[],i:0,correct:0,answered:false};
+let pron = {pool:[],i:0};
+let confIndex = 0;
+
+function loadState(){
+  try{
+    const s=JSON.parse(localStorage.getItem("atlWineHostRunState")||"null");
+    return Object.assign({},DEFAULT_STATE,s||{});
+  }catch(e){return structuredClone(DEFAULT_STATE)}
+}
+function saveState(){
+  localStorage.setItem("atlWineHostRunState",JSON.stringify(state));
+  updateHud();
+}
+function laneStat(name){
+  state.lane[name]=state.lane[name]||{correct:0,total:0};
+  return state.lane[name];
+}
+function award(points,lane,success=true){
+  state.xp += points;
+  if(success){state.streak++;state.bestStreak=Math.max(state.bestStreak,state.streak)}
+  else state.streak=0;
+  if(lane){
+    const l=laneStat(lane); l.total++; if(success)l.correct++;
+  }
+  checkBadges(); saveState();
+}
+function updateHud(){
+  document.getElementById("hudXp").textContent=state.xp;
+  document.getElementById("hudStreak").textContent=state.streak;
+  document.getElementById("hudLevel").textContent=1+Math.floor(state.xp/500);
+}
+function checkBadges(){
+  const done=Object.keys(state.routeDone||{}).length;
+  if(state.xp>=100) state.badges.firstPour=true;
+  if(done>=3) state.badges.peachtreePulse=true;
+  if(done>=10) state.badges.fullWalk=true;
+  if(state.bestStreak>=7) state.badges.hotHand=true;
+  if(state.micDone>=5) state.badges.micCheck=true;
+  const p=laneStat("Prohibition");
+  if(p.total>=10 && p.correct/p.total>=.8) state.badges.prohibitionPro=true;
+  const w=laneStat("Wine Cast");
+  if(w.total>=12 && w.correct/w.total>=.8) state.badges.reunionReady=true;
+  try{if(readiness().ready)state.badges.greenlit=true}catch(e){}
+}
+
+
+function producerLine(correct){
+  const yes=[
+    "Correct. Production has no notes.",
+    "Correct. The footage is clean.",
+    "Correct. Somebody alert Standards & Practices: she studied.",
+    "Correct. Renewed for another episode.",
+    "Correct. You may keep your Champagne."
+  ];
+  const no=[
+    "Production has the footage. This will be discussed at the reunion.",
+    "Incorrect. The editors found a continuity error.",
+    "Miss. Nobody panic; we have B-roll and Weak Spots.",
+    "Incorrect. The fact-checker just looked directly into camera.",
+    "Miss. Put it on the reunion seating chart."
+  ];
+  const a=correct?yes:no; return a[Math.floor(Math.random()*a.length)];
+}
+function pct(n,d,maxPer=1){
+  if(!d)return 0;
+  return Math.max(0,Math.min(100,Math.round((n/(d*maxPer))*100)));
+}
+function readiness(){
+  const recognition=state.quizTotal?Math.round(state.quizCorrect/state.quizTotal*100):0;
+  const recall=pct(state.recallPoints,state.recallTotal,2);
+  const delivery=pct(state.deliveryPoints,state.deliveryTotal,2);
+  const route=Math.round(Object.keys(state.routeDone||{}).length/DATA.routeStages.length*100);
+  const weak=getWeakItems().length;
+  const ready=recognition>=85 && recall>=80 && delivery>=80 && route===100 && weak===0 && state.quizTotal>=30 && state.recallTotal>=6 && state.deliveryTotal>=6;
+  return {recognition,recall,delivery,route,weak,ready};
+}
+function seasonTrailerText(){
+  const r=readiness();
+  if(r.ready)return "After six wines, four stops, several historical plot twists and one extremely persistent reunion, Lauren has been GREENLIT for the full walk.";
+  if(r.weak>0)return `Tonight: ${r.weak} unresolved storyline${r.weak===1?"":"s"} return at the reunion, while production asks whether Chardonnay can please pick one personality.`;
+  if(r.recall<60)return "Tonight: Lauren recognizes the cast, but the Confessional Booth wants names, dates and plot twists with no multiple-choice producers whispering off camera.";
+  if(r.delivery<70)return "Tonight: the facts are learning their lines. Now the host has to make them sound like conversation instead of a hostage reading a wine encyclopedia.";
+  if(r.route<100)return "Tonight: the cast knows the facts, but everybody still has to hit their marks from Centennial Olympic Park to White Oak and back.";
+  return "Tonight: the season is getting suspiciously competent. Production is checking the final greenlight metrics.";
+}
+
+function nav(name){
+  document.querySelectorAll(".view").forEach(v=>v.classList.remove("active"));
+  document.getElementById("view-"+name).classList.add("active");
+  document.getElementById("menu").classList.remove("show");
+  if(name==="season") renderSeason();
+  if(name==="route") renderRoute();
+  if(name==="cast") renderCast();
+  if(name==="rumors") renderRumors();
+  if(name==="pronounce") renderPronounce();
+  if(name==="confessional") renderConfessional();
+  if(name==="rapid" && !rapid.pool.length) newRapid();
+  if(name==="prohibition") renderProhibition();
+  if(name==="mic") renderMic();
+  if(name==="weak") renderWeak();
+  if(name==="hq") renderHQ();
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+document.querySelectorAll("[data-nav]").forEach(b=>b.addEventListener("click",()=>nav(b.dataset.nav)));
+document.getElementById("menuBtn").addEventListener("click",()=>document.getElementById("menu").classList.toggle("show"));
+
+function buildHomeRoute(){
+  const box=document.getElementById("homeRoute");
+  box.innerHTML="";
+  const mini=[
+    "Olympic Rings","Freedom Fighters Mural","Sun Dial","Lumen Lounge","Red Phone Booth","Atalian","White Oak","Return to Park"
+  ];
+  mini.forEach((name,i)=>{
+    const wrap=document.createElement("div");wrap.className="route-stop";
+    const dot=document.createElement("div");dot.className="route-dot";dot.textContent=i;
+    const nm=document.createElement("div");nm.className="route-name";nm.textContent=name;
+    box.append(dot,nm);
+  });
+}
+buildHomeRoute();
+
+async function countdown(){
+  const overlay=document.getElementById("countdown"), num=document.getElementById("countNumber"), label=document.getElementById("countLabel");
+  overlay.classList.add("show");
+  const seq=[["GET READY",""],["3",""],["2",""],["1",""],["GO!",""]];
+  for(const [t] of seq){
+    label.textContent=t==="GET READY"?"GET READY":"";
+    num.textContent=t==="GET READY"?"•":t;
+    beep(t==="GO!"?700:440);
+    await new Promise(r=>setTimeout(r,t==="GET READY"?650:500));
+  }
+  overlay.classList.remove("show");
+}
+function beep(freq){
+  try{
+    const C=window.AudioContext||window.webkitAudioContext; if(!C)return;
+    const ctx=new C(),o=ctx.createOscillator(),g=ctx.createGain();
+    o.frequency.value=freq;g.gain.value=.03;o.connect(g);g.connect(ctx.destination);o.start();o.stop(ctx.currentTime+.07);
+  }catch(e){}
+}
+
+document.getElementById("startRoute").addEventListener("click",async()=>{await countdown();nav("route")});
+document.getElementById("startRapid").addEventListener("click",async()=>{await countdown();nav("rapid");newRapid()});
+
+
+function renderCast(){
+  const box=document.getElementById("castGrid");
+  if(!box)return;
+  box.innerHTML="";
+  DATA.wineCast.forEach((w,i)=>{
+    const card=document.createElement("article");
+    card.className="cast-card";
+    card.innerHTML=`
+      <div class="cast-archetype">${w.archetype}</div>
+      <div class="cast-name">${w.name}</div>
+      <div class="cast-pron">[${w.pron}] • Tour stop: ${w.servedAt}</div>
+      <div class="cast-tagline">“${w.tagline}”</div>
+      <div class="cast-meta"><span class="chip">PLOT TWIST</span><span class="chip">${w.servedAt}</span></div>
+      <button class="btn small" type="button" data-cast="${i}">ROLL THE TAPE →</button>
+      <div class="cast-dossier" id="cast-dossier-${i}">
+        <div class="split-edit">
+          <div class="edit-box"><strong class="private-label">PRIVATE STUDY EDIT</strong><p>${w.privateEdit}</p></div>
+          <div class="edit-box"><strong class="tour-label">TOUR-READY TAKE</strong><p>${w.tourReady}</p></div>
+        </div>
+        <div class="producer-note"><strong>PRODUCER NOTE:</strong> ${w.producerNote}</div>
+        <h4>The plot twist</h4><p><strong>${w.plotTwist}</strong></p>
+        <h4>Receipts you must know</h4><ul>${w.anchors.map(a=>`<li>${a}</li>`).join("")}</ul>
+        <h4>Tasting edit</h4><div class="anchor-chips">${w.tasting.map(x=>`<span class="chip">${x}</span>`).join("")}</div>
+        <h4>Pairing edit</h4><div class="anchor-chips">${w.pairings.map(x=>`<span class="chip">${x}</span>`).join("")}</div>
+        <div class="confessional"><strong>CONFESSIONAL PROMPT</strong><p style="margin:8px 0 0">${w.confessional}</p></div>
+        <h4>Make it yours</h4>
+        <p style="font-size:13px;color:var(--muted)">Private notes for how YOU want to tell this story. Saved only in this browser.</p>
+        <textarea class="host-note" data-note="${w.id}" placeholder="My host version…">${(state.hostNotes&&state.hostNotes[w.id])||""}</textarea>
+      </div>`;
+    box.appendChild(card);
+  });
+  box.querySelectorAll("[data-cast]").forEach(btn=>btn.addEventListener("click",()=>{
+    const i=Number(btn.dataset.cast); castIndex=i;
+    const dossier=document.getElementById("cast-dossier-"+i); dossier.classList.toggle("show");
+    const w=DATA.wineCast[i];
+    document.getElementById("castConfessional").innerHTML=`<strong>${w.name.toUpperCase()} CONFESSIONAL</strong><p style="font-size:20px;line-height:1.45;margin:8px 0 0">${w.confessional}</p>`;
+  }));
+  box.querySelectorAll("[data-note]").forEach(t=>t.addEventListener("input",()=>{
+    state.hostNotes=state.hostNotes||{}; state.hostNotes[t.dataset.note]=t.value; saveState();
+  }));
+}
+document.getElementById("randomCast").addEventListener("click",async()=>{
+  await countdown(); castIndex=Math.floor(Math.random()*DATA.wineCast.length); const w=DATA.wineCast[castIndex];
+  document.getElementById("castConfessional").innerHTML=`<strong>RANDOM CONFESSIONAL • ${w.name.toUpperCase()}</strong><p style="font-size:22px;line-height:1.42;margin:8px 0 0">${w.confessional}</p><p class="footer-note">${w.privateEdit}</p>`;
+  document.getElementById("castConfessional").scrollIntoView({behavior:"smooth",block:"center"});
+});
+
+
+function renderSeason(){
+  const r=readiness();
+  document.getElementById("seasonTrailer").textContent=seasonTrailerText();
+  [["Recognition",r.recognition],["Recall",r.recall],["Delivery",r.delivery],["Route",r.route]].forEach(([n,v])=>{
+    document.getElementById("season"+n).textContent=v+"%";
+    document.getElementById("meter"+n).style.width=v+"%";
+  });
+  const box=document.getElementById("greenlightBox");
+  box.classList.toggle("ready",r.ready);
+  document.getElementById("greenlightTitle").textContent=r.ready?"GREENLIT: Full-walk rehearsal.":"Still in rehearsals.";
+  let copy=`Target: 85% recognition, 80% free recall, 80% delivery, 100% route, zero reunion backlog. Current reunion backlog: ${r.weak}.`;
+  if(r.ready)copy="You cleared the evidence gates. Run the full tour from welcome to goodbye without notes, then use your own host notes only for polish.";
+  document.getElementById("greenlightCopy").textContent=copy;
+}
+
+function newRumors(){
+  rumor={pool:shuffle(DATA.rumors),i:0,correct:0,answered:false};
+  renderRumors();
+}
+function renderRumors(){
+  if(!rumor.pool.length)newRumors();
+  if(rumor.i>=rumor.pool.length){
+    const pctScore=Math.round(rumor.correct/rumor.pool.length*100);
+    document.getElementById("rumorCard").innerHTML=`<div class="reunion-label">EPISODE WRAP</div><div class="final-score">${pctScore}%</div><h2 style="font-size:34px;margin-top:16px">Receipts checked.</h2><p class="lede">${pctScore>=85?"Standards & Practices is satisfied.":"Anything missed has been invited back for another episode."}</p><button class="btn primary" id="rumorAgain" type="button">RUN ANOTHER EPISODE →</button>`;
+    document.getElementById("rumorAgain").addEventListener("click",newRumors);return;
+  }
+  const q=rumor.pool[rumor.i]; rumor.answered=false;
+  document.getElementById("rumorNum").textContent=rumor.i+1;
+  document.getElementById("rumorScore").textContent=rumor.correct;
+  const card=document.getElementById("rumorCard");
+  card.innerHTML=`<div class="qmeta"><span>${q.wine}</span><span>RECEIPT CHECK</span></div><div class="rumor-claim">${q.claim}</div><div class="truth-grid"><button class="tf true" data-rv="true" type="button">RECEIPT / TRUE</button><button class="tf false" data-rv="false" type="button">RUMOR / FALSE</button></div><div class="receipt" id="rumorReceipt"></div>`;
+  card.querySelectorAll("[data-rv]").forEach(b=>b.addEventListener("click",()=>{
+    if(rumor.answered)return; rumor.answered=true;
+    const correct=(b.dataset.rv==="true")===q.answer;
+    state.rumorTotal++; if(correct){state.rumorCorrect++;rumor.correct++;award(80,"Wine Cast",true)}
+    else {award(0,"Wine Cast",false);state.weak["rumor:"+q.id]=true;saveState()}
+    const rec=document.getElementById("rumorReceipt"); rec.classList.add("show");
+    rec.innerHTML=`<strong>${correct?"RECEIPT VERIFIED":"PLOT TWIST"}</strong><br>${producerLine(correct)}<br><br>${q.receipt}<div class="producer-note">${q.roast}</div><button class="btn small primary" id="nextRumor" type="button">NEXT RECEIPT →</button>`;
+    document.getElementById("nextRumor").addEventListener("click",()=>{rumor.i++;renderRumors()});
+  }));
+}
+document.getElementById("restartRumors").addEventListener("click",newRumors);
+
+function newPronounce(){
+  pron={pool:shuffle(DATA.pronunciations),i:0}; renderPronounce();
+}
+function renderPronounce(){
+  if(!pron.pool.length)newPronounce();
+  if(pron.i>=pron.pool.length){pron.i=0;pron.pool=shuffle(DATA.pronunciations)}
+  const p=pron.pool[pron.i];
+  document.getElementById("pronNum").textContent=pron.i+1;
+  document.getElementById("pronTotal").textContent=pron.pool.length;
+  document.getElementById("pronCleared").textContent=Object.keys(state.pronunciation||{}).filter(k=>state.pronunciation[k]==="nailed").length;
+  const card=document.getElementById("pronounceCard");
+  card.innerHTML=`<div class="qmeta"><span>${p.context}</span><span>NAME CARD</span></div><div class="pronounce-term">${p.term}</div><p class="lede" style="font-size:15px">Say it out loud before revealing the packet’s phonetic cue.</p><button class="btn primary" id="revealPron" type="button">REVEAL NAME CARD</button><div class="receipt" id="pronReceipt"><div class="pron-phonetic">[${p.phonetic}]</div><p>Say it three times, then once inside a normal sentence.</p><div class="pron-actions"><button class="grade" data-pg="nailed" type="button">CLEAN</button><button class="grade" data-pg="almost" type="button">ONE MORE TAKE</button><button class="grade" data-pg="missed" type="button">ABSOLUTELY NOT 😂</button></div></div>`;
+  document.getElementById("revealPron").addEventListener("click",()=>document.getElementById("pronReceipt").classList.add("show"));
+  card.querySelectorAll("[data-pg]").forEach(b=>b.addEventListener("click",()=>{
+    state.pronunciation=state.pronunciation||{}; state.pronunciation[p.term]=b.dataset.pg;
+    if(b.dataset.pg==="nailed")award(40,null,true); else award(0,null,b.dataset.pg==="almost");
+    pron.i++;saveState();renderPronounce();
+  }));
+}
+document.getElementById("shufflePronounce").addEventListener("click",newPronounce);
+
+function renderConfessional(){
+  const w=DATA.wineCast[confIndex%DATA.wineCast.length];
+  const card=document.getElementById("confessionalCard");
+  card.innerHTML=`<div class="qmeta"><span>${w.archetype}</span><span>CONFESSIONAL</span></div>
+    <div class="conf-question">${w.confessional}</div>
+    <div class="producer-note"><strong>PRIVATE MEMORY HOOK:</strong> ${w.privateEdit}</div>
+    <button class="btn primary" id="revealConf" type="button">SHOW THE RECEIPTS</button>
+    <div class="receipt" id="confReceipt">
+      <div class="split-edit">
+        <div class="edit-box"><strong class="private-label">FACT RECEIPTS</strong><ul>${w.anchors.map(a=>`<li>${a}</li>`).join("")}</ul></div>
+        <div class="edit-box"><strong class="tour-label">TOUR-READY TAKE</strong><p>${w.tourReady}</p></div>
+      </div>
+      <div class="conf-two-grades">
+        <div class="grade-box"><h4>1. FACT RECALL</h4><div class="grade-row"><button class="grade" data-rg="2" type="button">ALL / ALMOST ALL</button><button class="grade" data-rg="1" type="button">HALFISH</button><button class="grade" data-rg="0" type="button">BLANKED</button></div></div>
+        <div class="grade-box"><h4>2. HOST DELIVERY</h4><div class="grade-row"><button class="grade" data-dg="2" type="button">TOUR READY</button><button class="grade" data-dg="1" type="button">NEEDS POLISH</button><button class="grade" data-dg="0" type="button">READING A HOSTAGE NOTE</button></div></div>
+      </div>
+      <p id="confStatus" class="footer-note">Grade both columns to complete the confessional.</p>
+    </div>`;
+  let rg=null,dg=null;
+  document.getElementById("revealConf").addEventListener("click",()=>document.getElementById("confReceipt").classList.add("show"));
+  card.querySelectorAll("[data-rg]").forEach(b=>b.addEventListener("click",()=>{rg=Number(b.dataset.rg);b.parentElement.querySelectorAll("button").forEach(x=>x.style.outline="");b.style.outline="3px solid var(--wine)";finish()}));
+  card.querySelectorAll("[data-dg]").forEach(b=>b.addEventListener("click",()=>{dg=Number(b.dataset.dg);b.parentElement.querySelectorAll("button").forEach(x=>x.style.outline="");b.style.outline="3px solid var(--wine)";finish()}));
+  function finish(){
+    if(rg===null||dg===null)return;
+    state.recallTotal++;state.recallPoints+=rg;state.deliveryTotal++;state.deliveryPoints+=dg;
+    if(rg<2||dg<2)state.weak["mic:wm"+(confIndex%DATA.wineCast.length+1)]=true;
+    award((rg+dg)*40,"Wine Cast",(rg+dg)>=2);
+    document.getElementById("confStatus").innerHTML=`<strong>${producerLine(rg===2&&dg===2)}</strong> Facts: ${rg===2?"strong":rg===1?"partial":"missed"} • Delivery: ${dg===2?"tour ready":dg===1?"needs polish":"restart"}.`;
+    card.querySelectorAll("[data-rg],[data-dg]").forEach(x=>x.disabled=true);
+  }
+}
+document.getElementById("newConfessional").addEventListener("click",()=>{confIndex=(confIndex+1)%DATA.wineCast.length;renderConfessional()});
+
+
+function renderRoute(){
+  const navBox=document.getElementById("stageNav");
+  navBox.innerHTML="";
+  DATA.routeStages.forEach((s,i)=>{
+    const b=document.createElement("button");b.type="button";b.className="stage-btn";
+    if(state.routeDone[s.id])b.classList.add("done");
+    if(i===currentStage)b.classList.add("current");
+    b.textContent=(i+1)+". "+s.title;
+    b.addEventListener("click",()=>{currentStage=i;renderRoute()});
+    navBox.appendChild(b);
+  });
+  const s=DATA.routeStages[currentStage];
+  const card=document.getElementById("stageCard");
+  card.innerHTML=`
+    <div class="kicker">${s.eyebrow}</div>
+    <h2 style="font-size:clamp(32px,5vw,54px)">${s.title}</h2>
+    <p class="stage-scene">${s.scene}</p>
+    <h3>Anchor beats</h3>
+    <ul class="anchor-list">${s.anchors.map(a=>`<li>${a}</li>`).join("")}</ul>
+    <div class="prompt-box">
+      <strong>HOST IT OUT LOUD</strong>
+      <p style="font-size:19px;line-height:1.45">${s.prompt}</p>
+      <div class="grade-row">
+        <button class="grade" data-grade="nailed" type="button">NAILED IT</button>
+        <button class="grade" data-grade="almost" type="button">ALMOST</button>
+        <button class="grade" data-grade="missed" type="button">MISSED</button>
+      </div>
+    </div>`;
+  card.querySelectorAll(".grade").forEach(btn=>btn.addEventListener("click",()=>{
+    const g=btn.dataset.grade;
+    if(!state.routeDone[s.id]){
+      state.routeDone[s.id]=g;
+      state.sessions++;
+      if(g==="nailed") award(120,s.lane,true);
+      else if(g==="almost"){award(70,s.lane,true);state.weak["route:"+s.id]=true}
+      else {award(0,s.lane,false);state.weak["route:"+s.id]=true}
+    }
+    if(currentStage<DATA.routeStages.length-1) currentStage++;
+    renderRoute();
+  }));
+  const done=Object.keys(state.routeDone||{}).length;
+  document.getElementById("routeDone").textContent=done;
+  document.getElementById("routeProgress").style.width=(done/DATA.routeStages.length*100)+"%";
+}
+
+function shuffle(arr){return [...arr].sort(()=>Math.random()-.5)}
+function newRapid(){
+  clearInterval(rapid.timer);
+  rapid={pool:shuffle(DATA.questions).slice(0,10),i:0,answered:false,timer:null,remaining:20};
+  state.sessions++;saveState();
+  renderRapid();
+}
+document.getElementById("restartRapid").addEventListener("click",async()=>{await countdown();newRapid()});
+document.getElementById("paceSelect").addEventListener("change",()=>renderRapid());
+
+function startRapidTimer(){
+  clearInterval(rapid.timer);rapid.remaining=20;
+  document.getElementById("rapidTimer").textContent="20s";
+  rapid.timer=setInterval(()=>{
+    rapid.remaining--;
+    document.getElementById("rapidTimer").textContent=rapid.remaining+"s";
+    if(rapid.remaining<=0){
+      clearInterval(rapid.timer);
+      if(!rapid.answered) answerRapid(null);
+    }
+  },1000);
+}
+function renderRapid(){
+  const card=document.getElementById("rapidCard");
+  if(rapid.i>=rapid.pool.length){
+    clearInterval(rapid.timer);
+    card.innerHTML=`<div class="kicker">ROUND COMPLETE</div><h2>That pour is done.</h2><p class="lede">Your misses are now booked for The Reunion. Run another round or go rehearse the route.</p><div class="actions"><button class="btn primary" id="againRapid" type="button">RUN 10 MORE →</button><button class="btn" data-nav="weak" type="button">GO TO THE REUNION</button></div>`;
+    card.querySelector("#againRapid").addEventListener("click",newRapid);
+    card.querySelector("[data-nav]").addEventListener("click",()=>nav("weak"));
+    document.getElementById("rapidTimer").textContent="DONE";
+    return;
+  }
+  const q=rapid.pool[rapid.i]; rapid.answered=false;
+  document.getElementById("rapidNum").textContent=rapid.i+1;
+  document.getElementById("rapidTimer").textContent=document.getElementById("paceSelect").value==="game"?"20s":"READY";
+  card.innerHTML=`<div class="qmeta"><span>${q.lane}</span><span>${q.type==="tf"?"TRUE / FALSE":"MULTIPLE CHOICE"}</span></div><div class="qtext">${q.q}</div><div class="${q.type==="tf"?"truth-grid":"choices"}" id="rapidChoices"></div><div class="feedback" id="rapidFeedback"></div>`;
+  const box=document.getElementById("rapidChoices");
+  if(q.type==="tf"){
+    [["TRUE",true,"true"],["FALSE",false,"false"]].forEach(([lab,val,cls])=>{
+      const b=document.createElement("button");b.className="tf "+cls;b.type="button";b.textContent=lab;b.addEventListener("click",()=>answerRapid(val));box.appendChild(b);
+    });
+  }else{
+    q.choices.forEach((c,i)=>{
+      const b=document.createElement("button");b.className="choice";b.type="button";b.textContent=c;b.addEventListener("click",()=>answerRapid(i,b));box.appendChild(b);
+    });
+  }
+  if(document.getElementById("paceSelect").value==="game") startRapidTimer();
+}
+function answerRapid(val,btn){
+  if(rapid.answered)return;rapid.answered=true;clearInterval(rapid.timer);
+  const q=rapid.pool[rapid.i];
+  const correct = val===q.a;
+  state.quizTotal++; if(correct)state.quizCorrect++;
+  if(correct) award(100,q.lane,true); else {award(0,q.lane,false);state.weak["q:"+q.id]=true;saveState()}
+  if(btn)btn.classList.add(correct?"correct":"wrong");
+  const fb=document.getElementById("rapidFeedback");fb.classList.add("show");
+  fb.innerHTML=`<strong>${correct?"CORRECT":"MISS"}</strong><br>${producerLine(correct)}<br><br>${q.ex}<div style="margin-top:12px"><button class="btn small primary" id="nextRapid" type="button">${rapid.i===rapid.pool.length-1?"FINISH ROUND":"NEXT QUESTION"} →</button></div>`;
+  document.getElementById("nextRapid").addEventListener("click",()=>{rapid.i++;renderRapid()});
+}
+
+document.getElementById("restartProhibition").addEventListener("click",async()=>{await countdown();pro={pool:DATA.questions.filter(q=>q.lane==="Prohibition"),i:0,score:0,answered:false};renderProhibition()});
+function renderProhibition(){
+  if(pro.i>=pro.pool.length){
+    document.getElementById("proCard").innerHTML=`<div class="kicker">FINAL SCORE</div><h2>${pro.score} points</h2><p class="lede">The tour’s game awards 10 points for each correct answer and subtracts 5 for each incorrect answer.</p><button class="btn primary" id="proAgain" type="button">PLAY AGAIN →</button>`;
+    document.getElementById("proScore").textContent=pro.score;document.getElementById("proNum").textContent=10;
+    document.getElementById("proAgain").addEventListener("click",()=>{pro={pool:DATA.questions.filter(q=>q.lane==="Prohibition"),i:0,score:0,answered:false};renderProhibition()});
+    return;
+  }
+  const q=pro.pool[pro.i];pro.answered=false;
+  document.getElementById("proScore").textContent=pro.score;document.getElementById("proNum").textContent=pro.i+1;
+  document.getElementById("proCard").innerHTML=`<div class="qmeta"><span>FACT ${pro.i+1}</span><span>+10 / −5</span></div><div class="qtext">${q.q}</div><div class="truth-grid"><button class="tf true" data-v="true" type="button">TRUE</button><button class="tf false" data-v="false" type="button">FALSE</button></div><div class="feedback" id="proFeedback"></div>`;
+  document.querySelectorAll("#proCard .tf").forEach(b=>b.addEventListener("click",()=>answerProhibition(b.dataset.v==="true")));
+}
+function answerProhibition(val){
+  if(pro.answered)return;pro.answered=true;
+  const q=pro.pool[pro.i],correct=val===q.a;
+  pro.score+=correct?10:-5;state.quizTotal++;if(correct)state.quizCorrect++;
+  if(correct)award(100,"Prohibition",true);else{award(0,"Prohibition",false);state.weak["q:"+q.id]=true;saveState()}
+  document.getElementById("proScore").textContent=pro.score;
+  const fb=document.getElementById("proFeedback");fb.classList.add("show");
+  fb.innerHTML=`<strong>${correct?"CORRECT":"NOPE"}</strong><br>${q.ex}<div style="margin-top:12px"><button class="btn small primary" id="nextPro" type="button">${pro.i===9?"SEE SCORE":"NEXT FACT"} →</button></div>`;
+  document.getElementById("nextPro").addEventListener("click",()=>{pro.i++;renderProhibition()});
+}
+
+document.getElementById("nextMicTop").addEventListener("click",()=>{micIndex=(micIndex+1)%DATA.speaking.length;renderMic()});
+function renderMic(){
+  const m=DATA.speaking[micIndex];
+  document.getElementById("micCard").innerHTML=`<div class="mic-title">${m.q}</div><div class="mic-prompt">${m.prompt}</div><button class="btn primary" id="revealMic" type="button">REVEAL ANCHOR BEATS</button><div class="reveal" id="micReveal"><div class="anchor-chips">${m.anchors.map(a=>`<span class="chip">${a}</span>`).join("")}</div><div class="grade-row"><button class="grade" data-grade="nailed" type="button">NAILED IT</button><button class="grade" data-grade="almost" type="button">ALMOST</button><button class="grade" data-grade="missed" type="button">MISSED</button></div></div>`;
+  document.getElementById("revealMic").addEventListener("click",()=>document.getElementById("micReveal").classList.add("show"));
+  document.querySelectorAll("#micCard .grade").forEach(b=>b.addEventListener("click",()=>{
+    const g=b.dataset.grade;state.micDone++;
+    if(g==="nailed")award(120,m.lane,true);
+    else if(g==="almost"){award(60,m.lane,true);state.weak["mic:"+m.id]=true;saveState()}
+    else {award(0,m.lane,false);state.weak["mic:"+m.id]=true;saveState()}
+    micIndex=(micIndex+1)%DATA.speaking.length;renderMic();
+  }));
+}
+
+function getWeakItems(){
+  const items=[];
+  Object.keys(state.weak||{}).forEach(k=>{
+    const [kind,id]=k.split(":");
+    if(kind==="q"){const q=DATA.questions.find(x=>x.id===id);if(q)items.push({kind,q})}
+    if(kind==="mic"){const m=DATA.speaking.find(x=>x.id===id);if(m)items.push({kind,m})}
+    if(kind==="route"){const s=DATA.routeStages.find(x=>x.id===id);if(s)items.push({kind,s})}
+    if(kind==="rumor"){const r=DATA.rumors.find(x=>x.id===id);if(r)items.push({kind,r})}
+  });
+  return items;
+}
+function renderWeak(){
+  const items=getWeakItems();document.getElementById("weakCount").textContent=items.length;
+  const empty=document.getElementById("weakEmpty"),card=document.getElementById("weakCard");
+  if(!items.length){empty.style.display="block";card.style.display="none";return}
+  empty.style.display="none";card.style.display="block";
+  weakCurrent=items[0];
+  if(weakCurrent.kind==="q"){
+    const q=weakCurrent.q;
+    card.innerHTML=`<div class="qmeta"><span>${q.lane}</span><span>WEAK-SPOT REPLAY</span></div><div class="qtext">${q.q}</div><div class="${q.type==="tf"?"truth-grid":"choices"}" id="weakChoices"></div><div class="feedback" id="weakFeedback"></div>`;
+    const box=document.getElementById("weakChoices");
+    if(q.type==="tf"){
+      [["TRUE",true,"true"],["FALSE",false,"false"]].forEach(([lab,val,cls])=>{const b=document.createElement("button");b.className="tf "+cls;b.textContent=lab;b.type="button";b.addEventListener("click",()=>answerWeakQuestion(val));box.appendChild(b)})
+    }else{
+      q.choices.forEach((c,i)=>{const b=document.createElement("button");b.className="choice";b.textContent=c;b.type="button";b.addEventListener("click",()=>answerWeakQuestion(i));box.appendChild(b)})
+    }
+  }else if(weakCurrent.kind==="rumor"){
+    const r=weakCurrent.r;
+    card.innerHTML=`<div class="reunion-label">REUNION RECEIPT</div><div class="qmeta"><span>${r.wine}</span><span>RUMOR REPLAY</span></div><div class="qtext">${r.claim}</div><div class="truth-grid"><button class="tf true" data-rweak="true" type="button">TRUE</button><button class="tf false" data-rweak="false" type="button">FALSE</button></div><div class="feedback" id="rweakFeedback"></div>`;
+    card.querySelectorAll("[data-rweak]").forEach(b=>b.addEventListener("click",()=>{
+      const correct=(b.dataset.rweak==="true")===r.answer;
+      if(correct){delete state.weak["rumor:"+r.id];award(80,"Wine Cast",true)} else award(0,"Wine Cast",false);
+      saveState();
+      const fb=document.getElementById("rweakFeedback");fb.classList.add("show");fb.innerHTML=`<strong>${correct?"CLEARED":"STILL ON THE COUCH"}</strong><br>${producerLine(correct)}<br><br>${r.receipt}<div style="margin-top:12px"><button class="btn small primary" id="nextRWeak" type="button">NEXT REUNION TOPIC →</button></div>`;
+      document.getElementById("nextRWeak").addEventListener("click",renderWeak);
+    }));
+  }else{
+    const item=weakCurrent.kind==="mic"?weakCurrent.m:weakCurrent.s;
+    const prompt=weakCurrent.kind==="mic"?item.prompt:item.prompt;
+    const anchors=weakCurrent.kind==="mic"?item.anchors:item.anchors;
+    card.innerHTML=`<div class="qmeta"><span>${item.lane}</span><span>SPEAKING REPLAY</span></div><div class="qtext">${prompt}</div><button class="btn primary" id="weakReveal" type="button">REVEAL ANCHORS</button><div class="reveal" id="weakRevealBox"><div class="anchor-chips">${anchors.map(a=>`<span class="chip">${a}</span>`).join("")}</div><div class="grade-row"><button class="grade" data-grade="nailed" type="button">CLEARED</button><button class="grade" data-grade="almost" type="button">KEEP IT QUEUED</button><button class="grade" data-grade="missed" type="button">MISSED</button></div></div>`;
+    document.getElementById("weakReveal").addEventListener("click",()=>document.getElementById("weakRevealBox").classList.add("show"));
+    document.querySelectorAll("#weakCard .grade").forEach(b=>b.addEventListener("click",()=>{
+      const key=weakCurrent.kind+":"+(weakCurrent.kind==="mic"?weakCurrent.m.id:weakCurrent.s.id);
+      if(b.dataset.grade==="nailed"){delete state.weak[key];award(80,item.lane,true)}
+      else if(b.dataset.grade==="almost")award(30,item.lane,true);
+      else award(0,item.lane,false);
+      saveState();renderWeak();
+    }));
+  }
+}
+function answerWeakQuestion(val){
+  const q=weakCurrent.q,correct=val===q.a,fb=document.getElementById("weakFeedback");fb.classList.add("show");
+  if(correct){delete state.weak["q:"+q.id];award(80,q.lane,true)} else award(0,q.lane,false);
+  saveState();
+  fb.innerHTML=`<strong>${correct?"CLEARED":"STILL QUEUED"}</strong><br>${q.ex}<div style="margin-top:12px"><button class="btn small primary" id="nextWeak" type="button">NEXT WEAK SPOT →</button></div>`;
+  document.getElementById("nextWeak").addEventListener("click",renderWeak);
+}
+
+function renderHQ(){
+  checkBadges();saveState();
+  const acc=state.quizTotal?Math.round(state.quizCorrect/state.quizTotal*100):0;
+  document.getElementById("statXp").textContent=state.xp;
+  document.getElementById("statAccuracy").textContent=acc+"%";
+  document.getElementById("statStreak").textContent=state.bestStreak;
+  document.getElementById("statScenes").textContent=Object.keys(state.routeDone||{}).length+"/10";
+  const readyStats=readiness();
+  document.getElementById("hqRecognition").textContent=readyStats.recognition+"%";
+  document.getElementById("hqRecall").textContent=readyStats.recall+"%";
+  document.getElementById("hqDelivery").textContent=readyStats.delivery+"%";
+  document.getElementById("hqRoutePct").textContent=readyStats.route+"%";
+  const lanes=["Route","Wine Basics","Wine Cast","Atlanta History","Stops","Prohibition","Host Flow"];
+  const box=document.getElementById("laneMastery");box.innerHTML="";
+  lanes.forEach(name=>{
+    const l=laneStat(name),pct=l.total?Math.round(l.correct/l.total*100):0;
+    box.insertAdjacentHTML("beforeend",`<div class="lane-row"><strong>${name}</strong><div class="bar"><i style="width:${pct}%"></i></div><em>${pct}%</em></div>`)
+  });
+  const badgeDefs=[
+    ["firstPour","FIRST POUR","Earn 100 XP"],["peachtreePulse","PEACHTREE PULSE","Clear 3 route scenes"],["fullWalk","FULL WALK","Clear all 10 route scenes"],
+    ["hotHand","HOT HAND","Build a 7-answer streak"],["micCheck","MIC CHECK","Complete 5 speaking prompts"],["prohibitionPro","PROHIBITION PRO","Reach 80% after 10+ Prohibition answers"],["reunionReady","REUNION READY","Reach 80% after 12+ Wine Cast answers"],["greenlit","GREENLIT","Clear all final readiness gates"]
+  ];
+  document.getElementById("badges").innerHTML=badgeDefs.map(([id,n,d])=>`<div class="badge ${state.badges[id]?"unlocked":""}">${n}<br><span style="font-weight:600">${d}</span></div>`).join("");
+  const weak=getWeakItems().length,done=Object.keys(state.routeDone||{}).length;
+  const rr=readiness();
+  let move="Start Control Room and follow the episode order: cast → receipts → recall → delivery → route.";
+  if(rr.recognition<85)move="Recognition needs reps. Run Rapid Pour and Receipts or Rumors until you are consistently above 85%.";
+  else if(rr.recall<80)move="You recognize the facts. Now make your brain produce them: Confessional Booth, no answer choices.";
+  else if(rr.delivery<80)move="The facts are in there. Work Host Mic Check until the material sounds conversational and like you.";
+  else if(rr.route<100)move="Knowledge is strong. Finish the Route Run so every story knows where it belongs geographically.";
+  else if(weak>0)move=`Final obstacle: ${weak} reunion topic${weak===1?"":"s"}. Clear the backlog.`;
+  else if(rr.ready)move="GREENLIT. Do a full walk from the Olympic Rings to the final goodbye without notes.";
+  document.getElementById("nextMove").textContent=move;
+}
+
+document.getElementById("exportBtn").addEventListener("click",()=>{
+  const blob=new Blob([JSON.stringify(state,null,2)],{type:"application/json"});
+  const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="atl-wine-host-run-progress.json";a.click();URL.revokeObjectURL(a.href);
+});
+document.getElementById("importInput").addEventListener("change",e=>{
+  const f=e.target.files[0];if(!f)return;
+  const r=new FileReader();r.onload=()=>{try{state=Object.assign({},DEFAULT_STATE,JSON.parse(r.result));saveState();renderHQ()}catch(err){alert("That progress file could not be read.")}};r.readAsText(f);
+});
+document.getElementById("resetBtn").addEventListener("click",()=>{
+  if(confirm("Reset all saved Host Run progress on this browser?")){state=structuredClone(DEFAULT_STATE);saveState();renderHQ()}
+});
+
+updateHud();renderRoute();renderCast();renderMic();renderConfessional();renderHQ();renderSeason();
+</script>
+</body>
+</html>
