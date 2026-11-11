@@ -4,8 +4,8 @@
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#140718",
-  "theme_color": "#7D0E42",
+  "background_color": "#08020D",
+  "theme_color": "#0A0210",
   "description": "Lauren's deluxe Atlanta wine tour study lounge.",
   "icons": [
     {
