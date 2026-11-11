@@ -1,4 +1,4 @@
-const CACHE="host-run-jewel-color-v15";
+const CACHE="host-run-story-first-v16";
 const CORE=[
   "./","./index.html","./manifest.json","./icon.svg",
   "./assets/route-map.jpg","./assets/olympic-rings.jpg","./assets/freedom-fighters-mural.jpg",
