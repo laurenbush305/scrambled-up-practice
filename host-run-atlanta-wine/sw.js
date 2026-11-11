@@ -1,4 +1,4 @@
-const CACHE="host-run-pedagogy-lock-v10";
+const CACHE="host-run-opening-season-v11";
 const CORE=[
   "./","./index.html","./manifest.json","./icon.svg",
   "./assets/route-map.jpg","./assets/olympic-rings.jpg","./assets/freedom-fighters-mural.jpg",
