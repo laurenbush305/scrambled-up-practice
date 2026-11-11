@@ -1,6 +1,12 @@
 {
   "serverId": "pub652-20261110",
-  "revision": 1,
-  "updatedAt": "2026-11-10T20:03:42.977Z",
-  "teams": []
+  "revision": 2,
+  "updatedAt": "2026-11-11T00:14:21.884Z",
+  "teams": [
+    {
+      "name": "She's From Epiphany",
+      "joker": null,
+      "r1": 6
+    }
+  ]
 }
