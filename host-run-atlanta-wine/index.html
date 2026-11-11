@@ -1279,6 +1279,55 @@ body{padding-bottom:0}
   .audio-controller.is-collapsed{width:max-content;max-width:calc(100% - 20px)}
 }
 
+/* =========================================================
+   UX PASS — CLEAR ROUTES, ONE EPISODE AT A TIME
+   ========================================================= */
+[hidden]{display:none!important}
+.menu{width:min(760px,calc(100% - 36px));max-height:min(78vh,720px);overflow:auto;padding:14px}
+.menu.show{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.menu-group{padding:10px;border:1px solid rgba(255,215,107,.13);border-radius:14px;background:rgba(255,255,255,.025)}
+.menu-group-label{display:block;padding:3px 8px 8px;color:#FFD979;font-size:9px;font-weight:950;letter-spacing:.15em;text-transform:uppercase}
+.menu-group button{display:block;width:100%;min-height:42px;border-radius:9px}
+.menu-group button + button{margin-top:3px}
+.hero-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:18px}
+.hero-actions .btn{flex:1 1 220px}
+.home-paths{margin:22px 0 4px}
+.home-paths-head{display:flex;justify-content:space-between;gap:16px;align-items:end;margin-bottom:12px}
+.home-paths-head p{margin:0;color:#DCC7E1;max-width:560px;line-height:1.5}
+.home-path-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.home-path{padding:17px;border:1px solid rgba(255,215,107,.17);border-radius:17px;background:linear-gradient(150deg,rgba(60,18,63,.58),rgba(15,9,23,.78));display:flex;flex-direction:column;justify-content:space-between;min-height:200px}
+.home-path strong{display:block;color:#FFD979;font-size:10px;letter-spacing:.13em;margin-bottom:8px}.home-path h3{margin:0 0 8px;font-size:21px}.home-path p{color:#DCC7E1;font-size:13px;line-height:1.5}.home-path .btn{width:100%;margin-top:10px}
+.learn-reader{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;margin:0 0 16px;padding:13px 14px;border:1px solid rgba(255,215,107,.18);border-radius:16px;background:rgba(25,8,31,.94);scroll-margin-top:100px}
+.learn-reader-copy{text-align:center;min-width:0}.learn-reader-copy strong{display:block;color:#FFD979;font-size:10px;letter-spacing:.14em}.learn-reader-copy span{display:block;margin-top:3px;color:#FFF8FF;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.learn-reader button{min-width:92px;text-align:center;justify-content:center}
+.learn-reader button:disabled{opacity:.34;cursor:not-allowed;transform:none;box-shadow:none}
+.learn-hero{padding:26px;margin-bottom:12px}.learn-hero h2{font-size:clamp(34px,4vw,52px)}.learn-hero p{font-size:15px;line-height:1.5;margin-bottom:12px}.learn-hero .learn-rule{font-size:13px;padding:11px 13px}.learn-hero .season-progress{margin:11px 0 4px}.learn-hero .course-counts{margin-top:10px}
+.learn-jumps{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:7px}
+.learn-jumps button{border-radius:13px;text-align:left;line-height:1.35;min-height:64px}
+.learn-jumps button.active{border-color:#FFD979;background:linear-gradient(135deg,rgba(255,217,121,.16),rgba(228,46,132,.13));box-shadow:inset 0 0 0 1px rgba(255,217,121,.08)}
+.learn-jumps button.is-complete:after{content:" • WATCHED";color:#A5F2C2;font-size:8px}
+.learn-section{display:none;margin-top:0}.learn-section.is-current{display:block;animation:tvIn .22s ease}
+.learn-linear-grid{grid-template-columns:minmax(0,820px);justify-content:center}
+.concept-card{padding:0;overflow:hidden}.concept-card>summary{padding:16px 18px;cursor:pointer;list-style:none;background:rgba(255,255,255,.025)}
+.concept-card>summary::-webkit-details-marker{display:none}.concept-card>summary .learn-term{margin:0}.concept-card>summary .cast-role{margin:6px 0 0}.concept-card[open]>summary{border-bottom:1px solid rgba(255,215,107,.14)}.concept-body{padding:18px}
+.learn-flow-stack{grid-template-columns:minmax(0,820px);justify-content:center}
+.location-card-grid{grid-template-columns:minmax(0,820px);justify-content:center}
+#learnSeasonFinale{display:none}#learnSeasonFinale.is-ready{display:block}
+.reading-order{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 14px}.reading-order span{padding:6px 8px;border-radius:999px;background:rgba(255,255,255,.04);border:1px solid rgba(156,225,255,.14);color:#DCEFFF;font-size:9px;font-weight:900;letter-spacing:.07em}.reading-order b{color:#FFD979}
+
+@media(max-width:900px){
+  .home-path-grid{grid-template-columns:1fr 1fr}
+  .learn-jumps{display:flex;overflow-x:auto;flex-wrap:nowrap;padding-bottom:5px;scroll-snap-type:x proximity}
+  .learn-jumps button{flex:0 0 190px;scroll-snap-align:start}
+}
+@media(max-width:760px){
+  .menu{position:fixed;left:10px;right:10px;top:70px;width:auto;max-height:78vh}.menu.show{grid-template-columns:1fr}
+  #view-home .route-art{display:none}
+  .home-path-grid{grid-template-columns:1fr}.home-path{min-height:0}
+  .home-paths-head{display:block}.home-paths-head p{margin-top:6px}
+  .learn-reader{grid-template-columns:1fr 1fr}.learn-reader-copy{grid-column:1/-1;grid-row:1}.learn-reader button{grid-row:2}
+}
+
 </style>
 </head>
 <body>
@@ -1300,23 +1349,10 @@ body{padding-bottom:0}
     </div>
   </header>
   <div class="menu" id="menu">
-    <button data-nav="home">Home</button>
-    <button data-nav="learn">Before the Cameras Roll</button>
-    <button data-nav="season">Clubhouse</button>
-    <button data-nav="visuals">Visual Tour + Map</button>
-    <button data-nav="cram">Cram Mode</button>
-    <button data-nav="deep">Producer’s Cut</button>
-    <button data-nav="hotseat">Guest Hot Seat</button>
-    <button data-nav="route">Route Run</button>
-    <button data-nav="cast">Meet the Wine Cast</button>
-    <button data-nav="rumors">Receipts or Rumors</button>
-    <button data-nav="pronounce">Say Her Name Correctly</button>
-    <button data-nav="confessional">Confessional Booth</button>
-    <button data-nav="rapid">Rapid Pour</button>
-    <button data-nav="prohibition">Prohibition Showdown</button>
-    <button data-nav="mic">Host Mic Check</button>
-    <button data-nav="weak">The Reunion</button>
-    <button data-nav="hq">Progress HQ</button>
+    <div class="menu-group"><span class="menu-group-label">Start + understand</span><button data-nav="home">Home</button><button data-nav="learn">Opening Season • Learn in order</button><button data-nav="visuals">Visual Tour + Map</button><button data-nav="cast">Wine Cast Quick Reference</button></div>
+    <div class="menu-group"><span class="menu-group-label">Practice facts</span><button data-nav="rapid">Rapid Pour • Recognition</button><button data-nav="rumors">Receipts or Rumors</button><button data-nav="pronounce">Pronunciation</button><button data-nav="prohibition">Prohibition Showdown</button><button data-nav="deep">Producer’s Cut • Deep facts</button></div>
+    <div class="menu-group"><span class="menu-group-label">Practice hosting</span><button data-nav="confessional">Confessional • Free recall</button><button data-nav="hotseat">Guest Hot Seat</button><button data-nav="mic">Mic Check • Delivery</button><button data-nav="route">Route Run • Full rehearsal</button></div>
+    <div class="menu-group"><span class="menu-group-label">Review + progress</span><button data-nav="cram">Ten-Minute Cram</button><button data-nav="weak">The Reunion • Missed items</button><button data-nav="season">Clubhouse • Readiness</button><button data-nav="hq">Progress HQ + settings</button></div>
   </div>
 
   <aside class="audio-controller is-collapsed" id="audioController" aria-label="Global audio playback controls">
@@ -1353,17 +1389,10 @@ body{padding-bottom:0}
           <div class="kicker">ATLANTA AFTER DARK • PRIVATE STUDY LOUNGE</div>
           <h1>SIP. SPILL. SERVE.</h1>
           <p class="lede">This is your private ATL wine clubhouse: part Sundial sparkle, part Bravo confessional, part Spelman-brain study machine. You do not need to read either packet first. Start the season, meet the cast, walk the locations, and collect the receipts. Then production will see what you can do without the notes.</p>
-          <div class="actions">
-            <button class="btn primary" type="button" data-nav="learn">START THE SEASON <span>BEGIN HERE</span></button>
-            <button class="btn primary" type="button" id="smartStart">START MY NEXT BEST MOVE <span>→</span></button>
+          <div class="hero-actions">
+            <button class="btn primary" id="homeSeasonCta" type="button" data-nav="learn">START THE SEASON <span>BEGIN HERE</span></button>
+            <button class="btn" type="button" id="smartStart">CONTINUE WHERE I LEFT OFF <span>→</span></button>
             <button class="btn spotlight" type="button" id="playEpisode">▶ PLAY THE EPISODE <span>GUIDED</span></button>
-            <button class="btn" type="button" data-nav="season">OPEN THE CLUBHOUSE <span>→</span></button>
-            <button class="btn" type="button" id="startRoute">RUN THE ACTUAL ROUTE <span>→</span></button>
-            <button class="btn spotlight" type="button" id="startRapid">QUICK POUR: 10 QUESTIONS <span>↗</span></button>
-            <button class="btn" type="button" data-nav="visuals">VISUAL TOUR + MAP <span>📸</span></button>
-            <button class="btn" type="button" data-nav="cram">10-MINUTE CRAM <span>⚡</span></button>
-            <button class="btn" type="button" data-nav="cast">MEET THE WINE CAST <span>🍷</span></button>
-            <button class="btn" type="button" data-nav="hq">OPEN PROGRESS HQ <span>+</span></button>
           </div>
         </div>
         <div class="route-art">
@@ -1373,33 +1402,29 @@ body{padding-bottom:0}
       </div>
       
       
+      <div class="smart-next" id="homeSmartNext">
+        <div><div class="kicker">YOUR NEXT EPISODE</div><h3 id="homeNextTitle">Loading your best next move…</h3><p id="homeNextWhy"></p></div>
+        <button class="btn primary" id="homeNextBtn" type="button">GO →</button>
+      </div>
+
+      <section class="home-paths" aria-labelledby="choosePathTitle"><div class="home-paths-head"><div><div class="kicker">CHOOSE BY GOAL</div><h2 id="choosePathTitle" style="font-size:32px;margin:0">What are you here to do?</h2></div><p>You never need to remember a mode name. Pick the outcome you want and the app takes you to the right room.</p></div><div class="home-path-grid">
+        <article class="home-path"><div><strong>01 • LEARN</strong><h3>I need the story first.</h3><p>Go through the six opening episodes in order. Best if you have not read the packets.</p></div><button class="btn small primary" type="button" data-nav="learn">OPEN THE SEASON →</button></article>
+        <article class="home-path"><div><strong>02 • REMEMBER</strong><h3>Quiz me on the facts.</h3><p>Use quick recognition practice. Misses automatically return at the Reunion.</p></div><button class="btn small" type="button" id="startRapid">START RAPID POUR →</button></article>
+        <article class="home-path"><div><strong>03 • SAY IT</strong><h3>Practice sounding like a host.</h3><p>Speak without choices, compare with the benchmark, then grade facts and delivery separately.</p></div><button class="btn small" type="button" data-nav="mic">OPEN MIC CHECK →</button></article>
+        <article class="home-path"><div><strong>04 • RUN IT</strong><h3>Walk the actual route.</h3><p>Put every scene in geographic order and rehearse the transitions from start to finish.</p></div><button class="btn small" type="button" id="startRoute">START ROUTE RUN →</button></article>
+      </div></section>
+
       <div class="visual-filmstrip" aria-label="Atlanta wine tour visual preview">
         <img src="assets/sun-dial.jpg" width="602" height="658" alt="Sun Dial exterior from the training packet" loading="eager">
         <img src="assets/lumen-lounge.jpg" width="602" height="509" alt="Lumen Lounge from the training packet" loading="eager">
         <img src="assets/atalian.jpg" width="602" height="509" alt="Atalian from the training packet" loading="eager">
         <img src="assets/white-oak.jpg" width="602" height="527" alt="White Oak from the training packet" loading="eager">
       </div>
-      <div class="smart-next" id="homeSmartNext">
-        <div><div class="kicker">YOUR NEXT EPISODE</div><h3 id="homeNextTitle">Loading your best next move…</h3><p id="homeNextWhy"></p></div>
-        <button class="btn primary" id="homeNextBtn" type="button">GO →</button>
-      </div>
 
       <div class="trailer" style="margin-top:18px">
         <p><strong>PREVIOUSLY IN THE LOUNGE:</strong> Champagne survived war and still came dressed for a celebration, Chardonnay arrived with three personalities and no apology, Rosé corrected everybody who kept calling her a grape, Pinot Noir showed up thin-skinned and iconic, and Cabernet brought blind-tasting receipts from the Judgment of Paris. Your assignment: know the material so well it feels like personality, not homework.</p>
       </div>
 
-<div class="mode-grid">
-        <div class="mode-card"><div><div class="num">01 / CAST</div><h3>Meet the Wine Cast</h3><p>Learn the messy version, then polish it for the real room.</p></div><button class="btn small" type="button" data-nav="cast">MEET THE CAST →</button></div>
-        <div class="mode-card"><div><div class="num">02 / RECEIPTS</div><h3>Receipts or Rumors</h3><p>Myths, plot twists, and facts. Wrong answers come back at the reunion.</p></div><button class="btn small" type="button" data-nav="rumors">CHECK THE RECEIPTS →</button></div>
-        <div class="mode-card"><div><div class="num">03 / NAME CARD</div><h3>Say Her Name Correctly</h3><p>Thirty source-supplied pronunciations so the host never gets ambushed by “Pouilly-Fumé.”</p></div><button class="btn small" type="button" data-nav="pronounce">RUN PRONUNCIATION →</button></div>
-        <div class="mode-card"><div><div class="num">04 / CONFESSIONAL</div><h3>Confessional Booth</h3><p>No choices. Tell the wine story from memory, reveal the receipts, then grade facts and delivery separately.</p></div><button class="btn small" type="button" data-nav="confessional">ENTER THE BOOTH →</button></div>
-        <div class="mode-card"><div><div class="num">05 / LIVE ROOM</div><h3>Host Mic Check</h3><p>Practice the actual stop stories out loud. This is where studying becomes hosting.</p></div><button class="btn small" type="button" data-nav="mic">OPEN MIC CHECK →</button></div>
-        <div class="mode-card"><div><div class="num">06 / VISUALS</div><h3>Visual Tour</h3><p>See the stops, learn the map, then prove you can recognize the room before you walk into it.</p></div><button class="btn small" type="button" data-nav="visuals">SEE ATLANTA →</button></div>
-<div class="mode-card"><div><div class="num">07 / HOT SEAT</div><h3>Guest Hot Seat</h3><p>Practice the questions real humans may ask using answers supported by your training material.</p></div><button class="btn small" type="button" data-nav="hotseat">TAKE QUESTIONS →</button></div>
-<div class="mode-card"><div><div class="num">08 / PRODUCER’S CUT</div><h3>Deep Cuts</h3><p>Source details that separate “I studied” from “I actually know this packet.”</p></div><button class="btn small" type="button" data-nav="deep">ROLL THE DEEP CUTS →</button></div>
-<div class="mode-card"><div><div class="num">09 / CRAM</div><h3>Ten-Minute Cram</h3><p>Tour-day emergency review: route, six wines, timeline, Prohibition, pronunciations, opening and close.</p></div><button class="btn small" type="button" data-nav="cram">CRAM ME →</button></div>
-<div class="mode-card"><div><div class="num">10 / REUNION</div><h3>The Reunion</h3><p>Everything you miss comes back. Nothing gets to quietly disappear because it embarrassed you once.</p></div><button class="btn small" type="button" data-nav="weak">FACE THE REUNION →</button></div>
-      </div>
       <p class="footer-note">Built from your <strong>Urban Wine Walks: Atlanta, GA</strong> tour script plus Najee’s <strong>Atlanta Wine Descriptions</strong> study packet received Nov. 9, 2026. Route facts follow the tour script; deep-dive wine profiles follow the new study packet.</p>
     </section>
 
@@ -1420,6 +1445,7 @@ body{padding-bottom:0}
         <button type="button" data-learn-jump="learn-prohibition">05 The Prohibition Scandal</button>
         <button type="button" data-learn-jump="learn-host">06 Screen Test</button>
       </nav>
+      <div class="learn-reader" id="learnReader"><button class="btn small ghost" id="learnPrev" type="button">← PREVIOUS</button><div class="learn-reader-copy"><strong id="learnReaderStep">EPISODE 1 OF 6</strong><span id="learnReaderTitle">Meet the Vocabulary</span></div><button class="btn small" id="learnNext" type="button">NEXT →</button></div>
       <div id="learnCourse"></div>
     </section>
 
@@ -2606,9 +2632,14 @@ function nextModule(){
 }
 function renderSmartNext(){
   const n=nextModule();
-  const title=document.getElementById("homeNextTitle"),why=document.getElementById("homeNextWhy"),btn=document.getElementById("homeNextBtn");
+  const title=document.getElementById("homeNextTitle"),why=document.getElementById("homeNextWhy"),btn=document.getElementById("homeNextBtn"),seasonCta=document.getElementById("homeSeasonCta"),smartStart=document.getElementById("smartStart"),homeSmart=document.getElementById("homeSmartNext");
   if(title)title.textContent=n.title;if(why)why.textContent=n.why;
   if(btn)btn.onclick=()=>{if(n.view==="route"){routeMode="rehearsal";syncRouteModeUI()}nav(n.view)};
+  const watched=learnEpisodeCount();
+  const firstOpen=LEARN_EPISODE_IDS.findIndex(id=>!state.learnEpisodes?.[id]);
+  if(seasonCta)seasonCta.innerHTML=watched===0?"START THE SEASON <span>BEGIN HERE</span>":watched<6?`CONTINUE EPISODE ${firstOpen+1} <span>${watched}/6 WATCHED</span>`:"REVISIT THE SEASON <span>6/6 WATCHED</span>";
+  if(smartStart)smartStart.hidden=n.view==="learn";
+  if(homeSmart)homeSmart.hidden=n.view==="learn";
 }
 document.getElementById("smartStart").addEventListener("click",()=>{const n=nextModule();if(n.view==="route"){routeMode="rehearsal";syncRouteModeUI()}nav(n.view)});
 document.getElementById("homeNextBtn").addEventListener("click",()=>{const n=nextModule();nav(n.view)});
@@ -2641,6 +2672,9 @@ nav=function(name){
 
 let learnAudioTracks=[];
 const LEARN_EPISODE_IDS=["ep1","ep2","ep3","ep4","ep5","ep6"];
+const LEARN_SECTION_IDS=["learn-basics","learn-atlanta","learn-route","learn-wines","learn-prohibition","learn-host"];
+const LEARN_EPISODE_TITLES=["Meet the Vocabulary","Previously on Georgia Wine","Location Scout: Atlanta","Meet the Wine Cast","The Prohibition Scandal","Screen Test"];
+let activeLearnEpisode=null;
 const FOUNDATION_ROLES=[
   "The one keeping everybody awake.","The one bringing grip and boundaries.","The one deciding how much space the wine takes up.","The one everybody keeps misreading.",
   "The one holding the ensemble together.","The hometown that changes the edit.","The translator turning chemistry into familiar words.","The low-pressure director getting everyone into the scene."
@@ -2648,6 +2682,22 @@ const FOUNDATION_ROLES=[
 const ATLANTA_SCENES=["THE ORIGINAL PITCH","THE RISE","THE CANCELLATION","THE COMEBACK","THE NEW SEASON","PRODUCER GLOSSARY"];
 const PROHIBITION_SCENES=["GEORGIA'S VERSION","THE NATIONAL TIMELINE","THE RULE","THE LOOPHOLES","THE UNDERGROUND PLOT","WHO BROKE THE RULES","THE CONSEQUENCES","THE MEMORY PROP"];
 function learnEpisodeCount(){return LEARN_EPISODE_IDS.filter(id=>state.learnEpisodes?.[id]).length}
+function defaultLearnEpisode(){return LEARN_EPISODE_IDS.find(id=>!state.learnEpisodes?.[id])||"ep6"}
+function showLearnEpisode(id,scroll=false){
+  if(!LEARN_EPISODE_IDS.includes(id))id=defaultLearnEpisode();
+  activeLearnEpisode=id;
+  const index=LEARN_EPISODE_IDS.indexOf(id);
+  document.querySelectorAll("[data-learn-episode]").forEach(el=>el.classList.toggle("is-current",el.dataset.learnEpisode===id));
+  document.querySelectorAll("[data-learn-jump]").forEach(btn=>{
+    const current=btn.dataset.learnJump===LEARN_SECTION_IDS[index];btn.classList.toggle("active",current);btn.setAttribute("aria-current",current?"step":"false");
+  });
+  const step=document.getElementById("learnReaderStep"),title=document.getElementById("learnReaderTitle"),prev=document.getElementById("learnPrev"),next=document.getElementById("learnNext");
+  if(step)step.textContent=`EPISODE ${index+1} OF 6`;if(title)title.textContent=LEARN_EPISODE_TITLES[index];
+  if(prev){prev.disabled=index===0;prev.onclick=()=>showLearnEpisode(LEARN_EPISODE_IDS[index-1],true)}
+  if(next){next.disabled=index===5;next.onclick=()=>showLearnEpisode(LEARN_EPISODE_IDS[index+1],true)}
+  document.getElementById("learnSeasonFinale")?.classList.toggle("is-ready",learnEpisodeCount()===6&&id==="ep6");
+  if(scroll)document.getElementById("learnReader")?.scrollIntoView({behavior:"smooth",block:"start"});
+}
 function updateLearnProgress(){
   const count=learnEpisodeCount(),pct=Math.round(count/LEARN_EPISODE_IDS.length*100);
   const label=document.getElementById("learnProgressLabel"),bar=document.getElementById("learnProgressBar"),copy=document.getElementById("learnProgressCopy");
@@ -2658,8 +2708,10 @@ function updateLearnProgress(){
   document.querySelectorAll("[data-complete-episode]").forEach(btn=>{
     const done=!!state.learnEpisodes?.[btn.dataset.completeEpisode];btn.classList.toggle("episode-complete",done);btn.textContent=done?"✓ EPISODE WATCHED":btn.dataset.completeEpisode==="ep6"?"MARK WATCHED + ROLL CAMERAS →":"MARK WATCHED + CONTINUE →";
   });
+  document.querySelectorAll("[data-learn-jump]").forEach((btn,i)=>btn.classList.toggle("is-complete",!!state.learnEpisodes?.[LEARN_EPISODE_IDS[i]]));
   const finale=document.getElementById("learnFinaleCopy");
   if(finale)finale.textContent=count===6?"You know the cast. You know the locations. You have the receipts. Now production wants to know whether you can do it without the notes.":`Finish the opening season to unlock the clean handoff into practice. ${6-count} episode${6-count===1?"":"s"} left.`;
+  document.getElementById("learnSeasonFinale")?.classList.toggle("is-ready",count===6&&activeLearnEpisode==="ep6");
 }
 function learnAudioButton(label,index){return `<button class="audio-btn learn-audio" type="button" data-learn-audio="${index}">▶ ${label}</button>`}
 function deliveryLadder(d){return `<div class="delivery-ladder"><div class="delivery-step"><strong>ONE-LINE HOST TAKE</strong><p>${d.one}</p></div><div class="delivery-step"><strong>30-SECOND HOST TAKE</strong><p>${d.thirty}</p></div><div class="delivery-step"><strong>FULL STORY</strong><p>${d.full}</p></div></div>`}
@@ -2682,14 +2734,16 @@ function renderLearn(){
     <article class="learn-section" id="learn-basics" data-learn-episode="ep1">
       <div class="learn-section-head"><div><div class="kicker">EPISODE 01 • OPENING CREDITS</div><h2>Meet the Vocabulary</h2><p>Eight characters enter the cast. Together they explain what wine feels like, why styles differ, and how to talk about a glass without performing expertise.</p></div>${learnAudioButton("PLAY EPISODE 01",basicsTrack)}</div>
       <div class="episode-cold-open"><strong>COLD OPEN</strong><p>Acidity is awake, tannin has boundaries, body is taking up space, and sweetness is already being misunderstood. Welcome to the cast that explains everything else.</p></div>
-      <div class="learn-grid">${LEARN_BASICS.map((x,i)=>{const f=FOUNDATION_LAYERS[i];return `<div class="learn-card"><span class="learn-term">CAST MEMBER • ${x[0]}</span><span class="cast-role"><b>ROLE IN THE CAST:</b> ${FOUNDATION_ROLES[i]}</span><p><span class="layer-label">The receipt</span>${x[1]}</p><div class="learning-layer"><p><span class="layer-label">You've felt this before</span>${f.analogy}</p><p><span class="layer-label">Who she hangs with</span>${f.wine}</p><p><span class="layer-label">Producer note</span>${f.confusion}</p></div><div class="memory-hook"><strong>CONFESSIONAL:</strong> ${x[2]}<br><span class="layer-label">What the memory hook points to</span>${f.feel}</div><div class="host-take"><strong>HOST TAKE:</strong> ${f.host}</div>${cameraCheck(f.recall,f.host)}</div>`}).join("")}</div>
+      <div class="reading-order"><span><b>1</b> Open one cast member</span><span><b>2</b> Read the receipt</span><span><b>3</b> Use the memory hook</span><span><b>4</b> Say the Host Take</span><span><b>5</b> Do the Camera Check</span></div>
+      <div class="learn-grid learn-linear-grid">${LEARN_BASICS.map((x,i)=>{const f=FOUNDATION_LAYERS[i];return `<details class="learn-card concept-card" ${i===0?"open":""}><summary><span class="learn-term">CAST MEMBER ${i+1} OF 8 • ${x[0]}</span><span class="cast-role"><b>ROLE IN THE CAST:</b> ${FOUNDATION_ROLES[i]}</span></summary><div class="concept-body"><p><span class="layer-label">1 • The receipt</span>${x[1]}</p><div class="learning-layer"><p><span class="layer-label">2 • You've felt this before</span>${f.analogy}</p><p><span class="layer-label">3 • Who she hangs with</span>${f.wine}</p><p><span class="layer-label">Producer note</span>${f.confusion}</p></div><div class="memory-hook"><strong>4 • CONFESSIONAL:</strong> ${x[2]}<br><span class="layer-label">What the memory hook points to</span>${f.feel}</div><div class="host-take"><strong>5 • HOST TAKE:</strong> ${f.host}</div>${cameraCheck(`6 • ${f.recall}`,f.host)}</div></details>`}).join("")}</div>
       ${episodeOutro("ep1","Georgia's wine history arrives with a 1732 dream, a 20,000-acre rise, a dry-era cancellation, and a 1983 comeback.")}
     </article>
     <article class="learn-section" id="learn-atlanta" data-learn-episode="ep2">
       <div class="learn-section-head"><div><div class="kicker">EPISODE 02 • THE BACKSTORY</div><h2>Previously on Georgia Wine...</h2><p>A vineyard-colony ambition becomes a serious industry, disappears under Prohibition, and fights its way back into a modern North Georgia and Atlanta wine story.</p></div>${learnAudioButton("PLAY EPISODE 02",atlantaTrack)}</div>
       <div class="episode-cold-open"><strong>COLD OPEN</strong><p>Georgia pitched itself as England's “Vineyard Colony.” Frost, disease, and eventually Prohibition had other notes. Generations later, the Farm Winery Act helped launch the comeback.</p></div>
       <div class="previously"><strong>PREVIOUSLY ON GEORGIA WINE...</strong>1732: the Vineyard Colony dream. Late 1800s: 20,000-plus acres and a national ranking. 1907: Georgia goes dry and the industry disappears. 1983: the Farm Winery Act starts the comeback. Modern era: North Georgia AVAs grow the wine; Atlanta drives the culinary and retail scene.</div>
-      <div class="learn-grid">${LEARN_ATLANTA.map((x,i)=>`<div class="learn-card"><span class="learn-term">${ATLANTA_SCENES[i]}</span><h3>${x[0]}</h3><p><span class="layer-label">The receipts</span>${x[1]}</p>${i===2?`<div class="memory-hook"><strong>THE PLOT TWIST:</strong> Georgia went dry twelve years before the national ban, wiping out the legal wine industry.</div>`:""}</div>`).join("")}</div>
+      <div class="reading-order"><span><b>1</b> Follow the dates top to bottom</span><span><b>2</b> Notice the 1907 plot twist</span><span><b>3</b> Say the 30-second recap</span><span><b>4</b> Do the Camera Check</span></div>
+      <div class="learn-grid learn-linear-grid">${LEARN_ATLANTA.map((x,i)=>`<div class="learn-card"><span class="learn-term">SCENE ${i+1} OF ${LEARN_ATLANTA.length} • ${ATLANTA_SCENES[i]}</span><h3>${x[0]}</h3><p><span class="layer-label">The receipts</span>${x[1]}</p>${i===2?`<div class="memory-hook"><strong>THE PLOT TWIST:</strong> Georgia went dry twelve years before the national ban, wiping out the legal wine industry.</div>`:""}</div>`).join("")}</div>
       <div class="producer-flag"><strong>WHY WE CARE ON THIS TOUR:</strong> The story connects Georgia's first wine ambition, the loss of the industry, North Georgia's modern wine regions, and Atlanta's role as a culinary and retail center.</div>
       ${deliveryLadder(DELIVERY_LADDERS.history)}
       ${cameraCheck("You have 45 seconds. Tell production how Georgia went from Vineyard Colony ambitions to the modern comeback.",DELIVERY_LADDERS.history.thirty)}
@@ -2699,20 +2753,23 @@ function renderLearn(){
       <div class="learn-section-head"><div><div class="kicker">EPISODE 03 • ON LOCATION</div><h2>Location Scout: Atlanta</h2><p>Production walks every scene in order: what guests see, why it matters, what gets poured, and how one location hands the story to the next.</p></div>${learnAudioButton("PLAY EPISODE 03",routeTrack)}</div>
       <div class="episode-cold-open"><strong>COLD OPEN</strong><p>The season opens under the Olympic Rings, climbs 723 feet for Champagne, slips past a phone-booth speakeasy, and ends exactly where it began. Let the city hold the plot for you.</p></div>
       <p class="learn-route-order">Olympic Rings → Freedom Fighters Mural → Sun Dial → Lumen Lounge → Red Phone Booth → Atalian → White Oak → Centennial Olympic Park</p>
-      <div class="location-card-grid">${routeStages.map((s,i)=>{const r=ROUTE_MEMORY[s.id],ladder=DELIVERY_LADDERS[s.id],visual=DATA.visualStops.find(v=>v.id===s.visualId),next=routeStages[i+1];return `<details class="location-card" ${i===0?"open":""}><summary>SCENE ${String(i+1).padStart(2,"0")} • ${s.title}</summary><div class="location-card-body">${visual?`<img class="stage-visual" loading="lazy" src="${visual.image}" alt="${visual.name}">`:""}<span class="scene-label">LOCATION CARD • ${s.eyebrow}</span><p><strong>WHERE WE ARE:</strong> ${s.scene}</p>${r?`<p><strong>WHAT GUESTS SEE:</strong> ${r.see}</p><p><strong>WHY PRODUCTION BROUGHT US HERE:</strong> ${r.why}</p>`:""}${LEARN_LOGISTICS[s.id]?`<div class="producer-flag"><strong>PRODUCER NOTE • VERIFY BEFORE THE TOUR:</strong> ${LEARN_LOGISTICS[s.id]}</div>`:""}${(LEARN_ROUTE_EXTRAS[s.id]||[]).map(p=>`<p>${p}</p>`).join("")}<span class="scene-label">THE RECEIPTS</span><ul>${s.anchors.map(a=>`<li>${a}</li>`).join("")}</ul><p><strong>THE POUR:</strong> ${visual?.wine||"This is a story or transition scene rather than a wine stop."}</p><p><strong>THE SCENE:</strong> ${s.prompt}</p>${r?`<div class="route-bridge"><div><span class="layer-label">Transition in • host interpretation</span>${r.from}</div><div><span class="layer-label">Transition out • host interpretation</span>${r.to}</div></div><div class="producer-flag"><strong>GUEST MAY ASK:</strong> ${r.guest}</div>`:""}${ladder?deliveryLadder(ladder):""}<div class="learn-story"><strong>IF YOUR BRAIN LEAVES THE CHAT:</strong> ${s.emergencyLine}</div>${cameraCheck(next?`Leaving ${s.title}, where are we going next and what connects the scenes?`:`How do you close after the final return to the park?`,next?`${next.title}. ${r?.to||next.scene}`:s.emergencyLine)}</div></details>`}).join("")}</div>
+      <div class="reading-order"><span><b>1</b> Open Scene 1</span><span><b>2</b> Learn what guests see</span><span><b>3</b> Say the transition</span><span><b>4</b> Continue in route order</span></div>
+      <div class="location-card-grid">${routeStages.map((s,i)=>{const r=ROUTE_MEMORY[s.id],ladder=DELIVERY_LADDERS[s.id],visual=DATA.visualStops.find(v=>v.id===s.visualId),next=routeStages[i+1];return `<details class="location-card" ${i===0?"open":""}><summary>SCENE ${String(i+1).padStart(2,"0")} OF ${String(routeStages.length).padStart(2,"0")} • ${s.title}</summary><div class="location-card-body">${visual?`<img class="stage-visual" loading="lazy" src="${visual.image}" alt="${visual.name}">`:""}<span class="scene-label">LOCATION CARD • ${s.eyebrow}</span><p><strong>WHERE WE ARE:</strong> ${s.scene}</p>${r?`<p><strong>WHAT GUESTS SEE:</strong> ${r.see}</p><p><strong>WHY PRODUCTION BROUGHT US HERE:</strong> ${r.why}</p>`:""}${LEARN_LOGISTICS[s.id]?`<div class="producer-flag"><strong>PRODUCER NOTE • VERIFY BEFORE THE TOUR:</strong> ${LEARN_LOGISTICS[s.id]}</div>`:""}${(LEARN_ROUTE_EXTRAS[s.id]||[]).map(p=>`<p>${p}</p>`).join("")}<span class="scene-label">THE RECEIPTS</span><ul>${s.anchors.map(a=>`<li>${a}</li>`).join("")}</ul><p><strong>THE POUR:</strong> ${visual?.wine||"This is a story or transition scene rather than a wine stop."}</p><p><strong>THE SCENE:</strong> ${s.prompt}</p>${r?`<div class="route-bridge"><div><span class="layer-label">Transition in • host interpretation</span>${r.from}</div><div><span class="layer-label">Transition out • host interpretation</span>${r.to}</div></div><div class="producer-flag"><strong>GUEST MAY ASK:</strong> ${r.guest}</div>`:""}${ladder?deliveryLadder(ladder):""}<div class="learn-story"><strong>IF YOUR BRAIN LEAVES THE CHAT:</strong> ${s.emergencyLine}</div>${cameraCheck(next?`Leaving ${s.title}, where are we going next and what connects the scenes?`:`How do you close after the final return to the park?`,next?`${next.title}. ${r?.to||next.scene}`:s.emergencyLine)}</div></details>`}).join("")}</div>
       ${episodeOutro("ep3","The locations are locked. Now the six wines arrive with archetypes, origin stories, alliances, plot twists, and fully decoded taglines.")}
     </article>
     <article class="learn-section" id="learn-wines" data-learn-episode="ep4">
       <div class="learn-section-head"><div><div class="kicker">EPISODE 04 • CAST TRIP</div><h2>Meet the Wine Cast</h2><p>Six very different personalities enter the season. Every joke is decoded into the packet fact it is meant to retrieve, and every profile ends in something you can actually say to a guest.</p></div></div>
       <div class="episode-cold-open"><strong>COLD OPEN</strong><p>Champagne brought pressure, Chardonnay changed personalities, Rosé denied the sweetness allegations, Pinot arrived thin-skinned, and Cabernet brought blind-tasting receipts from Paris.</p></div>
-      ${DATA.wineCast.map((w,i)=>{const m=WINE_MEMORY[w.id];return `<details class="learn-details" ${i===0?"open":""}><summary>${w.name} • ${w.archetype} • [${w.pron}]</summary><div class="learn-details-body">${w.image?`<img class="cast-photo" loading="lazy" src="${w.image}" alt="${w.name}">`:""}<div class="learn-section-head" style="margin:12px 0"><div><span class="learn-term">CAST PHOTO + NAME CARD • SERVED AT ${w.servedAt}</span><p><strong>ARCHETYPE:</strong> ${w.archetype}.</p><p><strong>BIGGEST PLOT TWIST:</strong> ${w.plotTwist}</p></div>${learnAudioButton(`PLAY ${w.name.toUpperCase()}`,wineTracks[w.id])}</div><div class="memory-hook"><strong>PRIVATE TAGLINE:</strong> “${m.tagline}”<br><span class="layer-label">Why the tagline works</span>${m.decode}</div><div class="previously"><strong>ORIGIN STORY + PERSONALITY • PREVIOUSLY ON ${w.name.toUpperCase()}...</strong>${m.previously}</div><div class="producer-flag"><strong>PRODUCER NOTE • KNOW THIS, DO NOT FORCE IT INTO EVERY TOUR:</strong> ${w.producerNote}</div>${LEARN_WINE_STORIES[w.id].map(x=>`<div class="learn-card" style="margin-top:10px"><span class="learn-term">THE RECEIPTS • ${x[0]}</span><p>${x[1]}</p></div>`).join("")}<div class="learn-grid" style="margin-top:12px"><div class="learn-card"><span class="learn-term">PERSONALITY</span><ul>${w.anchors.map(a=>`<li>${a}</li>`).join("")}</ul><p><strong>TASTING:</strong> ${w.tasting.join(", ")}.</p></div><div class="learn-card"><span class="learn-term">ALLIANCES</span><p><strong>WHO SHE'S DATING:</strong> ${w.pairings.join(", ")}.</p><p><strong>WHERE SHE SHOWS UP THIS SEASON:</strong> ${w.servedAt}.</p></div></div>${deliveryLadder({one:m.one,thirty:m.thirty,full:m.full})}<div class="host-take"><strong>CONFESSIONAL:</strong> ${m.question}</div>${cameraCheck(`REUNION QUESTION • ${m.question}`,m.thirty)}</div></details>`}).join("")}
+      <div class="reading-order"><span><b>1</b> Open one wine</span><span><b>2</b> Decode the tagline</span><span><b>3</b> Read the receipts</span><span><b>4</b> Practice the Host Take</span><span><b>5</b> Answer the Reunion question</span></div>
+      ${DATA.wineCast.map((w,i)=>{const m=WINE_MEMORY[w.id];return `<details class="learn-details" ${i===0?"open":""}><summary>CAST MEMBER ${i+1} OF ${DATA.wineCast.length} • ${w.name} • ${w.archetype} • [${w.pron}]</summary><div class="learn-details-body">${w.image?`<img class="cast-photo" loading="lazy" src="${w.image}" alt="${w.name}">`:""}<div class="learn-section-head" style="margin:12px 0"><div><span class="learn-term">CAST PHOTO + NAME CARD • SERVED AT ${w.servedAt}</span><p><strong>ARCHETYPE:</strong> ${w.archetype}.</p><p><strong>BIGGEST PLOT TWIST:</strong> ${w.plotTwist}</p></div>${learnAudioButton(`PLAY ${w.name.toUpperCase()}`,wineTracks[w.id])}</div><div class="memory-hook"><strong>PRIVATE TAGLINE:</strong> “${m.tagline}”<br><span class="layer-label">Why the tagline works</span>${m.decode}</div><div class="previously"><strong>ORIGIN STORY + PERSONALITY • PREVIOUSLY ON ${w.name.toUpperCase()}...</strong>${m.previously}</div><div class="producer-flag"><strong>PRODUCER NOTE • KNOW THIS, DO NOT FORCE IT INTO EVERY TOUR:</strong> ${w.producerNote}</div>${LEARN_WINE_STORIES[w.id].map(x=>`<div class="learn-card" style="margin-top:10px"><span class="learn-term">THE RECEIPTS • ${x[0]}</span><p>${x[1]}</p></div>`).join("")}<div class="learn-grid" style="margin-top:12px"><div class="learn-card"><span class="learn-term">PERSONALITY</span><ul>${w.anchors.map(a=>`<li>${a}</li>`).join("")}</ul><p><strong>TASTING:</strong> ${w.tasting.join(", ")}.</p></div><div class="learn-card"><span class="learn-term">ALLIANCES</span><p><strong>WHO SHE'S DATING:</strong> ${w.pairings.join(", ")}.</p><p><strong>WHERE SHE SHOWS UP THIS SEASON:</strong> ${w.servedAt}.</p></div></div>${deliveryLadder({one:m.one,thirty:m.thirty,full:m.full})}<div class="host-take"><strong>CONFESSIONAL:</strong> ${m.question}</div>${cameraCheck(`REUNION QUESTION • ${m.question}`,m.thirty)}</div></details>`}).join("")}
       ${episodeOutro("ep4","The cast is assembled. Next, the season's scandal episode separates Georgia's dry era from the national timeline and follows every loophole underground.")}
     </article>
     <article class="learn-section" id="learn-prohibition" data-learn-episode="ep5">
       <div class="learn-section-head"><div><div class="kicker">EPISODE 05 • THE SCANDAL</div><h2>The Prohibition Scandal</h2><p>Georgia went dry first and came back late. The national story ran on a different clock. The loopholes, underground plots, and consequences explain what happened in between.</p></div>${learnAudioButton("PLAY EPISODE 05",prohibitionTrack)}</div>
       <div class="episode-cold-open"><strong>PREVIOUSLY ON AMERICA...</strong><p>The law tried to cancel alcohol. Doctors, churches, locker clubs, blind tigers, jug trains, moonshiners, speakeasies, and organized crime all found their own subplot.</p></div>
       <div class="previously"><strong>PREVIOUSLY ON PROHIBITION...</strong>Georgia went dry first and came back late: 1907-1935. National Prohibition ran 1920-1933. In between came locker clubs, blind tigers, near-beer, jug trains, moonshine, medicinal whiskey, religious wine, speakeasies, and bootlegging.</div>
-      <div class="learn-grid">${LEARN_PROHIBITION.map((x,i)=>`<div class="learn-card"><span class="learn-term">${PROHIBITION_SCENES[i]}</span><h3>${x[0]}</h3><p><span class="layer-label">The receipts</span>${x[1]}</p></div>`).join("")}</div>
+      <div class="reading-order"><span><b>1</b> Lock the two timelines</span><span><b>2</b> Follow the loopholes</span><span><b>3</b> Say the scandal recap</span><span><b>4</b> Take the Showdown</span></div>
+      <div class="learn-grid learn-linear-grid">${LEARN_PROHIBITION.map((x,i)=>`<div class="learn-card"><span class="learn-term">SCENE ${i+1} OF ${LEARN_PROHIBITION.length} • ${PROHIBITION_SCENES[i]}</span><h3>${x[0]}</h3><p><span class="layer-label">The receipts</span>${x[1]}</p></div>`).join("")}</div>
       ${deliveryLadder(DELIVERY_LADDERS.prohibition)}
       ${cameraCheck("Who was breaking the rules, how were they doing it, and why does 'Georgia went dry first and came back late' keep the two timelines straight?",DELIVERY_LADDERS.prohibition.thirty)}
       <div class="season-finale-actions"><button class="btn small" type="button" data-learn-dest="prohibition">TAKE THE PROHIBITION SHOWDOWN →</button></div>
@@ -2721,20 +2778,22 @@ function renderLearn(){
     <article class="learn-section" id="learn-host" data-learn-episode="ep6">
       <div class="learn-section-head"><div><div class="kicker">EPISODE 06 • SCREEN TEST</div><h2>Camera Up. Host the Room.</h2><p>This is not professional development. It is the moment production sees whether the facts can become a relaxed, accurate experience in your own voice.</p></div>${learnAudioButton("PLAY EPISODE 06",hostTrack)}</div>
       <div class="episode-cold-open"><strong>COLD OPEN</strong><p>The guests have arrived. Nobody wants a lecture, nobody needs prior wine knowledge, and your job is not to recite the packet. Your job is to guide the room.</p></div>
-      <div class="learn-grid"><div class="learn-card"><span class="learn-term">OPENING TAKE</span><ol><li>Welcome the group and introduce yourself.</li><li>Say this is a wine experience, not a wine class.</li><li>Preview four wine stops, two bonus stops, history, and stories.</li><li>Remove pressure: no prior knowledge is needed.</li><li>Give the only rule: if you like it, it is good.</li><li>Teach the short tasting method: look, smell, sip, notice the feel.</li></ol>${cameraCheck("Give that opening now, without reading the list back word for word.","Welcome them, preview the walk, lower the pressure, give the one rule, and keep tasting to look-smell-sip-feel.")}</div><div class="learn-card"><span class="learn-term">CLOSING TAKE</span><ol><li>Return to Centennial Olympic Park.</li><li>Ask for everyone's favorite wine.</li><li>Thank guests for trying new things and trusting you.</li><li>Invite a review on Google, TripAdvisor, or the booking platform.</li><li>Land the philosophy: drink what you like, experiment, and do not overthink it.</li></ol>${cameraCheck("Close the walk as if the guests are standing in front of you.","Ask the favorite, thank them, invite the review, and land the relaxed wine philosophy.")}</div><div class="learn-card"><span class="learn-term">PRODUCER NOTE</span><p>The guide packet explicitly permits and encourages notecards because there is a lot of material and venue menus can vary. Study for fluency, but do not treat using a discreet card as failure.</p><div class="learn-story"><strong>CHECK BEFORE CALL TIME:</strong> Review the current menu at every stop so recommendations match what is actually available.</div></div><div class="learn-card"><span class="learn-term">DON'T SAY IT LIKE THIS</span><p>Do not deliver a wall of memorized facts or turn the walk into a wine class.</p><span class="learn-term">SAY IT LIKE YOU</span><p>Tell one connected story, use the room in front of you, and offer the cleanest fact that helps guests enjoy the pour or place.</p><span class="learn-term">SAVE YOURSELF LINE</span><p>“Let me give you the short version,” then use the scene's emergency one-liner and keep the group moving.</p></div></div>
+      <div class="reading-order"><span><b>1</b> Give the opening</span><span><b>2</b> Learn the recovery tools</span><span><b>3</b> Practice one transition</span><span><b>4</b> Give the closing</span></div>
+      <div class="learn-grid learn-flow-stack"><div class="learn-card"><span class="learn-term">1 • OPENING TAKE</span><ol><li>Welcome the group and introduce yourself.</li><li>Say this is a wine experience, not a wine class.</li><li>Preview four wine stops, two bonus stops, history, and stories.</li><li>Remove pressure: no prior knowledge is needed.</li><li>Give the only rule: if you like it, it is good.</li><li>Teach the short tasting method: look, smell, sip, notice the feel.</li></ol>${cameraCheck("Give that opening now, without reading the list back word for word.","Welcome them, preview the walk, lower the pressure, give the one rule, and keep tasting to look-smell-sip-feel.")}</div><div class="learn-card"><span class="learn-term">2 • PRODUCER NOTE</span><p>The guide packet explicitly permits and encourages notecards because there is a lot of material and venue menus can vary. Study for fluency, but do not treat using a discreet card as failure.</p><div class="learn-story"><strong>CHECK BEFORE CALL TIME:</strong> Review the current menu at every stop so recommendations match what is actually available.</div><span class="learn-term">SAVE YOURSELF LINE</span><p>“Let me give you the short version,” then use the scene's emergency one-liner and keep the group moving.</p></div><div class="learn-card"><span class="learn-term">3 • SAY IT LIKE YOU</span><p>Do not deliver a wall of memorized facts or turn the walk into a wine class.</p><p>Tell one connected story, use the room in front of you, and offer the cleanest fact that helps guests enjoy the pour or place.</p></div><div class="learn-card"><span class="learn-term">4 • CLOSING TAKE</span><ol><li>Return to Centennial Olympic Park.</li><li>Ask for everyone's favorite wine.</li><li>Thank guests for trying new things and trusting you.</li><li>Invite a review on Google, TripAdvisor, or the booking platform.</li><li>Land the philosophy: drink what you like, experiment, and do not overthink it.</li></ol>${cameraCheck("Close the walk as if the guests are standing in front of you.","Ask the favorite, thank them, invite the review, and land the relaxed wine philosophy.")}</div></div>
       <div class="host-take"><strong>TRANSITION TEST:</strong> Start at the Olympic Rings. Move the group through the mural, Sun Dial, Lumen, Red Phone Booth, Atalian, White Oak, and home to the park. At each move, say why the next scene makes sense.</div>
       ${cameraCheck("Give your opening, one route transition, one wine Host Take, and your closing. No notes until the end.","If the take is accurate, conversational, and keeps the group oriented, production has what it needs. Use Mic Check next to grade the delivery separately from factual recall.")}
       ${episodeOutro("ep6","The pre-season is over. The cast is known, the locations are locked, and the receipts are in. The next episode removes the notes.")}
     </article>
     <section class="season-finale" id="learnSeasonFinale"><div class="kicker">PRE-SEASON FINALE</div><h3>The learning part was the show. Now roll the cameras.</h3><p id="learnFinaleCopy"></p><div class="season-finale-actions"><button class="btn primary" type="button" data-learn-dest="cast">MEET THE WINE CAST →</button><button class="btn" type="button" data-learn-dest="rumors">RECEIPTS OR RUMORS →</button><button class="btn" type="button" data-learn-dest="confessional">CONFESSIONAL BOOTH →</button><button class="btn" type="button" data-learn-dest="rapid">RAPID POUR →</button><button class="btn" type="button" data-learn-dest="route">ROUTE RUN →</button><button class="btn" type="button" data-learn-dest="mic">MIC CHECK →</button><button class="btn" type="button" data-learn-dest="weak">THE REUNION →</button></div></section>`;
-  document.querySelectorAll("[data-learn-jump]").forEach(b=>b.onclick=()=>document.getElementById(b.dataset.learnJump)?.scrollIntoView({behavior:"auto",block:"start"}));
+  document.querySelectorAll("[data-learn-jump]").forEach((b,i)=>b.onclick=()=>showLearnEpisode(LEARN_EPISODE_IDS[i],true));
   course.querySelectorAll("[data-learn-audio]").forEach(b=>b.addEventListener("click",()=>speakQueue(learnAudioTracks[Number(b.dataset.learnAudio)]||[])));
   course.querySelectorAll("[data-complete-episode]").forEach(btn=>btn.addEventListener("click",()=>{
     const id=btn.dataset.completeEpisode;state.learnEpisodes=state.learnEpisodes||{};state.learnEpisodes[id]=true;markStudyDay();saveState();updateLearnProgress();renderSmartNext();
-    const next=LEARN_EPISODE_IDS.indexOf(id)+1;if(next<LEARN_EPISODE_IDS.length)document.querySelector(`[data-learn-episode="${LEARN_EPISODE_IDS[next]}"]`)?.scrollIntoView({behavior:"smooth",block:"start"});
+    const next=LEARN_EPISODE_IDS.indexOf(id)+1;if(next<LEARN_EPISODE_IDS.length)showLearnEpisode(LEARN_EPISODE_IDS[next],true);else showLearnEpisode("ep6",false);
   }));
   course.querySelectorAll("[data-learn-dest]").forEach(btn=>btn.addEventListener("click",()=>nav(btn.dataset.learnDest)));
   updateLearnProgress();
+  showLearnEpisode(activeLearnEpisode||defaultLearnEpisode(),false);
 }
 
 /* ----- visuals ----- */
