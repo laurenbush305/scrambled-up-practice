@@ -1,4 +1,4 @@
-const CACHE="host-run-story-first-v16";
+const CACHE="host-run-watch-toggle-v17";
 const CORE=[
   "./","./index.html","./manifest.json","./icon.svg",
   "./assets/route-map.jpg","./assets/olympic-rings.jpg","./assets/freedom-fighters-mural.jpg",

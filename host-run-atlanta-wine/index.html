@@ -1034,8 +1034,12 @@ body{padding-bottom:76px}
 .camera-check[open] summary{border-bottom:1px solid rgba(255,215,107,.16)}.camera-answer{padding:14px 16px;color:#F5EAF6;line-height:1.55}
 .episode-outro{display:grid;grid-template-columns:1fr auto;gap:16px;align-items:center;margin-top:18px;padding:17px 18px;border-radius:17px;border:1px solid rgba(156,225,255,.22);background:linear-gradient(100deg,rgba(94,188,255,.08),rgba(228,46,132,.08))}
 .episode-outro strong{display:block;color:#9CE1FF;font-size:10px;letter-spacing:.13em;margin-bottom:5px}.episode-outro p{margin:0;color:#E9D8EE;line-height:1.5}
+.episode-outro-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}.episode-outro-actions .btn{justify-content:center;text-align:center}
+.completion-help{display:block;margin-top:8px;color:#CDBDD2;font-size:13px;line-height:1.45}
 .episode-complete{border-color:#A5F2C2!important;background:rgba(165,242,194,.10)!important;color:#F3FFF8!important}.learn-section.is-watched{border-color:rgba(165,242,194,.38);box-shadow:inset 0 0 0 1px rgba(165,242,194,.08)}
 .episode-status{display:inline-flex;margin-left:8px;padding:4px 7px;border-radius:999px;border:1px solid rgba(165,242,194,.28);color:#A5F2C2;font-size:9px;font-weight:950;letter-spacing:.08em}
+.episode-watch-banner{margin:0 0 14px;padding:11px 14px;border-radius:13px;border:1px solid rgba(255,224,119,.24);background:#16061F;color:#FFE37B;font-size:13px;font-weight:900;letter-spacing:.04em}
+.episode-watch-banner.is-watched{border-color:rgba(165,242,194,.5);background:rgba(165,242,194,.10);color:#BFF7D3}
 .season-finale{margin:24px 0;padding:24px;border-radius:22px;border:1px solid rgba(255,215,107,.25);background:radial-gradient(circle at 85% 10%,rgba(255,217,121,.14),transparent 32%),linear-gradient(135deg,rgba(228,46,132,.13),rgba(40,12,52,.76))}
 .season-finale h3{font-size:28px;margin:5px 0 8px}.season-finale p{color:#E9D8EE;line-height:1.6}.season-finale-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
 .location-card-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.location-card{border:1px solid rgba(255,215,107,.16);border-radius:18px;background:rgba(255,255,255,.025);overflow:hidden}.location-card summary{padding:15px 17px;cursor:pointer;font-weight:950;font-size:17px;color:#FFF8FF;background:rgba(255,255,255,.025)}.location-card-body{padding:17px}.location-card-body p,.location-card-body li{color:#E9D8EE;line-height:1.58}.location-card-body ul{padding-left:20px}
@@ -1178,7 +1182,7 @@ body{padding-bottom:76px}
   .guided-banner{align-items:flex-start;flex-direction:column}
   .learn-grid{grid-template-columns:1fr}.learn-section-head{align-items:flex-start;flex-direction:column}.learn-audio{width:100%}
   .delivery-ladder,.route-bridge{grid-template-columns:1fr}
-  .location-card-grid{grid-template-columns:1fr}.season-progress{grid-template-columns:1fr}.episode-outro{grid-template-columns:1fr}
+  .location-card-grid{grid-template-columns:1fr}.season-progress{grid-template-columns:1fr}.episode-outro{grid-template-columns:1fr}.episode-outro-actions{justify-content:stretch}.episode-outro-actions .btn{flex:1 1 180px}
 }
 
 @media(max-width:430px){
@@ -1286,13 +1290,16 @@ body{padding-bottom:0}
 .home-path strong{display:block;color:#FFD979;font-size:10px;letter-spacing:.13em;margin-bottom:8px}.home-path h3{margin:0 0 8px;font-size:21px}.home-path p{color:#DCC7E1;font-size:13px;line-height:1.5}.home-path .btn{width:100%;margin-top:10px}
 .learn-reader{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;margin:0 0 16px;padding:13px 14px;border:1px solid rgba(255,215,107,.18);border-radius:16px;background:rgba(25,8,31,.94);scroll-margin-top:100px}
 .learn-reader-copy{text-align:center;min-width:0}.learn-reader-copy strong{display:block;color:#FFD979;font-size:10px;letter-spacing:.14em}.learn-reader-copy span{display:block;margin-top:3px;color:#FFF8FF;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.learn-reader-status{display:inline-flex!important;width:max-content;max-width:100%;margin:7px auto 0!important;padding:4px 8px;border-radius:999px;border:1px solid rgba(255,224,119,.3);color:#FFE37B!important;font-size:10px!important;letter-spacing:.08em;line-height:1.2;white-space:normal!important}
+.learn-reader-status.is-watched{border-color:rgba(165,242,194,.52);background:rgba(165,242,194,.10);color:#BFF7D3!important}
 .learn-reader button{min-width:92px;text-align:center;justify-content:center}
 .learn-reader button:disabled{opacity:.34;cursor:not-allowed;transform:none;box-shadow:none}
 .learn-hero{padding:26px;margin-bottom:12px}.learn-hero h2{font-size:clamp(34px,4vw,52px)}.learn-hero p{font-size:15px;line-height:1.5;margin-bottom:12px}.learn-hero .learn-rule{font-size:13px;padding:11px 13px}.learn-hero .season-progress{margin:11px 0 4px}.learn-hero .course-counts{margin-top:10px}
 .learn-jumps{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:7px}
 .learn-jumps button{border-radius:13px;text-align:left;line-height:1.35;min-height:64px}
 .learn-jumps button.active{border-color:#FFD979;background:linear-gradient(135deg,rgba(255,217,121,.16),rgba(228,46,132,.13));box-shadow:inset 0 0 0 1px rgba(255,217,121,.08)}
-.learn-jumps button.is-complete:after{content:" • WATCHED";color:#A5F2C2;font-size:8px}
+.learn-jumps button.is-complete{border:2px solid #7FE5A6;background:linear-gradient(135deg,rgba(65,171,108,.20),rgba(21,7,28,.92));box-shadow:inset 0 0 0 1px rgba(165,242,194,.10)}
+.learn-jumps button.is-complete:after{content:"✓ WATCHED";display:block;width:max-content;margin-top:7px;padding:3px 6px;border-radius:999px;background:#174E2D;color:#C9F9D9;font-size:10px;font-weight:950;letter-spacing:.08em}
 .learn-section{display:none;margin-top:0}.learn-section.is-current{display:block;animation:tvIn .22s ease}
 .learn-linear-grid{grid-template-columns:minmax(0,820px);justify-content:center}
 .concept-card{padding:0;overflow:hidden}.concept-card>summary{padding:16px 18px;cursor:pointer;list-style:none;background:rgba(255,255,255,.025)}
@@ -1547,7 +1554,7 @@ body:before{opacity:.38}
         <button type="button" data-learn-jump="learn-prohibition">05 The Prohibition Scandal</button>
         <button type="button" data-learn-jump="learn-host">06 Screen Test</button>
       </nav>
-      <div class="learn-reader" id="learnReader"><button class="btn small ghost" id="learnPrev" type="button">← PREVIOUS</button><div class="learn-reader-copy"><strong id="learnReaderStep">EPISODE 1 OF 6</strong><span id="learnReaderTitle">Meet the Vocabulary</span></div><button class="btn small" id="learnNext" type="button">NEXT →</button></div>
+      <div class="learn-reader" id="learnReader"><button class="btn small ghost" id="learnPrev" type="button">← PREVIOUS</button><div class="learn-reader-copy"><strong id="learnReaderStep">EPISODE 1 OF 6</strong><span id="learnReaderTitle">How Wine Makes Sense</span><span class="learn-reader-status" id="learnReaderStatus">NOT YET WATCHED</span></div><button class="btn small" id="learnNext" type="button">NEXT →</button></div>
       <div id="learnCourse"></div>
     </section>
 
@@ -2855,8 +2862,9 @@ function showLearnEpisode(id,scroll=false){
   document.querySelectorAll("[data-learn-jump]").forEach(btn=>{
     const current=btn.dataset.learnJump===LEARN_SECTION_IDS[index];btn.classList.toggle("active",current);btn.setAttribute("aria-current",current?"step":"false");
   });
-  const step=document.getElementById("learnReaderStep"),title=document.getElementById("learnReaderTitle"),prev=document.getElementById("learnPrev"),next=document.getElementById("learnNext");
+  const step=document.getElementById("learnReaderStep"),title=document.getElementById("learnReaderTitle"),status=document.getElementById("learnReaderStatus"),prev=document.getElementById("learnPrev"),next=document.getElementById("learnNext");
   if(step)step.textContent=`EPISODE ${index+1} OF 6`;if(title)title.textContent=LEARN_EPISODE_TITLES[index];
+  if(status){const watched=!!state.learnEpisodes?.[id];status.textContent=watched?"✓ WATCHED • SAVED":"NOT YET WATCHED";status.classList.toggle("is-watched",watched)}
   if(prev){prev.disabled=index===0;prev.onclick=()=>showLearnEpisode(LEARN_EPISODE_IDS[index-1],true)}
   if(next){next.disabled=index===5;next.onclick=()=>showLearnEpisode(LEARN_EPISODE_IDS[index+1],true)}
   document.getElementById("learnSeasonFinale")?.classList.toggle("is-ready",learnEpisodeCount()===6&&id==="ep6");
@@ -2868,11 +2876,16 @@ function updateLearnProgress(){
   if(label)label.textContent=`PRE-SEASON: ${count} OF 6 EPISODES WATCHED`;
   if(bar)bar.style.width=pct+"%";
   if(copy)copy.textContent=count===6?"Premiere complete. Production wants a take without notes.":count?`${pct}% complete • watched is not the same as mastered.`:"The premiere is waiting.";
-  document.querySelectorAll("[data-learn-episode]").forEach(el=>el.classList.toggle("is-watched",!!state.learnEpisodes?.[el.dataset.learnEpisode]));
-  document.querySelectorAll("[data-complete-episode]").forEach(btn=>{
-    const done=!!state.learnEpisodes?.[btn.dataset.completeEpisode];btn.classList.toggle("episode-complete",done);btn.textContent=done?"✓ EPISODE WATCHED":btn.dataset.completeEpisode==="ep6"?"MARK WATCHED + ROLL CAMERAS →":"MARK WATCHED + CONTINUE →";
+  document.querySelectorAll("[data-learn-episode]").forEach(el=>{
+    const done=!!state.learnEpisodes?.[el.dataset.learnEpisode];el.classList.toggle("is-watched",done);
+    let banner=el.querySelector(".episode-watch-banner");if(!banner){banner=document.createElement("div");banner.className="episode-watch-banner";banner.setAttribute("aria-live","polite");el.prepend(banner)}
+    banner.classList.toggle("is-watched",done);banner.textContent=done?"✓ WATCHED • Progress saved. Use the button at the end to unmark this episode.":"NOT YET WATCHED • Browsing this episode does not change your progress.";
   });
-  document.querySelectorAll("[data-learn-jump]").forEach((btn,i)=>btn.classList.toggle("is-complete",!!state.learnEpisodes?.[LEARN_EPISODE_IDS[i]]));
+  document.querySelectorAll("[data-complete-episode]").forEach(btn=>{
+    const done=!!state.learnEpisodes?.[btn.dataset.completeEpisode];btn.classList.toggle("episode-complete",done);btn.setAttribute("aria-pressed",String(done));btn.textContent=done?"✓ WATCHED — UNMARK":"MARK EPISODE WATCHED";
+  });
+  document.querySelectorAll("[data-learn-jump]").forEach((btn,i)=>{const done=!!state.learnEpisodes?.[LEARN_EPISODE_IDS[i]];btn.classList.toggle("is-complete",done);btn.setAttribute("aria-label",`${LEARN_EPISODE_TITLES[i]} • ${done?"watched":"not yet watched"}`)});
+  const activeStatus=document.getElementById("learnReaderStatus"),activeDone=!!state.learnEpisodes?.[activeLearnEpisode];if(activeStatus){activeStatus.textContent=activeDone?"✓ WATCHED • SAVED":"NOT YET WATCHED";activeStatus.classList.toggle("is-watched",activeDone)}
   const finale=document.getElementById("learnFinaleCopy");
   if(finale)finale.textContent=count===6?"You know the cast. You know the locations. You have the receipts. Now production wants to know whether you can do it without the notes.":`Finish the opening season to unlock the clean handoff into practice. ${6-count} episode${6-count===1?"":"s"} left.`;
   document.getElementById("learnSeasonFinale")?.classList.toggle("is-ready",count===6&&activeLearnEpisode==="ep6");
@@ -2880,7 +2893,7 @@ function updateLearnProgress(){
 function learnAudioButton(label,index){return `<button class="audio-btn learn-audio" type="button" data-learn-audio="${index}">▶ ${label}</button>`}
 function deliveryLadder(d){return `<div class="delivery-ladder"><div class="delivery-step"><strong>ONE-LINE HOST TAKE</strong><p>${d.one}</p></div><div class="delivery-step"><strong>30-SECOND HOST TAKE</strong><p>${d.thirty}</p></div><div class="delivery-step"><strong>FULL STORY</strong><p>${d.full}</p></div></div>`}
 function cameraCheck(prompt,answer){return `<details class="camera-check"><summary>CAMERA CHECK • ${prompt}</summary><div class="camera-answer"><strong>BENCHMARK:</strong> ${answer}</div></details>`}
-function episodeOutro(id,next){return `<div class="episode-outro"><div><strong>NEXT WEEK ON HOST RUN...</strong><p>${next}</p></div><button class="btn small" type="button" data-complete-episode="${id}">MARK WATCHED + CONTINUE →</button></div>`}
+function episodeOutro(id,next){const index=LEARN_EPISODE_IDS.indexOf(id),nextId=index<LEARN_EPISODE_IDS.length-1?LEARN_EPISODE_IDS[index+1]:null;return `<div class="episode-outro"><div><strong>NEXT WEEK ON HOST RUN...</strong><p>${next}</p><span class="completion-help">Viewing or flipping through an episode never marks it watched. Progress changes only when you use the watched button.</span></div><div class="episode-outro-actions"><button class="btn small" type="button" data-complete-episode="${id}" aria-pressed="false">MARK EPISODE WATCHED</button>${nextId?`<button class="btn small primary" type="button" data-next-learn="${nextId}">NEXT EPISODE →</button>`:""}</div></div>`}
 function renderLearn(){
   const course=document.getElementById("learnCourse");if(!course)return;
   learnAudioTracks=[];
@@ -2956,9 +2969,11 @@ function renderLearn(){
   document.querySelectorAll("[data-learn-jump]").forEach((b,i)=>b.onclick=()=>showLearnEpisode(LEARN_EPISODE_IDS[i],true));
   course.querySelectorAll("[data-learn-audio]").forEach(b=>b.addEventListener("click",()=>speakQueue(learnAudioTracks[Number(b.dataset.learnAudio)]||[])));
   course.querySelectorAll("[data-complete-episode]").forEach(btn=>btn.addEventListener("click",()=>{
-    const id=btn.dataset.completeEpisode;state.learnEpisodes=state.learnEpisodes||{};state.learnEpisodes[id]=true;markStudyDay();saveState();updateLearnProgress();renderSmartNext();
-    const next=LEARN_EPISODE_IDS.indexOf(id)+1;if(next<LEARN_EPISODE_IDS.length)showLearnEpisode(LEARN_EPISODE_IDS[next],true);else showLearnEpisode("ep6",false);
+    const id=btn.dataset.completeEpisode;state.learnEpisodes=state.learnEpisodes||{};const wasWatched=!!state.learnEpisodes[id];
+    if(wasWatched)delete state.learnEpisodes[id];else{state.learnEpisodes[id]=true;markStudyDay()}
+    saveState();updateLearnProgress();renderSmartNext();btn.focus();
   }));
+  course.querySelectorAll("[data-next-learn]").forEach(btn=>btn.addEventListener("click",()=>showLearnEpisode(btn.dataset.nextLearn,true)));
   course.querySelectorAll("[data-learn-dest]").forEach(btn=>btn.addEventListener("click",()=>nav(btn.dataset.learnDest)));
   updateLearnProgress();
   showLearnEpisode(activeLearnEpisode||defaultLearnEpisode(),false);
