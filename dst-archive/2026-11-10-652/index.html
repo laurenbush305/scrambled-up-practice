@@ -86,7 +86,7 @@ async function fetchCanonicalScore(){
  if(!r.ok)throw Error("GitHub HTTP "+r.status);
  const file=await r.json();
  if(!file.content||file.encoding!=="base64")throw Error("Invalid GitHub file response");
- const bytes=Uint8Array.from(atob(file.content.replace(/\\s/g,"")),c=>c.charCodeAt(0));
+ const bytes=Uint8Array.from(atob(file.content.replace(/\s/g,"")),c=>c.charCodeAt(0));
  return JSON.parse(new TextDecoder("utf-8").decode(bytes));
 }
 async function sync(force=false){
