@@ -37,10 +37,10 @@ h3{font-size:21px;letter-spacing:-.025em}
 .lede{font-size:18px;line-height:1.55;color:#3f3934;max-width:700px}
 .hero-grid{display:grid;grid-template-columns:1.3fr .7fr;gap:22px;align-items:end}
 .route-art{border:1px solid var(--ink);background:var(--paper2);padding:20px;box-shadow:var(--shadow)}
-.skyline{height:110px;position:relative;overflow:hidden;border-bottom:1px solid var(--ink);margin-bottom:16px;background:linear-gradient(180deg,#1A0B12 0%,#09090D 78%)}
-.skyline:before,.skyline:after{content:"";position:absolute;bottom:0;background:var(--ink)}
-.skyline:before{left:7%;width:7%;height:45%;box-shadow:74px -18px 0 -10px var(--ink),145px -2px 0 -2px var(--ink),215px -37px 0 -12px var(--ink),280px -6px 0 -2px var(--ink),350px -27px 0 -10px var(--ink),435px -3px 0 -4px var(--ink),520px -22px 0 -10px var(--ink),600px -8px 0 -4px var(--ink)}
-.skyline:after{left:51%;width:5px;height:82%;transform:translateX(-50%);box-shadow:0 -6px 0 0 var(--ink)}
+.home-route-map{display:block;margin-bottom:18px;color:inherit;text-decoration:none}
+.home-route-map img{display:block;width:100%;height:auto;aspect-ratio:975/388;object-fit:contain;border:1px solid var(--ink);background:#fff}
+.home-route-map span{display:flex;justify-content:space-between;gap:12px;padding-top:9px;font-size:12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase}
+.home-route-map:focus-visible{outline:3px solid #9CE1FF;outline-offset:4px}
 .route-line{display:grid;grid-template-columns:auto 1fr;gap:10px}
 .route-stop{display:contents}
 .route-dot{width:28px;height:28px;border-radius:50%;border:1px solid var(--ink);display:grid;place-items:center;background:var(--paper2);font-size:11px;font-weight:900;position:relative}
@@ -319,13 +319,7 @@ h3{font-family:"Arial Black",Arial,sans-serif;letter-spacing:-.02em}
   box-shadow:0 18px 55px rgba(0,0,0,.32)
 }
 .route-art{border-top:2px solid #BFC0C8}
-.skyline{
-  background:
-    radial-gradient(circle at 50% 0%,rgba(197,25,74,.3),transparent 50%),
-    linear-gradient(180deg,#15151D,#09090D);
-  border-color:#45454E;
-}
-.skyline:before,.skyline:after{background:#D6D6DC}
+.home-route-map img{border-color:#45454E}
 .route-dot{
   background:#0B0B0F;border:1px solid #AEB0B8;color:#F7F7FA;
   box-shadow:0 0 0 5px rgba(138,12,50,.22)
@@ -701,14 +695,7 @@ h2,h3,.cast-name,.rumor-claim,.pronounce-term,.conf-question{color:#FFF7FE}
 .route-art,.question-card,.mic-card,.rumor-card,.pronounce-card,.conf-card,.cast-card{
   border-top:2px solid rgba(255,223,136,.7);
 }
-.skyline{
-  background:
-    radial-gradient(circle at 48% 4%, rgba(255,214,83,.18), transparent 32%),
-    linear-gradient(180deg,rgba(73,20,84,.95),rgba(19,6,24,.98));
-}
-.skyline:before,.skyline:after{
-  background:#F7E7B5;
-}
+.home-route-map span{color:#F7E7B5}
 .route-dot{
   background:linear-gradient(180deg,#34113F,#17091C);
   border:1px solid rgba(255,231,167,.62);
@@ -1322,7 +1309,9 @@ body{padding-bottom:0}
 }
 @media(max-width:760px){
   .menu{position:fixed;left:10px;right:10px;top:70px;width:auto;max-height:78vh}.menu.show{grid-template-columns:1fr}
-  #view-home .route-art{display:none}
+  #view-home .route-art{display:block;margin-top:18px;padding:12px}
+  #view-home .route-line{display:none}
+  #view-home .home-route-map{margin:0}
   .home-path-grid{grid-template-columns:1fr}.home-path{min-height:0}
   .home-paths-head{display:block}.home-paths-head p{margin-top:6px}
   .learn-reader{grid-template-columns:1fr 1fr}.learn-reader-copy{grid-column:1/-1;grid-row:1}.learn-reader button{grid-row:2}
@@ -1424,7 +1413,10 @@ body{padding-bottom:0}
           </div>
         </div>
         <div class="route-art">
-          <div class="skyline" aria-label="Stylized Atlanta skyline"></div>
+          <a class="home-route-map" href="assets/route-map.jpg" target="_blank" rel="noopener" aria-label="Open the full-size Atlanta wine walk route map">
+            <img src="assets/route-map.jpg" width="975" height="388" alt="Atlanta wine walk map showing the 1.2-mile route between Centennial Olympic Park and the tour stops" loading="eager">
+            <span><b>Actual tour map • 1.2 miles</b><b>Open full size ↗</b></span>
+          </a>
           <div class="route-line" id="homeRoute"></div>
         </div>
       </div>

@@ -1,4 +1,4 @@
-const CACHE="host-run-readable-type-v13";
+const CACHE="host-run-route-map-v14";
 const CORE=[
   "./","./index.html","./manifest.json","./icon.svg",
   "./assets/route-map.jpg","./assets/olympic-rings.jpg","./assets/freedom-fighters-mural.jpg",
