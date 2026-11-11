@@ -1,7 +1,7 @@
 {
   "serverId": "pub652-20261110",
-  "revision": 3,
-  "updatedAt": "2026-11-11T00:16:08.732Z",
+  "revision": 4,
+  "updatedAt": "2026-11-11T00:16:11.038Z",
   "teams": [
     {
       "name": "She's From Epiphany",
@@ -12,6 +12,11 @@
       "name": "Waiting For Esther",
       "joker": null,
       "r1": 5
+    },
+    {
+      "name": "Smart Bunnies",
+      "joker": null,
+      "r1": 6
     }
   ]
 }
