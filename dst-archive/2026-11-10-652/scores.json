@@ -1,7 +1,7 @@
 {
   "serverId": "pub652-20261110",
-  "revision": 17,
-  "updatedAt": "2026-11-11T01:06:58.435Z",
+  "revision": 18,
+  "updatedAt": "2026-11-11T01:11:54.994Z",
   "teams": [
     {
       "name": "She's From Epiphany",
@@ -30,7 +30,7 @@
     {
       "name": "CC",
       "joker": "R2",
-      "r1": 4,
+      "r1": 5,
       "r2": 5,
       "r3": 4,
       "r4": 7
