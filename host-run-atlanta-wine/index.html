@@ -1021,6 +1021,21 @@ body{padding-bottom:76px}
 .learn-story{padding:13px 15px;margin:10px 0;border-left:3px solid #FF79B6;background:rgba(255,77,156,.07);color:#F7EAF8;line-height:1.58}
 .learn-route-order{font-size:18px;line-height:1.65;color:#FFF5C4;font-weight:800}
 .learn-audio{flex:0 0 auto}
+.course-counts{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.course-counts span{padding:7px 10px;border-radius:999px;border:1px solid rgba(255,215,107,.22);background:rgba(8,5,15,.32);color:#FFF5C4;font-size:11px;font-weight:950;letter-spacing:.04em}
+.learning-layer{margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,215,107,.12)}
+.learning-layer p{margin:6px 0}.layer-label{display:inline-block;margin-right:6px;color:#9CE1FF;font-size:10px;font-weight:950;letter-spacing:.1em;text-transform:uppercase}
+.memory-hook{padding:12px 14px;margin:10px 0;border-left:3px solid #FF79B6;background:rgba(255,77,156,.07);color:#FFF8FF;line-height:1.55}
+.host-take{padding:12px 14px;margin:10px 0;border-left:3px solid #9CE1FF;background:rgba(94,188,255,.07);color:#F4F7FF;line-height:1.55}
+.recall-challenge{padding:14px;margin:12px 0;border:1px dashed rgba(255,215,107,.35);border-radius:14px;background:rgba(255,217,121,.045);color:#FFF5C4;line-height:1.55}
+.previously{padding:16px;margin:14px 0;border-radius:16px;background:linear-gradient(100deg,rgba(228,46,132,.15),rgba(104,47,118,.18));border:1px solid rgba(255,121,182,.25);line-height:1.55}
+.previously strong{display:block;color:#FFB7D8;font-size:11px;letter-spacing:.11em;margin-bottom:6px}
+.delivery-ladder{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:14px 0}
+.delivery-step{padding:14px;border-radius:15px;border:1px solid rgba(156,225,255,.16);background:rgba(48,92,115,.11)}
+.delivery-step strong{display:block;color:#9CE1FF;font-size:10px;letter-spacing:.1em;margin-bottom:7px}.delivery-step p{margin:0!important}
+.route-bridge{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
+.route-bridge div{padding:12px;border-radius:14px;background:rgba(255,255,255,.035);border:1px solid rgba(255,215,107,.12);line-height:1.5}
+.producer-flag{padding:10px 12px;margin:10px 0;border-radius:12px;background:rgba(255,217,121,.07);color:#FFF5C4;font-size:13px;line-height:1.5}
 
 .visual-map-card{
   display:grid;grid-template-columns:.8fr 1.2fr;gap:22px;align-items:center;
@@ -1158,6 +1173,7 @@ body{padding-bottom:76px}
   .readiness-grid{grid-template-columns:1fr 1fr}
   .guided-banner{align-items:flex-start;flex-direction:column}
   .learn-grid{grid-template-columns:1fr}.learn-section-head{align-items:flex-start;flex-direction:column}.learn-audio{width:100%}
+  .delivery-ladder,.route-bridge{grid-template-columns:1fr}
 }
 
 @media(max-width:430px){
@@ -1375,10 +1391,11 @@ body{padding-bottom:0}
         <h2>The actual course before the games.</h2>
         <p>This is the teaching layer. It explains the vocabulary, history, route, venues, wines, Prohibition material, and host flow in full sentences before asking you to recall anything. Read it in order once, then return whenever a drill exposes a weak spot.</p>
         <div class="learn-rule"><strong>How to use this:</strong> read for understanding first. Then say the yellow anchor lines out loud. Only after that should you move into Rapid Pour, the Reunion, or a full Route Run.</div>
+        <div class="course-counts" id="courseCountSummary" aria-live="polite"></div>
       </div>
       <nav class="learn-jumps" aria-label="Learn the packets sections">
         <button type="button" data-learn-jump="learn-basics">1. Wine foundations</button>
-        <button type="button" data-learn-jump="learn-atlanta">2. Atlanta history</button>
+        <button type="button" data-learn-jump="learn-atlanta">2. Georgia wine history</button>
         <button type="button" data-learn-jump="learn-route">3. Route + venues</button>
         <button type="button" data-learn-jump="learn-wines">4. Six wines</button>
         <button type="button" data-learn-jump="learn-prohibition">5. Prohibition</button>
@@ -1626,7 +1643,7 @@ body{padding-bottom:0}
       <div class="panel">
         <h3>Source coverage</h3>
         <div class="source-coverage" id="sourceCoverage"></div>
-        <p class="control-copy">The route, venue facts, Atlanta history, Prohibition material, wine stories, and phonetics are locked to the two supplied training PDFs. Local copies of the packet visuals keep the study cards working offline.</p>
+        <p class="control-copy">The route, venue facts, Georgia wine history, Prohibition material, wine stories, and phonetics are locked to the two supplied training PDFs. Local copies of the packet visuals keep the study cards working offline.</p>
       </div>
       <div class="panel">
         <h3>What the progress controls do</h3>
@@ -1682,7 +1699,7 @@ const LEARN_WINE_STORIES={
   ],
   chardonnay:[
     ["One grape, many edits","Chardonnay began in Burgundy and is the genetic child of Pinot Noir and Gouais Blanc. It is relatively neutral aromatically, so climate and winemaking choices shape it dramatically."],
-    ["What Chablis actually is","Chablis is Chardonnay from northern Burgundy, not another grape. Kimmeridgian limestone, containing fossilized marine material, is associated with its lean, high-acid, mineral style and notes such as lemon, green apple, wet stone, and oyster shell."],
+    ["What Chablis actually is","Chablis is Chardonnay from northern Burgundy, not another grape. The packet describes Kimmeridgian limestone packed with fossilized oyster shells and connects that geology to Chablis’s lean, high-acid, mineral style and notes such as lemon, green apple, wet stone, and oyster shell."],
     ["Butter bombs and the ABC backlash","Oak contributes vanilla and toast. Malolactic fermentation converts sharper malic acid into softer lactic acid, creating buttery texture. Rich California examples dominated the 1980s and 1990s until drinkers pushed back with the phrase Anything But Chardonnay."],
     ["Climate, monks, and survival","Cool climates emphasize lemon, green apple, and acidity; warm climates bring pineapple, mango, ripe peach, and fuller body. Medieval Burgundy monks mapped soil, sun, and drainage in tiny vineyard plots. The French Revolution broke up and sometimes uprooted historic vineyards, but Chardonnay survived and later spread worldwide."],
     ["Champagne and food","Blanc de Blancs Champagne is 100% Chardonnay. Lean Chardonnay suits oysters and seafood; richer examples fit roast chicken, lobster, cream sauces, pasta, and soft cheese."]
@@ -1722,11 +1739,11 @@ const LEARN_PROHIBITION=[
 ];
 
 const LEARN_BASICS=[
-  ["Acidity - the backbone","Acidity is the crisp, refreshing, mouth-watering sensation in wine. Higher acidity usually feels lighter, works well with food, and encourages another sip. Lower acidity feels softer, rounder, and sometimes heavier.","Think lemon water rather than sweetness."],
+  ["Acidity - the backbone","Acidity is the crisp, refreshing, mouth-watering sensation in wine. Higher acidity feels lighter, works well with food, and encourages another sip. Lower acidity feels softer, rounder, and sometimes heavier.","Think of the mouth-watering pull of citrus, not a sweetness score."],
   ["Tannins - the drying grip","Tannins are most obvious in red wine. They create the dry, grippy sensation you get from strong tea and come from grape skins, seeds, and oak. More tannin creates bolder structure; less produces a softer feel.","Cabernet is high-tannin; Pinot Noir is usually gentler."],
   ["Body - weight, not color","Body describes how heavy the wine feels: skim milk is a light-body analogy, whole milk is medium, and cream is full. Color does not decide body; whites can be full and reds can be light.","Chablis is lean; rich oaked Chardonnay can feel full."],
-  ["Sweetness - sugar, not fruit","A wine can smell or taste like peaches, strawberries, or mango and still be dry. Sweetness refers to residual sugar, not the presence of fruit flavors.","Fruitiness and sweetness are separate questions."],
-  ["Structure - how the pieces balance","Structure is the relationship among acidity, tannin, alcohol, body, and sweetness. A structured wine feels assembled rather than like one feature is shouting over everything else.","Use the word balance when explaining this to guests."],
+  ["Sweetness - sugar, not fruit","A wine can smell or taste like peaches, strawberries, or mango and still be dry. Sweetness is about sugar, not the presence of fruit flavors.","Fruitiness and sweetness are separate questions."],
+  ["Structure - how the pieces balance","Structure is how acidity, tannins, alcohol, and body balance and hold the wine together.","Use the word balance when explaining this to guests."],
   ["Terroir - the effect of place","Terroir means wine can taste like where it comes from. Soil, climate, elevation, weather, nearby vegetation, and even ocean influence can shape the same grape differently.","Chardonnay from Chablis and warm California can taste radically different."],
   ["Flavor and strange descriptors","Wine aromas come from chemical compounds also found elsewhere. Tar, gasoline, wet stone, forest floor, or cat pee are descriptive comparisons, not literal ingredients. If you smell apple, say apple; if you are unsure, that is valid too.","Specific language helps, but performance is not required."],
   ["How to taste without making it weird","Use four steps: look, smell, sip, and notice how it feels. Pay attention to acidity, tannin, body, sweetness, and the flavors you actually perceive. You do not need aggressive swirling or poetry.","The tour’s only real rule is: if you like it, it is good."]
@@ -1738,8 +1755,87 @@ const LEARN_ATLANTA=[
   ["1907 - the industry is erased","Georgia enacted statewide Prohibition twelve years before the national ban. Vineyards were uprooted, jobs disappeared, and legal wine production collapsed."],
   ["1983 - the restart","The Georgia Farm Winery Act encouraged boutique estate wineries and, as described in the packet, required at least 40 percent of grapes used in farm-winery wines to be grown in Georgia."],
   ["Modern North Georgia and Atlanta","Cool-climate production moved into the Blue Ridge and Appalachian foothills roughly 60 to 80 miles north of Atlanta. Dahlonega Plateau and Upper Hiwassee Highlands became official AVAs, while Atlanta grew into the culinary and retail center of Southern wine culture."],
-  ["AVA and vinifera vocabulary","AVA means American Viticultural Area: a legally recognized grape-growing region. Vitis vinifera refers to the European grape species responsible for most of the world’s familiar wine grapes." ]
+  ["AVA and vinifera vocabulary","The packet uses AVA for American Viticultural Area and names Dahlonega Plateau and Upper Hiwassee Highlands as official AVAs. Vitis vinifera is the common European grapevine species the packet says is responsible for the vast majority of the world’s wine and table grapes." ]
 ];
+
+const FOUNDATION_LAYERS=[
+  {feel:"Crisp, refreshing, and mouth-watering.",analogy:"That mouth-watering citrus sensation.",wine:"Champagne and Sauvignon Blanc are high-acid examples; Chablis is lean and high-acid.",confusion:"Acidity is a sensation, not a sweetness score.",host:"Acidity is the crisp, mouth-watering feeling that makes a wine feel refreshing.",recall:"Explain acidity to a guest without using the word acidic."},
+  {feel:"Dry and grippy in your mouth.",analogy:"The drying grip of strong tea.",wine:"Cabernet is high-tannin; Pinot Noir’s thin skins usually give it softer tannins.",confusion:"Tannin is a physical grip; sweetness is a separate sugar question.",host:"Tannins are that dry, grippy feeling you get from strong tea. They come from skins, seeds, and oak.",recall:"Why does Cabernet feel grippier than Pinot Noir?"},
+  {feel:"The wine’s weight and texture in your mouth.",analogy:"Skim milk feels light, whole milk medium, and cream full.",wine:"Chablis is lean; warm-climate or richly made Chardonnay can feel fuller.",confusion:"Color does not decide body. A white can be full and a red can be light.",host:"Body just means weight: does the wine feel more like skim milk, whole milk, or cream?",recall:"Explain why a pale wine is not automatically light-bodied."},
+  {feel:"The presence of sugar, separate from fruit aromas.",analogy:"Peach or strawberry flavor can show up in a wine that is still dry.",wine:"Dry Rosé can taste like strawberry and watermelon without being sweet.",confusion:"Fruity does not mean sweet.",host:"Sweetness is about sugar. A wine can taste full of fruit and still be completely dry.",recall:"A guest smells peaches. Explain why that does not answer whether the wine is sweet."},
+  {feel:"The sense that acidity, tannins, alcohol, and body fit together.",analogy:"A cast works when no single personality ruins every scene.",wine:"Cabernet’s tannin, full body, and aging potential make its structure easy to notice.",confusion:"Structure is not just one feature; the packet defines it through the balance of acid, tannins, alcohol, and body.",host:"Structure is simply how the wine’s acid, tannin, alcohol, and body hold together.",recall:"Describe a balanced wine without pretending you are scoring an exam."},
+  {feel:"Place showing up in the wine’s style.",analogy:"Same grape, different hometown, different edit.",wine:"Chablis shows a lean, mineral side of Chardonnay; warmer climates produce riper fruit and fuller body.",confusion:"Terroir is not a flavor added to wine; it is the influence of place.",host:"Terroir is the idea that soil, climate, elevation, and weather help a wine taste like where it came from.",recall:"Use Chablis and warm-climate Chardonnay to explain terroir."},
+  {feel:"The aromas and flavors you compare with familiar things.",analogy:"Wet stone, forest floor, grass, tobacco, graphite, and even cat pee are comparisons, not ingredients.",wine:"Chablis can suggest wet stone; Pinot Noir can suggest forest floor; Cabernet can suggest tobacco and graphite.",confusion:"Nobody put a sidewalk, cigar box, or cat in the wine.",host:"Wine descriptors are comparisons to aroma compounds. Say what you actually notice; there is no prize for sounding poetic.",recall:"Explain why a wine can smell like grass or mushroom without containing either one."},
+  {feel:"A low-pressure way to notice what is already in the glass.",analogy:"Look, smell, sip, then notice the feel.",wine:"Use the same four steps with every pour on the route.",confusion:"You do not need aggressive swirling or a perfect answer.",host:"Just look, smell, sip, and notice how it feels. That is enough to start.",recall:"Walk a nervous guest through tasting in one calm breath."}
+];
+
+const WINE_MEMORY={
+  champagne:{tagline:"Survived war, married royalty, and still showed up sparkling under six atmospheres of pressure.",decode:"War points to the crayères; royalty points to Reims and prestige marketing; pressure points to the second bottle fermentation.",previously:"Protected geography. Three primary grapes. Second fermentation traps the bubbles. Dom Pérignon did not invent it. Lees bring the brioche; royalty and marketing brought the celebration image.",one:"Champagne is protected sparkling wine from Champagne, France, with bubbles created by a second fermentation in the bottle.",thirty:"True Champagne comes only from Champagne, France. A second fermentation inside the bottle traps carbon dioxide and creates the bubbles, while time on the lees can add those brioche and toast notes. And Dom Pérignon did not invent it - the packet says he was actually trying to control the bubbles.",question:"Explain the joke: why do war, royalty, and pressure all belong in Champagne’s story?"},
+  sauvblanc:{tagline:"Wild White got a Marlborough microphone and announced citrus, herbs, and opinions to the whole room.",decode:"Wild White is the name meaning; Marlborough is the loud global style; citrus and herbs encode its high acid and recognizable aromatics.",previously:"French roots in Loire and Bordeaux. Marlborough turned up the aroma. High acid, citrus, grass, and herbs make it recognizable. It also co-parented Cabernet Sauvignon.",one:"Sauvignon Blanc is a high-acid, intensely aromatic white known for citrus, herbs, and a very recognizable green character.",thirty:"Sauvignon Blanc is bright, high-acid, and easy to recognize by its citrus and herbaceous aromas. Its classic French homes are the Loire and Bordeaux, while Marlborough, New Zealand made a much louder style globally famous. It is also one of Cabernet Sauvignon’s parents.",question:"Contrast the classic French story with the Marlborough edit, then explain why the wine is easy to recognize."},
+  chardonnay:{tagline:"Chablis went mineral, California went butter, and ABC still could not cancel her.",decode:"Chablis encodes lean northern Burgundy; butter encodes oak and malolactic fermentation; ABC encodes the backlash against rich Chardonnay.",previously:"Born in Burgundy. Chablis is Chardonnay, not another grape. Cool climate gives acid and green fruit; warmer places give riper fruit and body. Oak and malolactic fermentation can produce the butter-bomb edit.",one:"Chardonnay is a shape-shifter: Chablis is lean and mineral, while oak and malolactic fermentation can make other versions richer and buttery.",thirty:"Chardonnay changes dramatically with place and winemaking. In Chablis, northern Burgundy gives us a lean, high-acid, mineral style. Oak can add vanilla and toast, while malolactic fermentation softens the acidity and creates the buttery style that later inspired the ABC backlash.",question:"Explain why Chablis and a buttery Chardonnay can taste so different even though they are the same grape."},
+  rose:{tagline:"Red grapes, short skin contact, pink dress - and she never promised to be sweet.",decode:"Red grapes and skin-contact timing explain the color; the sweetness line protects the crucial dry-versus-fruity distinction.",previously:"Rosé is a method, not a grape. Short skin contact creates the color. Provence made pale, dry Rosé iconic. White Zinfandel explains the sweeter U.S. chapter.",one:"Rosé is usually red grapes with short skin contact, and pink color does not automatically mean sweet.",thirty:"Rosé is a style, not a grape. It is usually made from red grapes whose juice spends only a short time on the skins, which creates the pink color. Provence made pale, dry Rosé globally famous, so remember: fruity aromas and pink color do not tell you the wine is sweet.",question:"Correct a guest who thinks Rosé is a sweet grape, without making them feel corrected."},
+  pinot:{tagline:"Thin-skinned, weather-sensitive, expensive, and still the one everybody falls for.",decode:"Thin skins encode rot, disease, pale color, softer tannins, and the Heartbreak Grape reputation; the romance encodes Burgundy, terroir, and prestige.",previously:"Ancient Burgundy grape. Thin skin, cool-climate sensitivity, pale color, softer tannin, red fruit, earth, and unusually transparent terroir. Sideways gave it a modern sales boost.",one:"Pinot Noir is the Heartbreak Grape: thin-skinned, difficult to grow, light-bodied, and loved for red fruit, earth, and its sense of place.",thirty:"Pinot Noir is called the Heartbreak Grape because its thin skins make it vulnerable to rot, disease, and weather. That also helps explain its pale color, softer tannins, and lighter body. In cool places such as Burgundy, people love it for red fruit, earthy complexity, and how clearly it reflects terroir.",question:"Explain how Pinot Noir’s thin skin connects both to its difficulty and to the way the wine feels."},
+  cab:{tagline:"Cab Franc and Sauvignon Blanc had one child; the child built an empire, won Paris, and brought tannins for everybody.",decode:"The parents encode its natural cross; the empire is global Cabernet; Paris is the 1976 blind tasting; tannins encode its full, structured style.",previously:"Seventeenth-century Bordeaux cross. Left Bank backbone. Thick skins, late ripening, and gravel. Napa shocked France in 1976. Full body, high tannin, dark fruit, oak, age, and steak.",one:"Cabernet Sauvignon is a full-bodied, high-tannin Bordeaux grape whose structure makes it age-worthy and excellent with steak.",thirty:"Cabernet Sauvignon is the natural child of Cabernet Franc and Sauvignon Blanc. It became a Bordeaux heavyweight, and the 1976 Judgment of Paris helped prove Napa Cabernet could compete at the highest level. Its full body and high tannin give it serious structure, aging potential, and a natural partnership with steak.",question:"Give Cabernet the heavyweight edit: parents, Paris, tannin, and steak in one connected story."}
+};
+
+Object.assign(WINE_MEMORY.champagne,{full:"True Champagne comes from Champagne, France and is built mainly from Chardonnay, Pinot Noir, and Pinot Meunier. A second fermentation in the bottle traps carbon dioxide, creating the bubbles and five to six atmospheres of pressure. Dom Pérignon did not invent it; later marketing gave him that role. Chalk crayères protected wine and people during war, Reims connected the local wine to royal ceremony, British demand helped make Brut dominant, and lees aging adds brioche and toast. High acidity makes Champagne useful with seafood, creamy cheese, and even fried food."});
+Object.assign(WINE_MEMORY.sauvblanc,{full:"Sauvignon Blanc means Wild White and has classic roots in the Loire Valley and Bordeaux. Loire examples tend to be crisp and mineral, Bordeaux often blends it with Sémillon, and Marlborough made a louder, intensely aromatic version famous worldwide. High acidity, citrus, grass, herbs, and methoxypyrazine-driven green aromas make it easy to recognize. Stainless steel keeps it sharp; oak can make it rounder. It also co-parented Cabernet Sauvignon with Cabernet Franc and pairs especially well with goat cheese and herb-forward food."});
+Object.assign(WINE_MEMORY.chardonnay,{full:"Chardonnay began in Burgundy and changes dramatically with place and production. Chablis is Chardonnay from northern Burgundy, where Kimmeridgian limestone is associated with a lean, high-acid, mineral style. Warmer climates bring riper fruit and fuller body. Oak contributes vanilla and toast, while malolactic fermentation softens malic acid into a buttery style that helped trigger the ABC backlash. The same grape also makes Blanc de Blancs Champagne; lean versions suit oysters, while richer versions work with roast chicken, lobster, and cream sauces."});
+Object.assign(WINE_MEMORY.rose,{full:"Rosé is a method rather than a grape: red grapes spend a short time on their skins, and timing controls the depth of pink. Provence made pale, dry, mineral Rosé the modern global reference. Dry Rosé can taste like strawberry, watermelon, raspberry, citrus, and herbs without being sweet. White Zinfandel tells a different U.S. story because its fermentation stopped early and left sugar. Sparkling Rosé can take its color from skin contact or added red wine, and the style works with seafood, salads, Mediterranean food, vegetables, and light meats."});
+Object.assign(WINE_MEMORY.pinot,{full:"Pinot Noir is the Heartbreak Grape because thin skins make it vulnerable to rot, disease, and weather. Those skins also help explain its pale color, softer tannins, lighter body, and red-fruit profile. Burgundy is its historic home, and the packet treats Pinot as a transparent voice of terroir; Oregon can show cherry and acidity, while Sonoma can be riper and spicier. Great Pinot can still age for decades, and Sideways gave it a major U.S. sales boost. Its bright fruit and gentle tannin make it useful with duck, salmon, mushrooms, and roast chicken."});
+Object.assign(WINE_MEMORY.cab,{full:"Cabernet Sauvignon emerged in seventeenth-century Bordeaux as a natural cross between Cabernet Franc and Sauvignon Blanc. Thick skins, late ripening, and heat-retaining Left Bank gravel helped build its structured, age-worthy identity. At the 1976 Judgment of Paris, Napa Cabernet beat prestigious French Bordeaux and helped establish American wine globally. Cabernet is dry, full-bodied, and high in tannin, with dark fruit, cedar, tobacco, graphite, and oak- or age-driven complexity. Those tannins bind with fat and protein, which explains the classic steak pairing and its long life in collectors’ cellars."});
+
+DATA.wineCast.forEach(w=>{const m=WINE_MEMORY[w.id];if(!m)return;w.tagline=m.tagline;w.quickLine=m.one;w.tourReady=m.thirty});
+const wineBasicsStage=DATA.routeStages.find(s=>s.id==="winebasics");
+if(wineBasicsStage){
+  wineBasicsStage.anchors=[
+    "Acidity = crisp, refreshing, mouth-watering sensation.",
+    "Tannins = dry, grippy feeling, mostly in reds; from grape skins, seeds, and oak aging.",
+    "Body = how heavy or light wine feels; color does not decide body.",
+    "Sweetness is about sugar, not fruitiness.",
+    "Structure balances acid, tannins, alcohol, and body.",
+    "Terroir is the idea that wine tastes like where it comes from.",
+    "Flavor descriptors are comparisons to familiar aromas, not ingredients.",
+    "Taste simply: look, smell, sip, and notice how it feels."
+  ];
+  wineBasicsStage.prompt="Explain all eight wine-foundation concepts in normal-person language, then give one packet wine example.";
+  wineBasicsStage.emergencyLine="Acid is crisp, tannin is grip, body is weight, sweetness is sugar, structure is balance, terroir is place, flavor is comparison, and tasting is look-smell-sip-feel.";
+}
+const wineCramSection=DATA.cramSections.find(s=>s.kind==="wine");
+if(wineCramSection)wineCramSection.items=DATA.wineCast.map(w=>WINE_MEMORY[w.id].one);
+
+const ROUTE_MEMORY={
+  welcome:{see:"The Olympic Rings in Centennial Olympic Park.",why:"The packet makes this both the meeting point and the return point, so it frames the entire walk.",from:"Open with ease: wine experience, not wine class.",to:"Give the short foundations and Georgia history before the first story stop.",guest:"How long is the walk and where does it end?"},
+  mural:{see:"Yehimi Cambrón’s Freedom Fighters mural at Andrew Young International Boulevard and Williams Street.",why:"It connects historic Civil Rights activism to contemporary social justice and makes Atlanta history feel ongoing.",from:"Move from Georgia wine history into another living Atlanta story.",to:"Give guests a photo moment, then shift from history into the first celebratory pour at Sun Dial.",guest:"Why is a civil-rights mural part of a wine tour?"},
+  sundial:{see:"The cylindrical Westin tower and the tri-level Sun Dial on floors 71 through 73.",why:"The 723-foot, 360-degree skyline creates the route’s most dramatic first-pour setting.",from:"The mural grounds the group in Atlanta; the skyline opens the city up around them.",to:"Carry the celebratory Champagne energy into a more intimate luxury-lounge scene at Lumen.",guest:"Why is Champagne the recommended first pour here?"},
+  lumen:{see:"The Ritz-Carlton’s sixth-floor lobby lounge with amber light, marble, and live-entertainment energy.",why:"It introduces the white-wine contrast: Sauvignon Blanc or Chardonnay/Chablis.",from:"Move from skyline spectacle to a polished, close-up lounge atmosphere.",to:"The next scene uses the Red Phone Booth’s speakeasy look to open Atlanta’s Prohibition story.",guest:"What is the easiest way to compare Sauvignon Blanc with Chardonnay?"},
+  redphone:{see:"The inconspicuous phone-booth entrance; the group stays outside.",why:"The modern speakeasy image is the visual doorway into Georgia’s 1907-1935 dry era.",from:"Leave Lumen’s legal luxury and ask what drinking looked like when the law said no.",to:"Land the relief line - Atlanta is not dry now - and head to Atalian for the next pour and the True/False game.",guest:"What are Georgia’s Prohibition dates compared with the national dates?"},
+  atalian:{see:"A cinematic Italian dining room with velvet, chandeliers, and plush booths.",why:"The packet recommends Rosé or Pinot Noir and places the Prohibition game in this stop’s flow.",from:"Move from the story of hidden drinking into an openly theatrical wine room.",to:"Shift from lighter Rosé or Pinot into the substantial final-stop energy of White Oak and Cabernet.",guest:"Which two wines does the packet recommend at Atalian?"},
+  whiteoak:{see:"Warm white oak, Jack Daniel’s sugar maple, floor-to-ceiling windows, and a two-story glass wine cellar.",why:"The 17,000-square-foot room and 450-plus-label list give the route a strong final-wine destination.",from:"Move from Atalian’s lighter pours to Cabernet’s full-bodied, structured finish.",to:"Return to Centennial Olympic Park, ask for the favorite, thank the group, and close.",guest:"Why does Cabernet work with a richer final-stop meal?"},
+  closing:{see:"The Olympic Rings again.",why:"Returning to the start gives the experience a clean ending.",from:"Collect the night: favorite wine, one thing guests noticed, and the route’s relaxed philosophy.",to:"Thank the group, invite a review, and release them into the rest of the night.",guest:"What should guests remember if they forget every technical term?"}
+};
+
+const DELIVERY_LADDERS={
+  history:{one:"Georgia dreamed of wine in 1732, boomed in the late 1800s, lost the industry to 1907 Prohibition, and restarted it with the 1983 Farm Winery Act.",thirty:"Georgia’s wine story starts with the 1732 Vineyard Colony dream and Savannah’s Trustees Garden. By the late 1800s, the state ranked sixth in U.S. wine production with more than 20,000 vineyard acres. Statewide Prohibition in 1907 wiped that industry out, and the 1983 Georgia Farm Winery Act helped begin the comeback.",full:"In 1732, Georgia hoped to become England’s Vineyard Colony, but frost and disease defeated the early Trustees Garden plantings. Immigrant growers helped drive a late-nineteenth-century boom, including the Hungarian settlement of Budapest in Haralson County. Georgia Prohibition erased legal production in 1907. The 1983 Farm Winery Act encouraged the restart; modern production moved into the North Georgia foothills, including the Dahlonega Plateau and Upper Hiwassee Highlands AVAs, while Atlanta became the culinary and retail hub."},
+  prohibition:{one:"Georgia went dry first and came back late: 1907 to 1935, compared with national Prohibition from 1920 to 1933.",thirty:"Georgia banned alcohol statewide in 1907 and did not repeal the ban until 1935. In between, wealthy drinkers used private locker clubs, working-class Atlantans used blind tigers and near-beer, alcohol came in on jug trains, and the Appalachian foothills became moonshine territory.",full:"Georgia’s dry era ran from 1907 to 1935; the national dates were 1920 to 1933. The packet’s scandal sheet includes private locker clubs, blind-tiger saloons, near-beer, railroad jug trains, moonshine, medicinal whiskey, religious wine, speakeasies, and bootlegging wealth. The Eighteenth Amendment covered producing, selling, and transporting intoxicating liquor rather than the act of drinking itself."},
+  mural:{one:"Yehimi Cambrón’s Freedom Fighters mural connects historic Civil Rights activism with contemporary social justice.",thirty:"This is Yehimi Cambrón’s Freedom Fighters mural. It brings activists and community members together to connect the historic Civil Rights Movement with today’s social-justice work, which is why the packet treats civil rights as a living Atlanta story rather than a closed chapter.",full:"The mural is not directly about wine, but the packet places it here because the walk also tells Atlanta’s story. Yehimi Cambrón features activists and community members, bridging the historic Civil Rights Movement and contemporary social-justice movements. Give guests a moment for photos, then transition into the first wine stop."},
+  sundial:{one:"The Sun Dial is 723 feet up on floors 71 through 73, with a 360-degree skyline and Champagne as the celebratory first pour.",thirty:"Our first pour is at the Sun Dial, a tri-level restaurant, bar, and observation complex at the top of the Westin Peachtree Plaza. We are 723 feet above the city on floors 71 through 73, with a full 360-degree skyline, so Champagne fits the celebratory mood perfectly.",full:"The Sun Dial sits on the uppermost floors of the cylindrical Westin Peachtree Plaza. The packet emphasizes the 723-foot height, floors 71 through 73, and 360-degree panorama. Its wine program is described as polished and celebratory. Recommend Champagne, but preserve the tour’s core rule: guests should order what they enjoy."},
+  whiteoak:{one:"White Oak closes the wine route with a two-story glass cellar, more than 450 labels, and Cabernet Sauvignon.",thirty:"White Oak is our final wine stop. Cindy and Alan LeBlanc opened this 17,000-square-foot space in 2012, and the two-story glass cellar holds a list of more than 450 labels. Cabernet gives the walk a structured, full-bodied final pour.",full:"White Oak combines Southern comfort with Southern European coastal influence. The packet highlights its 17,000 square feet, Jack Daniel’s sugar maple, warm white-oak finishes, floor-to-ceiling windows, and two-story glass wine cellar. Cindy LeBlanc curates more than 450 labels, and Cabernet Sauvignon is the recommended final wine."}
+};
+
+const REUNION_VARIANTS={
+  w2:{prompt:"A guest says tannins just mean the wine is dry. Explain the physical sensation and where it comes from.",benchmark:"Tannins are the dry, grippy strong-tea sensation. The packet says they come from grape skins, seeds, and oak aging.",anchors:["Strong-tea grip","Skins + seeds + oak","Texture"]},
+  w5:{prompt:"A guest smells peaches and assumes the wine is sweet. Correct the idea in one warm sentence.",benchmark:"Fruit aromas do not determine sweetness. The packet says sweetness is about sugar, so a peachy or strawberry-scented wine can still be dry.",anchors:["Fruitiness is not sweetness","Sweetness = sugar","Can still be dry"]},
+  w7:{prompt:"Why might Chablis taste different from Chardonnay grown in a warmer place? Use terroir, not just the grape name.",benchmark:"The packet describes terroir as place shaping wine. Chablis is a lean, high-acid, mineral expression of Chardonnay, while warmer climates can give Chardonnay riper fruit and fuller body.",anchors:["Same grape","Different place","Climate + soil shape style"]},
+  h6:{prompt:"Camera is up: tell the Georgia wine season from the 1732 dream through the modern comeback.",benchmark:DELIVERY_LADDERS.history.thirty,anchors:["1732","Late 1800s","1907","1983","Modern AVAs"]}
+};
+
+DATA.speaking.push(
+  {id:"m17",lane:"Wine Basics",q:"ACIDITY CONFESSIONAL",prompt:"Explain acidity to someone who knows nothing about wine, using a physical sensation and a packet wine example.",anchors:["Crisp and mouth-watering","Citrus sensation","Champagne, Sauvignon Blanc, or Chablis"]},
+  {id:"m18",lane:"Wine Cast",q:"ROSÉ SWEETNESS CONFESSIONAL",prompt:"Explain why Rosé is not necessarily sweet and connect color to skin-contact timing.",anchors:["Method, not grape","Short skin contact","Pink does not equal sweet","Dry Provence style"]},
+  {id:"m19",lane:"Wine Cast",q:"CHABLIS TERROIR CONFESSIONAL",prompt:"Explain why Chablis tastes different from a warm-climate Chardonnay even though both are Chardonnay.",anchors:["Northern Burgundy","Kimmeridgian limestone","High acid + mineral","Warm climate = riper + fuller"]},
+  {id:"m20",lane:"Atlanta History",q:"GEORGIA SEASON CONFESSIONAL",prompt:"Tell the Georgia wine season from 1732 to today without looking.",anchors:["1732 Vineyard Colony","Late 1800s boom","1907 collapse","1983 restart","North Georgia AVAs + Atlanta hub"]}
+);
 
 const DEFAULT_STATE = {
   xp:0, streak:0, bestStreak:0, quizCorrect:0, quizTotal:0,
@@ -2522,38 +2618,48 @@ nav=function(name){
 
 let learnAudioTracks=[];
 function learnAudioButton(label,index){return `<button class="audio-btn learn-audio" type="button" data-learn-audio="${index}">▶ ${label}</button>`}
+function deliveryLadder(d){return `<div class="delivery-ladder"><div class="delivery-step"><strong>ONE-LINER</strong><p>${d.one}</p></div><div class="delivery-step"><strong>30-SECOND TAKE</strong><p>${d.thirty}</p></div><div class="delivery-step"><strong>FULL STORY</strong><p>${d.full}</p></div></div>`}
 function renderLearn(){
   const course=document.getElementById("learnCourse");if(!course)return;
   learnAudioTracks=[];
   const addTrack=segments=>{learnAudioTracks.push(segments);return learnAudioTracks.length-1};
-  const basicsTrack=addTrack(LEARN_BASICS.flatMap(x=>[x[0],x[1],x[2]]));
+  const basicsTrack=addTrack(LEARN_BASICS.flatMap((x,i)=>[x[0],x[1],`Physical cue: ${FOUNDATION_LAYERS[i].feel}`,`Wine example: ${FOUNDATION_LAYERS[i].wine}`,`Host take: ${FOUNDATION_LAYERS[i].host}`]));
   const atlantaTrack=addTrack(LEARN_ATLANTA.flatMap(x=>[x[0],x[1]]));
   const routeStages=DATA.routeStages.filter(s=>!["winebasics","history"].includes(s.id));
-  const routeTrack=addTrack(routeStages.flatMap(s=>[s.title,s.scene,...(LEARN_ROUTE_EXTRAS[s.id]||[]),...s.anchors]));
-  const wineTracks={};DATA.wineCast.forEach(w=>wineTracks[w.id]=addTrack([w.name,w.tourReady,...LEARN_WINE_STORIES[w.id].flatMap(x=>[x[0],x[1]]),...w.anchors,`Tasting notes: ${w.tasting.join(", ")}.`,`Pairings: ${w.pairings.join(", ")}.`]));
+  const routeTrack=addTrack(routeStages.flatMap(s=>[s.title,s.scene,...(LEARN_ROUTE_EXTRAS[s.id]||[]),...(ROUTE_MEMORY[s.id]?[`What you see: ${ROUTE_MEMORY[s.id].see}`,`Why it matters: ${ROUTE_MEMORY[s.id].why}`,`Transition forward: ${ROUTE_MEMORY[s.id].to}`]:[]),...s.anchors]));
+  const wineTracks={};DATA.wineCast.forEach(w=>{const m=WINE_MEMORY[w.id];wineTracks[w.id]=addTrack([w.name,`Private memory hook: ${m.tagline}`,`What the hook encodes: ${m.decode}`,`Tour-ready take: ${m.thirty}`,...LEARN_WINE_STORIES[w.id].flatMap(x=>[x[0],x[1]]),...w.anchors,`Tasting notes: ${w.tasting.join(", ")}.`,`Pairings: ${w.pairings.join(", ")}.`])});
   const prohibitionTrack=addTrack(LEARN_PROHIBITION.flatMap(x=>[x[0],x[1]]));
   const hostTrack=addTrack(["Host flow","Open by telling guests this is a wine experience, not a wine class.","Explain that the group will visit four wine stops and hear why each wine tastes the way it does, plus history and stories behind it.","Remind guests that no prior wine knowledge is required and the only rule is: if you like it, it is good.","Close by asking for a favorite wine, thanking the group, inviting a review, and encouraging them to drink what they like, try new things, and not overthink it."]);
+  const lessonCount=document.querySelectorAll("[data-learn-jump]").length;
+  const summary=document.getElementById("courseCountSummary");
+  if(summary)summary.innerHTML=`<span>${lessonCount} numbered lessons</span><span>${LEARN_BASICS.length} wine-foundation concepts</span><span>${DATA.wineCast.length} wine profiles</span><span>${learnAudioTracks.length} guided audio lessons</span>`;
   course.innerHTML=`
     <article class="learn-section" id="learn-basics">
       <div class="learn-section-head"><div><div class="kicker">LESSON 01</div><h2>Wine foundations in normal language</h2><p>These are the concepts the rest of the packet uses. Learn the sensation and the everyday analogy, not just the definition.</p></div>${learnAudioButton("LISTEN TO FOUNDATIONS",basicsTrack)}</div>
-      <div class="learn-grid">${LEARN_BASICS.map(x=>`<div class="learn-card"><span class="learn-term">${x[0]}</span><p>${x[1]}</p><div class="learn-story"><strong>Memory hook:</strong> ${x[2]}</div></div>`).join("")}</div>
+      <div class="learn-grid">${LEARN_BASICS.map((x,i)=>{const f=FOUNDATION_LAYERS[i];return `<div class="learn-card"><span class="learn-term">${x[0]}</span><p><span class="layer-label">The receipt</span>${x[1]}</p><div class="learning-layer"><p><span class="layer-label">What it feels like</span>${f.feel}</p><p><span class="layer-label">Concrete analogy</span>${f.analogy}</p><p><span class="layer-label">Packet wine link</span>${f.wine}</p><p><span class="layer-label">Common confusion</span>${f.confusion}</p></div><div class="memory-hook"><strong>PRIVATE MEMORY HOOK:</strong> ${x[2]}</div><div class="host-take"><strong>HOST TAKE:</strong> ${f.host}</div><div class="recall-challenge"><strong>REUNION QUESTION:</strong> ${f.recall}</div></div>`}).join("")}</div>
     </article>
     <article class="learn-section" id="learn-atlanta">
       <div class="learn-section-head"><div><div class="kicker">LESSON 02</div><h2>Georgia wine history: ambition, collapse, comeback</h2><p>This is a connected story, not a loose list of dates. The four anchors are 1732, the late 1800s, 1907, and 1983.</p></div>${learnAudioButton("LISTEN TO THE TIMELINE",atlantaTrack)}</div>
+      <div class="previously"><strong>PREVIOUSLY ON GEORGIA WINE...</strong>1732: the Vineyard Colony dream. Late 1800s: 20,000-plus acres and a national ranking. 1907: Georgia goes dry and the industry disappears. 1983: the Farm Winery Act starts the comeback. Modern era: North Georgia AVAs grow the wine; Atlanta drives the culinary and retail scene.</div>
       <div class="learn-grid">${LEARN_ATLANTA.map(x=>`<div class="learn-card"><span class="learn-term">${x[0]}</span><p>${x[1]}</p></div>`).join("")}</div>
+      ${deliveryLadder(DELIVERY_LADDERS.history)}
+      <div class="recall-challenge"><strong>FREE RECALL - NO NOTES:</strong> “Tell me the Georgia wine season from 1732 to today.” Say it in 45-60 seconds, then compare your answer with the 30-second and full-story benchmarks above.</div>
     </article>
     <article class="learn-section" id="learn-route">
       <div class="learn-section-head"><div><div class="kicker">LESSON 03</div><h2>The route and every venue story</h2><p>Know what guests see, why the stop matters, what wine belongs there, and the one sentence that rescues you if your mind goes blank.</p></div>${learnAudioButton("LISTEN TO THE ROUTE",routeTrack)}</div>
       <p class="learn-route-order">Olympic Rings → Freedom Fighters Mural → Sun Dial → Lumen Lounge → Red Phone Booth → Atalian → White Oak → Centennial Olympic Park</p>
-      ${routeStages.map((s,i)=>`<details class="learn-details" open><summary>${i+1}. ${s.title} • ${s.eyebrow}</summary><div class="learn-details-body"><p><strong>Scene:</strong> ${s.scene}</p>${LEARN_LOGISTICS[s.id]?`<div class="learn-story"><strong>Packet logistics - verify before the tour:</strong> ${LEARN_LOGISTICS[s.id]}</div>`:""}${(LEARN_ROUTE_EXTRAS[s.id]||[]).map(p=>`<p>${p}</p>`).join("")}<span class="learn-term">Packet anchors</span><ul>${s.anchors.map(a=>`<li>${a}</li>`).join("")}</ul><div class="learn-story"><strong>If your brain leaves the chat:</strong> ${s.emergencyLine}</div></div></details>`).join("")}
+      ${routeStages.map((s,i)=>{const r=ROUTE_MEMORY[s.id],ladder=DELIVERY_LADDERS[s.id];return `<details class="learn-details" open><summary>${i+1}. ${s.title} • ${s.eyebrow}</summary><div class="learn-details-body"><p><strong>Scene:</strong> ${s.scene}</p>${LEARN_LOGISTICS[s.id]?`<div class="learn-story"><strong>Packet logistics - verify before the tour:</strong> ${LEARN_LOGISTICS[s.id]}</div>`:""}${(LEARN_ROUTE_EXTRAS[s.id]||[]).map(p=>`<p>${p}</p>`).join("")}${r?`<div class="learning-layer"><p><span class="layer-label">What you physically see</span>${r.see}</p><p><span class="layer-label">Why it matters</span>${r.why}</p></div><div class="route-bridge"><div><span class="layer-label">Transition in - host interpretation</span>${r.from}</div><div><span class="layer-label">Transition out - host interpretation</span>${r.to}</div></div><div class="producer-flag"><strong>LIKELY GUEST QUESTION:</strong> ${r.guest}</div>`:""}<span class="learn-term">Packet anchors</span><ul>${s.anchors.map(a=>`<li>${a}</li>`).join("")}</ul>${ladder?deliveryLadder(ladder):""}<div class="learn-story"><strong>If your brain leaves the chat:</strong> ${s.emergencyLine}</div></div></details>`}).join("")}
     </article>
     <article class="learn-section" id="learn-wines">
       <div class="learn-section-head"><div><div class="kicker">LESSON 04</div><h2>The six wines - the full stories</h2><p>Each profile teaches origin, production, history, structure, flavor, pairings, and the tour-ready explanation. The games elsewhere test this material; they do not replace it.</p></div></div>
-      ${DATA.wineCast.map(w=>`<details class="learn-details" open><summary>${w.name} • ${w.archetype} • [${w.pron}]</summary><div class="learn-details-body"><div class="learn-section-head" style="margin-bottom:12px"><div><span class="learn-term">Served at ${w.servedAt}</span><p><strong>Tour-ready first answer:</strong> ${w.tourReady}</p></div>${learnAudioButton(`LISTEN TO ${w.name.toUpperCase()}`,wineTracks[w.id])}</div><div class="learn-story"><strong>Plot twist:</strong> ${w.plotTwist}</div>${LEARN_WINE_STORIES[w.id].map(x=>`<div class="learn-card" style="margin-top:10px"><span class="learn-term">${x[0]}</span><p>${x[1]}</p></div>`).join("")}<div class="learn-grid" style="margin-top:12px"><div class="learn-card"><span class="learn-term">Core packet anchors</span><ul>${w.anchors.map(a=>`<li>${a}</li>`).join("")}</ul></div><div class="learn-card"><span class="learn-term">Taste + pair</span><p><strong>Tasting:</strong> ${w.tasting.join(", ")}.</p><p><strong>Pairings:</strong> ${w.pairings.join(", ")}.</p><p><strong>Producer note:</strong> ${w.producerNote}</p></div></div></div></details>`).join("")}
+      ${DATA.wineCast.map(w=>{const m=WINE_MEMORY[w.id];return `<details class="learn-details" open><summary>${w.name} • ${w.archetype} • [${w.pron}]</summary><div class="learn-details-body"><div class="learn-section-head" style="margin-bottom:12px"><div><span class="learn-term">Served at ${w.servedAt}</span><p><strong>THE CAST CARD:</strong> ${w.archetype}. ${w.plotTwist}</p></div>${learnAudioButton(`LISTEN TO ${w.name.toUpperCase()}`,wineTracks[w.id])}</div><div class="memory-hook"><strong>PRIVATE TAGLINE:</strong> “${m.tagline}”<br><span class="layer-label">What the joke encodes</span>${m.decode}</div><div class="previously"><strong>PREVIOUSLY ON ${w.name.toUpperCase()}...</strong>${m.previously}</div>${deliveryLadder({one:m.one,thirty:m.thirty,full:m.full})}<div class="producer-flag"><strong>PRODUCER NOTE - KNOW THIS, DO NOT FORCE IT INTO EVERY TOUR:</strong> ${w.producerNote}</div>${LEARN_WINE_STORIES[w.id].map(x=>`<div class="learn-card" style="margin-top:10px"><span class="learn-term">THE RECEIPT • ${x[0]}</span><p>${x[1]}</p></div>`).join("")}<div class="learn-grid" style="margin-top:12px"><div class="learn-card"><span class="learn-term">Core packet anchors</span><ul>${w.anchors.map(a=>`<li>${a}</li>`).join("")}</ul></div><div class="learn-card"><span class="learn-term">Taste + pair</span><p><strong>Tasting:</strong> ${w.tasting.join(", ")}.</p><p><strong>Pairings:</strong> ${w.pairings.join(", ")}.</p></div></div><div class="recall-challenge"><strong>CONFESSIONAL:</strong> ${m.question}</div></div></details>`}).join("")}
     </article>
     <article class="learn-section" id="learn-prohibition">
       <div class="learn-section-head"><div><div class="kicker">LESSON 05</div><h2>Prohibition before the True/False game</h2><p>Learn the correct story first. The game is retrieval practice afterward, not your first exposure to the material.</p></div>${learnAudioButton("LISTEN TO PROHIBITION",prohibitionTrack)}</div>
+      <div class="previously"><strong>PREVIOUSLY ON PROHIBITION...</strong>Georgia went dry first and came back late: 1907-1935. National Prohibition ran 1920-1933. In between came locker clubs, blind tigers, near-beer, jug trains, moonshine, medicinal whiskey, religious wine, speakeasies, and bootlegging.</div>
       <div class="learn-grid">${LEARN_PROHIBITION.map(x=>`<div class="learn-card"><span class="learn-term">${x[0]}</span><p>${x[1]}</p></div>`).join("")}</div>
+      ${deliveryLadder(DELIVERY_LADDERS.prohibition)}
+      <div class="recall-challenge"><strong>SCANDAL RECAP:</strong> Who was breaking the rules, how were they doing it, and why does “Georgia went dry first and came back late” keep the two timelines straight?</div>
     </article>
     <article class="learn-section" id="learn-host">
       <div class="learn-section-head"><div><div class="kicker">LESSON 06</div><h2>How to turn knowledge into hosting</h2><p>You are not expected to recite the packets. You are expected to understand them well enough to guide a relaxed, accurate experience.</p></div>${learnAudioButton("LISTEN TO HOST FLOW",hostTrack)}</div>
@@ -2610,11 +2716,13 @@ renderCast=function(){
       <div class="cast-archetype">${w.archetype}</div><div class="cast-name">${w.name}</div>
       <div class="cast-pron">[${w.pron}] • Tour stop: ${w.servedAt}</div>
       <div class="cast-tagline">“${w.tagline}”</div>
+      <div class="producer-flag"><strong>WHAT THE JOKE ENCODES:</strong> ${WINE_MEMORY[w.id].decode}</div>
       <div class="audio-row"><button class="audio-btn" type="button" data-hear-term="${encodeURIComponent(w.name)}">▶ SAY HER NAME</button><button class="audio-btn" type="button" data-hear-take="${encodeURIComponent(w.tourReady)}">▶ PLAY TOUR-READY TAKE</button></div>
       <div class="cast-meta"><span class="chip">PLOT TWIST</span><span class="chip">${w.servedAt}</span></div>
       <button class="btn small" type="button" data-cast="${i}">ROLL THE TAPE →</button>
       <div class="cast-dossier" id="cast-dossier-${i}">
         <div class="split-edit"><div class="edit-box"><strong class="private-label">PRIVATE STUDY EDIT</strong><p>${w.privateEdit}</p></div><div class="edit-box"><strong class="tour-label">TOUR-READY TAKE</strong><p>${w.tourReady}</p></div></div>
+        ${deliveryLadder({one:WINE_MEMORY[w.id].one,thirty:WINE_MEMORY[w.id].thirty,full:WINE_MEMORY[w.id].full})}
         <div class="producer-note"><strong>PRODUCER NOTE:</strong> ${w.producerNote}</div>
         <h4>The plot twist</h4><p><strong>${w.plotTwist}</strong></p>
         <h4>Receipts you must know</h4><ul>${w.anchors.map(a=>`<li>${a}</li>`).join("")}</ul>
@@ -2655,13 +2763,14 @@ renderRoute=function(){
     if(state.routeDone[s.id])b.classList.add("done");if(i===currentStage)b.classList.add("current");
     b.textContent=(i+1)+". "+s.title;b.addEventListener("click",()=>{currentStage=i;renderRoute()});navBox.appendChild(b);
   });
-  const s=DATA.routeStages[currentStage],v=visualForRoute(s.id),card=document.getElementById("stageCard");
+  const s=DATA.routeStages[currentStage],v=visualForRoute(s.id),card=document.getElementById("stageCard"),memory=ROUTE_MEMORY[s.id];
   unlockAnswer(card);
   const anchorsClass=routeMode==="rehearsal"?"anchor-list hidden-anchors":"anchor-list";
   card.innerHTML=`${v?`<img class="stage-visual" src="${v.image}" alt="${v.name}">`:""}
     <div class="kicker">${s.eyebrow}</div><h2 style="font-size:clamp(32px,5vw,54px)">${s.title}</h2>
     <p class="stage-scene">${s.scene}</p>
     <div class="emergency-line"><strong>IF YOUR BRAIN LEAVES THE CHAT:</strong> ${s.emergencyLine}</div>
+    ${routeMode==="study"&&memory?`<div class="learning-layer"><p><span class="layer-label">What you see</span>${memory.see}</p><p><span class="layer-label">Why it matters</span>${memory.why}</p></div><div class="route-bridge"><div><span class="layer-label">Transition in - host interpretation</span>${memory.from}</div><div><span class="layer-label">Transition out - host interpretation</span>${memory.to}</div></div><div class="producer-flag"><strong>LIKELY GUEST QUESTION:</strong> ${memory.guest}</div>`:""}
     <div class="audio-row"><button class="audio-btn" id="playStageCue" type="button">▶ PLAY MEMORY CUE</button></div>
     <h3>Anchor beats</h3>
     <ul class="${anchorsClass}" id="routeAnchors">${s.anchors.map(a=>`<li>${a}</li>`).join("")}</ul>
@@ -2840,6 +2949,14 @@ renderWeak=function(){
 
   if(weakCurrent.kind==="q"){
     const q=weakCurrent.q;
+    const variant=REUNION_VARIANTS[q.id];
+    if(variant){
+      card.innerHTML=`<div class="reunion-label">SAME RECEIPT • DEEPER QUESTION</div><div class="qmeta"><span>${q.lane}</span><span>EXPLAIN, DON’T RECOGNIZE</span></div><div class="qtext">${variant.prompt}</div><button class="btn primary" id="revealVariant" type="button">REVEAL BENCHMARK</button><div class="reveal" id="variantReveal"><p>${variant.benchmark}</p><div class="anchor-chips">${variant.anchors.map(a=>`<span class="chip">${a}</span>`).join("")}</div><div class="grade-row"><button class="grade" data-vgrade="nailed" type="button">CLEARED</button><button class="grade" data-vgrade="almost" type="button">KEEP IT QUEUED</button></div></div>`;
+      document.getElementById("revealVariant").addEventListener("click",()=>document.getElementById("variantReveal").classList.add("show"));
+      let variantAnswered=false;
+      card.querySelectorAll("[data-vgrade]").forEach(b=>b.addEventListener("click",()=>{if(variantAnswered||!lockAnswer(card))return;variantAnswered=true;if(b.dataset.vgrade==="nailed"){delete state.weak["q:"+q.id];award(80,q.lane,true)}else award(30,q.lane,false);saveState();renderWeak()}));
+      return;
+    }
     card.innerHTML=`<div class="qmeta"><span>${q.lane}</span><span>REUNION REPLAY</span></div><div class="qtext">${q.q}</div><div class="${q.type==="tf"?"truth-grid":"choices"}" id="weakChoices"></div><div class="feedback" id="weakFeedback"></div>`;
     const box=document.getElementById("weakChoices");
     if(q.type==="tf"){
@@ -2992,7 +3109,7 @@ renderRoute=function(){
   const banner=document.getElementById("guidedBanner");if(banner)banner.classList.toggle("show",guidedMode);
   wireImageFallbacks(document.getElementById("view-route"));
   if(guidedSpeechTimer){clearTimeout(guidedSpeechTimer);guidedSpeechTimer=null}
-  if(guidedMode&&guidedLastStage!==currentStage){guidedLastStage=currentStage;const s=DATA.routeStages[currentStage];guidedSpeechTimer=setTimeout(()=>{guidedSpeechTimer=null;speakText(`${s.title}. ${s.scene} ${s.prompt}`)},180)}
+  if(guidedMode&&guidedLastStage!==currentStage){guidedLastStage=currentStage;const s=DATA.routeStages[currentStage],m=ROUTE_MEMORY[s.id];guidedSpeechTimer=setTimeout(()=>{guidedSpeechTimer=null;speakText(`${s.title}. ${s.scene} ${m?`Transition idea: ${m.from} ${m.to}`:""} ${s.prompt}`)},180)}
   document.querySelectorAll("#stageCard .grade").forEach(b=>b.addEventListener("click",()=>{if(guidedMode&&wasLast){guidedMode=false;guidedLastStage=-1;if(guidedSpeechTimer)clearTimeout(guidedSpeechTimer);guidedSpeechTimer=setTimeout(()=>{guidedSpeechTimer=null;document.getElementById("guidedBanner").classList.remove("show");speakText("Episode complete. Ask for the favorite wine, thank the group, invite a review, and land the relaxed wine philosophy.")},260)}}));
   const r=readiness();document.getElementById("routeDone").textContent=r.routeNailed;document.getElementById("routeProgress").style.width=r.route+"%";
 }
@@ -3005,7 +3122,7 @@ renderHQ=function(){
   document.getElementById("statScenes").textContent=`${r.routeNailed}/${DATA.routeStages.length}`;
   document.getElementById("hqRoutePct").textContent=r.route+"%";
   document.getElementById("hqVisual").textContent=r.visual+"%";document.getElementById("hqDeep").textContent=r.deep+"%";document.getElementById("hqHot").textContent=r.hot+"%";document.getElementById("hqBacklog").textContent=r.weak;
-  document.getElementById("sourceCoverage").innerHTML=`<span>${DATA.sourceMeta.tourPages}-page route packet</span><span>${DATA.sourceMeta.winePages}-page wine packet</span><span>${DATA.sourceMeta.questionCountBase} core questions</span><span>${DATA.sourceMeta.producerCutCount} deep cuts</span><span>${DATA.sourceMeta.localVisualAssets} local visual assets</span>`;
+  document.getElementById("sourceCoverage").innerHTML=`<span>${DATA.sourceMeta.tourPages}-page route packet</span><span>${DATA.sourceMeta.winePages}-page wine packet</span><span>${DATA.questions.length} core questions</span><span>${DATA.producerCut.length} deep cuts</span><span>${DATA.visualStops.length} visual locations</span>`;
 }
 
 wireImageFallbacks();renderRoute();renderHQ();renderSeason();renderSmartNext();
