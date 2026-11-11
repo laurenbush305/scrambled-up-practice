@@ -2911,7 +2911,7 @@ renderHQ=function(){
 updateHud();renderRoute();renderCast();renderMic();renderConfessional();renderHotSeat();renderHQ();renderSeason();renderSmartNext();
 
 document.getElementById("resetScoresBtn").addEventListener("click",()=>{
-  if(!confirm("Reset scores and practice history while keeping your custom host notes?"))return;
+  if(!confirm("Reset scores, attempts, misses, route grades, and badges? Your host notes, study-day history, and audio preferences will be kept."))return;
   const notes=state.hostNotes||{},dates=state.studyDates||[];
   state=freshState();state.hostNotes=notes;state.studyDates=dates;saveState();renderHQ();renderSmartNext();
 });
