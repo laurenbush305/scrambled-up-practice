@@ -3979,6 +3979,54 @@ v9OrganizeProgress();
 v9SyncPrimary("home");
 /* END V9 DIRECTOR'S CUT */
 
+
+/* V9.1 STUDY VISUALS */
+var v91Style=document.createElement("style");
+v91Style.textContent=`
+.study-icon-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0 18px}.study-icon-card{padding:13px;border-radius:14px;border:1px solid rgba(156,225,255,.14);background:rgba(156,225,255,.045)}.study-icon-card .ico{font-size:27px}.study-icon-card b{display:block;color:#FFF5C4;margin:6px 0 3px}.study-icon-card span{font-size:11px;color:#DCC7E1;line-height:1.35}
+.timeline-visual{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 0 18px}.timeline-beat{padding:13px;border-top:3px solid #FFD979;background:rgba(255,217,121,.045);border-radius:0 0 13px 13px}.timeline-beat b{display:block;font-size:20px;color:#FFD979}.timeline-beat span{font-size:11px;color:#EADDEE;line-height:1.4}
+.chard-split{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0 18px}.chard-side{padding:16px;border-radius:16px;border:1px solid rgba(255,215,107,.16);background:rgba(255,255,255,.025)}.chard-side .face{font-size:35px}.chard-side b{display:block;font-size:18px;color:#FFF5C4;margin:7px 0}.chard-side span{display:block;color:#DCC7E1;line-height:1.45;font-size:12px}
+.home-filmstrip-label{display:flex;justify-content:space-between;align-items:end;margin:24px 0 9px}.home-filmstrip-label h3{margin:3px 0 0;font-size:25px}.home-filmstrip-label span{font-size:11px;color:#DCC7E1}
+.v9-hud-secondary{display:none!important}
+@media(max-width:650px){.study-icon-grid{grid-template-columns:1fr 1fr}.timeline-visual{grid-template-columns:1fr 1fr}.chard-split{grid-template-columns:1fr}}
+`;
+document.head.appendChild(v91Style);
+
+function v91AddStudyVisuals(){
+  const basics=document.getElementById("learn-basics");
+  if(basics&&!basics.querySelector(".study-icon-grid")){
+    const cold=basics.querySelector(".episode-cold-open");
+    const items=[["💧","Acidity","Crisp + mouth-watering"],["🫖","Tannin","Dry grip, like strong tea"],["🥛","Body","How heavy the wine feels"],["🍬","Sweetness","Residual sugar, not fruit aroma"],["⚖️","Structure","How acid, tannin, alcohol + body balance"],["🌍","Terroir","How place shapes the wine"]];
+    if(cold)cold.insertAdjacentHTML("afterend",'<div class="study-icon-grid">'+items.map(x=>'<div class="study-icon-card"><div class="ico">'+x[0]+'</div><b>'+x[1]+'</b><span>'+x[2]+'</span></div>').join("")+'</div>');
+  }
+  const atlanta=document.getElementById("learn-atlanta");
+  if(atlanta&&!atlanta.querySelector(".timeline-visual")){
+    const cold=atlanta.querySelector(".episode-cold-open");
+    const items=[["1732","Vineyard Colony dream"],["Late 1800s","Georgia becomes a major wine state"],["1907","State Prohibition wipes legal production out"],["1983","Farm Winery Act helps restart the industry"]];
+    if(cold)cold.insertAdjacentHTML("afterend",'<div class="timeline-visual">'+items.map(x=>'<div class="timeline-beat"><b>'+x[0]+'</b><span>'+x[1]+'</span></div>').join("")+'</div>');
+  }
+  const chard=[...document.querySelectorAll("#learn-wines .learn-details")].find(d=>d.textContent.includes("Chardonnay / Chablis"));
+  if(chard&&!chard.querySelector(".chard-split")){
+    const story=chard.querySelector(".wine-story-continuous");
+    if(story)story.insertAdjacentHTML("beforebegin",'<div class="chard-split"><div class="chard-side"><div class="face">🍋 🪨 ⚡</div><b>Chablis edit</b><span>Northern Burgundy • cool climate • lean • high acid • mineral • lemon / green apple / wet stone.</span></div><div class="chard-side"><div class="face">🧈 🪵 🥛</div><b>Buttery/oaky edit</b><span>Warmer fruit can be riper • oak adds toast/vanilla • malolactic fermentation softens sharp malic acid and can contribute buttery character.</span></div></div>');
+  }
+}
+function v91SimplifyHud(){
+  ["hudLevel","hudStudyDays"].forEach(id=>document.getElementById(id)?.parentElement?.classList.add("v9-hud-secondary"));
+  document.getElementById("savePill")?.classList.add("v9-hud-secondary");
+}
+function v91LabelFilmstrip(){
+  const film=document.querySelector("#view-home .visual-filmstrip");
+  if(film&&!document.querySelector("#view-home .home-filmstrip-label")){
+    film.insertAdjacentHTML("beforebegin",'<div class="home-filmstrip-label"><div><div class="kicker">TONIGHT\'S LOCATIONS</div><h3>See the rooms before you host them.</h3></div><span>Visual memory matters too.</span></div>');
+  }
+}
+const _renderLearnV91=renderLearn;
+renderLearn=function(){_renderLearnV91();v91AddStudyVisuals()};
+v91SimplifyHud();
+v91LabelFilmstrip();
+/* END V9.1 STUDY VISUALS */
+
 wireImageFallbacks();renderRoute();renderHQ();renderSeason();renderSmartNext();
 if("serviceWorker" in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));
 
