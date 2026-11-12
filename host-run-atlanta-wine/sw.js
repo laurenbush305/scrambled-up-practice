@@ -1,4 +1,4 @@
-const CACHE="host-run-teaching-cut-v19";
+const CACHE="host-run-directors-cut-v20";
 const CORE=[
   "./","./index.html","./manifest.json","./icon.svg",
   "./assets/route-map.jpg","./assets/olympic-rings.jpg","./assets/freedom-fighters-mural.jpg",
