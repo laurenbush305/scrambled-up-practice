@@ -1451,15 +1451,31 @@ body:before{opacity:.38}
       <span class="pill">🔥 <b id="hudStreak">0</b></span>
       <span class="pill hide-sm">DAYS <b id="hudStudyDays">0</b></span>
       <span class="pill save-pill" id="savePill">SAVED</span>
-      <button class="btn small ghost" id="menuBtn" type="button" aria-expanded="false" aria-controls="menu">MENU</button>
+      <button class="btn small ghost" id="menuBtn" type="button" aria-expanded="false" aria-controls="menu">MORE</button>
     </div>
   </header>
-  <div class="menu" id="menu">
-    <div class="menu-group"><span class="menu-group-label">Start + understand</span><button data-nav="home">Home</button><button data-nav="learn">Opening Season • Learn in order</button><button data-nav="visuals">Visual Tour + Map</button><button data-nav="cast">Wine Cast Quick Reference</button></div>
-    <div class="menu-group"><span class="menu-group-label">Practice facts</span><button data-nav="rapid">Rapid Pour • Recognition</button><button data-nav="rumors">Receipts or Rumors</button><button data-nav="pronounce">Pronunciation</button><button data-nav="prohibition">Prohibition Showdown</button><button data-nav="deep">Producer’s Cut • Deep facts</button></div>
-    <div class="menu-group"><span class="menu-group-label">Practice hosting</span><button data-nav="confessional">Confessional • Free recall</button><button data-nav="hotseat">Guest Hot Seat</button><button data-nav="mic">Mic Check • Delivery</button><button data-nav="route">Route Run • Full rehearsal</button></div>
-    <div class="menu-group"><span class="menu-group-label">Review + progress</span><button data-nav="cram">Ten-Minute Cram</button><button data-nav="weak">The Reunion • Missed items</button><button data-nav="season">Clubhouse • Readiness</button><button data-nav="hq">Progress HQ + settings</button></div>
+  <div class="menu menu-v9" id="menu">
+    <div class="menu-v9-head"><span class="menu-group-label">DIRECTOR'S BOARD</span><strong>Where are we going?</strong><p>Five doors. Everything else lives inside them.</p></div>
+    <div class="menu-primary">
+      <button data-nav="home"><span>🏠</span><b>Home</b><small>Continue where you left off</small></button>
+      <button data-nav="learn"><span>📺</span><b>Learn</b><small>Six episodes, story first</small></button>
+      <button data-nav="practice"><span>🎤</span><b>Practice</b><small>Quiz, speak, pronounce, guest Q&A</small></button>
+      <button data-nav="route"><span>🗺️</span><b>Route</b><small>Walk the real tour in order</small></button>
+      <button data-nav="hq"><span>✨</span><b>Progress</b><small>Readiness + your next move</small></button>
+    </div>
+    <details class="menu-more">
+      <summary>More tools</summary>
+      <div class="menu-more-grid">
+        <button data-nav="visuals">📸 Visual map + venue photos</button>
+        <button data-nav="cast">🍷 Wine cast reference</button>
+        <button data-nav="cram">⚡ 10-minute cram</button>
+        <button data-nav="weak">💄 Reunion / missed items</button>
+        <button data-nav="season">🎬 Readiness gates</button>
+      </div>
+    </details>
   </div>
+
+  <aside class="audio-controller
 
   <aside class="audio-controller is-collapsed" id="audioController" aria-label="Global audio playback controls">
     <button class="audio-panel-toggle" id="audioPanelToggle" type="button" aria-expanded="false" aria-controls="audioExpanded">
@@ -1494,11 +1510,11 @@ body:before{opacity:.38}
         <div>
           <div class="kicker">ATLANTA AFTER DARK • PRIVATE STUDY LOUNGE</div>
           <h1>SIP. SPILL. SERVE.</h1>
-          <p class="lede">This is your private ATL wine clubhouse: part Sundial sparkle, part Bravo confessional, part Spelman-brain study machine. You do not need to read either packet first. Start the season, meet the cast, walk the locations, and collect the receipts. Then production will see what you can do without the notes.</p>
+          <p class="lede">Learn the story. Practice saying it. Walk the actual route. That is the whole job. The reality-show language is here to make the material memorable, while every answer you need stays close enough to actually study.</p>
           <div class="hero-actions">
             <button class="btn primary" id="homeSeasonCta" type="button" data-nav="learn">START THE SEASON <span>BEGIN HERE</span></button>
             <button class="btn" type="button" id="smartStart">CONTINUE WHERE I LEFT OFF <span>→</span></button>
-            <button class="btn spotlight" type="button" id="playEpisode">▶ PLAY THE EPISODE <span>GUIDED</span></button>
+            <button class="btn spotlight" type="button" id="playEpisode">🎬 FULL TOUR REHEARSAL <span>GUIDED</span></button>
           </div>
         </div>
         <div class="route-art">
@@ -1516,12 +1532,26 @@ body:before{opacity:.38}
         <button class="btn primary" id="homeNextBtn" type="button">GO →</button>
       </div>
 
-      <section class="home-paths" aria-labelledby="choosePathTitle"><div class="home-paths-head"><div><div class="kicker">CHOOSE BY GOAL</div><h2 id="choosePathTitle" style="font-size:32px;margin:0">What are you here to do?</h2></div><p>You never need to remember a mode name. Pick the outcome you want and the app takes you to the right room.</p></div><div class="home-path-grid">
-        <article class="home-path"><div><strong>01 • LEARN</strong><h3>I need the story first.</h3><p>Go through the six opening episodes in order. Best if you have not read the packets.</p></div><button class="btn small primary" type="button" data-nav="learn">OPEN THE SEASON →</button></article>
-        <article class="home-path"><div><strong>02 • REMEMBER</strong><h3>Quiz me on the facts.</h3><p>Use quick recognition practice. Misses automatically return at the Reunion.</p></div><button class="btn small" type="button" id="startRapid">START RAPID POUR →</button></article>
-        <article class="home-path"><div><strong>03 • SAY IT</strong><h3>Practice sounding like a host.</h3><p>Speak without choices, compare with the benchmark, then grade facts and delivery separately.</p></div><button class="btn small" type="button" data-nav="mic">OPEN MIC CHECK →</button></article>
-        <article class="home-path"><div><strong>04 • RUN IT</strong><h3>Walk the actual route.</h3><p>Put every scene in geographic order and rehearse the transitions from start to finish.</p></div><button class="btn small" type="button" id="startRoute">START ROUTE RUN →</button></article>
-      </div></section>
+      <section class="director-board" aria-labelledby="choosePathTitle">
+        <div class="director-board-head"><div><div class="kicker">THE DIRECTOR'S BOARD</div><h2 id="choosePathTitle">Pick the thing you need right now.</h2></div><p>Three big moves. No mode-name scavenger hunt.</p></div>
+        <div class="director-grid">
+          <article class="director-card learn-door" style="--door-art:url('assets/champagne.jpg')">
+            <div><span>01 • LEARN</span><h3>Teach me the material.</h3><p>Six visual episodes with the explanations, pronunciations, stories, and answers together.</p></div>
+            <button class="btn primary" type="button" data-nav="learn">OPEN THE SEASON →</button>
+          </article>
+          <article class="director-card practice-door" style="--door-art:url('assets/sauvignon-blanc.jpg')">
+            <div><span>02 • PRACTICE</span><h3>See what actually stuck.</h3><p>Recognition, speaking, pronunciation, guest questions, and the weird facts that keep escaping.</p></div>
+            <button class="btn" type="button" data-nav="practice">ENTER PRACTICE ROOM →</button>
+          </article>
+          <article class="director-card route-door" style="--door-art:url('assets/route-map.jpg')">
+            <div><span>03 • RUN IT</span><h3>Walk the actual tour.</h3><p>Photo-first route cards, transitions, host cues, and dress rehearsal from Olympic Rings back to the park.</p></div>
+            <button class="btn" id="startRoute" type="button">RUN THE ROUTE →</button>
+          </article>
+        </div>
+        <div class="director-quick"><span>Tour day and brain buffering?</span><button class="btn small" type="button" data-nav="cram">⚡ OPEN THE 10-MINUTE CRAM</button></div>
+      </section>
+
+      <div class="visual-filmstrip"</section>
 
       <div class="visual-filmstrip" aria-label="Atlanta wine tour visual preview">
         <img src="assets/sun-dial.jpg" width="602" height="658" alt="Sun Dial exterior from the training packet" loading="eager">
@@ -1558,6 +1588,31 @@ body:before{opacity:.38}
       <div id="learnCourse"></div>
     </section>
 
+
+
+    <section class="view" id="view-practice">
+      <div class="practice-hero">
+        <div><div class="kicker">PRACTICE ROOM • PICK THE SKILL, NOT THE MODE NAME</div><h2>What do you want your brain to do?</h2><p>Every drill below is still here. They are just grouped by the actual skill you are practicing.</p></div>
+        <button class="btn small" type="button" data-nav="weak">💄 ${document.getElementById('weakCount')?.textContent||0} reunion items</button>
+      </div>
+      <div class="practice-grid">
+        <article class="practice-card" style="--practice-art:url('assets/cabernet-sauvignon.jpg')"><div class="practice-icon">⚡</div><div><span>FAST RECALL</span><h3>Quiz me.</h3><p>Ten quick questions. Misses automatically go to the Reunion.</p></div><button class="btn primary" id="startRapid" type="button">START RAPID POUR →</button></article>
+        <article class="practice-card" style="--practice-art:url('assets/pinot-noir.jpg')"><div class="practice-icon">🎙️</div><div><span>SPEAKING</span><h3>Make me explain it out loud.</h3><p>Use Confessional for wine stories or Mic Check for tour-ready delivery.</p></div><div class="practice-actions"><button class="btn small" data-nav="confessional" type="button">CONFESSIONAL</button><button class="btn small" data-nav="mic" type="button">MIC CHECK</button></div></article>
+        <article class="practice-card" style="--practice-art:url('assets/chardonnay-chablis.jpg')"><div class="practice-icon">🗣️</div><div><span>PRONUNCIATION</span><h3>Help me say the names.</h3><p>Wine regions, grapes, people, chemistry terms, and the phonetic cue right beside them.</p></div><button class="btn" data-nav="pronounce" type="button">SAY HER NAME →</button></article>
+        <article class="practice-card" style="--practice-art:url('assets/atalian.jpg')"><div class="practice-icon">🙋🏾‍♀️</div><div><span>GUEST QUESTIONS</span><h3>Somebody at the table asked me something.</h3><p>Practice the obvious follow-ups with a source-supported answer waiting underneath.</p></div><button class="btn" data-nav="hotseat" type="button">TAKE THE HOT SEAT →</button></article>
+      </div>
+      <details class="practice-more">
+        <summary>More drills when you want them</summary>
+        <div class="practice-more-grid">
+          <button data-nav="rumors" type="button"><b>Receipts or Rumors</b><span>True / false wine lore</span></button>
+          <button data-nav="prohibition" type="button"><b>Prohibition Showdown</b><span>The exact tour game</span></button>
+          <button data-nav="deep" type="button"><b>Producer's Cut</b><span>Deep packet details</span></button>
+          <button data-nav="cram" type="button"><b>10-Minute Cram</b><span>Emergency full-system review</span></button>
+          <button data-nav="cast" type="button"><b>Wine Cast</b><span>Visual quick reference</span></button>
+          <button data-nav="weak" type="button"><b>The Reunion</b><span>Only the things you missed</span></button>
+        </div>
+      </details>
+    </section>
 
     <section class="view" id="view-season">
       <div class="section-head">
@@ -1806,13 +1861,16 @@ body:before{opacity:.38}
     </section>
   </main>
 
-  <nav class="bottom-dock" aria-label="Quick navigation">
+  <nav class="bottom-dock bottom-dock-v9" aria-label="Primary navigation">
     <button data-nav="home" type="button">🏠<span>Home</span></button>
-    <button data-nav="cram" type="button">⚡<span>Cram</span></button>
-    <button data-nav="visuals" type="button">📸<span>Visuals</span></button>
-    <button data-nav="weak" type="button">💄<span>Reunion</span></button>
-    <button data-nav="hq" type="button">✨<span>Stats</span></button>
+    <button data-nav="learn" type="button">📺<span>Learn</span></button>
+    <button data-nav="practice" type="button">🎤<span>Practice</span></button>
+    <button data-nav="route" type="button">🗺️<span>Route</span></button>
+    <button data-nav="hq" type="button">✨<span>Progress</span></button>
   </nav>
+</div>
+
+<script></nav>
 </div>
 
 <script>
@@ -3760,6 +3818,173 @@ if(xpCounter&&xpCounter.parentElement)xpCounter.parentElement.title="XP increase
 
 /* END V8 TEACHING CUT */
 
+
+
+/* =========================
+   V9 DIRECTOR'S CUT
+   Simplified navigation + visual study architecture
+   ========================= */
+var v9Style=document.createElement("style");
+v9Style.textContent=`
+.menu-v9{padding:14px;width:min(430px,calc(100vw - 28px));max-height:min(78vh,720px);overflow:auto;border-radius:20px}
+.menu-v9-head{padding:10px 10px 14px}.menu-v9-head strong{display:block;font-size:24px;color:#FFF8FF;margin-top:4px}.menu-v9-head p{margin:4px 0 0;color:#DCC7E1;font-size:12px}
+.menu-primary{display:grid;gap:8px}.menu-primary button{display:grid;grid-template-columns:34px 1fr;grid-template-rows:auto auto;column-gap:10px;align-items:center;text-align:left;padding:12px 13px;border-radius:14px;border:1px solid rgba(255,215,107,.15);background:rgba(255,255,255,.035);color:#FFF8FF}
+.menu-primary button>span{grid-row:1/3;font-size:22px}.menu-primary button b{font-size:14px}.menu-primary button small{font-size:10px;color:#CDBAD2;margin-top:2px}.menu-primary button.active{border-color:#FFD979;background:rgba(255,217,121,.10)}
+.menu-more{margin-top:10px;border-top:1px solid rgba(255,215,107,.14);padding-top:9px}.menu-more summary{cursor:pointer;color:#FFF5C4;font-weight:900;padding:9px}.menu-more-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px}.menu-more-grid button{padding:10px;border:1px solid rgba(255,255,255,.08);border-radius:11px;background:rgba(255,255,255,.025);color:#EADDEE;text-align:left;font-size:11px}
+
+.director-board{margin:22px 0}.director-board-head{display:flex;justify-content:space-between;gap:20px;align-items:end;margin-bottom:12px}.director-board-head h2{margin:4px 0 0;font-size:clamp(28px,4vw,42px)}.director-board-head p{max-width:330px;color:#DCC7E1;margin:0}
+.director-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.director-card{position:relative;min-height:310px;padding:20px;border-radius:22px;overflow:hidden;border:1px solid rgba(255,215,107,.22);display:flex;flex-direction:column;justify-content:space-between;background:#1A0A21;color:white}
+.director-card:before{content:"";position:absolute;inset:0;background-image:linear-gradient(180deg,rgba(12,4,16,.15),rgba(12,4,16,.92) 72%),var(--door-art);background-size:cover;background-position:center;z-index:0}.director-card>*{position:relative;z-index:1}
+.director-card span{font-size:10px;letter-spacing:.15em;font-weight:950;color:#FFD979}.director-card h3{font-size:28px;margin:10px 0 8px}.director-card p{line-height:1.48;color:#F1E6F2;max-width:35ch}.director-quick{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:10px;padding:13px 15px;border:1px solid rgba(255,215,107,.16);border-radius:14px;background:rgba(255,255,255,.025);color:#E8D7ED}
+.visual-filmstrip{height:auto!important;grid-template-columns:repeat(4,1fr)!important;gap:9px!important}.visual-filmstrip figure{margin:0;position:relative;overflow:hidden;border-radius:17px;min-height:175px;border:1px solid rgba(255,215,107,.18)}.visual-filmstrip figure img{width:100%!important;height:100%!important;position:absolute;inset:0;object-fit:cover}.visual-filmstrip figcaption{position:absolute;inset:auto 0 0;padding:36px 12px 10px;background:linear-gradient(transparent,rgba(9,4,12,.92));font-size:11px;font-weight:950;color:#FFF8FF;letter-spacing:.04em}
+
+.practice-hero{display:flex;justify-content:space-between;gap:18px;align-items:end;margin-bottom:15px}.practice-hero h2{font-size:clamp(34px,5vw,58px);margin:5px 0}.practice-hero p{max-width:680px;color:#DCC7E1;line-height:1.55}.practice-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.practice-card{position:relative;min-height:285px;padding:20px;border:1px solid rgba(255,215,107,.20);border-radius:22px;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;background:#16091D}
+.practice-card:before{content:"";position:absolute;inset:0;background-image:linear-gradient(90deg,rgba(16,6,21,.97) 0%,rgba(16,6,21,.83) 48%,rgba(16,6,21,.30) 100%),var(--practice-art);background-size:cover;background-position:center;opacity:.82}.practice-card>*{position:relative;z-index:1}.practice-icon{font-size:31px}.practice-card span{font-size:10px;letter-spacing:.15em;font-weight:950;color:#FFD979}.practice-card h3{font-size:28px;margin:7px 0}.practice-card p{max-width:43ch;line-height:1.5;color:#EBDDEE}.practice-actions{display:flex;gap:8px;flex-wrap:wrap}
+.practice-more{margin-top:14px;border:1px solid rgba(255,215,107,.16);border-radius:16px;background:rgba(255,255,255,.025);overflow:hidden}.practice-more summary{cursor:pointer;padding:15px 17px;color:#FFF5C4;font-weight:950}.practice-more-grid{padding:0 14px 14px;display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.practice-more-grid button{padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.025);color:#FFF;text-align:left}.practice-more-grid b,.practice-more-grid span{display:block}.practice-more-grid span{font-size:10px;color:#CDBAD2;margin-top:3px}
+
+.learn-jumps{display:flex!important;gap:10px!important;overflow-x:auto!important;padding:4px 0 12px!important;scroll-snap-type:x proximity}.learn-jumps button{position:relative;flex:0 0 210px!important;min-height:150px!important;padding:16px!important;border-radius:18px!important;overflow:hidden!important;text-align:left!important;background:#1C0B23!important;color:#FFF!important;border:1px solid rgba(255,215,107,.18)!important;scroll-snap-align:start}
+.learn-jumps button:before{content:"";position:absolute;inset:0;background-image:linear-gradient(180deg,rgba(8,3,12,.18),rgba(8,3,12,.93)),var(--episode-art);background-size:cover;background-position:center;z-index:0}.learn-jumps button>*{position:relative;z-index:1}.learn-jumps button .ep-num{display:block;color:#FFD979;font-size:10px;font-weight:950;letter-spacing:.14em}.learn-jumps button .ep-name{display:block;font-size:17px;font-weight:950;line-height:1.18;margin-top:45px}.learn-jumps button.watched:after{content:"✓ WATCHED";position:absolute;top:10px;right:10px;z-index:2;font-size:9px;font-weight:950;color:#FFF5C4;background:rgba(0,0,0,.55);padding:5px 7px;border-radius:999px}
+.episode-poster{height:220px;border-radius:20px;overflow:hidden;position:relative;margin:12px 0 18px;border:1px solid rgba(255,215,107,.18)}.episode-poster img{width:100%;height:100%;object-fit:cover}.episode-poster div{position:absolute;inset:auto 0 0;padding:55px 18px 15px;background:linear-gradient(transparent,rgba(9,3,13,.94));color:#FFF}.episode-poster strong{display:block;color:#FFD979;font-size:10px;letter-spacing:.15em}.episode-poster span{font-size:24px;font-weight:950}
+.route-visual-strip{display:flex;gap:8px;overflow-x:auto;margin:12px 0 18px}.route-visual-strip figure{flex:0 0 145px;margin:0;border-radius:14px;overflow:hidden;position:relative;height:120px;border:1px solid rgba(255,215,107,.16)}.route-visual-strip img{width:100%;height:100%;object-fit:cover}.route-visual-strip figcaption{position:absolute;inset:auto 0 0;padding:28px 9px 8px;background:linear-gradient(transparent,rgba(8,3,12,.9));color:#FFF;font-size:9px;font-weight:900}
+
+.cast-card .cast-v9-photo{width:100%;height:175px;object-fit:cover;border-radius:14px;margin-bottom:13px;border:1px solid rgba(255,215,107,.14)}
+
+.stage-layout{display:block!important}.stage-nav{display:flex!important;gap:8px!important;overflow-x:auto!important;padding:3px 0 13px!important;margin-bottom:10px!important;position:sticky;top:84px;z-index:8;background:linear-gradient(180deg,rgba(17,5,21,.97),rgba(17,5,21,.91) 75%,transparent)}
+.stage-nav .stage-btn{position:relative!important;flex:0 0 142px!important;min-height:92px!important;padding:10px!important;border-radius:14px!important;overflow:hidden!important;text-align:left!important;background:#1B0B20!important;color:#FFF!important;border:1px solid rgba(255,215,107,.14)!important}
+.stage-nav .stage-btn:before{content:"";position:absolute;inset:0;background-image:linear-gradient(180deg,rgba(6,3,8,.20),rgba(6,3,8,.92)),var(--stage-art);background-size:cover;background-position:center;z-index:0}.stage-nav .stage-btn span{position:relative;z-index:1;display:block}.stage-nav .stage-btn .stage-no{color:#FFD979;font-size:9px;font-weight:950;letter-spacing:.12em}.stage-nav .stage-btn .stage-name{font-size:12px;font-weight:950;line-height:1.2;margin-top:28px}.stage-nav .stage-btn.current{border-color:#FFD979!important;box-shadow:0 0 0 2px rgba(255,217,121,.14)}.stage-nav .stage-btn.nailed:after{content:"✓";position:absolute;right:8px;top:8px;z-index:2;background:#163627;color:#C9FFD9;width:22px;height:22px;display:grid;place-items:center;border-radius:50%}
+.route-stage-visual{height:300px;border-radius:18px;overflow:hidden;position:relative;margin-bottom:16px;border:1px solid rgba(255,215,107,.18)}.route-stage-visual img{width:100%;height:100%;object-fit:cover}.route-stage-visual .route-stage-label{position:absolute;inset:auto 0 0;padding:60px 17px 14px;background:linear-gradient(transparent,rgba(7,3,10,.92));color:#FFF5C4;font-weight:950}
+.route-illustration{min-height:180px;border-radius:18px;margin-bottom:16px;border:1px solid rgba(255,215,107,.18);display:grid;place-items:center;text-align:center;padding:20px;background:radial-gradient(circle at 50% 10%,rgba(255,217,121,.10),transparent 45%),rgba(255,255,255,.025)}.route-illustration .big{font-size:52px;letter-spacing:10px}.route-illustration strong{display:block;color:#FFF5C4;margin-top:10px}.stage-browse{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-top:14px;padding-top:14px;border-top:1px solid rgba(255,215,107,.12)}
+
+.bottom-dock-v9 button.active{background:rgba(255,217,121,.12)!important;color:#FFF5C4!important}.bottom-dock-v9{grid-template-columns:repeat(5,1fr)}
+#view-hq .advanced-progress{margin-top:14px;border:1px solid rgba(255,215,107,.16);border-radius:16px;background:rgba(255,255,255,.02);overflow:hidden}#view-hq .advanced-progress>summary{cursor:pointer;padding:15px 17px;font-weight:950;color:#FFF5C4}#view-hq .advanced-progress-inner{padding:0 14px 14px}#view-hq .progress-next-first{border-color:rgba(156,225,255,.25);background:rgba(156,225,255,.055)}
+
+@media(max-width:820px){.director-grid{grid-template-columns:1fr}.director-card{min-height:245px}.practice-grid{grid-template-columns:1fr}.practice-more-grid{grid-template-columns:1fr 1fr}.director-board-head,.practice-hero{align-items:flex-start;flex-direction:column}.visual-filmstrip{grid-template-columns:1fr 1fr!important}.stage-nav{top:68px}.route-stage-visual{height:230px}}
+@media(max-width:560px){.menu-more-grid,.practice-more-grid{grid-template-columns:1fr}.director-quick{align-items:flex-start;flex-direction:column}.learn-jumps button{flex-basis:178px!important;min-height:135px!important}.visual-filmstrip figure{min-height:145px}.bottom-dock-v9 button{font-size:18px}.bottom-dock-v9 button span{font-size:9px}}
+`;
+document.head.appendChild(v9Style);
+
+const V9_EPISODES=[
+  {n:"EPISODE 01",name:"How Wine Makes Sense",art:"assets/chardonnay-chablis.jpg"},
+  {n:"EPISODE 02",name:"Previously on Georgia Wine",art:"assets/freedom-fighters-mural.jpg"},
+  {n:"EPISODE 03",name:"Location Scout: Atlanta",art:"assets/sun-dial.jpg"},
+  {n:"EPISODE 04",name:"Meet the Wine Cast",art:"assets/champagne.jpg"},
+  {n:"EPISODE 05",name:"The Prohibition Scandal",art:"assets/red-phone-booth.jpg"},
+  {n:"EPISODE 06",name:"Screen Test",art:"assets/olympic-rings.jpg"}
+];
+const V9_ROUTE_ART={
+  welcome:"assets/olympic-rings.jpg",history:"assets/freedom-fighters-mural.jpg",mural:"assets/freedom-fighters-mural.jpg",
+  sundial:"assets/sun-dial.jpg",lumen:"assets/lumen-lounge.jpg",redphone:"assets/red-phone-booth.jpg",
+  atalian:"assets/atalian.jpg",whiteoak:"assets/white-oak.jpg",closing:"assets/olympic-rings.jpg"
+};
+const V9_ROUTE_ICON={winebasics:"🍋 🫖 🥛 🍬 ⚖️ 🌍",history:"1732 → 1907 → 1983 → NOW"};
+
+function v9DecorateHome(){
+  const film=document.querySelector("#view-home .visual-filmstrip");
+  if(film&&!film.dataset.v9){
+    film.dataset.v9="1";
+    film.setAttribute("aria-label","Tonight's Atlanta wine tour locations");
+    film.innerHTML=[
+      ["assets/sun-dial.jpg","STOP 1 • SUN DIAL"],
+      ["assets/lumen-lounge.jpg","STOP 2 • LUMEN"],
+      ["assets/atalian.jpg","STOP 3 • ATALIAN"],
+      ["assets/white-oak.jpg","STOP 4 • WHITE OAK"]
+    ].map(x=>'<figure><img src="'+x[0]+'" alt="'+x[1]+'"><figcaption>'+x[1]+'</figcaption></figure>').join("");
+  }
+}
+function v9DecorateLearn(){
+  const jumps=document.querySelectorAll("#view-learn .learn-jumps button");
+  jumps.forEach((b,i)=>{
+    const ep=V9_EPISODES[i];if(!ep)return;
+    b.style.setProperty("--episode-art","url('"+ep.art+"')");
+    b.innerHTML='<span class="ep-num">'+ep.n+'</span><span class="ep-name">'+ep.name+'</span>';
+    b.classList.toggle("watched",!!state.learnEpisodes?.[LEARN_EPISODE_IDS[i]]);
+  });
+  document.querySelectorAll("#learnCourse .learn-section").forEach((sec,i)=>{
+    if(sec.querySelector(":scope > .episode-poster"))return;
+    const ep=V9_EPISODES[i];if(!ep)return;
+    const head=sec.querySelector(".learn-section-head");
+    if(head)head.insertAdjacentHTML("afterend",'<div class="episode-poster"><img src="'+ep.art+'" alt=""><div><strong>'+ep.n+'</strong><span>'+ep.name+'</span></div></div>');
+  });
+  const route=document.getElementById("learn-route");
+  if(route&&!route.querySelector(".route-visual-strip")){
+    const cold=route.querySelector(".episode-cold-open");
+    const stops=[
+      ["assets/freedom-fighters-mural.jpg","Mural"],["assets/sun-dial.jpg","Sun Dial"],["assets/lumen-lounge.jpg","Lumen"],
+      ["assets/red-phone-booth.jpg","Red Phone"],["assets/atalian.jpg","Atalian"],["assets/white-oak.jpg","White Oak"]
+    ];
+    if(cold)cold.insertAdjacentHTML("afterend",'<div class="route-visual-strip">'+stops.map(x=>'<figure><img src="'+x[0]+'" alt="'+x[1]+'"><figcaption>'+x[1]+'</figcaption></figure>').join("")+'</div>');
+  }
+  wireImageFallbacks(document.getElementById("view-learn"));
+}
+function v9DecorateCast(){
+  document.querySelectorAll("#castGrid .cast-card").forEach((card,i)=>{
+    const w=DATA.wineCast[i];if(!w||!w.image||card.querySelector(".cast-v9-photo"))return;
+    card.insertAdjacentHTML("afterbegin",'<img class="cast-v9-photo" src="'+w.image+'" alt="'+w.name+'">');
+  });
+  wireImageFallbacks(document.getElementById("castGrid"));
+}
+function v9DecorateRoute(){
+  const s=DATA.routeStages[currentStage];
+  document.querySelectorAll("#stageNav .stage-btn").forEach((b,i)=>{
+    const st=DATA.routeStages[i],art=V9_ROUTE_ART[st.id]||"assets/route-map.jpg";
+    b.style.setProperty("--stage-art","url('"+art+"')");
+    b.innerHTML='<span class="stage-no">SCENE '+String(i+1).padStart(2,"0")+'</span><span class="stage-name">'+st.title+'</span>';
+  });
+  const card=document.getElementById("stageCard");
+  if(card&&!card.querySelector(".route-stage-visual,.route-illustration")){
+    const art=V9_ROUTE_ART[s.id];
+    if(art)card.insertAdjacentHTML("afterbegin",'<div class="route-stage-visual"><img src="'+art+'" alt="'+s.title+'"><div class="route-stage-label">'+s.eyebrow+'</div></div>');
+    else card.insertAdjacentHTML("afterbegin",'<div class="route-illustration"><div><div class="big">'+(V9_ROUTE_ICON[s.id]||"🍷 🎙️ 🗺️")+'</div><strong>'+s.title+'</strong></div></div>');
+  }
+  if(card&&!card.querySelector(".stage-browse")){
+    card.insertAdjacentHTML("beforeend",'<div class="stage-browse"><button class="btn small" id="v9RoutePrev" type="button">← PREVIOUS SCENE</button><button class="btn small" id="v9RouteMap" type="button">📸 VISUAL MAP</button><button class="btn small" id="v9RouteNext" type="button">NEXT SCENE →</button></div>');
+    const p=document.getElementById("v9RoutePrev"),n=document.getElementById("v9RouteNext"),m=document.getElementById("v9RouteMap");
+    p.disabled=currentStage===0;n.disabled=currentStage===DATA.routeStages.length-1;
+    p.onclick=()=>{currentStage=Math.max(0,currentStage-1);renderRoute()};
+    n.onclick=()=>{currentStage=Math.min(DATA.routeStages.length-1,currentStage+1);renderRoute()};
+    m.onclick=()=>nav("visuals");
+  }
+  wireImageFallbacks(document.getElementById("view-route"));
+}
+function v9OrganizeProgress(){
+  const view=document.getElementById("view-hq");if(!view||view.dataset.v9)return;view.dataset.v9="1";
+  const panels=[...view.querySelectorAll(":scope > .panel")];
+  const next=panels.find(p=>p.querySelector("h3")?.textContent.trim()==="Next move");
+  if(next){next.classList.add("progress-next-first");view.querySelector(".section-head").insertAdjacentElement("afterend",next)}
+  const advanced=document.createElement("details");advanced.className="advanced-progress";advanced.innerHTML='<summary>Advanced stats, badges, backup + reset</summary><div class="advanced-progress-inner"></div>';
+  const inner=advanced.querySelector(".advanced-progress-inner");
+  const toolbar=view.querySelector(".section-head .toolbar");if(toolbar)inner.appendChild(toolbar);
+  ["Baddie Board","Badges","Source coverage","What the progress controls do"].forEach(title=>{
+    const p=[...view.querySelectorAll(":scope > .panel")].find(x=>x.querySelector("h3")?.textContent.trim()===title);
+    if(p)inner.appendChild(p);
+  });
+  view.appendChild(advanced);
+}
+function v9SyncPrimary(name){
+  document.querySelectorAll(".bottom-dock-v9 [data-nav],.menu-primary [data-nav]").forEach(b=>b.classList.toggle("active",b.dataset.nav===name));
+}
+
+const _renderLearnV9=renderLearn;
+renderLearn=function(){_renderLearnV9();v9DecorateLearn()};
+const _renderCastV9=renderCast;
+renderCast=function(){_renderCastV9();v9DecorateCast()};
+const _renderRouteV9=renderRoute;
+renderRoute=function(){_renderRouteV9();v9DecorateRoute()};
+
+const _navV9=nav;
+nav=function(name){
+  _navV9(name);
+  if(audioPlayback.status==="idle")setAudioPanel(false);
+  v9SyncPrimary(name);
+  if(name==="practice")window.scrollTo({top:0,behavior:"smooth"});
+  if(name==="hq")v9OrganizeProgress();
+};
+
+v9DecorateHome();
+v9OrganizeProgress();
+v9SyncPrimary("home");
+/* END V9 DIRECTOR'S CUT */
 
 wireImageFallbacks();renderRoute();renderHQ();renderSeason();renderSmartNext();
 if("serviceWorker" in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));
