@@ -3442,6 +3442,325 @@ renderHQ=function(){
   document.getElementById("sourceCoverage").innerHTML=`<span>${DATA.sourceMeta.tourPages}-page route packet</span><span>${DATA.sourceMeta.winePages}-page wine packet</span><span>${DATA.questions.length} core questions</span><span>${DATA.producerCut.length} deep cuts</span><span>${DATA.visualStops.length} visual locations</span>`;
 }
 
+
+/* =========================
+   V8 TEACHING CUT
+   Direct answers, source limits, inline pronunciations, episode checks,
+   visible audio controls, previous navigation, and study XP.
+   ========================= */
+
+var v8Style=document.createElement("style");
+v8Style.textContent=
+  ".v8-teaching-banner{margin:0 0 18px;padding:16px 18px;border:1px solid rgba(255,215,107,.32);border-radius:18px;background:linear-gradient(120deg,rgba(228,46,132,.15),rgba(156,225,255,.09));line-height:1.55}" +
+  ".v8-teaching-banner strong{display:block;color:#FFD979;font-size:11px;letter-spacing:.14em;margin-bottom:5px}" +
+  ".audio-inline-hint{display:inline-flex;align-items:center;margin-left:8px;color:#DCC7E1;font-size:10px;font-weight:800;line-height:1.35}" +
+  ".guest-answer,.study-answer{display:block;margin-top:9px;padding:10px 12px;border-radius:12px;background:rgba(156,225,255,.09);border:1px solid rgba(156,225,255,.22);color:#F5FAFF;line-height:1.5}" +
+  ".study-answer strong,.guest-answer strong{color:#9CE1FF}" +
+  ".episode-check{margin:18px 0;padding:17px;border:1px solid rgba(255,215,107,.25);border-radius:18px;background:rgba(255,217,121,.045)}" +
+  ".episode-check>strong{display:block;color:#FFD979;font-size:11px;letter-spacing:.13em;margin-bottom:6px}" +
+  ".episode-check>p{margin:0 0 10px;color:#E9D8EE}" +
+  ".episode-check details{margin:8px 0;border:1px solid rgba(255,255,255,.09);border-radius:12px;background:rgba(255,255,255,.025);overflow:hidden}" +
+  ".episode-check summary{cursor:pointer;padding:12px 14px;font-weight:900;color:#FFF8FF}" +
+  ".episode-check .check-answer{padding:0 14px 13px;color:#E9D8EE;line-height:1.5}" +
+  ".episode-outro-actions{display:flex;gap:8px;flex-wrap:wrap}" +
+  ".learn-details-body>.study-answer{margin:12px 0}" +
+  ".wine-story-continuous{max-width:860px}" +
+  ".wine-story-continuous h4{margin-top:21px;color:#FFF5C4}" +
+  ".wine-story-continuous p{font-size:15px}" +
+  ".source-limit{border-left:3px solid #FFD979;background:rgba(255,217,121,.065);padding:12px 14px;margin:10px 0;border-radius:0 12px 12px 0}" +
+  ".source-limit strong{color:#FFD979}" +
+  "#view-learn .learn-section{max-width:1080px;margin-left:auto;margin-right:auto}" +
+  "#view-learn .learn-details{box-shadow:0 14px 40px rgba(0,0,0,.13)}" +
+  "@media(max-width:760px){.audio-inline-hint{display:block;margin:6px 0 0}.episode-outro-actions .btn{width:100%}.guest-answer,.study-answer{font-size:13px}.wine-story-continuous p{font-size:14px}}";
+document.head.appendChild(v8Style);
+
+function v8AddPron(term,phonetic,context){
+  if(!DATA.pronunciations.some(function(x){return x.term===term;})){
+    DATA.pronunciations.push({term:term,phonetic:phonetic,context:context});
+  }
+}
+v8AddPron("crayères","kreh-yares","Champagne chalk cellars");
+v8AddPron("sauvage","so-vahj","Sauvignon Blanc name origin");
+v8AddPron("terroir","tair-wahr","Wine basics");
+v8AddPron("malolactic fermentation","mal-oh-LAK-tik fer-men-TAY-shun","Chardonnay winemaking");
+v8AddPron("malic acid","MAL-ik ASS-id","Chardonnay acid glossary");
+v8AddPron("lactic acid","LAK-tik ASS-id","Chardonnay acid glossary");
+v8AddPron("lees","leez","Champagne / Chardonnay winemaking");
+
+LEARN_WINE_STORIES.champagne.unshift([
+  "NAME CARD • say these out loud",
+  "Champagne [sham-pane] • Pinot Meunier [moon-yay] • Dom Pérignon [dom peh-ree-nyon] • cuvées [koo-vayz] • crayères [kreh-yares] • Reims [rahnce] • Cristal [kris-tal] • tsar [zar]. These cues come from the wine packet."
+]);
+LEARN_WINE_STORIES.sauvblanc.unshift([
+  "NAME CARD • say these out loud",
+  "Sauvignon Blanc [saw-vuhn-yon blahnk] • sauvage [so-vahj] • Loire [l-whar] • Bordeaux [bor-doe] • Sancerre [sahn-sair] • Pouilly-Fumé [poo-yee foo-may] • Sémillon [sem-ih-yon] • Marlborough [mahl-buh-ruh] • methoxypyrazine [meth-ok-see-peer-uh-zeen]."
+]);
+LEARN_WINE_STORIES.chardonnay.unshift([
+  "NAME CARD • say these out loud",
+  "Chardonnay [shaar-duh-nay] • Chablis [shuh-blee] • Gouais Blanc [goo-ay blahn] • Kimmeridgian [kim-uh-rij-ee-un] • malolactic fermentation [mal-oh-LAK-tik fer-men-TAY-shun]."
+]);
+LEARN_WINE_STORIES.chardonnay.splice(2,0,
+  ["ACID CHEAT SHEET • what all these acids mean","Acidity is the overall tart, mouth-watering sensation in wine. Malic acid is one of the naturally sharp acids in grapes and often reads as green-apple tartness. During malolactic fermentation, bacteria convert that sharper malic acid into softer lactic acid. So high acid, malic acid, and lactic acid are not three competing wine styles: one is the sensation/level, while the other two are specific acids involved in the chemistry."],
+  ["MALOLACTIC FERMENTATION • plain English please","Malolactic fermentation, often shortened to MLF, is a bacterial conversion that softens tart malic acid into gentler lactic acid. That lowers the sharp edge of the wine. The buttery aroma associated with some Chardonnay is strongly linked to diacetyl, a buttery-smelling compound that can be produced during this process. Oak is a separate choice and adds notes such as vanilla and toast. Chardonnay does not have to be buttery, oaky, or fully malolactic."],
+  ["WHY CHARDONNAY IS THE SHAPE-SHIFTER","The grape itself is relatively neutral aromatically, so place and winemaking get a huge say in the final personality. Cool northern Burgundy can give lean, high-acid Chablis; warmer climates can give riper fruit and fuller body; oak can add toast and vanilla; malolactic fermentation can soften acidity; lees work can add texture. Same cast member, wildly different edit."]
+);
+LEARN_WINE_STORIES.rose.unshift([
+  "NAME CARD • say these out loud",
+  "Rosé [roh-zay] • Grenache [greh-nash] • Syrah [sir-aah] • Sangiovese [san-jow-vay-zuh] • Pinot Noir [pee-no nuh-waar]."
+]);
+LEARN_WINE_STORIES.rose.splice(2,0,[
+  "SKIN CONTACT • what is actually touching what?",
+  "Grape juice is usually clear or pale. Much of a red grape’s color, tannin, and flavor compounds live in the skins. Skin contact simply means letting the juice sit with those skins after the grapes are crushed. Rosé gets a shorter visit: a few hours can create pale pink, and more time deepens the color. Red wine usually spends much longer with the skins."
+]);
+LEARN_WINE_STORIES.pinot.unshift([
+  "NAME CARD • say these out loud",
+  "Pinot Noir [pee-no nuh-waar] • Pinot Gris [gree] • ethyl esters [eth-uhl ess-terz] • Grand Cru [grahn kroo] • Domaine de la Romanée-Conti [doh-men deu lah roh-mah-nay kon-tee]."
+]);
+LEARN_WINE_STORIES.cab.unshift([
+  "NAME CARD • say these out loud",
+  "Cabernet Sauvignon [kab-er-nay saw-vuhn-yon] • Bordeaux [bor-doe] • pyrazines [peer-uh-zeens]."
+]);
+LEARN_WINE_STORIES.cab.splice(3,0,[
+  "FUTURE’S UNRELEASED TRACK: PYRAZINES",
+  "Pyrazines [peer-uh-zeens] are a family of aroma compounds that can smell green or herbal: think green bell pepper, mint, or eucalyptus. They are especially noticeable in Cabernet grown in cooler conditions. They are not an ingredient being added to the wine. They are part of the grape’s aroma chemistry. And yes, Pyrazines absolutely sounds like the title of a Future song."
+]);
+
+var chardCast=DATA.wineCast.find(function(w){return w.id==="chardonnay";});
+if(chardCast){
+  chardCast.producerNote="The packet literally labels the Chablis section “if it’s been ordered.” That is the source for treating the Chablis deep dive as optional context. The fact you should know is simple: Chablis is Chardonnay grown in northern Burgundy, and its cooler place plus winemaking choices can produce a much leaner, more mineral style.";
+}
+var cabCast=DATA.wineCast.find(function(w){return w.id==="cab";});
+if(cabCast){
+  cabCast.quickLine="Full-bodied Cabernet: Bordeaux roots, high tannin, Judgment of Paris receipts, pyrazines = green/herbal aromas, steak loves the structure.";
+}
+
+LEARN_ROUTE_EXTRAS.redphone.unshift(
+  "SOURCE LIMIT • The tour script says, “We won’t be going inside on this tour,” but it does not explain why. Treat that as a route instruction. Do not invent a reason for guests unless the company later gives you one."
+);
+LEARN_ROUTE_EXTRAS.redphone.push(
+  "BLIND TIGER • Old slang for a covert place selling alcohol illegally, essentially a speakeasy or illicit saloon. In this script, working-class Atlantans frequented blind-tiger saloons serving low-alcohol near-beer during the dry era."
+);
+LEARN_ROUTE_EXTRAS.atalian.push(
+  "SOURCE SEQUENCE • The script introduces Atalian, recommends Rosé or Pinot Noir, and then immediately places the ten-question Prohibition True/False game here. That is why the game belongs at this stop. It is not an app interpretation."
+);
+LEARN_ROUTE_EXTRAS.atalian.push(
+  "MUZO SARITAS • The packet names Atalian founder Muzo Saritas but gives no phonetic spelling. A working Turkish-style approximation is MOO-zoh sah-RUH-tahsh, but verify with the venue or producer before treating that as the official pronunciation."
+);
+LEARN_ROUTE_EXTRAS.whiteoak.push(
+  "WHAT “450+ LABELS” MEANS • In wine-list language, a label means a distinct wine/bottling offered on the list. The packet is saying White Oak carries more than 450 wine selections, not that the room contains 450 literal paper labels."
+);
+
+LEARN_NARRATIVES.prohibition.paragraphs.push(
+  "One vocabulary receipt the script assumes you already know: a blind tiger was a covert illegal drinking or liquor-selling establishment, essentially Southern-era slang for a speakeasy or illicit saloon. That is why it belongs beside locker clubs, jug trains, and moonshine in the Atlanta story."
+);
+LEARN_NARRATIVES.route.paragraphs[2]=
+  "The Red Phone Booth then turns the route toward Georgia’s longer Prohibition story. The script tells the group they will not go inside, but gives no reason, so do not invent one. The outside speakeasy image is simply the visual bridge into locker clubs, blind tigers, jug trains, and moonshine. Atalian comes next with Rosé or Pinot Noir, and the script immediately places the ten-question Prohibition True/False game there. White Oak is the substantial final pour: a 17,000-square-foot room, a two-story glass cellar, more than 450 wine selections, and Cabernet Sauvignon.";
+
+function v8Guest(question,answer){
+  return question+'<span class="guest-answer"><strong>ANSWER:</strong> '+answer+'</span>';
+}
+if(ROUTE_MEMORY.mural)ROUTE_MEMORY.mural.guest=v8Guest(
+  "Why is a civil-rights mural part of a wine tour?",
+  "Because the route is also telling an Atlanta story. The packet uses Yehimi Cambrón’s Freedom Fighters mural to connect historic Civil Rights activism with contemporary social justice before the first pour."
+);
+if(ROUTE_MEMORY.sundial)ROUTE_MEMORY.sundial.guest=v8Guest(
+  "Why is Champagne the recommended first pour here?",
+  "The packet pairs Champagne with the Sun Dial’s celebratory, romantic skyline setting. It is a recommendation, not a rule: guests can order what they enjoy."
+);
+if(ROUTE_MEMORY.lumen)ROUTE_MEMORY.lumen.guest=v8Guest(
+  "What is the easiest way to compare Sauvignon Blanc with Chardonnay?",
+  "Sauvignon Blanc is usually bright, high-acid, herbaceous, and very aromatic. Chardonnay is more of a shape-shifter: Chablis can be lean and mineral, while oak and malolactic fermentation can make other Chardonnay richer, softer, and toastier."
+);
+if(ROUTE_MEMORY.redphone)Object.assign(ROUTE_MEMORY.redphone,{
+  see:"The inconspicuous phone-booth entrance. The source script says the group stays outside and does not give a reason.",
+  why:"The stop is a visual doorway into Georgia’s 1907–1935 dry era. The packet does not explain why the group cannot go inside, so the study tool should not invent one.",
+  from:"HOST-READY TRANSITION: As we leave Lumen, we’re switching from modern hotel luxury to the years when drinking in Atlanta had to hide.",
+  to:"EXACT SCRIPT RELIEF LINE: “Thankfully, Atlanta is not in one of these partially dry counties, so let’s go get some more wine!” Then head to Atalian, where the Prohibition True/False game happens.",
+  guest:v8Guest(
+    "What are Georgia’s Prohibition dates compared with the national dates?",
+    "Georgia: 1907–1935. National Prohibition: 1920–1933. Georgia went dry earlier and repealed its statewide ban later."
+  )
+});
+if(ROUTE_MEMORY.atalian)Object.assign(ROUTE_MEMORY.atalian,{
+  why:"The source script recommends Rosé or Pinot Noir at Atalian and then immediately instructs the guide to run the ten-question Prohibition True/False game. That sequence is explicit in the packet.",
+  from:"HOST-READY TRANSITION: We just talked about the ways Atlantans hid drinking during Prohibition. Now we’re walking into a very visible, theatrical wine room for Rosé or Pinot Noir and our Prohibition game.",
+  guest:v8Guest(
+    "Which two wines does the packet recommend at Atalian?",
+    "Rosé or Pinot Noir. The packet then moves directly into the Prohibition True/False game."
+  )
+});
+if(ROUTE_MEMORY.whiteoak)Object.assign(ROUTE_MEMORY.whiteoak,{
+  why:"White Oak is the final wine destination in the script: 17,000 square feet, a two-story glass cellar, more than 450 distinct wine selections, and Cabernet Sauvignon as the recommended pour.",
+  guest:v8Guest(
+    "Why does Cabernet work with a richer final-stop meal?",
+    "Cabernet’s high tannins bind with fat and protein, which softens the wine on the palate. That is why steak, lamb, and aged cheese are classic pairings."
+  )
+});
+if(ROUTE_MEMORY.closing)ROUTE_MEMORY.closing.guest=v8Guest(
+  "What should guests remember if they forget every technical term?",
+  "The tour’s central rule: if you like it, it’s good. Drink what you like, try new things, and do not overthink it."
+);
+
+var V8_EPISODE_CHECKS={
+  ep1:[
+    ["What is acidity?","The crisp, mouth-watering sensation that makes wine feel fresh."],
+    ["What is the difference between fruitiness and sweetness?","Fruitiness describes aroma/flavor. Sweetness means residual sugar. A wine can smell like peaches and still be dry."],
+    ["What does terroir mean?","The idea that place influences the wine: climate, soil, elevation, weather, nearby water or vegetation, and other growing conditions."]
+  ],
+  ep2:[
+    ["What happened to Georgia wine in 1907?","Georgia enacted statewide Prohibition, wiping out legal production and devastating the vineyard industry."],
+    ["What restarted the modern winery story?","The Georgia Farm Winery Act of 1983 helped incentivize local estate wineries."],
+    ["What is an AVA?","An American Viticultural Area: a federally recognized grape-growing region with defined boundaries and distinguishing growing conditions."]
+  ],
+  ep3:[
+    ["Why does the group stay outside Red Phone Booth?","The script says they do, but gives no reason. Your safe answer is that the training packet does not specify why."],
+    ["What is a blind tiger?","A covert illegal liquor-selling or drinking establishment, essentially a speakeasy or illicit saloon."],
+    ["Where does the Prohibition game happen?","Atalian, immediately after its venue/wine setup in the source script."]
+  ],
+  ep4:[
+    ["Why is Sauvignon Blanc easy to recognize?","High acidity plus bold citrus, green, grassy, and herbaceous aromatics. Marlborough made an especially loud aromatic version famous."],
+    ["Why can Chablis and buttery Chardonnay taste so different?","Same grape, different place and winemaking. Chablis is cool-climate northern Burgundy; oak, malolactic fermentation, lees work, and warmer climates can create a much richer Chardonnay edit."],
+    ["What is skin contact in Rosé?","The time grape juice spends touching red grape skins. Short contact extracts pink color without the long extraction typical of red wine."]
+  ],
+  ep5:[
+    ["Georgia vs. national Prohibition dates?","Georgia 1907–1935; national 1920–1933."],
+    ["What is the exact relief line after Red Phone Booth?","“Thankfully, Atlanta is not in one of these partially dry counties, so let’s go get some more wine!”"],
+    ["Did the 18th Amendment outlaw the act of drinking alcohol?","No. The packet emphasizes production, sale, and transportation of intoxicating liquor, not the act of drinking itself."]
+  ],
+  ep6:[
+    ["What is the tour’s one rule that matters?","If you like it, it’s good."],
+    ["What do you do if you do not know a fact?","Stay inside the source. Do not invent an explanation. Say what the training material actually supports."],
+    ["How do you close?","Ask the favorite wine, thank the group, invite a review, and land the relaxed philosophy: drink what you like, try new things, and do not overthink it."]
+  ]
+};
+function v8EpisodeCheck(id){
+  var items=V8_EPISODE_CHECKS[id]||[];
+  if(!items.length)return "";
+  return '<section class="episode-check"><strong>REUNION CHECK • EVERY EPISODE GETS A QUIZ NOW</strong><p>Answer before opening the receipt. These are study questions, so the answer is always available.</p>'+
+    items.map(function(item,i){
+      return '<details><summary>'+(i+1)+'. '+item[0]+'</summary><div class="check-answer"><strong>ANSWER:</strong> '+item[1]+'</div></details>';
+    }).join("")+'</section>';
+}
+
+cameraCheck=function(prompt,answer){
+  return '<details class="camera-check"><summary>PRACTICE QUESTION • '+prompt+'</summary><div class="camera-answer"><strong>ANSWER / WHAT YOU SHOULD SAY:</strong> '+answer+'</div></details>';
+};
+learnAudioButton=function(label,index){
+  var cleaned=String(label||"").replace(/^PLAY\s+/i,"");
+  return '<button class="audio-btn learn-audio" type="button" data-learn-audio="'+index+'">▶ READ ALOUD • '+cleaned+'</button><span class="audio-inline-hint">Pause, resume, stop + speed controls open automatically.</span>';
+};
+episodeOutro=function(id,next){
+  var index=LEARN_EPISODE_IDS.indexOf(id);
+  var prevId=index>0?LEARN_EPISODE_IDS[index-1]:null;
+  var nextId=index<LEARN_EPISODE_IDS.length-1?LEARN_EPISODE_IDS[index+1]:null;
+  return v8EpisodeCheck(id)+
+    '<div class="episode-outro"><div><strong>NEXT WEEK ON HOST RUN...</strong><p>'+next+'</p><span class="completion-help">Marking an episode watched now awards 50 study XP. “Study Days” counts unique calendar dates when you complete study actions.</span></div>'+
+    '<div class="episode-outro-actions">'+
+    (prevId?'<button class="btn small" type="button" data-prev-learn="'+prevId+'">← PREVIOUS EPISODE</button>':"")+
+    '<button class="btn small" type="button" data-complete-episode="'+id+'" aria-pressed="false">MARK EPISODE WATCHED • +50 XP</button>'+
+    (nextId?'<button class="btn small primary" type="button" data-next-learn="'+nextId+'">NEXT EPISODE →</button>':"")+
+    '</div></div>';
+};
+
+function v8RefreshWatchButtons(){
+  document.querySelectorAll("[data-complete-episode]").forEach(function(btn){
+    var id=btn.dataset.completeEpisode;
+    var watched=!!(state.learnEpisodes&&state.learnEpisodes[id]);
+    btn.setAttribute("aria-pressed",String(watched));
+    btn.textContent=watched?"✓ EPISODE WATCHED • 50 XP BANKED":"MARK EPISODE WATCHED • +50 XP";
+    btn.disabled=watched;
+  });
+}
+var _renderLearnV8=renderLearn;
+renderLearn=function(){
+  _renderLearnV8();
+
+  var hero=document.querySelector("#view-learn .learn-hero");
+  if(hero&&!hero.querySelector(".v8-teaching-banner")){
+    hero.insertAdjacentHTML("afterend",
+      '<div class="v8-teaching-banner"><strong>V8 TEACHING CUT • NO MORE SCAVENGER-HUNT STUDYING</strong>If the app asks a question, the answer is here. If a source packet does not explain something, this version says so. Tap any READ ALOUD button and the pause/resume/stop/speed controls open automatically.</div>'
+    );
+  }
+
+  document.querySelectorAll("#learn-wines .learn-details").forEach(function(detail,i){
+    var w=DATA.wineCast[i],m=w&&WINE_MEMORY[w.id];
+    var hostTake=detail.querySelector(".host-take");
+    if(hostTake&&m&&!hostTake.querySelector(".study-answer")){
+      hostTake.insertAdjacentHTML("beforeend",'<span class="study-answer"><strong>STUDY ANSWER:</strong> '+m.thirty+'</span>');
+    }
+    var flag=detail.querySelector(".producer-flag strong");
+    if(flag)flag.textContent="EXTRA RECEIPT • USE WHEN RELEVANT:";
+  });
+
+  document.querySelectorAll("[data-complete-episode]").forEach(function(oldBtn){
+    var btn=oldBtn.cloneNode(true);
+    oldBtn.replaceWith(btn);
+    btn.addEventListener("click",function(){
+      var id=btn.dataset.completeEpisode;
+      state.learnEpisodes=state.learnEpisodes||{};
+      if(!state.learnEpisodes[id]){
+        state.learnEpisodes[id]=true;
+        state.xp+=50;
+        markStudyDay();
+        saveState();
+      }
+      updateLearnProgress();
+      renderSmartNext();
+      v8RefreshWatchButtons();
+    });
+  });
+  document.querySelectorAll("[data-prev-learn]").forEach(function(btn){
+    btn.addEventListener("click",function(){showLearnEpisode(btn.dataset.prevLearn,true);});
+  });
+  v8RefreshWatchButtons();
+};
+
+var _renderConfessionalV8=renderConfessional;
+renderConfessional=function(){
+  _renderConfessionalV8();
+  var w=DATA.wineCast[confIndex%DATA.wineCast.length];
+  var m=w&&WINE_MEMORY[w.id];
+  var reveal=document.getElementById("revealConf");
+  if(reveal)reveal.textContent="SHOW ANSWER + FACT RECEIPTS";
+  var receipt=document.getElementById("confReceipt");
+  if(receipt&&m&&!receipt.querySelector(".study-answer")){
+    receipt.insertAdjacentHTML("afterbegin",'<span class="study-answer"><strong>MODEL ANSWER:</strong> '+m.thirty+'</span>');
+  }
+};
+
+var _renderPronounceV8=renderPronounce;
+renderPronounce=function(){
+  _renderPronounceV8();
+  var p=pron.pool[pron.i];
+  var lede=document.querySelector("#pronounceCard .lede");
+  if(lede)lede.textContent="Say it out loud before revealing the study phonetic cue.";
+  var receipt=document.getElementById("pronReceipt");
+  if(receipt&&p&&!receipt.querySelector("[data-v8-hear-pron]")){
+    receipt.insertAdjacentHTML("afterbegin",'<div class="audio-row"><button class="audio-btn" data-v8-hear-pron type="button">▶ HEAR BROWSER VOICE</button></div>');
+    receipt.querySelector("[data-v8-hear-pron]").addEventListener("click",function(){speakText(p.term);});
+  }
+};
+
+var _navV8=nav;
+nav=function(name){
+  _navV8(name);
+  if(name==="learn")setAudioPanel(true);
+};
+
+var audioStrong=document.querySelector("#audioPanelToggle strong");
+if(audioStrong)audioStrong.textContent="🎧 READ ALOUD CONTROLS";
+var dayCounter=document.getElementById("hudStudyDays");
+if(dayCounter&&dayCounter.parentElement){
+  var pill=dayCounter.parentElement;
+  if(pill.firstChild&&pill.firstChild.nodeType===3)pill.firstChild.nodeValue="STUDY DAYS ";
+  pill.title="Unique calendar dates when you completed a study or practice action.";
+}
+var xpCounter=document.getElementById("hudXp");
+if(xpCounter&&xpCounter.parentElement)xpCounter.parentElement.title="XP increases when you complete practice actions or mark a learning episode watched.";
+
+/* END V8 TEACHING CUT */
+
+
 wireImageFallbacks();renderRoute();renderHQ();renderSeason();renderSmartNext();
 if("serviceWorker" in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));
 
