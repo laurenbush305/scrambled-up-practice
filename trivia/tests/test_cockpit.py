@@ -144,7 +144,7 @@ def browser_checks(browser, base, width, blocked=False, launch=False):
             with page.expect_popup(timeout=7000) as out:
                 page.locator(selector).click()
             popup=out.value
-            popup.wait_for_url(re.compile(r"scorekeeper\\.html|chatgpt\\.com"), timeout=7000)
+            popup.wait_for_url(re.compile(r"scorekeeper\.html|chatgpt\.com"), timeout=7000)
             popup.close()
         if classic:
             page.locator('header button[data-tab="score"]').click()
