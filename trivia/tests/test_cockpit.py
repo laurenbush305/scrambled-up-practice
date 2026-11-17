@@ -137,7 +137,7 @@ def browser_checks(browser, base, width, blocked=False, launch=False):
         page.locator('.hosttools .jump summary').click()
         page.locator('.hosttools .jumpmenu label[for="stage7"]').click()
         require(page.locator('#step7').is_visible(), "JUMP to Round 6 failed")
-        page.locator('.hosttools label[for="stage0"]').click()
+        page.locator('.hosttools > label[for="stage0"]').click()
         require(page.locator('#step0').is_visible(), "START OVER failed")
         for tab,panel in [('tabScore','viewScore'),('tabTie','viewTie'),('tabExtras','viewExtras')]:
             page.locator(f'header label[for="{tab}"]').click()
