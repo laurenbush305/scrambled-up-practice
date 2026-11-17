@@ -1,0 +1,147 @@
+{
+  "edition": "2026-11-17",
+  "quizNumber": 654,
+  "sourcePath": "/Wild Heaven/Pub 654/Pub Quiz 654.docx",
+  "internetQuestion": {
+    "question": "Robert Aramayo won two BAFTAs for “I Swear,” and has played younger versions of both Elrond from “Lord of the Rings” and what doomed “Game of Thrones” character?",
+    "answer": "Ned Stark",
+    "url": "https://www.dirtysouthtrivia.com/",
+    "verifiedOn": "2026-11-17"
+  },
+  "rounds": [
+    {
+      "number": 1,
+      "title": "Random",
+      "pointsPerCorrect": 1,
+      "maxPoints": 8,
+      "jokerAllowed": true,
+      "answers": [
+        "Ned Stark",
+        "B. Two weeks",
+        "Prologue",
+        "Volkswagen Beetle",
+        "Palindrome",
+        "$75",
+        "Sleep",
+        "Maps"
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Mashups",
+      "pointsPerCorrect": 1,
+      "maxPoints": 8,
+      "jokerAllowed": true,
+      "answers": [
+        "The Crown Royal",
+        "Peter Pan’s Labyrinth",
+        "The Lion King of the Hill",
+        "The Karate Kid Rock",
+        "Million Dollar Baby Driver",
+        "The Sixth Sense and Sensibility",
+        "The Big Short Circuit",
+        "House of Cards Against Humanity"
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Say Cheese!",
+      "pointsPerCorrect": 1,
+      "maxPoints": 8,
+      "jokerAllowed": true,
+      "answers": [
+        "Chuck E. Cheese",
+        "Cheeseburger in Paradise",
+        "Cheesehead",
+        "Big Cheese",
+        "Cheez Whiz",
+        "Royale with Cheese",
+        "Cheesecake",
+        "The Cheese Stands Alone"
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Fictional Food Court",
+      "pointsPerCorrect": 1,
+      "maxPoints": 8,
+      "jokerAllowed": true,
+      "answers": [
+        "Toy Story",
+        "Arrested Development",
+        "Twin Peaks",
+        "The Bear",
+        "When Harry Met Sally / Enchanted",
+        "Pulp Fiction",
+        "Grand Theft Auto",
+        "SpongeBob SquarePants"
+      ],
+      "videoSearchUrl": "https://www.youtube.com/results?search_query=Dirty+South+Trivia+Food+Court",
+      "videoDirectUrlVerified": false
+    },
+    {
+      "number": 5,
+      "title": "Where In the World Is Carmen Sandiego?",
+      "pointsByClue": [
+        10,
+        8,
+        6,
+        4,
+        2
+      ],
+      "maxPoints": 10,
+      "jokerAllowed": false,
+      "answer": "Dublin, Ireland",
+      "oneGuessPerTeam": true,
+      "incorrectPoints": 0,
+      "note": "If a submitted sheet shows Dublin but the clue timing is not known, ask Lauren which clue before assigning points."
+    },
+    {
+      "number": 6,
+      "title": "Toy With Your Food!",
+      "pointsPerCorrect": 2,
+      "maxPoints": 16,
+      "jokerAllowed": true,
+      "answers": [
+        "Yes — it was founder Dave Thomas’s daughter.",
+        "Chihuahua",
+        "Moe’s Southwestern Grill",
+        "Mayor McCheese",
+        "Burger King",
+        "Sonic",
+        "Japan (They changed it back to Ronald last month!)",
+        "Domino’s Pizza"
+      ]
+    }
+  ],
+  "tiebreaker": {
+    "question": "In January 2023, YouTuber Airrack and Pizza Hut created an enormous pizza in Los Angeles. To the nearest whole square foot, how much area did it cover? The Price Is Right rules do NOT apply. The closest answer wins.",
+    "answer": "13,958 square feet",
+    "rule": "Closest wins; over allowed"
+  },
+  "joker": {
+    "allowedRounds": [
+      "R1",
+      "R2",
+      "R3",
+      "R4",
+      "R6"
+    ],
+    "notAllowed": [
+      "R5"
+    ],
+    "maxPerfectTotal": 74
+  },
+  "optionalMiniGames": [
+    {
+      "title": "Movie Popcorn Bucket",
+      "scored": false,
+      "warning": "REFERENCE ONLY · Lauren’s default is to skip mini-games."
+    },
+    {
+      "title": "Music · Food!",
+      "scored": false,
+      "warning": "REFERENCE ONLY · Lauren’s default is to skip mini-games. Dropbox’s numbered MP3 filenames do not match the packet’s printed 1–10 order, so do not rely on the file numbers if this game is ever used."
+    }
+  ]
+}
