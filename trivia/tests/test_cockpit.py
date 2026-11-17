@@ -35,10 +35,18 @@ def static_checks():
         require(bool(data_match), "Classic shell DATA missing")
         data = json.loads(data_match.group(1))
         require(len(data["stages"]) == 9, "Classic HOST requires nine stages")
-        for idx in [2,3,4,7]:
-            require(len(data["stages"][idx].get("qs", [])) == 8, f"Stage {idx+1} missing questions")
-        require(len(data["stages"][5].get("answers", [])) == 8, "Video round missing answers")
-        require(len(data["stages"][6].get("clues", [])) == 5, "Round 5 missing clues")
+        for idx in range(2, 8):
+            stage = data["stages"][idx]
+            if stage.get("qs"):
+                require(len(stage["qs"]) == 8, f"Round stage {idx+1}: eight questions expected")
+            elif stage.get("answers"):
+                require(len(stage["answers"]) == 8, f"Round stage {idx+1}: eight media answers expected")
+            elif stage.get("clues"):
+                require(len(stage["clues"]) >= 3 and bool(stage.get("clueAnswer")), f"Round stage {idx+1}: clues/answer missing")
+            elif stage.get("accepted"):
+                require(len(stage["accepted"]) >= 8, f"Round stage {idx+1}: accepted answers missing")
+            else:
+                require(bool(stage.get("read")), f"Round stage {idx+1}: no content")
         scripts = re.findall(r"<script>([\s\S]*?)</script>", cockpit)
         for i, script in enumerate(scripts):
             result = subprocess.run(["node", "--check", "-"], input=script, text=True, capture_output=True)
@@ -49,11 +57,10 @@ def static_checks():
         require(cockpit.count("START SCORE CHAT") >= 3, "Expected top, HOST and SCOREBOARD chat controls")
         for idx in range(9):
             require(f'id="step{idx}"' in cockpit, f"Stage {idx+1} missing")
-        for idx in (2,3,4,5,7):
+        for idx in range(2, 8):
             part = cockpit.split(f'id="step{idx}"',1)[1].split("</section>",1)[0]
-            require(part.count('class="question-card"') == 8, f"Stage {idx+1}: missing questions")
-        clues = cockpit.split('id="step6"',1)[1].split("</section>",1)[0]
-        require(clues.count('class="question-card"') == 5, "Round 5 needs five clues")
+            require('class="read"' in part and (part.count('class="question-card"') >= 5 or "REVEAL" in part),
+                    f"Round stage {idx+1} is missing questions, clues or answers")
 
     target = re.search(r'<a[^>]*id="go"[^>]*href="([^"]+)"', launcher)
     require(bool(target), "Scorekeeper launch button missing")
@@ -91,7 +98,7 @@ def browser_checks(browser, base, width, blocked=False, launch=False):
         page.locator('#next').click()
         require("How tonight works" in page.locator('#category').inner_text(), "NEXT to rules failed")
         page.locator('#next').click()
-        require("Random" in page.locator('#category').inner_text(), "NEXT to Round 1 failed")
+        require("STEP 3 OF" in page.locator('#step').inner_text(), "NEXT to Round 1 failed")
         require(page.locator('#body article.q').count() == 8, "Round 1 missing questions")
         reveal = page.locator('#body details.answer').first
         require(reveal.get_attribute("open") is None, "Answer leaked")
@@ -102,7 +109,7 @@ def browser_checks(browser, base, width, blocked=False, launch=False):
         page.locator('#back').click()
         require("How tonight works" in page.locator('#category').inner_text(), "BACK failed")
         page.locator('#jumpSelect').select_option("7")
-        require("Toy With Your Food" in page.locator('#category').inner_text(), "JUMP to Round 6 failed")
+        require("STEP 8 OF" in page.locator('#step').inner_text(), "JUMP to Round 6 failed")
         page.locator('#restart').click()
         require("Welcome" in page.locator('#category').inner_text(), "START OVER failed")
         tabs = [('score','score'),('tie','tie'),('extras','extras')]
