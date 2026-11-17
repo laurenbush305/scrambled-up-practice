@@ -1,0 +1,30 @@
+name: Dirty South Trivia cockpit browser QA
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "trivia/current/**"
+      - "trivia/tests/**"
+      - ".github/workflows/trivia-browser-qa.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  cockpit-browser-qa:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install browser automation
+        run: python -m pip install "playwright==1.58.0"
+      - name: Install Chromium
+        run: python -m playwright install --with-deps chromium
+      - name: Test actual HOST and scorekeeping controls
+        run: python trivia/tests/test_cockpit.py
