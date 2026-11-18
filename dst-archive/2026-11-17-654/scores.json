@@ -1,12 +1,12 @@
 {
   "serverId": "pub654-20261117",
-  "revision": 14,
-  "updatedAt": "2026-11-18T01:00:00.000Z",
+  "revision": 15,
+  "updatedAt": "2026-11-18T01:03:00.000Z",
   "teams": [
     {
       "name": "Smart Bunnies",
       "joker": "R2",
-      "r1": 6,
+      "r1": 7,
       "r2": 8,
       "r3": 7,
       "r4": "",
@@ -24,7 +24,7 @@
       "r6": ""
     },
     {
-      "name": "Pucker Ass",
+      "name": "Pucker AZZ",
       "joker": "",
       "r1": 6,
       "r2": 8,
