@@ -1,7 +1,7 @@
 {
   "serverId": "pub654-20261117",
-  "revision": 16,
-  "updatedAt": "2026-11-18T01:10:00.000Z",
+  "revision": 17,
+  "updatedAt": "2026-11-18T01:10:01.000Z",
   "teams": [
     {
       "name": "Smart Bunnies",
@@ -9,7 +9,7 @@
       "r1": 7,
       "r2": 8,
       "r3": 7,
-      "r4": "",
+      "r4": 7,
       "r5": "",
       "r6": ""
     },
