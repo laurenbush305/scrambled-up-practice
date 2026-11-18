@@ -1,7 +1,7 @@
 {
   "serverId": "pub654-20261117",
-  "revision": 7,
-  "updatedAt": "2026-11-18T00:32:01.000Z",
+  "revision": 8,
+  "updatedAt": "2026-11-18T00:40:00.000Z",
   "teams": [
     {
       "name": "Smart Bunnies",
@@ -27,7 +27,7 @@
       "name": "PUCKER A22",
       "joker": "",
       "r1": 6,
-      "r2": "",
+      "r2": 8,
       "r3": "",
       "r4": "",
       "r5": "",
