@@ -1,7 +1,7 @@
 {
   "serverId": "pub654-20261117",
-  "revision": 24,
-  "updatedAt": "2026-11-18T01:35:00.000Z",
+  "revision": 25,
+  "updatedAt": "2026-11-18T01:38:00.000Z",
   "teams": [
     {
       "name": "Smart Bunnies",
@@ -21,7 +21,7 @@
       "r3": 8,
       "r4": 8,
       "r5": 8,
-      "r6": ""
+      "r6": 14
     },
     {
       "name": "Pucker AZZ",
