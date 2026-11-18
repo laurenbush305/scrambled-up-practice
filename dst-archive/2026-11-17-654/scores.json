@@ -1,7 +1,7 @@
 {
   "serverId": "pub654-20261117",
-  "revision": 8,
-  "updatedAt": "2026-11-18T00:40:00.000Z",
+  "revision": 9,
+  "updatedAt": "2026-11-18T00:45:00.000Z",
   "teams": [
     {
       "name": "Smart Bunnies",
@@ -37,7 +37,7 @@
       "name": "Toe Socks",
       "joker": "",
       "r1": 7,
-      "r2": "",
+      "r2": 8,
       "r3": "",
       "r4": "",
       "r5": "",
