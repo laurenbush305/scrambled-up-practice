@@ -110,8 +110,21 @@ tbody.querySelectorAll("input,select").forEach(el=>el.onchange=()=>{const i=Numb
 tbody.querySelectorAll("[data-delete]").forEach(el=>el.onclick=()=>{local.splice(Number(el.dataset.delete),1);save();render();});
 }
 document.getElementById("addTeam").onclick=()=>{local.push({name:"New Team",joker:""});save();render();};
-document.getElementById("refreshScores").onclick=async()=>{try{const r=await fetch("https://raw.githubusercontent.com/laurenbush305/scrambled-up-practice/trivia-cockpit-644/dst-archive/2026-11-17-654/scores.json?t="+Date.now(),{cache:"no-store"});if(!r.ok)throw Error("HTTP "+r.status);const d=await r.json();if(d.serverId!=="pub654-20261117"||!Array.isArray(d.teams))throw Error("Wrong edition");if(Number(d.revision||0)>=rev){local=d.teams;rev=Number(d.revision||0);save();render();}status.textContent="Live revision "+rev+" · "+local.length+" teams";}catch(err){status.textContent="Live feed unavailable. Manual scores still work.";}}
+async function loadScores(){
+try{
+let r=await fetch("https://raw.githubusercontent.com/laurenbush305/scrambled-up-practice/trivia-cockpit-644/dst-archive/2026-11-17-654/scores.json?t="+Date.now(),{cache:"no-store"});
+if(!r.ok)r=await fetch("./scores.json?t="+Date.now(),{cache:"no-store"});
+if(!r.ok)throw Error("HTTP "+r.status);
+const d=await r.json();
+if(d.serverId!=="pub654-20261117"||!Array.isArray(d.teams))throw Error("Wrong edition");
+if(Number(d.revision||0)>=rev){local=d.teams;rev=Number(d.revision||0);save();render();}
+status.textContent="Live revision "+rev+" · "+local.length+" teams";
+}catch(err){status.textContent="Live feed unavailable. Manual scores still work.";}
+}
+document.getElementById("refreshScores").onclick=loadScores;
 render();
+loadScores();
+setInterval(loadScores,5000);
 }catch(err){console.error("Scoreboard unavailable",err);}
 })();
 </script>
