@@ -1,6 +1,47 @@
 {
   "serverId": "pub654-20261117",
-  "revision": 1,
-  "updatedAt": "2026-11-17T18:08:03.076Z",
-  "teams": []
+  "revision": 5,
+  "updatedAt": "2026-11-18T00:21:00.000Z",
+  "teams": [
+    {
+      "name": "Smart Bunnies",
+      "joker": "",
+      "r1": 6,
+      "r2": "",
+      "r3": "",
+      "r4": "",
+      "r5": "",
+      "r6": ""
+    },
+    {
+      "name": "Uncoordinated High Fives",
+      "joker": "",
+      "r1": 7,
+      "r2": "",
+      "r3": "",
+      "r4": "",
+      "r5": "",
+      "r6": ""
+    },
+    {
+      "name": "PUCKER A22",
+      "joker": "",
+      "r1": 6,
+      "r2": "",
+      "r3": "",
+      "r4": "",
+      "r5": "",
+      "r6": ""
+    },
+    {
+      "name": "Toe Socks",
+      "joker": "",
+      "r1": 7,
+      "r2": "",
+      "r3": "",
+      "r4": "",
+      "r5": "",
+      "r6": ""
+    }
+  ]
 }
