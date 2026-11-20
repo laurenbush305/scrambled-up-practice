@@ -1,6 +1,17 @@
 {
   "serverId": "pub654-20261117",
-  "revision": 29,
-  "updatedAt": "2026-11-20T01:07:00.000Z",
-  "teams": []
+  "revision": 30,
+  "updatedAt": "2026-11-20T01:23:19.287Z",
+  "teams": [
+    {
+      "name": "Ghost of Saddam Hussein",
+      "joker": "",
+      "r1": 7,
+      "r2": "",
+      "r3": "",
+      "r4": "",
+      "r5": "",
+      "r6": ""
+    }
+  ]
 }
