@@ -123,8 +123,8 @@ tbody.querySelectorAll("[data-delete]").forEach(el=>el.onclick=()=>{local.splice
 document.getElementById("addTeam").onclick=()=>{local.push({name:"New Team",joker:""});save();render();};
 async function loadScores(){
 try{
-let r=await fetch("./scores.json?t="+Date.now(),{cache:"no-store"});
-if(!r.ok)r=await fetch("https://raw.githubusercontent.com/laurenbush305/scrambled-up-practice/main/trivia/current/scores.json?t="+Date.now(),{cache:"no-store"});
+let r=await fetch("https://raw.githubusercontent.com/laurenbush305/scrambled-up-practice/main/trivia/current/scores.json?t="+Date.now(),{cache:"no-store"});
+if(!r.ok)r=await fetch("./scores.json?t="+Date.now(),{cache:"no-store"});
 if(!r.ok)throw Error("HTTP "+r.status);
 const d=await r.json();
 if(d.serverId!=="pub654-20261117"||!Array.isArray(d.teams))throw Error("Wrong edition");
