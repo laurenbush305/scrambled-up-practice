@@ -1,7 +1,7 @@
 {
   "serverId": "pub654-20261117",
-  "revision": 32,
-  "updatedAt": "2026-11-20T01:42:04.418Z",
+  "revision": 33,
+  "updatedAt": "2026-11-20T01:42:50.778Z",
   "teams": [
     {
       "name": "Ghost of Saddam Hussein",
@@ -17,7 +17,7 @@
       "name": "Timmy Bubbles",
       "joker": "",
       "r1": 7,
-      "r2": "",
+      "r2": 6,
       "r3": "",
       "r4": "",
       "r5": "",
