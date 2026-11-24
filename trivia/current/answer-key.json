@@ -1,12 +1,12 @@
 {
-  "edition": "2026-11-17",
-  "quizNumber": 654,
-  "sourcePath": "/Wild Heaven/Pub 654/Pub Quiz 654.docx",
+  "edition": "2026-11-24",
+  "quizNumber": 656,
+  "sourcePath": "/Wild Heaven/Pub 656/Pub Quiz 656.docx",
   "internetQuestion": {
-    "question": "Robert Aramayo won two BAFTAs for “I Swear,” and has played younger versions of both Elrond from “Lord of the Rings” and what doomed “Game of Thrones” character?",
-    "answer": "Ned Stark",
+    "question": "In the books, the Waterworks are the first destination. In the TV show, outer space comes first. What field trip-based series is that?",
+    "answer": "The Magic School Bus",
     "url": "https://www.dirtysouthtrivia.com/",
-    "verifiedOn": "2026-11-17"
+    "verifiedOn": "2026-11-24"
   },
   "rounds": [
     {
@@ -15,133 +15,186 @@
       "pointsPerCorrect": 1,
       "maxPoints": 8,
       "jokerAllowed": true,
+      "questions": [
+        "Question one is our internet-only question. Go to DirtySouthTrivia.com, find this week's internet question, and write your answer on your sheet. I'll let you look that one up yourselves!",
+        "What Olympic sport uses the lightest ball?",
+        "What tunnel connecting New York and New Jersey under the Hudson River is slightly longer than the Lincoln Tunnel?",
+        "Name one of two countries that start with the letter “A” but do not end with one.",
+        "Nuclear membrane, cytoplasm, and nucleus are parts of a what?",
+        "Khloé Kardashian recently said she needs to form an emotional bond with someone before she feels sexually attracted to them. Which term did she use to describe herself?\nA. Sapiosexual\nB. Pansexual\nC.  Asexual \nD. Demisexual",
+        "Dinosaur bones are just part of it. What’s the general term for what paleontologists study?",
+        "What saying sums up the moral of Aesop’s fable The Tortoise and the Hare?"
+      ],
       "answers": [
-        "Ned Stark",
-        "B. Two weeks",
-        "Prologue",
-        "Volkswagen Beetle",
-        "Palindrome",
-        "$75",
-        "Sleep",
-        "Maps"
+        "The Magic School Bus",
+        "Table Tennis (Ping Pong) (2.7 grams)",
+        "Holland Tunnel (1.6 miles long)",
+        "Afghanistan/Azerbaijan",
+        "Cell",
+        "D. Demisexual",
+        "Fossils",
+        "Slow and Steady wins the Race"
       ]
     },
     {
       "number": 2,
-      "title": "Mashups",
+      "title": "Video Games Behaving Badly",
       "pointsPerCorrect": 1,
       "maxPoints": 8,
       "jokerAllowed": true,
+      "questions": [
+        "What 1992 arcade fighting game helped provoke congressional hearings about video game violence?",
+        "Which highly anticipated futuristic role-playing game was temporarily removed from the PlayStation Store after its disastrous 2020 launch?",
+        "What 2016 mobile game prompted safety warnings after players wandered into traffic and trespassed on private property while hunting virtual creatures?",
+        "Which Nintendo console became notorious for players accidentally sending motion controllers flying into televisions after losing their grip?",
+        "What 1982 Atari 2600 game, based on a blockbuster Steven Spielberg movie, was buried in a New Mexico landfill by the hundreds of thousands?",
+        "Which long-running soccer video game series has faced criticism over its Ultimate Team card packs, where players spend real money for random footballers?",
+        "In 1942, New York City Mayor Fiorello La Guardia banned what type of arcade game, claiming it encouraged gambling and juvenile delinquency?",
+        "It’s a virtual mystery container in video games that gives players a random selection of in-game items—often compared to slot machines."
+      ],
       "answers": [
-        "The Crown Royal",
-        "Peter Pan’s Labyrinth",
-        "The Lion King of the Hill",
-        "The Karate Kid Rock",
-        "Million Dollar Baby Driver",
-        "The Sixth Sense and Sensibility",
-        "The Big Short Circuit",
-        "House of Cards Against Humanity"
+        "Mortal Kombat",
+        "Cyberpunk 2077",
+        "Pokémon Go",
+        "Wii",
+        "E.T. the Extra-Terrestrial",
+        "FIFA",
+        "Pinball",
+        "Loot boxes"
       ]
     },
     {
       "number": 3,
-      "title": "Say Cheese!",
+      "title": "Florida Man or Florida Fiction?",
       "pointsPerCorrect": 1,
       "maxPoints": 8,
       "jokerAllowed": true,
+      "questions": [
+        "A Florida man is arrested after attempting to pay his speeding ticket with 14 pounds of frozen shrimp.",
+        "A Florida man with a tattoo of Florida on his forehead is arrested after calling 911 for a ride home.",
+        "A Florida man tries to rob a bank using a handwritten note on the back of his own utility bill.",
+        "A Florida man calls 911 to report a drunk driver, then admits the drunk driver is himself.",
+        "A Florida man drove onto a closed beach and straight into the ocean, later telling cops he wanted to surf, and it wasn't his fault that the \"truck don't surf.”",
+        "A Florida man is arrested after attempting to return a lawn mower he stole to Home Depot for store credit.",
+        "A Florida man calls 911 to report his cocaine stolen.",
+        "A Florida Man buys a mask at a gas station to burglarize the bank across the street."
+      ],
       "answers": [
-        "Chuck E. Cheese",
-        "Cheeseburger in Paradise",
-        "Cheesehead",
-        "Big Cheese",
-        "Cheez Whiz",
-        "Royale with Cheese",
-        "Cheesecake",
-        "The Cheese Stands Alone"
+        "Fiction",
+        "Florida Man (In 2021, 22-year-old Matthew Leatham was arrested after calling 911 to ask for a ride home.)",
+        "Fiction",
+        "Florida Man (Michael Lester called 911 on New Year's Eve in 2017 to report his own impaired driving.)",
+        "Florida Man",
+        "Florida Fiction",
+        "Florida Fiction (But a Florida man did once called 911 to ask police to verify if the meth he just bought was real, leading to his arrest when it tested positive)",
+        "Florida Man"
       ]
     },
     {
       "number": 4,
-      "title": "Fictional Food Court",
+      "title": "Pattinson Party",
       "pointsPerCorrect": 1,
       "maxPoints": 8,
       "jokerAllowed": true,
       "answers": [
-        "Toy Story",
-        "Arrested Development",
-        "Twin Peaks",
-        "The Bear",
-        "When Harry Met Sally / Enchanted",
-        "Pulp Fiction",
-        "Grand Theft Auto",
-        "SpongeBob SquarePants"
+        "Harry Potter and the Goblet of Fire",
+        "Mickey 17",
+        "The Odyssey",
+        "The Lighthouse",
+        "Water for Elephants",
+        "The Batman",
+        "The Twilight Saga: New Moon",
+        "Primetime"
       ],
-      "videoSearchUrl": "https://www.youtube.com/results?search_query=Dirty+South+Trivia+Food+Court",
+      "videoSearchUrl": "https://www.youtube.com/results?search_query=Dirty+South+Trivia+Pattinson",
       "videoDirectUrlVerified": false
     },
     {
       "number": 5,
-      "title": "Where In the World Is Carmen Sandiego?",
-      "pointsByClue": [
-        10,
-        8,
-        6,
-        4,
-        2
+      "title": "Grand Theft Auto: America’s Most Stolen",
+      "pointsPerCorrect": 1,
+      "maxPoints": 8,
+      "jokerAllowed": true,
+      "requiredEightOfTen": true,
+      "acceptedModels": [
+        "Hyundai Elantra",
+        "Honda Accord",
+        "Hyundai Sonata",
+        "Chevrolet Silverado 1500",
+        "Honda Civic",
+        "Kia Optima",
+        "Ford F-150",
+        "Toyota Camry",
+        "Honda CR-V",
+        "Nissan Altima"
       ],
-      "maxPoints": 10,
-      "jokerAllowed": false,
-      "answer": "Dublin, Ireland",
-      "oneGuessPerTeam": true,
-      "incorrectPoints": 0,
-      "note": "If a submitted sheet shows Dublin but the clue timing is not known, ask Lauren which clue before assigning points."
+      "answerWithTheftCounts": [
+        "Hyundai Elantra – 21,732",
+        "Honda Accord – 17,797",
+        "Hyundai Sonata – 17,687",
+        "Chevrolet Silverado 1500 – 16,764",
+        "Honda Civic – 12,725",
+        "Kia Optima – 11,521",
+        "Ford F-150 – 10,102",
+        "Toyota Camry – 9,833",
+        "Honda CR-V – 9,809",
+        "Nissan Altima – 8,445"
+      ]
     },
     {
       "number": 6,
-      "title": "Toy With Your Food!",
+      "title": "The Fast and the Curious",
       "pointsPerCorrect": 2,
       "maxPoints": 16,
       "jokerAllowed": true,
+      "questions": [
+        "Your stolen Honda turns up in three other Hondas. What two-word term describes the illegal business that took it apart to sell the pieces?",
+        "What kind of sports car, fitted with a flux capacitor, travels through time in Back to the Future?",
+        "What model of Pontiac did The Onion famously depict Joe Biden washing shirtless in his driveway, the same car driven by Burt Reynolds in Smokey and the Bandit?",
+        "In the 1980s TV show Knight Rider, what was the name of David Hasselhoff's talking, crime-fighting car?",
+        "In the Grand Theft Auto series, what fictional city is modeled on New York City?",
+        "What famous gangster's armored 1928 Cadillac was reportedly later used by the U.S. government to protect President Franklin D. Roosevelt?",
+        "What notorious white vehicle was the centerpiece of a televised police chase involving O. J. Simpson in 1994?",
+        "A driver is sitting at a red light when someone threatens them, orders them out, and takes the car. What’s the specific term for that crime?\nCarjacking"
+      ],
       "answers": [
-        "Yes — it was founder Dave Thomas’s daughter.",
-        "Chihuahua",
-        "Moe’s Southwestern Grill",
-        "Mayor McCheese",
-        "Burger King",
-        "Sonic",
-        "Japan (They changed it back to Ronald last month!)",
-        "Domino’s Pizza"
+        "Chop Shop",
+        "DeLorean",
+        "Pontiac Firebird Trans Am (accept Trans Am)",
+        "KITT",
+        "Liberty City",
+        "Al Capone",
+        "Ford Bronco",
+        "Please turn your pens in with your final answer sheet. It will only help your score."
       ]
     }
   ],
-  "tiebreaker": {
-    "question": "In January 2023, YouTuber Airrack and Pizza Hut created an enormous pizza in Los Angeles. To the nearest whole square foot, how much area did it cover? The Price Is Right rules do NOT apply. The closest answer wins.",
-    "answer": "13,958 square feet",
-    "rule": "Closest wins; over allowed"
-  },
   "joker": {
     "allowedRounds": [
       "R1",
       "R2",
       "R3",
       "R4",
+      "R5",
       "R6"
     ],
-    "notAllowed": [
-      "R5"
-    ],
-    "maxPerfectTotal": 74
+    "maxPerfectTotal": 72
+  },
+  "tiebreaker": {
+    "question": "In what year was the first Grand Theft Auto game released?",
+    "answer": "1997",
+    "closestWins": true,
+    "priceIsRightRules": false
   },
   "optionalMiniGames": [
     {
-      "title": "Movie Popcorn Bucket",
-      "scored": false,
-      "warning": "REFERENCE ONLY · Lauren’s default is to skip mini-games."
+      "title": "Grand Theft Auto: Atlanta",
+      "scored": false
     },
     {
-      "title": "Music · Food!",
+      "title": "GTAVI Soundtrack",
       "scored": false,
-      "warning": "REFERENCE ONLY · Lauren’s default is to skip mini-games. Dropbox’s numbered MP3 filenames do not match the packet’s printed 1–10 order, so do not rely on the file numbers if this game is ever used."
+      "trackCount": 10
     }
   ]
 }
