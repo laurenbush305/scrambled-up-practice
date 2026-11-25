@@ -133,8 +133,11 @@ Once you get enough volunteers:  Who wants to be a captain?  Only the captain ca
 try{
 const tbody=document.getElementById("scoreRows"), status=document.getElementById("scoreStatus");
 let local=[],rev=0;
+const initialScores={"serverId":"pub656-20261124","revision":4,"updatedAt":"2026-11-25T00:27:17.451Z","teams":[{"name":"Sues from Epiphany","joker":"R1","r1":8,"r2":8,"r3":null,"r4":null,"r5":null,"r6":null},{"name":"Smart Bunnies","joker":"","r1":6,"r2":8,"r3":null,"r4":null,"r5":null,"r6":null},{"name":"Here for the Beer","joker":"R2","r1":6,"r2":8,"r3":null,"r4":null,"r5":null,"r6":null}]};
 try{local=JSON.parse(localStorage.getItem("pub656-scoreboard-v3")||"[]");if(!Array.isArray(local))local=[];}catch(_){local=[];}
-const save=()=>{try{localStorage.setItem("pub656-scoreboard-v3",JSON.stringify(local));}catch(_){}};
+try{rev=Number(localStorage.getItem("pub656-scoreboard-revision")||0);if(!Number.isFinite(rev))rev=0;}catch(_){}
+if(rev<initialScores.revision||!local.length){local=initialScores.teams;rev=initialScores.revision;}
+const save=()=>{try{localStorage.setItem("pub656-scoreboard-v3",JSON.stringify(local));localStorage.setItem("pub656-scoreboard-revision",String(rev));}catch(_){}};
 const max=[8,8,8,8,8,16], elig=["R1","R2","R3","R4","R5","R6"];
 const total=t=>{let n=0;for(let i=1;i<=6;i++)n+=Number(t["r"+i]||0);if(elig.includes(t.joker))n+=Number(t[t.joker.toLowerCase()]||0);return n};
 const esc=x=>String(x??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/"/g,"&quot;");
@@ -160,18 +163,21 @@ tbody.querySelectorAll("[data-delete]").forEach(el=>el.onclick=()=>{local.splice
 }
 document.getElementById("addTeam").onclick=()=>{local.push({name:"New Team",joker:""});save();render();};
 async function loadScores(){
-try{
-let r=await fetch("https://raw.githubusercontent.com/laurenbush305/scrambled-up-practice/main/trivia/current/scores.json?t="+Date.now(),{cache:"no-store"});
-if(!r.ok)r=await fetch("./scores.json?t="+Date.now(),{cache:"no-store"});
-if(!r.ok)throw Error("HTTP "+r.status);
-const d=await r.json();
-if(d.serverId!=="pub656-20261124"||!Array.isArray(d.teams))throw Error("Wrong edition");
-if(Number(d.revision||0)>=rev){local=d.teams;rev=Number(d.revision||0);save();render();}
+const urls=["./scores.json?t="+Date.now(),"https://raw.githubusercontent.com/laurenbush305/scrambled-up-practice/main/trivia/current/scores.json?t="+Date.now()];
+let received=false;
+await Promise.allSettled(urls.map(async url=>{
+const r=await fetch(url,{cache:"no-store"});if(!r.ok)throw Error("HTTP "+r.status);
+const d=await r.json();if(d.serverId!=="pub656-20261124"||!Array.isArray(d.teams)||!Number.isFinite(Number(d.revision)))throw Error("Wrong edition");
+received=true;
+if(Number(d.revision)>rev){local=d.teams;rev=Number(d.revision);save();render();}
 status.textContent="Live revision "+rev+" · "+local.length+" teams";
-}catch(err){status.textContent="Live feed unavailable. Manual scores still work.";}
+}));
+if(!received)status.textContent="Saved revision "+rev+" · "+local.length+" teams · Live feed unavailable";
 }
 document.getElementById("refreshScores").onclick=loadScores;
+save();
 render();
+status.textContent="Saved revision "+rev+" · "+local.length+" teams";
 loadScores();
 setInterval(loadScores,5000);
 }catch(err){console.error("Scoreboard unavailable",err);}
