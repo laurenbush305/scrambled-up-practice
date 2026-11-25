@@ -1,7 +1,7 @@
 {
   "serverId": "pub656-20261124",
-  "revision": 6,
-  "updatedAt": "2026-11-25T00:41:18.916Z",
+  "revision": 7,
+  "updatedAt": "2026-11-25T00:56:17.360Z",
   "teams": [
     {
       "name": "She's from Epiphany",
@@ -9,17 +9,17 @@
       "r1": 8,
       "r2": 8,
       "r3": 2,
-      "r4": null,
+      "r4": 8,
       "r5": null,
       "r6": null
     },
     {
       "name": "Smart Bunnies",
-      "joker": "",
+      "joker": "R4",
       "r1": 6,
       "r2": 8,
       "r3": 2,
-      "r4": null,
+      "r4": 8,
       "r5": null,
       "r6": null
     },
