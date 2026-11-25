@@ -1,14 +1,14 @@
 {
   "serverId": "pub656-20261124",
-  "revision": 5,
-  "updatedAt": "2026-11-25T00:30:48.315Z",
+  "revision": 6,
+  "updatedAt": "2026-11-25T00:41:18.916Z",
   "teams": [
     {
-      "name": "Sues from Epiphany",
+      "name": "She's from Epiphany",
       "joker": "R1",
       "r1": 8,
       "r2": 8,
-      "r3": null,
+      "r3": 2,
       "r4": null,
       "r5": null,
       "r6": null
@@ -18,7 +18,7 @@
       "joker": "",
       "r1": 6,
       "r2": 8,
-      "r3": null,
+      "r3": 2,
       "r4": null,
       "r5": null,
       "r6": null
@@ -28,7 +28,7 @@
       "joker": "R2",
       "r1": 6,
       "r2": 8,
-      "r3": null,
+      "r3": 3,
       "r4": null,
       "r5": null,
       "r6": null
