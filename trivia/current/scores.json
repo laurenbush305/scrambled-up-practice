@@ -1,13 +1,13 @@
 {
   "serverId": "pub656-20261124",
-  "revision": 2,
-  "updatedAt": "2026-11-25T00:19:56.686Z",
+  "revision": 3,
+  "updatedAt": "2026-11-25T00:26:57.388Z",
   "teams": [
     {
       "name": "Sues from Epiphany",
       "joker": "R1",
       "r1": 8,
-      "r2": null,
+      "r2": 8,
       "r3": null,
       "r4": null,
       "r5": null,
@@ -17,7 +17,7 @@
       "name": "Smart Bunnies",
       "joker": "",
       "r1": 6,
-      "r2": null,
+      "r2": 8,
       "r3": null,
       "r4": null,
       "r5": null,
