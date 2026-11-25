@@ -1,7 +1,7 @@
 {
   "serverId": "pub656-20261124",
-  "revision": 10,
-  "updatedAt": "2026-11-25T01:08:46.852Z",
+  "revision": 11,
+  "updatedAt": "2026-11-25T01:23:38.314Z",
   "teams": [
     {
       "name": "She's from Epiphany",
@@ -11,7 +11,7 @@
       "r3": 2,
       "r4": 8,
       "r5": 6,
-      "r6": null
+      "r6": 14
     },
     {
       "name": "Smart Bunnies",
@@ -21,7 +21,7 @@
       "r3": 2,
       "r4": 8,
       "r5": 2,
-      "r6": null
+      "r6": 12
     },
     {
       "name": "Here for the Beer",
@@ -31,7 +31,7 @@
       "r3": 3,
       "r4": 6,
       "r5": 7,
-      "r6": null
+      "r6": 12
     }
   ]
 }
