@@ -1,7 +1,7 @@
 {
   "serverId": "pub656-20261124",
-  "revision": 3,
-  "updatedAt": "2026-11-25T00:26:57.388Z",
+  "revision": 4,
+  "updatedAt": "2026-11-25T00:27:17.451Z",
   "teams": [
     {
       "name": "Sues from Epiphany",
@@ -25,9 +25,9 @@
     },
     {
       "name": "Here for the Beer",
-      "joker": "",
+      "joker": "R2",
       "r1": 6,
-      "r2": null,
+      "r2": 8,
       "r3": null,
       "r4": null,
       "r5": null,
